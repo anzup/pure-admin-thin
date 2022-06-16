@@ -10,22 +10,22 @@ import { buildHierarchyTree } from "/@/utils/tree";
 import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
 import {
-  Router,
-  RouteMeta,
   createRouter,
-  RouteRecordRaw,
   RouteComponent,
-  RouteRecordName
+  RouteMeta,
+  Router,
+  RouteRecordName,
+  RouteRecordRaw
 } from "vue-router";
 import {
   ascending,
-  initRouter,
+  findRouteByPath,
+  formatFlatteningRoutes,
+  formatTwoStageRoutes,
   getHistoryMode,
   getParentPaths,
-  findRouteByPath,
   handleAliveRoute,
-  formatTwoStageRoutes,
-  formatFlatteningRoutes
+  initRouter
 } from "./utils";
 
 import homeRouter from "./modules/home";
@@ -105,7 +105,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
     } else {
       // 刷新
       if (usePermissionStoreHook().wholeMenus.length === 0)
-        initRouter(name.username).then((router: Router) => {
+        initRouter().then((router: Router) => {
           if (!useMultiTagsStoreHook().getMultiTagsCache) {
             const handTag = (
               path: string,

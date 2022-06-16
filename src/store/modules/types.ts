@@ -37,7 +37,14 @@ export type setType = {
 
 export type userType = {
   token: string;
-  name?: string;
+  refresh_token: string;
+  totalAuthorities: string[];
+  userInfo: CurrentUserInfo;
+  currentRole: number;
+  subsystemRoles: { id: number; name: string }[];
+  userId: number;
+  currentSubsystem: string;
+  subsystemAdmin: boolean;
   verifyCode?: string;
   currentPage?: number;
 };

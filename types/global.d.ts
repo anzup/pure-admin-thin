@@ -1,10 +1,6 @@
-import type {
-  ComponentRenderProxy,
-  VNode,
-  ComponentPublicInstance,
-  FunctionalComponent,
-  PropType as VuePropType
-} from "vue";
+import type {AppContext, ComponentRenderProxy, PropType as VuePropType, VNode} from "vue";
+import {VxeButtonProps, VxeGridProps} from "vxe-table";
+import {ElForm} from "element-plus";
 
 // GlobalComponents for Volar
 declare module "vue" {
@@ -127,4 +123,39 @@ declare global {
       [elem: string]: any;
     }
   }
+
+  declare interface TableButton extends VxeButtonProps {
+    name: string;
+    visible?: boolean;
+    type?: string;
+    disabled?: boolean;
+    status?: "perfect" | "primary" | "success" | "info" | "warning" | "danger";
+    event?: (params?: {
+      row;
+      rowIndex;
+      $rowIndex;
+      column;
+      columnIndex;
+      $columnIndex;
+      _columnIndex;
+    }) => void;
+  }
+  declare type ButtonArr = Array<TableButton>;
+  declare interface VxeTableAllProps extends VxeGridProps {
+    buttons?: ButtonArr | ((data: any) => ButtonArr);
+    form?: {
+      page?: number;
+      size?: number;
+      total?: number;
+      [_: string]: any;
+    };
+  }
+  declare type ElFormInstance = InstanceType<typeof ElForm>;
+  declare type FormItemRule = ItemRules | ItemRules[];
+
+  export type SFCWithInstall<T> = T & Plugin;
+
+  export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
+    _context: AppContext | null;
+  };
 }

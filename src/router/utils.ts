@@ -1,10 +1,10 @@
 import {
-  RouterHistory,
-  RouteRecordRaw,
-  RouteComponent,
-  createWebHistory,
   createWebHashHistory,
-  RouteRecordNormalized
+  createWebHistory,
+  RouteComponent,
+  RouteRecordNormalized,
+  RouteRecordRaw,
+  RouterHistory
 } from "vue-router";
 import { router } from "./index";
 import { loadEnv } from "../../build";
@@ -12,13 +12,11 @@ import { useTimeoutFn } from "@vueuse/core";
 import { RouteConfigs } from "/@/layout/types";
 import { buildHierarchyTree } from "/@/utils/tree";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
+
 const Layout = () => import("/@/layout/index.vue");
 const IFrame = () => import("/@/layout/frameView.vue");
 // https://cn.vitejs.dev/guide/features.html#glob-import
 const modulesRoutes = import.meta.glob("/src/views/**/*.{vue,tsx}");
-
-// 动态路由
-import { getAsyncRoutes } from "/@/api/routes";
 
 // 按照路由中meta下的rank等级升序来排序路由
 function ascending(arr: any[]) {
@@ -114,42 +112,42 @@ function resetRouter(): void {
 }
 
 // 初始化路由
-function initRouter(name: string) {
+function initRouter() {
   return new Promise(resolve => {
-    getAsyncRoutes({ name }).then(({ info }) => {
-      if (info.length === 0) {
-        usePermissionStoreHook().changeSetting(info);
-      } else {
-        formatFlatteningRoutes(addAsyncRoutes(info)).map(
-          (v: RouteRecordRaw) => {
-            // 防止重复添加路由
-            if (
-              router.options.routes[0].children.findIndex(
-                value => value.path === v.path
-              ) !== -1
-            ) {
-              return;
-            } else {
-              // 切记将路由push到routes后还需要使用addRoute，这样路由才能正常跳转
-              router.options.routes[0].children.push(v);
-              // 最终路由进行升序
-              ascending(router.options.routes[0].children);
-              if (!router.hasRoute(v?.name)) router.addRoute(v);
-              const flattenRouters = router
-                .getRoutes()
-                .find(n => n.path === "/");
-              router.addRoute(flattenRouters);
-            }
-            resolve(router);
-          }
-        );
-        usePermissionStoreHook().changeSetting(info);
-      }
-      router.addRoute({
-        path: "/:pathMatch(.*)",
-        redirect: "/error/404"
-      });
-    });
+    // getAsyncRoutes({ name }).then(({ info }) => {
+    //   if (info.length === 0) {
+    //     usePermissionStoreHook().changeSetting(info);
+    //   } else {
+    //     formatFlatteningRoutes(addAsyncRoutes(info)).map(
+    //       (v: RouteRecordRaw) => {
+    //         // 防止重复添加路由
+    //         if (
+    //           router.options.routes[0].children.findIndex(
+    //             value => value.path === v.path
+    //           ) !== -1
+    //         ) {
+    //           return;
+    //         } else {
+    //           // 切记将路由push到routes后还需要使用addRoute，这样路由才能正常跳转
+    //           router.options.routes[0].children.push(v);
+    //           // 最终路由进行升序
+    //           ascending(router.options.routes[0].children);
+    //           if (!router.hasRoute(v?.name)) router.addRoute(v);
+    //           const flattenRouters = router
+    //             .getRoutes()
+    //             .find(n => n.path === "/");
+    //           router.addRoute(flattenRouters);
+    //         }
+    //         resolve(router);
+    //       }
+    //     );
+    //     usePermissionStoreHook().changeSetting(info);
+    //   }
+    //   router.addRoute({
+    //     path: "/:pathMatch(.*)",
+    //     redirect: "/error/404"
+    //   });
+    // });
   });
 }
 
