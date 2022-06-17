@@ -1,6 +1,5 @@
-import request from "/@/utils/request";
-
-const url = import.meta.env.VITE_BASE_API_CPM;
+import request from '/@/utils/request'
+const url = import.meta.env.VITE_BASE_API_CPM
 
 /**
  *
@@ -336,7 +335,7 @@ export const getTrainingStudentsTemplate = function (params) {
 }
 /**
  * @function 培训学员-批量导入
- *
+ * 
  */
 export const importTrainingStudents = function (file, data) {
   return request({

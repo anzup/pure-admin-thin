@@ -20,45 +20,45 @@ export const useAppStore = defineStore({
   getters: {
     getSidebarStatus() {
       return this.sidebar.opened
-   ; },
+    },
     getDevice() {
       return this.device
-   ; },
-  ,
+    },
+  },
   actions: {
     TOGGLE_SIDEBAR(opened?: boolean, resize?: string) {
-      const layout = storageLocal.getItem("-layout");
+      const layout = storageLocal.getItem('-layout')
       if (opened && resize) {
-        this.sidebar.withoutAnimation = true;
-        this.sidebar.opened = true;
-        layout.sidebarStatus = true;
+        this.sidebar.withoutAnimation = true
+        this.sidebar.opened = true
+        layout.sidebarStatus = true
       } else if (!opened && resize) {
-        this.sidebar.withoutAnimation = true;
-        this.sidebar.opened = false;
-        layout.sidebarStatus = false;
+        this.sidebar.withoutAnimation = true
+        this.sidebar.opened = false
+        layout.sidebarStatus = false
       } else if (!opened && !resize) {
-        this.sidebar.withoutAnimation = false;
-        this.sidebar.opened = !this.sidebar.opened;
-        this.sidebar.isClickHamburger = !this.sidebar.opened;
-        layout.sidebarStatus = this.sidebar.opened;
+        this.sidebar.withoutAnimation = false
+        this.sidebar.opened = !this.sidebar.opened
+        this.sidebar.isClickHamburger = !this.sidebar.opened
+        layout.sidebarStatus = this.sidebar.opened
       }
-      storageLocal.setItem("-layout", layout);
+      storageLocal.setItem('-layout', layout)
     },
     TOGGLE_DEVICE(device: string) {
-      this.device = device;
+      this.device = device
     },
     async toggleSideBar(opened?: boolean, resize?: string) {
-      await this.TOGGLE_SIDEBAR(opened, resize);
+      await this.TOGGLE_SIDEBAR(opened, resize)
     },
     toggleDevice(device) {
-      this.TOGGLE_DEVICE(device);
+      this.TOGGLE_DEVICE(device)
     },
     setLayout(layout) {
-      this.layout = layout;
-    }
+      this.layout = layout
+    },
   },
 })
 
 export function useAppStoreHook() {
-  return useAppStore(store);
+  return useAppStore(store)
 }

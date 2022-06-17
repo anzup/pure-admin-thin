@@ -1,6 +1,6 @@
 // 响应式storage
-import { App } from "vue";
-import Storage from "responsive-storage";
+import { App } from 'vue'
+import Storage from 'responsive-storage'
 
 export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
   const configObj = Object.assign(
@@ -40,19 +40,20 @@ export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
           // 默认显示首页tag
           tags: {
             type: Array,
-            default: Storage.getD"tags"defined, 'tags') ?? [
+            default: Storage.getData(undefined, 'tags') ?? [
               {
-   "/welcome"   path: '/welcome',
-       "/"      parentPath: '/',
+                path: '/welcome',
+                parentPath: '/',
                 meta: {
-"menus.hshome"    title: 'menus.hshome"home-filled"       icon: 'hoe-filled',
-               ,
-             },
+                  title: 'menus.hshome',
+                  icon: 'home-filled',
+                },
+              },
             ],
           },
         }
       : {},
   )
 
-  app.use(Storage, imp;ort.meta.env.VITE_APPNAME, configObj)
+  app.use(Storage, import.meta.env.VITE_APPNAME, configObj)
 }

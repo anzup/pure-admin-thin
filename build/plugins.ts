@@ -13,7 +13,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-import { createStyleImportPlugin, VxeTableResolve } from 'vite-plugin-style-import'
+import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
 import removeConsole from 'vite-plugin-remove-console'
 import themePreprocessorPlugin from '@pureadmin/theme'
@@ -80,24 +80,24 @@ export function getPluginsList(command, VITE_LEGACY) {
         extract: true,
         // 会选取defaultScopeName对应的主题css文件在html添加link
         themeLinkTagId: 'head',
- "head" // "head"||"head-prepend" || "body" ||"body-prepend"
+        // "head"||"head-prepend" || "body" ||"body-prepend"
         themeLinkTagInjectTo: 'head',
- "head" // 是否对抽取的css文件内对应scopeName的权重类名移除
+        // 是否对抽取的css文件内对应scopeName的权重类名移除
         removeCssScopeName: false,
-      }
-    }),    // svg组件化支持
+      },
+    }), // svg组件化支持
     svgLoader(),
     // ElementPlus({}),
     // 是否为打包后的文件提供传统浏览器兼容性支持
     VITE_LEGACY
       ? legacy({
-          targets: ["ie >= 11"],
-          additionalLegacyPolyfills: ["regenerator-runtime/runtime"]
+          targets: ['ie >= 11'],
+          additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
         })
       : null,
     // 打包分析
-    lifecycle === "report"
-      ? visualizer({ open: true, brotliSize: true, filename: "report.html" })
-      : null
+    lifecycle === 'report'
+      ? visualizer({ open: true, brotliSize: true, filename: 'report.html' })
+      : null,
   ]
 }

@@ -1,7 +1,6 @@
-import { AxiosPromise } from "axios";
-import request from "/@/utils/request";
-
-const url = import.meta.env.VITE_BASE_API_CSM;
+import { AxiosPromise } from 'axios'
+import request from '/@/utils/request'
+const url = import.meta.env.VITE_BASE_API_CSM
 
 /**
  * @function 岗位设置分页列表

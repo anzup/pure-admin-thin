@@ -1,6 +1,6 @@
-import request from "/@/utils/request";
+import request from '/@/utils/request'
 
-const url = import.meta.env.VITE_BASE_API_CPM;
+const url = import.meta.env.VITE_BASE_API_CPM
 
 /**
  * @function 异常记录分页列表

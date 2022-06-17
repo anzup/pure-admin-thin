@@ -1,6 +1,5 @@
-import request from "/@/utils/request";
-
-const url = import.meta.env.VITE_BASE_API_CPM;
+import request from '/@/utils/request'
+const url = import.meta.env.VITE_BASE_API_CPM
 
 /**
  *

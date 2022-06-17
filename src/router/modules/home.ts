@@ -24,5 +24,4 @@ const homeRouter = {
   ],
 }
 
-export default homeRout
-er
+export default homeRouter

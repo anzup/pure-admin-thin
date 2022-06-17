@@ -1,22 +1,22 @@
-import { isUrl } from "/@/utils/is";
-import { getConfig } from "/@/config";
-import { toRouteType } from "./types";
-import { openLink } from "/@/utils/link";
-import NProgress from "/@/utils/progress";
-import { findIndex } from "lodash-unified";
-import { transformI18n } from "/@/plugins/i18n";
-import { storageSession } from "/@/utils/storage";
-import { buildHierarchyTree } from "/@/utils/tree";
-import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
-import { usePermissionStoreHook } from "/@/store/modules/permission";
+import { isUrl } from '/@/utils/is'
+import { getConfig } from '/@/config'
+import { toRouteType } from './types'
+import { openLink } from '/@/utils/link'
+import NProgress from '/@/utils/progress'
+import { findIndex } from 'lodash-unified'
+import { transformI18n } from '/@/plugins/i18n'
+import { storageSession } from '/@/utils/storage'
+import { buildHierarchyTree } from '/@/utils/tree'
+import { useMultiTagsStoreHook } from '/@/store/modules/multiTags'
+import { usePermissionStoreHook } from '/@/store/modules/permission'
 import {
   createRouter,
   RouteComponent,
   RouteMeta,
   Router,
   RouteRecordName,
-  RouteRecordRaw
-} from "vue-router";
+  RouteRecordRaw,
+} from 'vue-router'
 import {
   ascending,
   findRouteByPath,
@@ -25,20 +25,20 @@ import {
   getHistoryMode,
   getParentPaths,
   handleAliveRoute,
-  initRouter
-} from "./utils";
+  initRouter,
+} from './utils'
 
-import homeRouter from "./modules/home";
-import errorRouter from "./modules/error";
-import remainingRouter from "./modules/remaining";
+import homeRouter from './modules/home'
+import errorRouter from './modules/error'
+import remainingRouter from './modules/remaining'
 
 // 原始静态路由（未做任何处理）
-const routes = [homeRouter, errorRouter];
+const routes = [homeRouter, errorRouter]
 
 // 导出处理后的静态路由（三级及以上的路由全部拍成二级）
 export const constantRoutes: Array<RouteRecordRaw> = formatTwoStageRoutes(
-  formatFlatteningRoutes(buildHierarchyTree(ascending(routes)))
-);
+  formatFlatteningRoutes(buildHierarchyTree(ascending(routes))),
+)
 
 // 用于渲染菜单，保持原始层级
 export const constantMenus: Array<RouteComponent> = ascending(routes).concat(...remainingRouter)
@@ -46,8 +46,8 @@ export const constantMenus: Array<RouteComponent> = ascending(routes).concat(...
 // 不参与菜单的路由
 export const remainingPaths = Object.keys(remainingRouter).map((v) => {
   return remainingRouter[v].path
-;})
-;
+})
+
 // 创建路由实例
 export const router: Router = createRouter({
   history: getHistoryMode(),
@@ -68,7 +68,9 @@ export const router: Router = createRouter({
 })
 
 // 路由白名单
-const whiteList = ['/l"/login"r;outer.beforeEach((to: toRouteType, _from, next) => {
+const whiteList = ['/login']
+
+router.beforeEach((to: toRouteType, _from, next) => {
   if (to.meta?.keepAlive) {
     const newMatched = to.matched
     handleAliveRoute(newMatched, 'add')
@@ -105,67 +107,68 @@ const whiteList = ['/l"/login"r;outer.beforeEach((to: toRouteType, _from, next) 
               path: string,
               parentPath: string,
               name: RouteRecordName,
-              meta: RouteMeta
+              meta: RouteMeta,
             ): void => {
-              useMultiTagsStoreHook().handleTags("push", {
+              useMultiTagsStoreHook().handleTags('push', {
                 path,
                 parentPath,
                 name,
-                meta
-              });
+                meta,
+              })
             }
             // 未开启标签页缓存，刷新页面重定向到顶级路由（参考标签页操作例子，只针对静态路由）
             if (to.meta?.refreshRedirect) {
-              const routes = router.options.routes;
-              const { refreshRedirect } = to.meta;
-              const { name, meta } = findRouteByPath(refreshRedirect, routes);
-              handTag(refreshRedirect, getParentPaths(refreshRedirect, routes)[1], name, meta);
-              return router.push(refreshRedirect);
+              const routes = router.options.routes
+              const { refreshRedirect } = to.meta
+              const { name, meta } = findRouteByPath(refreshRedirect, routes)
+              handTag(refreshRedirect, getParentPaths(refreshRedirect, routes)[1], name, meta)
+              return router.push(refreshRedirect)
             } else {
-              const { path } = to;
+              const { path } = to
               const index = findIndex(remainingRouter, (v) => {
-                return v.path == path;
-              });
+                // @ts-ignore
+                return v.path == path
+              })
               const routes =
-                index === -1 ? router.options.routes[0].children : router.options.routes;
-              const route = findRouteByPath(path, routes);
-              const routePartent = getParentPaths(path, routes);
+                index === -1 ? router.options.routes[0].children : router.options.routes
+              const route = findRouteByPath(path, routes)
+              const routePartent = getParentPaths(path, routes)
               // 未开启标签页缓存，刷新页面重定向到顶级路由（参考标签页操作例子，只针对动态路由）
               if (path !== routes[0].path && route?.meta?.rank !== 0 && routePartent.length === 0) {
-                if (!route?.meta?.refreshRedirect) return;
-                const { name, meta } = findRouteByPath(route.meta.refreshRedirect, routes);
+                if (!route?.meta?.refreshRedirect) return
+                const { name, meta } = findRouteByPath(route.meta.refreshRedirect, routes)
                 handTag(
                   route.meta?.refreshRedirect,
                   getParentPaths(route.meta?.refreshRedirect, routes)[0],
                   name,
-                  meta
-                );
-                return router.push(route.meta?.refreshRedirect);
+                  meta,
+                )
+                return router.push(route.meta?.refreshRedirect)
               } else {
-                handTag(route.path, routePartent[routePartent.length - 1], route.name, route.meta);
-                return router.push(path);
+                handTag(route.path, routePartent[routePartent.length - 1], route.name, route.meta)
+                return router.push(path)
               }
             }
           }
-          router.push(to.fullPath);
+          router.push(to.fullPath)
         })
-      next();
+      next()
     }
   } else {
-    if (to.path !== "/login") {
+    if (to.path !== '/login') {
       if (whiteList.indexOf(to.path) !== -1) {
-        next();
+        next()
       } else {
-        next({ path: "/login" });
+        next({ path: '/login' })
       }
     } else {
-      next();
+      next()
     }
   }
 })
 
 router.afterEach(() => {
-  NProgress.done();
+  NProgress.done()
 })
 
-export default router;
+export default router

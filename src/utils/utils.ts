@@ -203,8 +203,8 @@ export function dataURLtoBlob(dataurl) {
  * arraybuffer转json
  */
 export function arraybufferToJSON(arraybuffer, cb) {
-  const content = arraybuffer //arraybuffer类型数据
-  const resBlob = new Blob([content])
+  //arraybuffer类型数据
+  const resBlob = new Blob([arraybuffer])
   const reader = new FileReader()
   reader.readAsText(resBlob, 'utf-8')
   reader.onload = () => {
@@ -244,14 +244,14 @@ export function arrayFilterFormat(arr, name?: string, rule = ',') {
  * @function 数字转换为字符串
  * @param num number
  */
-export const transformNumToDateStr = (num: number = 0): string => {
+export const transformNumToDateStr = (num = 0): string => {
   if (typeof num === 'number') {
     if (num <= 0) {
       return '00:00:00'
     } else {
-      let ss = num % 60
-      let mm = ((num - ss) / 60) % 60
-      let hh = parseInt(num / 3600) //小时
+      const ss = num % 60
+      const mm = ((num - ss) / 60) % 60
+      const hh = parseInt(num / 3600) //小时
       return (
         (hh < 10 ? '0' + hh : hh) +
         ':' +

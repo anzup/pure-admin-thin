@@ -1,5 +1,5 @@
 import { ref, reactive } from 'vue'
-import { getClazzsList } from '/@/api/train'
+import { getClazzsList } from '/@/api/class'
 import { useI18n } from 'vue-i18n'
 
 export interface IClassForm {

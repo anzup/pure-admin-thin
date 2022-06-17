@@ -25,25 +25,25 @@ export const useUserStore = defineStore({
     subsystems() {
       return this.userInfo?.subsystems || []
     },
-;  },
- actions: {
+  },
+  actions: {
     // 设置权限
     SET_AUTHORITIES(val: string[]) {
-      this.totalAuthorities = val || [];
+      this.totalAuthorities = val || []
     },
 
     SET_TOKEN(data: { refresh_token: string; access_token: string }) {
-      const res: any = jwtDecode(data.access_token);
-      sessionStorage.setItem("access_token", data.access_token);
-      sessionStorage.setItem("refresh_token", data.refresh_token);
-      sessionStorage.setItem("userId", res.userId);
-      this.token = data.access_token;
-      this.refresh_token = data.refresh_token;
-      this.userId = res.userId;
+      const res: any = jwtDecode(data.access_token)
+      sessionStorage.setItem('access_token', data.access_token)
+      sessionStorage.setItem('refresh_token', data.refresh_token)
+      sessionStorage.setItem('userId', res.userId)
+      this.token = data.access_token
+      this.refresh_token = data.refresh_token
+      this.userId = res.userId
     },
 
     SET_CURRENTPAGE(value) {
-      this.currentPage = value;
+      this.currentPage = value
     },
     // 登入
     async loginByUsername(data) {
@@ -51,38 +51,38 @@ export const useUserStore = defineStore({
         login(data)
           .then((res) => {
             if (data) {
-              this.SET_TOKEN(res.data);
-              resolve();
+              this.SET_TOKEN(res.data)
+              resolve()
             }
           })
           .catch((error) => {
-            reject(error);
-          });
+            reject(error)
+          })
       })
     },
     // 登出 清空缓存
     logOut() {
-      this.token = "";
-      storageSession.clear();
-      useMultiTagsStoreHook().handleTags("equal", [
+      this.token = ''
+      storageSession.clear()
+      useMultiTagsStoreHook().handleTags('equal', [
         {
-          path: "/welcome",
-          parentPath: "/",
+          path: '/welcome',
+          parentPath: '/',
           meta: {
-            title: "menus.hshome",
-            icon: "home-filled"
-          }
-        }
-      ]);
-      router.push("/login");
+            title: 'menus.hshome',
+            icon: 'home-filled',
+          },
+        },
+      ])
+      router.push('/login')
     },
     // 获取当前用户信息(用于在右上角显示用户信息)
     async getUserInfo() {
-      const [err, res] = await to(getRoleUserInfo());
+      const [err, res] = await to(getRoleUserInfo())
       if (!err) {
-        this.userInfo = res.data;
-        storageSession.setItem("userInfo", res.data);
-        return Promise.resolve<RoleUserInfo>(res.data);
+        this.userInfo = res.data
+        storageSession.setItem('userInfo', res.data)
+        return Promise.resolve<RoleUserInfo>(res.data)
       }
     },
     // 刷新token
@@ -98,5 +98,5 @@ export const useUserStore = defineStore({
 })
 
 export function useUserStoreHook() {
-  return useUserStore(store);
+  return useUserStore(store)
 }

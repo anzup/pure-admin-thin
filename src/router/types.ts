@@ -1,9 +1,9 @@
-import { RouteLocationNormalized } from "vue-router";
+import { RouteLocationNormalized } from 'vue-router'
 
 export interface toRouteType extends RouteLocationNormalized {
   meta: {
-    keepAlive?: boolean;
-    refreshRedirect: string;
-    dynamicLevel?: string;
-  };
+    keepAlive?: boolean
+    refreshRedirect: string
+    dynamicLevel?: string
+  }
 }

@@ -1,6 +1,6 @@
-import request from "/@/utils/request";
-
-const url = import.meta.env.VITE_BASE_API_CSM;
+import { AxiosDefaults, AxiosPromise } from 'axios'
+import request from '/@/utils/request'
+const url = import.meta.env.VITE_BASE_API_CSM
 
 /**
  *
@@ -154,7 +154,7 @@ export const getTeachingQualificationRecordsExport = function (params) {
 }
 /**
  * @function 批量导入
- *
+ * 
  */
 export const ImportTeachingQualificationRecords = function (file, data) {
   return request({

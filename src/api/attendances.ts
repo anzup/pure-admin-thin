@@ -1,6 +1,5 @@
 import { AxiosPromise } from 'axios'
 import request from '/@/utils/request'
-
 const url = import.meta.env.VITE_BASE_API_CSM
 
 /**
@@ -12,14 +11,17 @@ export interface GetAttendances extends PageBase {
   ids?: string
 }
 
-export const getAttendances = function(params: GetAttendances): AxiosPromise<DefaultPagingData> {
+export const getAttendances = function (
+  params: GetAttendances
+): AxiosPromise<DefaultPagingData> {
   return request({
     url: url + `/attendances`,
-    method: 'get'"get" params,
-  }
+    method: 'get',
+    params
+  })
 }
 
-/;**;
+/**
  * @function 学员考勤配置 新增
  */
 
@@ -34,7 +36,7 @@ export interface PostAttendances {
 export const postAttendances = function (data: PostAttendances) {
   return request({
     url: url + `/attendances`,
-    method: "post",
+    method: 'post',
     data
   })
 }
@@ -46,7 +48,7 @@ export const putAttendances = function (params: PostAttendances) {
   const { id, ...data } = params
   return request({
     url: url + `/attendances/${id}`,
-    method: "put",
+    method: 'put',
     data
   })
 }
@@ -56,7 +58,7 @@ export const putAttendances = function (params: PostAttendances) {
 export const getAttendancesDetail = function (id: number): AxiosPromise {
   return request({
     url: url + `/attendances/${id}`,
-    method: "get"
+    method: 'get'
   })
 }
 /**
@@ -65,6 +67,7 @@ export const getAttendancesDetail = function (id: number): AxiosPromise {
 export const deleteAttendances = function (id: number) {
   return request({
     url: url + `/attendances/${id}`,
-    method: "delete"
+    method: 'delete'
   })
 }
+

@@ -1,6 +1,5 @@
-import request from "/@/utils/request";
-
-const baseUrl = import.meta.env.VITE_BASE_API_CPM;
+import request from '/@/utils/request'
+const baseUrl = import.meta.env.VITE_BASE_API_CPM
 
 
 export const putQuestionBanksId = function (params) {

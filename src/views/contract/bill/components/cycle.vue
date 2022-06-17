@@ -110,7 +110,9 @@
       return dayjs(state.form.originalDate)
         .add(
           state.form.billPeriodType === 'DAY' ? state.form.num * 24 : state.form.num,
-          state.form.billPeriodType === 'DAY' ? 'h' : state.form.billPeriodType.toLowerCase(),
+          state.form.billPeriodType === 'DAY'
+            ? 'h'
+            : (state.form.billPeriodType.toLowerCase() as any),
         )
         .subtract(24, 'h')
         .toDate()

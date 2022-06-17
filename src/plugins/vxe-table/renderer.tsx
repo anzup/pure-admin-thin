@@ -6,9 +6,9 @@ export default function tableRenderer(renderer: VXETable['renderer']) {
   renderer.add('buttons', {
     // 默认显示模板
     renderDefault(renderOpts, params) {
-      let { row, column } = params
-      let { props } = renderOpts
-      let buttons: TableButton[] =
+      const { row, column } = params
+      const { props } = renderOpts
+      const buttons: TableButton[] =
         (typeof props?.buttons === 'function' ? props?.buttons(params) : props?.buttons) || []
       return buttons
         .filter((v) => v.visible !== false)
