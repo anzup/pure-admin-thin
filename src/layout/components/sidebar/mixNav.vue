@@ -1,86 +1,82 @@
-<script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import Search from "../search/index.vue";
-import Notice from "../notice/index.vue";
-import { useNav } from "../../hooks/nav";
-import { templateRef } from "@vueuse/core";
-import avatars from "/@/assets/avatars.jpg";
-import { transformI18n } from "/@/plugins/i18n";
-import screenfull from "../screenfull/index.vue";
-import { useRoute, useRouter } from "vue-router";
-import { deviceDetection } from "/@/utils/deviceDetection";
-import { useRenderIcon } from "/@/components/ReIcon/src/hooks";
-import { useEpThemeStoreHook } from "/@/store/modules/epTheme";
-import { getParentPaths, findRouteByPath } from "/@/router/utils";
-import { usePermissionStoreHook } from "/@/store/modules/permission";
-import globalization from "/@/assets/svg/globalization.svg?component";
-import { ref, watch, nextTick, onMounted, getCurrentInstance } from "vue";
+<script lang="ts" setup>
+  import { useI18n } from 'vue-i18n'
+  import Search from '../search/index.vue'
+  import Notice from '../notice/index.vue'
+  import { useNav } from '../../hooks/nav'
+  import { templateRef } from '@vueuse/core'
+  import avatars from '/@/assets/avatars.jpg'
+  import { transformI18n } from '/@/plugins/i18n'
+  import screenfull from '../screenfull/index.vue'
+  import { useRoute, useRouter } from 'vue-router'
+  import { deviceDetection } from '/@/utils/deviceDetection'
+  import { useRenderIcon } from '/@/components/ReIcon/src/hooks'
+  import { useEpThemeStoreHook } from '/@/store/modules/epTheme'
+  import { getParentPaths, findRouteByPath } from '/@/router/utils'
+  import { usePermissionStoreHook } from '/@/store/modules/permission'
+  import globalization from '/@/assets/svg/globalization.svg?component'
+  import { ref, watch, nextTick, onMounted, getCurrentInstance } from 'vue'
 
-const route = useRoute();
-const { locale, t } = useI18n();
-const routers = useRouter().options.routes;
-const menuRef = templateRef<ElRef | null>("menu", null);
-const instance =
-  getCurrentInstance().appContext.config.globalProperties.$storage;
+  const route = useRoute()
+  const { locale, t } = useI18n()
+  const routers = useRouter().options.routes
+  const menuRef = templateRef<ElRef | null>('menu', null)
+  const instance = getCurrentInstance().appContext.config.globalProperties.$storage
 
-const {
-  logout,
-  onPanel,
-  changeTitle,
-  toggleSideBar,
-  handleResize,
-  menuSelect,
-  resolvePath,
-  pureApp,
-  username,
-  avatarsStyle,
-  getDropdownItemStyle
-} = useNav();
+  const {
+    logout,
+    onPanel,
+    changeTitle,
+    toggleSideBar,
+    handleResize,
+    menuSelect,
+    resolvePath,
+    pureApp,
+    username,
+    avatarsStyle,
+    getDropdownItemStyle,
+  } = useNav()
 
-let defaultActive = ref(null);
+  let defaultActive = ref(null)
 
-function getDefaultActive(routePath) {
-  const wholeMenus = usePermissionStoreHook().wholeMenus;
-  // 当前路由的父级路径
-  const parentRoutes = getParentPaths(routePath, wholeMenus)[0];
-  defaultActive.value = findRouteByPath(
-    parentRoutes,
-    wholeMenus
-  )?.children[0]?.path;
-}
-
-onMounted(() => {
-  getDefaultActive(route.path);
-  nextTick(() => {
-    handleResize(menuRef.value);
-  });
-});
-
-watch(
-  () => locale.value,
-  () => {
-    changeTitle(route.meta);
+  function getDefaultActive(routePath) {
+    const wholeMenus = usePermissionStoreHook().wholeMenus
+    // 当前路由的父级路径
+    const parentRoutes = getParentPaths(routePath, wholeMenus)[0]
+    defaultActive.value = findRouteByPath(parentRoutes, wholeMenus)?.children[0]?.path
   }
-);
 
-watch(
-  () => route.path,
-  () => {
-    getDefaultActive(route.path);
+  onMounted(() => {
+    getDefaultActive(route.path)
+    nextTick(() => {
+      handleResize(menuRef.value)
+    })
+  })
+
+  watch(
+    () => locale.value,
+    () => {
+      changeTitle(route.meta)
+    },
+  )
+
+  watch(
+    () => route.path,
+    () => {
+      getDefaultActive(route.path)
+    },
+  )
+
+  function translationCh() {
+    instance.locale = { locale: 'zh' }
+    locale.value = 'zh'
+    handleResize(menuRef.value)
   }
-);
 
-function translationCh() {
-  instance.locale = { locale: "zh" };
-  locale.value = "zh";
-  handleResize(menuRef.value);
-}
-
-function translationEn() {
-  instance.locale = { locale: "en" };
-  locale.value = "en";
-  handleResize(menuRef.value);
-}
+  function translationEn() {
+    instance.locale = { locale: 'en' }
+    locale.value = 'en'
+    handleResize(menuRef.value)
+  }
 </script>
 
 <template>
@@ -91,15 +87,12 @@ function translationEn() {
       @click="toggleSideBar"
     >
       <svg
+        :class="['hamburger', pureApp.sidebar.opened ? 'is-active-hamburger' : '']"
         :fill="useEpThemeStoreHook().fill"
-        :class="[
-          'hamburger',
-          pureApp.sidebar.opened ? 'is-active-hamburger' : ''
-        ]"
-        viewBox="0 0 1024 1024"
-        xmlns="http://www.w3.org/2000/svg"
-        width="64"
         height="64"
+        viewBox="0 0 1024 1024"
+        width="64"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z"
@@ -108,11 +101,11 @@ function translationEn() {
     </div>
     <el-menu
       ref="menu"
+      :default-active="defaultActive"
       class="horizontal-header-menu"
       mode="horizontal"
-      :default-active="defaultActive"
       router
-      @select="indexPath => menuSelect(indexPath, routers)"
+      @select="(indexPath) => menuSelect(indexPath, routers)"
     >
       <el-menu-item
         v-for="route in usePermissionStoreHook().wholeMenus"
@@ -126,11 +119,11 @@ function translationEn() {
           <span>{{ transformI18n(route.meta.title) }}</span>
           <FontIcon
             v-if="route.meta.extraIcon"
-            width="30px"
-            height="30px"
-            style="position: absolute; right: 10px"
             :icon="route.meta.extraIcon.name"
             :svg="route.meta.extraIcon.svg ? true : false"
+            height="30px"
+            style="position: absolute; right: 10px"
+            width="30px"
           />
         </template>
       </el-menu-item>
@@ -141,26 +134,22 @@ function translationEn() {
       <!-- 通知 -->
       <Notice id="header-notice" />
       <!-- 全屏 -->
-      <screenfull id="header-screenfull" v-show="!deviceDetection()" />
+      <screenfull v-show="!deviceDetection()" id="header-screenfull" />
       <!-- 国际化 -->
       <el-dropdown id="header-translation" trigger="click">
         <globalization />
         <template #dropdown>
           <el-dropdown-menu class="translation">
-            <el-dropdown-item
-              :style="getDropdownItemStyle(locale, 'zh')"
-              @click="translationCh"
-              ><span class="check-zh" v-show="locale === 'zh'"
+            <el-dropdown-item :style="getDropdownItemStyle(locale, 'zh')" @click="translationCh"
+              ><span v-show="locale === 'zh'" class="check-zh"
                 ><IconifyIconOffline icon="check" /></span
-              >简体中文</el-dropdown-item
-            >
-            <el-dropdown-item
-              :style="getDropdownItemStyle(locale, 'en')"
-              @click="translationEn"
-              ><span class="check-en" v-show="locale === 'en'"
+              >简体中文
+            </el-dropdown-item>
+            <el-dropdown-item :style="getDropdownItemStyle(locale, 'en')" @click="translationEn"
+              ><span v-show="locale === 'en'" class="check-en"
                 ><IconifyIconOffline icon="check" /></span
-              >English</el-dropdown-item
-            >
+              >English
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -173,20 +162,13 @@ function translationEn() {
         <template #dropdown>
           <el-dropdown-menu class="logout">
             <el-dropdown-item @click="logout">
-              <IconifyIconOffline
-                icon="logout-circle-r-line"
-                style="margin: 5px"
-              />
-              {{ t("buttons.hsLoginOut") }}</el-dropdown-item
-            >
+              <IconifyIconOffline icon="logout-circle-r-line" style="margin: 5px" />
+              {{ t('buttons.hsLoginOut') }}
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span
-        class="el-icon-setting"
-        :title="t('buttons.hssystemSet')"
-        @click="onPanel"
-      >
+      <span :title="t('buttons.hssystemSet')" class="el-icon-setting" @click="onPanel">
         <IconifyIconOffline icon="setting" />
       </span>
     </div>
@@ -194,48 +176,48 @@ function translationEn() {
 </template>
 
 <style module="classes" scoped>
-.container {
-  padding: 0 15px;
-}
+  .container {
+    padding: 0 15px;
+  }
 </style>
 
 <style lang="scss" scoped>
-.hamburger {
-  width: 20px;
-  height: 20px;
+  .hamburger {
+    width: 20px;
+    height: 20px;
 
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.is-active-hamburger {
-  transform: rotate(180deg);
-}
-
-.translation {
-  ::v-deep(.el-dropdown-menu__item) {
-    padding: 5px 40px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  .check-zh {
-    position: absolute;
-    left: 20px;
+  .is-active-hamburger {
+    transform: rotate(180deg);
   }
 
-  .check-en {
-    position: absolute;
-    left: 20px;
-  }
-}
+  .translation {
+    ::v-deep(.el-dropdown-menu__item) {
+      padding: 5px 40px;
+    }
 
-.logout {
-  max-width: 120px;
+    .check-zh {
+      position: absolute;
+      left: 20px;
+    }
 
-  ::v-deep(.el-dropdown-menu__item) {
-    min-width: 100%;
-    display: inline-flex;
-    flex-wrap: wrap;
+    .check-en {
+      position: absolute;
+      left: 20px;
+    }
   }
-}
+
+  .logout {
+    max-width: 120px;
+
+    ::v-deep(.el-dropdown-menu__item) {
+      min-width: 100%;
+      display: inline-flex;
+      flex-wrap: wrap;
+    }
+  }
 </style>

@@ -9,51 +9,48 @@ import zhLocale from "element-plus/lib/locale/lang/zh-cn";
 
 function siphonI18n(prefix = "zh-CN") {
   return Object.fromEntries(
-    Object.entries(import.meta.globEager("../../locales/*.y(a)?ml")).map(
-      ([key, value]) => {
-        const matched = key.match(/([A-Za-z0-9-_]+)\./i)[1];
-        return [matched, value.default];
-      }
-    )
+    Object.entries(import.meta.globEager("../../locales/*.y(a)?ml")).map(([key, value]) => {
+      const matched = key.match(/([A-Za-z\d-_]+)\./i)[1];
+      return [matched, value.default];
+    })
   )[prefix];
 }
 
 export const localesConfigs = {
   zh: {
-    ...siphonI18n("zh-CN"),
-    ...zhLocale
+    ...siphonI18n('zh-CN'),
+    ...zhLocale,
   },
   en: {
-    ...siphonI18n("en"),
-    ...enLocale
-  }
-};
+    ...siphonI18n('en'),
+    ...enLocale,
+  },
+}
 
 /**
  * 国际化转换工具函数（自动读取根目录locales文件夹下文件进行国际化匹配）
  * @param message message
  * @returns 转化后的message
  */
-export function transformI18n(message: any = "") {
+export function transformI18n(message: any"" '') {
   if (!message) {
-    return "";
+    retu""; ''
   }
 
   // 处理存储动态路由的title,格式 {zh:"",en:""}
-  if (typeof message === "object") {
-    const locale: string | WritableComputedRef<string> | any =
-      i18n.global.locale;
-    return message[locale?.value];
+  if (typeof message ="object"ct') {
+    const locale: string | WritableComputedRef<string> | any = i18n.global.loc;ale
+    return message[locale?.val;ue]
   }
 
-  const key = message.match(/(\S*)\./)?.[1];
-  if (key && Object.keys(siphonI18n("zh-CN")).includes(key)) {
-    return i18n.global.t.call(i18n.global.locale, message);
-  } else if (!key && Object.keys(siphonI18n("zh-CN")).includes(message)) {
+  const key = message.match(/(\S*)\./)?.;[1]
+  if (key && Object.keys(siphonI1"zh-CN"CN')).includes(key)) {
+    return i18n.global.t.call(i18n.global.locale, messa;ge)
+  } else if (!key && Object.keys(siphonI1"zh-CN"CN')).includes(message)) {
     // 兼容非嵌套形式的国际化写法
-    return i18n.global.t.call(i18n.global.locale, message);
+    return i18n.global.t.call(i18n.global.locale, messa;ge)
   } else {
-    return message;
+    return mess;age
   }
 }
 
@@ -62,10 +59,10 @@ export const $t = (key: string) => key;
 
 export const i18n: I18n = createI18n({
   legacy: false,
-  locale: storageLocal.getItem("responsive-locale")?.locale ?? "zh",
+  locale: storageLocal.getItem("-locale")?.locale ?? "zh",
   fallbackLocale: "en",
   messages: localesConfigs
-});
+})
 
 export function useI18n(app: App) {
   app.use(i18n);

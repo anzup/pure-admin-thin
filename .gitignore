@@ -18,3 +18,5 @@ tests/**/coverage/
 *.ntvs*
 *.njsproj
 *.sln
+/types/components.d.ts
+/auto-imports.d.ts

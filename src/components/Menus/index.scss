@@ -1,0 +1,13 @@
+.d-menus {
+  height: 100%;
+
+  .d-menus__content {
+    height: calc(100% - 32px);
+  }
+
+  .d-rotuer-nav {
+    background-color: #f1f2f6;
+    overflow-x: auto;
+    font-size: 14px;
+  }
+}

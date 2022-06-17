@@ -1,36 +1,33 @@
-import { store } from "/@/store";
-import { appType } from "./types";
-import { defineStore } from "pinia";
-import { getConfig } from "/@/config";
-import { storageLocal } from "/@/utils/storage";
-import { deviceDetection } from "/@/utils/deviceDetection";
+import { store } from '/@/store'
+import { appType } from './types'
+import { defineStore } from 'pinia'
+import { getConfig } from '/@/config'
+import { storageLocal } from '/@/utils/storage'
+import { deviceDetection } from '/@/utils/deviceDetection'
 
 export const useAppStore = defineStore({
-  id: "pure-app",
+  id: 'pure-app',
   state: (): appType => ({
     sidebar: {
-      opened:
-        storageLocal.getItem("responsive-layout")?.sidebarStatus ??
-        getConfig().SidebarStatus,
+      opened: storageLocal.getItem('-layout')?.sidebarStatus ?? getConfig().SidebarStatus,
       withoutAnimation: false,
-      isClickHamburger: false
+      isClickHamburger: false,
     },
     // 这里的layout用于监听容器拖拉后恢复对应的导航模式
-    layout:
-      storageLocal.getItem("responsive-layout")?.layout ?? getConfig().Layout,
-    device: deviceDetection() ? "mobile" : "desktop"
+    layout: storageLocal.getItem('-layout')?.layout ?? getConfig().Layout,
+    device: deviceDetection() ? 'mobile' : 'desktop',
   }),
   getters: {
     getSidebarStatus() {
-      return this.sidebar.opened;
-    },
+      return this.sidebar.opened
+   ; },
     getDevice() {
-      return this.device;
-    }
-  },
+      return this.device
+   ; },
+  ,
   actions: {
     TOGGLE_SIDEBAR(opened?: boolean, resize?: string) {
-      const layout = storageLocal.getItem("responsive-layout");
+      const layout = storageLocal.getItem("-layout");
       if (opened && resize) {
         this.sidebar.withoutAnimation = true;
         this.sidebar.opened = true;
@@ -45,7 +42,7 @@ export const useAppStore = defineStore({
         this.sidebar.isClickHamburger = !this.sidebar.opened;
         layout.sidebarStatus = this.sidebar.opened;
       }
-      storageLocal.setItem("responsive-layout", layout);
+      storageLocal.setItem("-layout", layout);
     },
     TOGGLE_DEVICE(device: string) {
       this.device = device;
@@ -59,8 +56,8 @@ export const useAppStore = defineStore({
     setLayout(layout) {
       this.layout = layout;
     }
-  }
-});
+  },
+})
 
 export function useAppStoreHook() {
   return useAppStore(store);

@@ -1,67 +1,66 @@
-<script setup lang="ts">
-import Motion from "./utils/motion";
-import { useRouter } from "vue-router";
-import { loginRules } from "./utils/rule";
-import phone from "./components/phone.vue";
-import qrCode from "./components/qrCode.vue";
-import regist from "./components/regist.vue";
-import update from "./components/update.vue";
-import { initRouter } from "/@/router/utils";
-import { message } from "@pureadmin/components";
-import type { FormInstance } from "element-plus";
-import { storageSession } from "/@/utils/storage";
-import { ref, reactive, watch, computed } from "vue";
-import { operates, thirdParty } from "./utils/enums";
-import { useUserStoreHook } from "/@/store/modules/user";
-import { bg, avatar, currentWeek } from "./utils/static";
-import { ReImageVerify } from "/@/components/ReImageVerify";
-import { useRenderIcon } from "/@/components/ReIcon/src/hooks";
+<script lang="ts" setup>
+  import Motion from './utils/motion'
+  import { useRouter } from 'vue-router'
+  import { loginRules } from './utils/rule'
+  import type { FormInstance } from 'element-plus'
+  import { computed, reactive, ref, watch } from 'vue'
+  import { operates, thirdParty } from './utils/enums'
+  import { useUserStoreHook } from '/@/store/modules/user'
+  import { bg, currentWeek, avatar } from './utils/static'
+  // import { ReImageVerify } from '/@/components/ReImageVerify'
+  import { useRenderIcon } from '/@/components/ReIcon/src/hooks'
+  import { storageSession } from '/@/utils/storage'
+  import { initRouter } from '/@/router/utils'
+  import { message } from '/@/utils/resetMessage'
+  import Phone from './components/phone.vue'
+  import QrCode from './components/qrCode.vue'
+  import Regist from './components/regist.vue'
+  import Update from './components/update.vue'
 
-const imgCode = ref("");
-const router = useRouter();
-const loading = ref(false);
-const checked = ref(false);
-const ruleFormRef = ref<FormInstance>();
-const currentPage = computed(() => {
-  return useUserStoreHook().currentPage;
-});
+  const imgCode = ref('')
+  const router = useRouter()
+  const loading = ref(false)
+  const checked = ref(false)
+  const ruleFormRef = ref<FormInstance>()
+  const currentPage = computed(() => {
+    return useUserStoreHook().currentPage
+  })
 
-const ruleForm = reactive({
-  username: "admin",
-  password: "admin123",
-  verifyCode: ""
-});
+  const ruleForm = reactive({
+    username: 'A02750',
+    password: '111111',
+    verifyCode: '',
+  })
 
-const onLogin = async (formEl: FormInstance | undefined) => {
-  loading.value = true;
-  if (!formEl) return;
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      // 模拟请求，需根据实际开发进行修改
-      setTimeout(() => {
-        loading.value = false;
-        storageSession.setItem("info", {
-          username: "admin",
-          accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
-        });
-        initRouter("admin").then(() => {});
-        message.success("登陆成功");
-        router.push("/");
-      }, 2000);
-    } else {
-      loading.value = false;
-      return fields;
-    }
-  });
-};
+  const onLogin = async (formEl: FormInstance | undefined) => {
+    loading.value = true
+    if (!formEl) return
+    await formEl.validate((valid, fields) => {
+      if (valid) {
+        // 模拟请求，需根据实际开发进行修改
+        useUserStoreHook()
+          .loginByUsername(ruleForm)
+          .then(() => {
+            loading.value = false
+            storageSession.setItem('info', {
+              username: 'admin',
+              accessToken: 'eyJhbGciOiJIUzUxMiJ9.test',
+            })
+            initRouter().then(() => {
+              message.success('登陆成功')
+              router.push('/')
+            })
+          })
+      } else {
+        loading.value = false
+        return fields
+      }
+    })
+  }
 
-function onHandle(value) {
-  useUserStoreHook().SET_CURRENTPAGE(value);
-}
-
-watch(imgCode, value => {
-  useUserStoreHook().SET_VERIFYCODE(value);
-});
+  function onHandle(value) {
+    useUserStoreHook().SET_CURRENTPAGE(value)
+  }
 </script>
 
 <template>
@@ -74,7 +73,7 @@ watch(imgCode, value => {
       <div class="login-form">
         <avatar class="avatar" />
         <Motion>
-          <h2>Pure Admin</h2>
+          <h2>CREW WEB</h2>
         </Motion>
 
         <el-form
@@ -88,11 +87,11 @@ watch(imgCode, value => {
           <Motion :delay="100">
             <el-form-item prop="username">
               <el-input
-                clearable
-                :input-style="{ 'user-select': 'none' }"
                 v-model="ruleForm.username"
-                placeholder="账号"
+                :input-style="{ 'user-select': 'none' }"
                 :prefix-icon="useRenderIcon('user')"
+                clearable
+                placeholder="账号"
               />
             </el-form-item>
           </Motion>
@@ -100,47 +99,44 @@ watch(imgCode, value => {
           <Motion :delay="150">
             <el-form-item prop="password">
               <el-input
-                clearable
-                :input-style="{ 'user-select': 'none' }"
-                show-password
                 v-model="ruleForm.password"
-                placeholder="密码"
+                :input-style="{ 'user-select': 'none' }"
                 :prefix-icon="useRenderIcon('lock')"
+                clearable
+                placeholder="密码"
+                show-password
               />
             </el-form-item>
           </Motion>
 
-          <Motion :delay="200">
-            <el-form-item prop="verifyCode">
-              <el-input
-                clearable
-                :input-style="{ 'user-select': 'none' }"
-                v-model="ruleForm.verifyCode"
-                placeholder="验证码"
-              >
-                <template v-slot:append>
-                  <ReImageVerify v-model:code="imgCode" />
-                </template>
-              </el-input>
-            </el-form-item>
-          </Motion>
+          <!--<Motion :delay="200">-->
+          <!--  <el-form-item prop="verifyCode">-->
+          <!--    <el-input-->
+          <!--      v-model="ruleForm.verifyCode"-->
+          <!--      :input-style="{ 'user-select': 'none' }"-->
+          <!--      clearable-->
+          <!--      placeholder="验证码"-->
+          <!--    >-->
+          <!--      <template #append>-->
+          <!--        <ReImageVerify v-model:code="imgCode" />-->
+          <!--      </template>-->
+          <!--    </el-input>-->
+          <!--  </el-form-item>-->
+          <!--</Motion>-->
 
           <Motion :delay="250">
             <el-form-item>
               <div class="w-full h-20px flex justify-between items-center">
                 <el-checkbox v-model="checked">记住密码</el-checkbox>
-                <el-button
-                  type="text"
-                  @click="useUserStoreHook().SET_CURRENTPAGE(4)"
-                >
+                <el-button type="text" @click="useUserStoreHook().SET_CURRENTPAGE(4)">
                   忘记密码?
                 </el-button>
               </div>
               <el-button
+                :loading="loading"
                 class="w-full mt-4"
                 size="default"
                 type="primary"
-                :loading="loading"
                 @click="onLogin(ruleFormRef)"
               >
                 登录
@@ -171,39 +167,35 @@ watch(imgCode, value => {
               <p class="text-gray-500 text-xs">第三方登录</p>
             </el-divider>
             <div class="w-full flex justify-evenly">
-              <span
-                v-for="(item, index) in thirdParty"
-                :key="index"
-                :title="`${item.title}登陆`"
-              >
+              <span v-for="(item, index) in thirdParty" :key="index" :title="`${item.title}登陆`">
                 <IconifyIconOnline
                   :icon="`ri:${item.icon}-fill`"
-                  width="20"
                   class="cursor-pointer text-gray-500 hover:text-blue-400"
+                  width="20"
                 />
               </span>
             </div>
           </el-form-item>
         </Motion>
         <!-- 手机号登陆 -->
-        <phone v-if="currentPage === 1" />
+        <Phone v-if="currentPage === 1" />
         <!-- 二维码登陆 -->
-        <qrCode v-if="currentPage === 2" />
+        <QrCode v-if="currentPage === 2" />
         <!-- 注册 -->
-        <regist v-if="currentPage === 3" />
+        <Regist v-if="currentPage === 3" />
         <!-- 忘记密码 -->
-        <update v-if="currentPage === 4" />
+        <Update v-if="currentPage === 4" />
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-@import url("/@/style/login.css");
+  @import url('/@/style/login.css');
 </style>
 
 <style lang="scss" scoped>
-:deep(.el-input-group__append, .el-input-group__prepend) {
-  padding: 0;
-}
+  :deep(.el-input-group__append, .el-input-group__prepend) {
+    padding: 0;
+  }
 </style>

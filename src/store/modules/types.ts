@@ -1,50 +1,45 @@
-import { RouteRecordName } from "vue-router";
+import { RouteRecordName } from 'vue-router'
 
 export type cacheType = {
-  mode: string;
-  name?: RouteRecordName;
-};
+  mode: string
+  name?: RouteRecordName
+}
 
 export type positionType = {
-  startIndex?: number;
-  length?: number;
-};
+  startIndex?: number
+  length?: number
+}
 
 export type appType = {
   sidebar: {
-    opened: boolean;
-    withoutAnimation: boolean;
+    opened: boolean
+    withoutAnimation: boolean
     // 判断是否手动点击Hamburger
-    isClickHamburger: boolean;
-  };
-  layout: string;
-  device: string;
-};
+    isClickHamburger: boolean
+  }
+  layout: string
+  device: string
+}
 
 export type multiType = {
-  path: string;
-  parentPath: string;
-  name: string;
-  meta: any;
-  query?: object;
-};
+  path: string
+  parentPath: string
+  name: string
+  meta: any
+  query?: object
+}
 
 export type setType = {
-  title: string;
-  fixedHeader: boolean;
-  hiddenSideBar: boolean;
-};
+  title: string
+  fixedHeader: boolean
+  hiddenSideBar: boolean
+}
 
 export type userType = {
-  token: string;
-  refresh_token: string;
-  totalAuthorities: string[];
-  userInfo: CurrentUserInfo;
-  currentRole: number;
-  subsystemRoles: { id: number; name: string }[];
-  userId: number;
-  currentSubsystem: string;
-  subsystemAdmin: boolean;
-  verifyCode?: string;
-  currentPage?: number;
-};
+  token: string
+  refresh_token: string
+  totalAuthorities: string[]
+  userInfo: RoleUserInfo
+  userId: number
+  currentPage?: number
+}

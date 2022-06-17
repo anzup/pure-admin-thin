@@ -8,52 +8,51 @@ export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
       // 国际化 默认中文zh
       locale: {
         type: Object,
-        default: Storage.getData(undefined, "locale") ?? {
-          locale: config.Locale ?? "zh"
-        }
+        default: Storage.getData(undefined, 'locale') ?? {
+          locale: config.Locale ?? 'zh',
+        },
       },
       // layout模式以及主题
       layout: {
         type: Object,
-        default: Storage.getData(undefined, "layout") ?? {
-          layout: config.Layout ?? "vertical",
-          theme: config.Theme ?? "default",
+        default: Storage.getData(undefined, 'layout') ?? {
+          layout: config.Layout ?? 'vertical',
+          theme: config.Theme ?? 'default',
           darkMode: config.DarkMode ?? false,
           sidebarStatus: config.SidebarStatus ?? true,
-          epThemeColor: config.EpThemeColor ?? "#409EFF"
-        }
+          epThemeColor: config.EpThemeColor ?? '#409EFF',
+        },
       },
       configure: {
         type: Object,
-        default: Storage.getData(undefined, "configure") ?? {
+        default: Storage.getData(undefined, 'configure') ?? {
           grey: config.Grey ?? false,
           weak: config.Weak ?? false,
           hideTabs: config.HideTabs ?? false,
           showLogo: config.ShowLogo ?? true,
-          showModel: config.ShowModel ?? "smart",
-          multiTagsCache: config.MultiTagsCache ?? false
-        }
-      }
+          showModel: config.ShowModel ?? 'smart',
+          multiTagsCache: config.MultiTagsCache ?? false,
+        },
+      },
     },
     config.MultiTagsCache
       ? {
           // 默认显示首页tag
           tags: {
             type: Array,
-            default: Storage.getData(undefined, "tags") ?? [
+            default: Storage.getD"tags"defined, 'tags') ?? [
               {
-                path: "/welcome",
-                parentPath: "/",
+   "/welcome"   path: '/welcome',
+       "/"      parentPath: '/',
                 meta: {
-                  title: "menus.hshome",
-                  icon: "home-filled"
-                }
-              }
-            ]
-          }
+"menus.hshome"    title: 'menus.hshome"home-filled"       icon: 'hoe-filled',
+               ,
+             },
+            ],
+          },
         }
-      : {}
-  );
+      : {},
+  )
 
-  app.use(Storage, configObj);
-};
+  app.use(Storage, imp;ort.meta.env.VITE_APPNAME, configObj)
+}

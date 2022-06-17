@@ -1,0 +1,15 @@
+.d-tabs {
+  height: 100%;
+
+  .d-tabs__header {
+    height: 32px;
+    font-size: 14px;
+    background-color: #F1F2F6;
+  }
+
+  .d-tabs__content {
+    height: calc(100% - 32px);
+    overflow: hidden;
+    position: relative;
+  }
+}

@@ -61,11 +61,242 @@
 
   & .peg {
     box-shadow: 0 0 10px var(--el-color-primary),
-      0 0 5px var(--el-color-primary) !important;
+    0 0 5px var(--el-color-primary) !important;
   }
 
   & .spinner-icon {
     border-top-color: var(--el-color-primary);
     border-left-color: var(--el-color-primary);
+  }
+}
+
+.el-dialog {
+  overflow: hidden;
+
+  .el-dialog__header {
+    background: $systemColor;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.06);
+    padding: 0.6em 20px;
+    margin: 0 !important;
+    height: auto;
+    // line-height: 46px;
+    .el-dialog__title {
+      color: #fff !important;
+      font-size: 1.1em;
+      font-variant: tabular-nums;
+      font-feature-settings: "tnum";
+      // font-weight: 700;
+      // font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei,
+      //   Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    }
+  }
+
+  .el-dialog__headerbtn {
+    --el-color-info: #fff;
+    width: 46px;
+    height: 46px;
+    color: #fff;
+    top: 0;
+
+    &:hover {
+      .el-dialog__close {
+        color: #dfdfdf;
+      }
+    }
+  }
+
+  .el-dialog__body {
+    padding: 16px;
+  }
+
+  // 自定义弹窗样式
+  &.custom_dialog {
+    .el-dialog__body {
+      padding: 0 !important;
+
+      .el-tabs__content {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.el-date-editor {
+  .el-input__wrapper {
+    width: 100%;
+  }
+}
+
+.el-select {
+  width: 100%;
+}
+
+.el-form--inline .el-form-item {
+  margin-bottom: 16px !important;
+  margin-right: 16px !important;
+}
+
+
+.el-tabs--border-card {
+  box-shadow: none;
+
+  &.custom_tabs {
+    .el-tabs__content {
+      padding: 0;
+    }
+  }
+}
+
+.popper_con {
+  left: 0 !important;
+  top: 50px !important;
+
+  .el-popper__arrow {
+    left: 114px !important;
+    top: -5px !important;
+
+    &::before {
+      border: 1px solid var(--el-border-color-light) !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+    }
+  }
+}
+
+// 抽屉样式
+.el-drawer {
+  .el-drawer__header {
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    background-color: $systemColor;
+    color: #fff;
+    text-align: center;
+
+    .el-drawer__close-btn {
+      padding: 10px 20px;
+
+      &:hover {
+        i {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// 卡片样式
+.el-card {
+  // --el-card-padding: 0px !important;
+  // --el-card-border-radius: 0 !important;
+  .el-card__header {
+    padding: 0 $padding16;
+    line-height: 40px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC-Bold;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+    background-color: #f8f8f9;
+  }
+}
+
+.upload-demo-content {
+  width: 100%;
+
+  .el-upload-list {
+    width: calc(100% - 80px); // 有上传按钮
+    margin: 0;
+  }
+
+  .el-upload-list__item {
+    transition: none;
+    margin-bottom: 0;
+
+    &.is-ready {
+      display: none;
+    }
+
+    &-name {
+      width: calc(100% - 15px);
+      text-align: left !important;
+      display: inline-block !important;
+    }
+  }
+}
+
+// 自定义tabs样式
+.el-tabs.base-tabs {
+  .el-tabs__header.is-top {
+    padding: 0 $padding16;
+  }
+
+  .el-tabs__nav-wrap::after {
+    display: none;
+  }
+}
+
+// 自定义开关
+.switchStyle .el-switch__label {
+  position: absolute;
+  display: none;
+  color: #fff !important;
+}
+
+.switchStyle .el-switch__label--left {
+  z-index: 9;
+  left: 22px;
+}
+
+.switchStyle .el-switch__label--right {
+  z-index: 9;
+  left: -3px;
+}
+
+.switchStyle .el-switch__label.is-active {
+  display: block;
+  word-break: keep-all;
+}
+
+.el-tag.el-tag--info.is-hit {
+  border-color: transparent !important;
+}
+
+// // 描述列表
+// .el-descriptions{
+
+// }
+.el-descriptions__body {
+  .el-descriptions__label {
+    &.el-descriptions__cell {
+      font-weight: 700 !important;
+    }
+  }
+}
+
+// .el-descriptions__label.el-descriptions__cell.is-bordered-label
+
+// 文字提示框
+// .singleton-tooltip {
+//   width: 200px;
+//   background: #ffffff;
+//   border: 0.5px solid #e8eaec;
+//   box-shadow: 0px 3px 6px 0px rgba(4, 11, 22, 0.16);
+// }
+
+// element-plus升级后样式变化
+.el-button.is-text {
+  padding: 0;
+
+  &:not(.is-disabled):hover {
+    background-color: transparent;
+  }
+
+  &:not(.is-disabled):active {
+    background-color: transparent;
+  }
+
+  &:not(.is-disabled):focus {
+    background-color: transparent;
   }
 }

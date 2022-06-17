@@ -1,31 +1,31 @@
 <script lang="ts">
-export default {
-  name: "permissionPage"
-};
+  export default {
+    name: 'permissionPage',
+  }
 </script>
 
-<script setup lang="ts">
-import { ref, unref } from "vue";
-import { storageSession } from "/@/utils/storage";
-import { useRenderIcon } from "/@/components/ReIcon/src/hooks";
+<script lang="ts" setup>
+  import { ref, unref } from 'vue'
+  import { storageSession } from '/@/utils/storage'
+  import { useRenderIcon } from '/@/components/ReIcon/src/hooks'
 
-let purview = ref<string>(storageSession.getItem("info").username);
+  let purview = ref<string>(storageSession.getItem('info').username)
 
-function changRole() {
-  if (unref(purview) === "admin") {
-    storageSession.setItem("info", {
-      username: "test",
-      accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
-    });
-    window.location.reload();
-  } else {
-    storageSession.setItem("info", {
-      username: "admin",
-      accessToken: "eyJhbGciOiJIUzUxMiJ9.admin"
-    });
-    window.location.reload();
+  function changRole() {
+    if (unref(purview) === 'admin') {
+      storageSession.setItem('info', {
+        username: 'test',
+        accessToken: 'eyJhbGciOiJIUzUxMiJ9.test',
+      })
+      window.location.reload()
+    } else {
+      storageSession.setItem('info', {
+        username: 'admin',
+        accessToken: 'eyJhbGciOiJIUzUxMiJ9.admin',
+      })
+      window.location.reload()
+    }
   }
-}
 </script>
 
 <template>
@@ -41,11 +41,8 @@ function changRole() {
         >
       </div>
     </template>
-    <el-button
-      type="primary"
-      @click="changRole"
-      :icon="useRenderIcon('user', { color: '#fff' })"
-      >切换角色</el-button
-    >
+    <el-button :icon="useRenderIcon('user', { color: '#fff' })" type="primary" @click="changRole"
+      >切换角色
+    </el-button>
   </el-card>
 </template>

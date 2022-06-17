@@ -1,34 +1,36 @@
-import { $t } from "/@/plugins/i18n";
-const Layout = () => import("/@/layout/index.vue");
+import { $t } from '/@/plugins/i18n'
+
+const Layout = () => import('/@/layout/index.vue')
 
 const remainingRouter = [
   {
-    path: "/login",
-    name: "login",
-    component: () => import("/@/views/login/index.vue"),
+    path: '/login',
+    name: 'login',
+    component: () => import('/@/views/login/index.vue'),
     meta: {
-      title: $t("menus.hslogin"),
+      title: $t('menus.hslogin'),
       showLink: false,
-      rank: 101
-    }
+      rank: 101,
+    },
   },
   {
-    path: "/redirect",
+    path: '/redirect',
     component: Layout,
     meta: {
-      icon: "home-filled",
-      title: $t("menus.hshome"),
+      icon: 'home-filled',
+      title: $t('menus.hshome'),
       showLink: false,
-      rank: 104
+      rank: 104,
     },
     children: [
       {
-        path: "/redirect/:path(.*)",
-        name: "redirect",
-        component: () => import("/@/layout/redirect.vue")
-      }
-    ]
-  }
-];
+        path: '/redirect/:path(.*)',
+        name: 'redirect',
+        component: () => import('/@/layout/redirect.vue'),
+      },
+    ],
+  },
+]
 
-export default remainingRouter;
+export default remainingR
+outer

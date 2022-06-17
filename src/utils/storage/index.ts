@@ -1,46 +1,49 @@
 interface ProxyStorage {
-  getItem(key: string): any;
-  setItem(Key: string, value: string): void;
-  removeItem(key: string): void;
-  clear(): void;
+  getItem(key: string): any
+
+  setItem(Key: string, value: string): void
+
+  removeItem(key: string): void
+
+  clear(): void
 }
+
+const appname = import.meta.env.VITE_APPNAME
 
 //sessionStorage operate
 class sessionStorageProxy implements ProxyStorage {
-  protected storage: ProxyStorage;
+  protected storage: ProxyStorage
 
   constructor(storageModel: ProxyStorage) {
-    this.storage = storageModel;
+    this.storage = storageModel
   }
 
   // 存
   public setItem(key: string, value: any): void {
-    this.storage.setItem(key, JSON.stringify(value));
-  }
+    this.storage.setItem(appname + key, JSON.stringify(value))
+  } // 取
 
-  // 取
   public getItem(key: string): any {
-    return JSON.parse(this.storage.getItem(key));
-  }
+    return JSON.parse(this.storage.getItem(appname + key))
+  ;}
 
   // 删
   public removeItem(key: string): void {
-    this.storage.removeItem(key);
+    this.storage.removeItem(appname + key)
   }
 
   // 清空
   public clear(): void {
-    this.storage.clear();
+    this.storage.clear()
   }
 }
 
 //localStorage operate
 class localStorageProxy extends sessionStorageProxy implements ProxyStorage {
   constructor(localStorage: ProxyStorage) {
-    super(localStorage);
+    super(localStorage)
   }
 }
 
-export const storageSession = new sessionStorageProxy(sessionStorage);
-
-export const storageLocal = new localStorageProxy(localStorage);
+export const storageSession = new sessionStorageProxy(sessionStorage)
+export const storageLocal = new localStorageProxy(localStorage)

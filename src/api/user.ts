@@ -4,16 +4,7 @@ import { AxiosPromise } from "axios";
 import request from "/@/utils/request";
 
 const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT;
-// const opmUrl = import.meta.env.VITE_BASE_API_OPM
 const url = import.meta.env.VITE_BASE_API_CPM;
-
-export type DegreeType =
-  | "HIGH_SCHOOL"
-  | "TECHNICAL_SECONDARY_SCHOOL"
-  | "ASSOCIATE_DEGREE"
-  | "BACHELOR_DEGREE"
-  | "MASTER_DEGREE"
-  | "DOCTOR_DEGREE";
 
 export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
   request<CurrentUserInfo>({
@@ -21,7 +12,7 @@ export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
     method: "get"
   });
 export const getSubsystemRoles = (params: {
-  subsystem: string;
+  subsystem: string
 }): AxiosPromise<DefaultAllListItem[]> =>
   request({
     url: url + "/users/current/subsystemRoles",
@@ -31,29 +22,19 @@ export const getSubsystemRoles = (params: {
 export const getUserInfo = (userId: number) =>
   request({
     url: accountUrl + `/public/userInfo/${userId}`,
-    method: "get",
+    method: 'get',
     // params
     headers: {
-      Authorization: "Basic aHVheXVleGluZzpodWF5dWV4aW5n"
-    }
-  });
+      Authorization: 'Basic aHVheXVleGluZzpodWF5dWV4aW5n',
+    },
+  })
 
 /**@function getRoleUserInfo 获取当前职位下的角色信息 */
-export const getRoleUserInfo = (
-  roleId: number
-): AxiosPromise<{
-  // 所有权限
-  totalAuthorities: string[];
-  selfAuthorities: string[];
-  roleAuthorities: string[];
-}> =>
-  request({
+export const getRoleUserInfo = () =>
+  request<RoleUserInfo>({
     url: url + `/users/current/roleUserInfo`,
-    method: "get",
-    params: {
-      roleId
-    }
-  });
+    method"get"',
+  ;})
 
 export interface UserForm {
   password: string;
@@ -67,18 +48,19 @@ export interface LoginRes {
   refresh_token: string;
   token_type: string;
 }
+
 export const login = (data: UserForm) =>
   request<LoginRes>({
     url: accountUrl + "/users/token",
     method: "post",
     data
-  });
+  })
 
 export const logout = () =>
   request({
     url: accountUrl + "/users/logout",
     method: "post"
-  });
+  })
 
 /**
  *
@@ -99,9 +81,7 @@ export interface GetUsers extends PageBase {
   fromTrainingCenter?: boolean;
 }
 
-export const getUsersList = function (
-  params: GetUsers
-): AxiosPromise<DefaultPagingData> {
+export const getUsersList = function(params: GetUsers): AxiosPromise<DefaultPagingData> {
   return request({
     url: url + `/users`,
     method: "get",
@@ -120,7 +100,7 @@ export const getUsersDetail = function (params) {
     url: url + `/users/${params}`,
     method: "get"
   });
-};
+}
 /**
  * 用户新增
  * }
@@ -133,7 +113,7 @@ export const postUsers = function (data) {
     method: "post",
     data
   });
-};
+}
 /**
  * 用户修改
  * }
@@ -146,7 +126,7 @@ export const putUsersId = function (data) {
     method: "put",
     data
   });
-};
+}
 /**
  * 用户删除
  * }
@@ -158,7 +138,7 @@ export const deleteUsersId = function (data) {
     url: url + `/users/${data}`,
     method: "delete"
   });
-};
+}
 /**
  * 用户批量删除
  * }
@@ -170,7 +150,7 @@ export const batchDeleteUsersId = function (data) {
     method: "post",
     data
   });
-};
+}
 /**
  * 用户禁用启用
  * }
@@ -183,7 +163,7 @@ export const postUsersProhibit = function (data) {
     method: "post",
     data
   });
-};
+}
 /**
  * 用户修改密码
  * }
@@ -191,22 +171,19 @@ export const postUsersProhibit = function (data) {
  */
 
 export const putUsersPassword = function (data: {
-  oldPassword?: string;
-  password: string;
-  smsCode?: string;
-  id: number;
+  oldPassword?: string
+  password: string
+  smsCode?: string
+  id: number
 }) {
   return request({
     url: url + `/users/${data.id}/password`,
     method: "put",
     data
   });
-};
+}
 //修改用户签名
-export const postSignature = function (params: {
-  file: File;
-  pinCode: string;
-}) {
+export const postSignature = function(params: { file: File; pinCode: string }) {
   const data = new FormData();
   data.append("file", params.file);
   data.append("pinCode", params.pinCode);
@@ -216,6 +193,7 @@ export const postSignature = function (params: {
     data
   });
 };
+
 /**
  * @function putPinCode 修改pin码
  * */
@@ -225,6 +203,7 @@ export interface PutPinCode {
   pinCode: string;
   smsCode?: string;
 }
+
 export const putPinCode = (data: PutPinCode) => {
   return request({
     url: url + `/users/pinCode`,
@@ -232,6 +211,7 @@ export const putPinCode = (data: PutPinCode) => {
     data
   });
 };
+
 /**
  * @function getSmsCode 获取验证码
  * */
@@ -240,12 +220,14 @@ export interface GetSmsCode {
   phone: string;
   type: "VERIFY_PHONE" | "LOGIN";
 }
+
 export const getSmsCode = (data: GetSmsCode) =>
   request({
     url: accountUrl + `/users/smsCode`,
     method: "post",
     data
   });
+
 /**
  * @function getSmsCode 获取验证码
  * */
@@ -255,9 +237,10 @@ export interface PostChangePassword {
   password: string;
   smsCode?: string;
 }
+
 export const postChangePassword = (data: PostChangePassword) =>
   request({
     url: url + `/users/changePassword`,
     method: "post",
     data
-  });
+  })

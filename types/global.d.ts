@@ -1,13 +1,13 @@
-import type {AppContext, ComponentRenderProxy, PropType as VuePropType, VNode} from "vue";
-import {VxeButtonProps, VxeGridProps} from "vxe-table";
-import {ElForm} from "element-plus";
+import type { AppContext, ComponentRenderProxy, PropType as VuePropType, VNode } from 'vue'
+import { VxeButtonProps, VxeGridProps } from 'vxe-table'
+import { ElForm } from 'element-plus'
 
 // GlobalComponents for Volar
-declare module "vue" {
+declare module 'vue' {
   export interface GlobalComponents {
-    IconifyIconOffline: typeof import("../src/components/ReIcon")["IconifyIconOffline"];
-    IconifyIconOnline: typeof import("../src/components/ReIcon")["IconifyIconOnline"];
-    FontIcon: typeof import("../src/components/ReIcon")["FontIcon"];
+    IconifyIconOffline: typeof import('../src/components/ReIcon')['IconifyIconOffline']
+    IconifyIconOnline: typeof import('../src/components/ReIcon')['IconifyIconOnline']
+    FontIcon: typeof import('../src/components/ReIcon')['FontIcon']
   }
 }
 
@@ -21,17 +21,18 @@ declare global {
     };
     lastBuildTime: string;
   };
+
   interface Window {
     // Global vue app instance
-    __APP__: App<Element>;
-    webkitCancelAnimationFrame: (handle: number) => void;
-    mozCancelAnimationFrame: (handle: number) => void;
-    oCancelAnimationFrame: (handle: number) => void;
-    msCancelAnimationFrame: (handle: number) => void;
-    webkitRequestAnimationFrame: (callback: FrameRequestCallback) => number;
-    mozRequestAnimationFrame: (callback: FrameRequestCallback) => number;
-    oRequestAnimationFrame: (callback: FrameRequestCallback) => number;
-    msRequestAnimationFrame: (callback: FrameRequestCallback) => number;
+    __APP__: App<Element>
+    webkitCancelAnimationFrame: (handle: number) => void
+    mozCancelAnimationFrame: (handle: number) => void
+    oCancelAnimationFrame: (handle: number) => void
+    msCancelAnimationFrame: (handle: number) => void
+    webkitRequestAnimationFrame: (callback: FrameRequestCallback) => number
+    mozRequestAnimationFrame: (callback: FrameRequestCallback) => number
+    oRequestAnimationFrame: (callback: FrameRequestCallback) => number
+    msRequestAnimationFrame: (callback: FrameRequestCallback) => number
   }
 
   // vue
@@ -63,45 +64,53 @@ declare global {
   interface WheelEvent {
     path?: EventTarget[];
   }
+
   interface ImportMetaEnv extends ViteEnv {
-    __: unknown;
+    __: unknown
   }
 
   declare interface ViteEnv {
-    VITE_PORT: number;
-    VITE_PUBLIC_PATH: string;
-    VITE_PROXY_DOMAIN: string;
-    VITE_PROXY_DOMAIN_REAL: string;
-    VITE_ROUTER_HISTORY: string;
-    VITE_LEGACY: boolean;
+    VITE_PORT: number
+    VITE_PUBLIC_PATH: string
+    VITE_PROXY_DOMAIN: string
+    VITE_ROUTER_HISTORY: string
+    VITE_LEGACY: boolean
+    VITE_APPNAME: string
+    VITE_BASE_API_ACCOUNT: string
+    VITE_BASE_API_PUB: string
+    VITE_BASE_API_CPM: string
+    VITE_BASE_API_CSM: string
+    VITE_BASE_API_CTM: string
+    VITE_BASE_API_FTM: string
+    VITE_BASE_URL: string
   }
 
   declare interface ServerConfigs {
-    Version?: string;
-    Title?: string;
-    FixedHeader?: boolean;
-    HiddenSideBar?: boolean;
-    MultiTagsCache?: boolean;
-    KeepAlive?: boolean;
-    Locale?: string;
-    Layout?: string;
-    Theme?: string;
-    DarkMode?: boolean;
-    Grey?: boolean;
-    Weak?: boolean;
-    HideTabs?: boolean;
-    SidebarStatus?: boolean;
-    EpThemeColor?: string;
-    ShowLogo?: boolean;
-    ShowModel?: string;
+    Version?: string
+    Title?: string
+    FixedHeader?: boolean
+    HiddenSideBar?: boolean
+    MultiTagsCache?: boolean
+    KeepAlive?: boolean
+    Locale?: string
+    Layout?: string
+    Theme?: string
+    DarkMode?: boolean
+    Grey?: boolean
+    Weak?: boolean
+    HideTabs?: boolean
+    SidebarStatus?: boolean
+    EpThemeColor?: string
+    ShowLogo?: boolean
+    ShowModel?: string
     MapConfigure?: {
-      amapKey?: string;
+      amapKey?: string
       options: {
-        resizeEnable?: boolean;
-        center?: number[];
-        zoom?: number;
-      };
-    };
+        resizeEnable?: boolean
+        center?: number[]
+        zoom?: number
+      }
+    }
   }
 
   function parseInt(s: string | number, radix?: number): number;
@@ -113,14 +122,17 @@ declare global {
     type Element = VNode;
     // tslint:disable no-empty-interface
     type ElementClass = ComponentRenderProxy;
+
     interface ElementAttributesProperty {
-      $props: any;
+      $props: any
     }
+
     interface IntrinsicElements {
-      [elem: string]: any;
+      [elem: string]: any
     }
+
     interface IntrinsicAttributes {
-      [elem: string]: any;
+      [elem: string]: any
     }
   }
 
@@ -140,17 +152,20 @@ declare global {
       _columnIndex;
     }) => void;
   }
-  declare type ButtonArr = Array<TableButton>;
+
+  declare type ButtonArr = Array<TableButton>
+
   declare interface VxeTableAllProps extends VxeGridProps {
-    buttons?: ButtonArr | ((data: any) => ButtonArr);
+    buttons?: ButtonArr | ((data: any) => ButtonArr)
     form?: {
-      page?: number;
-      size?: number;
-      total?: number;
-      [_: string]: any;
-    };
+      page?: number
+      size?: number
+      total?: number
+      [_: string]: any
+    }
   }
-  declare type ElFormInstance = InstanceType<typeof ElForm>;
+
+  declare type ElFormInstance = InstanceType<typeof ElForm>
   declare type FormItemRule = ItemRules | ItemRules[];
 
   export type SFCWithInstall<T> = T & Plugin;
