@@ -12,6 +12,7 @@ import { useTimeoutFn } from "@vueuse/core";
 import { RouteConfigs } from "/@/layout/types";
 import { buildHierarchyTree } from "/@/utils/tree";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
+import { useUserStoreHook } from "/@/store/modules/user";
 
 const Layout = () => import("/@/layout/index.vue");
 const IFrame = () => import("/@/layout/frameView.vue");
@@ -113,7 +114,11 @@ function resetRouter(): void {
 
 // 初始化路由
 function initRouter() {
-  return new Promise(resolve => {
+  return new Promise(async resolve => {
+    //先获取用户信息
+    console.log(useUserStoreHook);
+    // const userInfo = await useUserStoreHook().getCurrentUserInfo();
+
     // getAsyncRoutes({ name }).then(({ info }) => {
     //   if (info.length === 0) {
     //     usePermissionStoreHook().changeSetting(info);

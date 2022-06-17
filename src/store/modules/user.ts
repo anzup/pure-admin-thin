@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { store } from "/@/store";
 import to from "await-to-js";
+import jwtDecode from "jwt-decode";
 import { userType } from "./types";
 import { router } from "/@/router";
 import { storageSession } from "/@/utils/storage";
@@ -56,8 +57,14 @@ export const useUserStore = defineStore({
       this.currentSubsystem = val;
       window.sessionStorage.setItem("currentSubsystem", val);
     },
-    SET_TOKEN(token) {
-      this.token = token;
+    SET_TOKEN(data: { refresh_token: string; access_token: string }) {
+      const res: any = jwtDecode(data.access_token);
+      sessionStorage.setItem("access_token", data.access_token);
+      sessionStorage.setItem("refresh_token", data.refresh_token);
+      sessionStorage.setItem("userId", res.userId);
+      this.token = data.access_token;
+      this.refresh_token = data.refresh_token;
+      this.userId = res.userId;
     },
     SET_VERIFYCODE(verifyCode) {
       this.verifyCode = verifyCode;
@@ -81,38 +88,38 @@ export const useUserStore = defineStore({
       });
     },
     // 登出 清空缓存
-    logOut() {
-      this.token = "";
-      storageSession.clear();
-      useMultiTagsStoreHook().handleTags("equal", [
-        {
-          path: "/welcome",
-          parentPath: "/",
-          meta: {
-            title: "menus.hshome",
-            icon: "home-filled"
-          }
-        }
-      ]);
-      router.push("/login");
-    },
+    // logOut() {
+    //   this.token = "";
+    //   storageSession.clear();
+    //   useMultiTagsStoreHook().handleTags("equal", [
+    //     {
+    //       path: "/welcome",
+    //       parentPath: "/",
+    //       meta: {
+    //         title: "menus.hshome",
+    //         icon: "home-filled"
+    //       }
+    //     }
+    //   ]);
+    //   router.push("/login");
+    // },
     // 获取当前用户信息(用于在右上角显示用户信息)
-    async getCurrentUserInfo() {
-      const [err, res] = await to(getCurrentUserInfo());
-      if (!err) {
-        // @ts-ignore
-        this.userInfo = res.data;
-        storageSession.setItem("userInfo", res.data);
-      }
-    },
+    // async getCurrentUserInfo() {
+    //   const [err, res] = await to(getCurrentUserInfo());
+    //   if (!err) {
+    //     this.userInfo = res.data;
+    //     storageSession.setItem("userInfo", res.data);
+    //     return Promise.resolve<CurrentUserInfo>(res.data);
+    //   }
+    // },
     // 获取当前子系统下可用的角色信息
-    async getSubsystemRoles(subsystem: string) {
-      const [err, res] = await to(getSubsystemRoles({ subsystem }));
-      if (!err) {
-        storageSession.setItem("subsystemRoles", res.data);
-        this.subsystemRoles = res.data;
-      }
-    },
+    // async getSubsystemRoles(subsystem: string) {
+    //   const [err, res] = await to(getSubsystemRoles({ subsystem }));
+    //   if (!err) {
+    //     storageSession.setItem("subsystemRoles", res.data);
+    //     this.subsystemRoles = res.data;
+    //   }
+    // },
     // 刷新token
     async refreshToken(data) {
       // return refreshToken(data).then(data => {

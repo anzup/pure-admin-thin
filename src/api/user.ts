@@ -15,41 +15,6 @@ export type DegreeType =
   | "MASTER_DEGREE"
   | "DOCTOR_DEGREE";
 
-export interface CurrentUserInfo {
-  address: string;
-  airplaneTypes: string;
-  customer: DefaultAllListItem;
-  degreeType: DegreeType;
-  email: string;
-  gender: "M" | "F";
-  graduationSchool: string;
-  id: number;
-  idNumber: string;
-  landline: string;
-  lastLoginTime: string;
-  major: string;
-  name: string;
-  nationality: DefaultAllListItem;
-  phone: string;
-  planejob: DefaultAllListItem;
-  politicalType: string;
-  position: DefaultAllListItem;
-  positions: DefaultAllListItem;
-  postTitle: string;
-  prohibited: boolean;
-  remark: string;
-  roles: any[];
-  signatureFileUuid: string;
-  studentType: DefaultAllListItem;
-  subsystems: string;
-  teacherType: DefaultAllListItem;
-  team: DefaultAllListItem;
-  title: string;
-  userId: number;
-  username: string;
-  workStartTime: string;
-}
-
 export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
   request<CurrentUserInfo>({
     url: url + "/users/current/userInfo",
