@@ -39,29 +39,29 @@ export const usePermissionStore = defineStore({
 
       getButtonAuth(this.wholeMenus)
     },
-  ;  async changeSetting(routes) {
-      await this.asyncActionRoutes(routes);
+    async changeSetting(routes) {
+      await this.asyncActionRoutes(routes)
     },
     cacheOperate({ mode, name }: cacheType) {
       switch (mode) {
-        case "add":
-          this.cachePageList.push(name);
-          this.cachePageList = [...new Set(this.cachePageList)];
-          break;
-        case "delete":
+        case 'add':
+          this.cachePageList.push(name)
+          this.cachePageList = [...new Set(this.cachePageList)]
+          break
+        case 'delete':
           // eslint-disable-next-line no-case-declarations
-          const delIndex = this.cachePageList.findIndex((v) => v === name);
-          delIndex !== -1 && this.cachePageList.splice(delIndex, 1);
-          break;
+          const delIndex = this.cachePageList.findIndex((v) => v === name)
+          delIndex !== -1 && this.cachePageList.splice(delIndex, 1)
+          break
       }
     },
     // 清空缓存页面
     clearAllCachePage() {
-      this.cachePageList = [];
-    }
+      this.cachePageList = []
+    },
   },
 })
 
 export function usePermissionStoreHook() {
-  return usePermissionStore(store);
+  return usePermissionStore(store)
 }

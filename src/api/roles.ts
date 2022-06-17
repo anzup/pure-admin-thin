@@ -1,7 +1,7 @@
-import { AxiosPromise } from "axios";
-import request from "/@/utils/request";
+import { AxiosPromise } from 'axios'
+import request from '/@/utils/request'
 
-const url = import.meta.env.VITE_BASE_API_CPM;
+const url = import.meta.env.VITE_BASE_API_CPM
 
 /**
  *
@@ -11,23 +11,21 @@ const url = import.meta.env.VITE_BASE_API_CPM;
  */
 
 export interface Roles extends PageBase {
-  builtinRoleIN?: string;
-  builtin?: boolean;
-  builtinRoleNI?: string;
-  idNI?: string;
-  name?: string;
-  fromTrainingCenter?: boolean;
+  builtinRoleIN?: string
+  builtin?: boolean
+  builtinRoleNI?: string
+  idNI?: string
+  name?: string
+  fromTrainingCenter?: boolean
 }
 
-export const getRolesList = function (
-  params: Roles
-): AxiosPromise<DefaultPagingData> {
+export const getRolesList = function (params: Roles): AxiosPromise<DefaultPagingData> {
   return request({
     url: url + `/roles`,
-    method: "get",
-    params
-  });
-};
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -38,9 +36,9 @@ export const getRolesList = function (
 export const getRolesDetail = function (params) {
   return request({
     url: url + `/roles/${params}`,
-    method: "get"
-  });
-};
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -51,10 +49,10 @@ export const getRolesDetail = function (params) {
 export const postRoles = function (data) {
   return request({
     url: url + `/roles`,
-    method: "post",
-    data
-  });
-};
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -65,10 +63,10 @@ export const postRoles = function (data) {
 export const putRolesId = function (data) {
   return request({
     url: url + `/roles/${data.id}`,
-    method: "put",
-    data
-  });
-};
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -79,9 +77,9 @@ export const putRolesId = function (data) {
 export const deleteRolesId = function (data) {
   return request({
     url: url + `/roles/${data}`,
-    method: "delete"
-  });
-};
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -92,9 +90,9 @@ export const deleteRolesId = function (data) {
 export const postRolesBatchDelete = function () {
   return request({
     url: url + `/roles/batchDelete`,
-    method: "post"
-  });
-};
+    method: 'post',
+  })
+}
 
 /**
  *
@@ -106,34 +104,34 @@ export const postRolesBatchDelete = function () {
 export const getStudentTypesList = function (params) {
   return request({
     url: url + `/studentTypes`,
-    method: "get",
-    params
-  });
-};
+    method: 'get',
+    params,
+  })
+}
 /**
  * @function 获取职位的权限列表
  **/
 export interface RolesAuth {
-  authCode: string;
-  authorized: boolean;
-  name: string;
-  superiorAuthCode: string;
-  superiorName: string;
+  authCode: string
+  authorized: boolean
+  name: string
+  superiorAuthCode: string
+  superiorName: string
 }
 
 export const getRolesAuthConfigs = function (id: number) {
   return request<RolesAuth[]>({
     url: url + `/roles/${id}/authConfigs`,
-    method: "get"
-  });
-};
+    method: 'get',
+  })
+}
 export const postRolesAuthConfigs = function (
   id: number,
-  data: { authCode: string; authorized: boolean }[]
+  data: { authCode: string; authorized: boolean }[],
 ) {
   return request<RolesAuth[]>({
     url: url + `/roles/${id}/authConfigs`,
-    method: "post",
-    data
-  });
-};
+    method: 'post',
+    data,
+  })
+}

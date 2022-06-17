@@ -32,5 +32,4 @@ const remainingRouter = [
   },
 ]
 
-export default remainingR
-outer
+export default remainingRouter

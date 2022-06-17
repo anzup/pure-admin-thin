@@ -1,8 +1,7 @@
-import { AxiosPromise } from "axios";
-import request from "/@/utils/request";
-import { SyllabusApiData } from "./customerSyllabuses";
-import { CourseWare } from "./coursewares";
-
+import { AxiosPromise } from 'axios'
+import request from '/@/utils/request'
+import { SyllabusApiData } from './customerSyllabuses'
+import { CourseWare } from './coursewares'
 const url = import.meta.env.VITE_BASE_API_CSM
 
 /**

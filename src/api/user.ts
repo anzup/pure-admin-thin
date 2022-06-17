@@ -1,24 +1,68 @@
 // noinspection AllyPlainJsInspection
 
-import { AxiosPromise } from "axios";
-import request from "/@/utils/request";
+import { AxiosPromise } from 'axios'
+import request from '/@/utils/request'
 
-const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT;
-const url = import.meta.env.VITE_BASE_API_CPM;
+const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT
+// const opmUrl = import.meta.env.VITE_BASE_API_OPM
+const url = import.meta.env.VITE_BASE_API_CPM
+
+export type DegreeType =
+  | 'HIGH_SCHOOL'
+  | 'TECHNICAL_SECONDARY_SCHOOL'
+  | 'ASSOCIATE_DEGREE'
+  | 'BACHELOR_DEGREE'
+  | 'MASTER_DEGREE'
+  | 'DOCTOR_DEGREE'
+
+export interface CurrentUserInfo {
+  address: string
+  airplaneTypes: string
+  customer: DefaultAllListItem
+  degreeType: DegreeType
+  email: string
+  gender: 'M' | 'F'
+  graduationSchool: string
+  id: number
+  idNumber: string
+  landline: string
+  lastLoginTime: string
+  major: string
+  name: string
+  nationality: DefaultAllListItem
+  phone: string
+  planejob: DefaultAllListItem
+  politicalType: string
+  position: DefaultAllListItem
+  positions: DefaultAllListItem
+  postTitle: string
+  prohibited: boolean
+  remark: string
+  roles: any[]
+  signatureFileUuid: string
+  studentType: DefaultAllListItem
+  subsystems: string
+  teacherType: DefaultAllListItem
+  team: DefaultAllListItem
+  title: string
+  userId: number
+  username: string
+  workStartTime: string
+}
 
 export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
   request<CurrentUserInfo>({
-    url: url + "/users/current/userInfo",
-    method: "get"
-  });
+    url: url + '/users/current/userInfo',
+    method: 'get',
+  })
 export const getSubsystemRoles = (params: {
   subsystem: string
 }): AxiosPromise<DefaultAllListItem[]> =>
   request({
-    url: url + "/users/current/subsystemRoles",
-    method: "get",
-    params
-  });
+    url: url + '/users/current/subsystemRoles',
+    method: 'get',
+    params,
+  })
 export const getUserInfo = (userId: number) =>
   request({
     url: accountUrl + `/public/userInfo/${userId}`,
@@ -30,36 +74,45 @@ export const getUserInfo = (userId: number) =>
   })
 
 /**@function getRoleUserInfo 获取当前职位下的角色信息 */
-export const getRoleUserInfo = () =>
-  request<RoleUserInfo>({
+export const getRoleUserInfo = (
+  roleId: number,
+): AxiosPromise<{
+  // 所有权限
+  totalAuthorities: string[]
+  selfAuthorities: string[]
+  roleAuthorities: string[]
+}> =>
+  request({
     url: url + `/users/current/roleUserInfo`,
-    method"get"',
-  ;})
+    method: 'get',
+    params: {
+      roleId,
+    },
+  })
 
 export interface UserForm {
-  password: string;
-  username: string;
+  password: string
+  username: string
 }
 
 export interface LoginRes {
-  access_token: string;
-  expires_in: number;
-  refresh_expires_in: number;
-  refresh_token: string;
-  token_type: string;
+  access_token: string
+  expires_in: string
+  refresh_expires_in: string
+  refresh_token: string
+  token_type: string
 }
-
 export const login = (data: UserForm) =>
   request<LoginRes>({
-    url: accountUrl + "/users/token",
-    method: "post",
-    data
+    url: accountUrl + '/users/token',
+    method: 'post',
+    data,
   })
 
 export const logout = () =>
   request({
-    url: accountUrl + "/users/logout",
-    method: "post"
+    url: accountUrl + '/users/logout',
+    method: 'post',
   })
 
 /**
@@ -68,26 +121,26 @@ export const logout = () =>
 
  */
 export interface GetUsers extends PageBase {
-  customerId?: number;
-  roleId?: number;
-  prohibited?: boolean;
-  nationalityId?: number;
-  studentTypeId?: number;
-  teacherTypeId?: number;
-  teamId?: number;
+  customerId?: number
+  roleId?: number
+  prohibited?: boolean
+  nationalityId?: number
+  studentTypeId?: number
+  teacherTypeId?: number
+  teamId?: number
   //ADMIN,PLANNER,TEACHER,STUDENT,CUSTOMER_CONTACTER
-  builtinRoles?: string;
-  builtinRolesNI?: string;
-  fromTrainingCenter?: boolean;
+  builtinRoles?: string
+  builtinRolesNI?: string
+  fromTrainingCenter?: boolean
 }
 
-export const getUsersList = function(params: GetUsers): AxiosPromise<DefaultPagingData> {
+export const getUsersList = function (params: GetUsers): AxiosPromise<DefaultPagingData> {
   return request({
     url: url + `/users`,
-    method: "get",
-    params
-  });
-};
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * 用户详情
@@ -98,8 +151,8 @@ export const getUsersList = function(params: GetUsers): AxiosPromise<DefaultPagi
 export const getUsersDetail = function (params) {
   return request({
     url: url + `/users/${params}`,
-    method: "get"
-  });
+    method: 'get',
+  })
 }
 /**
  * 用户新增
@@ -110,9 +163,9 @@ export const getUsersDetail = function (params) {
 export const postUsers = function (data) {
   return request({
     url: url + `/users`,
-    method: "post",
-    data
-  });
+    method: 'post',
+    data,
+  })
 }
 /**
  * 用户修改
@@ -123,9 +176,9 @@ export const postUsers = function (data) {
 export const putUsersId = function (data) {
   return request({
     url: url + `/users/${data.id}`,
-    method: "put",
-    data
-  });
+    method: 'put',
+    data,
+  })
 }
 /**
  * 用户删除
@@ -136,8 +189,8 @@ export const putUsersId = function (data) {
 export const deleteUsersId = function (data) {
   return request({
     url: url + `/users/${data}`,
-    method: "delete"
-  });
+    method: 'delete',
+  })
 }
 /**
  * 用户批量删除
@@ -147,9 +200,9 @@ export const deleteUsersId = function (data) {
 export const batchDeleteUsersId = function (data) {
   return request({
     url: url + `/users/batchDelete`,
-    method: "post",
-    data
-  });
+    method: 'post',
+    data,
+  })
 }
 /**
  * 用户禁用启用
@@ -160,9 +213,9 @@ export const batchDeleteUsersId = function (data) {
 export const postUsersProhibit = function (data) {
   return request({
     url: url + `/users/prohibit`,
-    method: "post",
-    data
-  });
+    method: 'post',
+    data,
+  })
 }
 /**
  * 用户修改密码
@@ -178,69 +231,63 @@ export const putUsersPassword = function (data: {
 }) {
   return request({
     url: url + `/users/${data.id}/password`,
-    method: "put",
-    data
-  });
+    method: 'put',
+    data,
+  })
 }
 //修改用户签名
-export const postSignature = function(params: { file: File; pinCode: string }) {
-  const data = new FormData();
-  data.append("file", params.file);
-  data.append("pinCode", params.pinCode);
+export const postSignature = function (params: { file: File; pinCode: string }) {
+  const data = new FormData()
+  data.append('file', params.file)
+  data.append('pinCode', params.pinCode)
   return request({
     url: url + `/users/signature`,
-    method: "post",
-    data
-  });
-};
-
+    method: 'post',
+    data,
+  })
+}
 /**
  * @function putPinCode 修改pin码
  * */
 export interface PutPinCode {
-  forceChange?: boolean;
-  oldPinCode: string;
-  pinCode: string;
-  smsCode?: string;
+  forceChange?: boolean
+  oldPinCode: string
+  pinCode: string
+  smsCode?: string
 }
-
 export const putPinCode = (data: PutPinCode) => {
   return request({
     url: url + `/users/pinCode`,
-    method: "put",
-    data
-  });
-};
-
+    method: 'put',
+    data,
+  })
+}
 /**
  * @function getSmsCode 获取验证码
  * */
 
 export interface GetSmsCode {
-  phone: string;
-  type: "VERIFY_PHONE" | "LOGIN";
+  phone: string
+  type: 'VERIFY_PHONE' | 'LOGIN'
 }
-
 export const getSmsCode = (data: GetSmsCode) =>
   request({
     url: accountUrl + `/users/smsCode`,
-    method: "post",
-    data
-  });
-
+    method: 'post',
+    data,
+  })
 /**
  * @function getSmsCode 获取验证码
  * */
 
 export interface PostChangePassword {
-  oldPassword?: string;
-  password: string;
-  smsCode?: string;
+  oldPassword?: string
+  password: string
+  smsCode?: string
 }
-
 export const postChangePassword = (data: PostChangePassword) =>
   request({
     url: url + `/users/changePassword`,
-    method: "post",
-    data
+    method: 'post',
+    data,
   })

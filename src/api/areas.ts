@@ -1,8 +1,7 @@
-import { AxiosPromise } from "axios";
-import { RiskType } from "../enums/area";
-import request from "/@/utils/request";
-
-const url = import.meta.env.VITE_BASE_API_CPM;
+import { AxiosPromise } from 'axios'
+import { RiskType } from '../enums/area';
+import request from '/@/utils/request'
+const url = import.meta.env.VITE_BASE_API_CPM
 
 /**
  * 区域

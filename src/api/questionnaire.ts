@@ -1,18 +1,18 @@
-import { AxiosPromise } from "axios";
+import { AxiosPromise } from 'axios'
 import {
+  Classification,
+  OptionSetting,
+  RecordType,
+  RecordStatus,
+  QuestionType,
+  Status,
+  Validation,
+  SourceType,
   AuditStatus,
   FileType,
-  OptionSetting,
-  Property,
-  QuestionType,
-  RecordStatus,
-  RecordType,
-  SourceType,
-  Status,
-  Validation
-} from "../enums/questionnaire";
-import request from "/@/utils/request";
-
+  Property
+} from '../enums/questionnaire'
+import request from '/@/utils/request'
 const url = import.meta.env.VITE_BASE_API_CPM
 /**
  * 问卷

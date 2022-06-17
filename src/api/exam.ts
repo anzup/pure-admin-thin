@@ -1,6 +1,5 @@
-import request from "/@/utils/request";
-
-const url = import.meta.env.VITE_BASE_API_CPM;
+import request from '/@/utils/request'
+const url = import.meta.env.VITE_BASE_API_CPM
 
 /**
  *
@@ -104,12 +103,36 @@ export const getExamRecordsIdQuestions = function (params) {
 };
 /**
  * @param {
+ * 考试 试题-重新打分
+ * }
+ */
+export const postExamRecordsIdRetake = function (data) {
+  return request({
+    url: url + `/examRecords/retake`,
+    method: 'post',
+    data
+  });
+};
+/**
+ * @param {
  * 考试 试题修改
  * }
  */
 export const putExamRecordQuestionsId = function (data) {
   return request({
     url: url + `/examRecordQuestions/${data.id}`,
+    method: 'put',
+    data
+  });
+};
+/**
+ * @param {
+ * 考试 试题-修改答案
+ * }
+ */
+export const putExamRecordQuestionsUpdateAnswer = function (data) {
+  return request({
+    url: url + `/examRecordQuestions/updateAnswer`,
     method: 'put',
     data
   });
