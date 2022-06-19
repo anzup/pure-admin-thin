@@ -43,6 +43,7 @@ const contractRouter: RouteRecordRaw = {
             i18n: true,
             keepAlive: true,
             breadcrumb: false,
+            showParent: true,
           },
         },
         {
@@ -53,6 +54,7 @@ const contractRouter: RouteRecordRaw = {
             title: $t('buttons.hsDetail'),
             i18n: true,
             hidden: true,
+            showLink: false,
             activeMenu: `/${routerName}/info/index`,
           },
           props: (route) => ({
@@ -68,6 +70,7 @@ const contractRouter: RouteRecordRaw = {
             title: $t('buttons.hsadd'),
             i18n: true,
             hidden: true,
+            showLink: false,
             activeMenu: `/${routerName}/info/index`,
           },
           props: (route) => ({
@@ -83,6 +86,7 @@ const contractRouter: RouteRecordRaw = {
             title: $t('buttons.edit'),
             i18n: true,
             hidden: true,
+            showLink: false,
             activeMenu: `/${routerName}/info/index`,
           },
           props: (route) => ({

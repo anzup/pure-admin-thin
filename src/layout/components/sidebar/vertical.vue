@@ -34,6 +34,14 @@
   }
 
   getSubMenuData(route.path)
+  const activeMenu = computed((): string => {
+    const { meta, path } = route
+    if (meta.activeMenu) {
+      // @ts-ignore
+      return meta.activeMenu
+    }
+    return path
+  })
 
   onBeforeMount(() => {
     emitter.on('logoChange', (key) => {

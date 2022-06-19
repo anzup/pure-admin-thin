@@ -79,7 +79,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
       handleAliveRoute(newMatched)
     }
   }
-  const name = storageSession.getItem('info')
+  const name = storageSession.getItem('-userInfo')
   NProgress.start()
   const externalLink = isUrl(to?.name)
   if (!externalLink)
@@ -99,7 +99,6 @@ router.beforeEach((to: toRouteType, _from, next) => {
         next()
       }
     } else {
-      // 刷新
       if (usePermissionStoreHook().wholeMenus.length === 0)
         initRouter().then((router: Router) => {
           if (!useMultiTagsStoreHook().getMultiTagsCache) {

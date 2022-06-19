@@ -8,14 +8,14 @@ export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
       // 国际化 默认中文zh
       locale: {
         type: Object,
-        default: Storage.getData(undefined, 'locale') ?? {
+        default: Storage.getData(import.meta.env.VITE_APPNAME, 'locale') ?? {
           locale: config.Locale ?? 'zh',
         },
       },
       // layout模式以及主题
       layout: {
         type: Object,
-        default: Storage.getData(undefined, 'layout') ?? {
+        default: Storage.getData(import.meta.env.VITE_APPNAME, 'layout') ?? {
           layout: config.Layout ?? 'vertical',
           theme: config.Theme ?? 'default',
           darkMode: config.DarkMode ?? false,
@@ -25,12 +25,12 @@ export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
       },
       configure: {
         type: Object,
-        default: Storage.getData(undefined, 'configure') ?? {
+        default: Storage.getData(import.meta.env.VITE_APPNAME, 'configure') ?? {
           grey: config.Grey ?? false,
           weak: config.Weak ?? false,
           hideTabs: config.HideTabs ?? false,
           showLogo: config.ShowLogo ?? true,
-          showModel: config.ShowModel ?? 'smart',
+          showModel: config.ShowModel ?? '-smart',
           multiTagsCache: config.MultiTagsCache ?? false,
         },
       },
@@ -40,7 +40,7 @@ export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
           // 默认显示首页tag
           tags: {
             type: Array,
-            default: Storage.getData(undefined, 'tags') ?? [
+            default: Storage.getData(import.meta.env.VITE_APPNAME, 'tags') ?? [
               {
                 path: '/welcome',
                 parentPath: '/',

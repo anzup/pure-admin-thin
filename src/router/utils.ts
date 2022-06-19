@@ -73,7 +73,6 @@ function getParentPaths(path: string, routes: RouteRecordRaw[]) {
 
 // 查找对应path的路由信息
 function findRouteByPath(path: string, routes: RouteRecordRaw[]) {
-  console.log(routes)
   let res = routes?.find((item: { path: string }) => item.path == path)
   if (res) {
     return res
@@ -170,7 +169,6 @@ function initRouter() {
     if (routes.length === 0) {
       await usePermissionStoreHook().changeSetting(routes)
     } else {
-      console.log(formatFlatteningRoutes(routes))
       formatFlatteningRoutes(routes).map((v: RouteRecordRaw) => {
         // 防止重复添加路由
         if (router.options.routes[0].children.findIndex((value) => value.path === v.path) !== -1) {

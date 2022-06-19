@@ -15,7 +15,7 @@ export const useUserStore = defineStore({
     token: sessionStorage.getItem('access_token') ?? '',
     refresh_token: sessionStorage.getItem('refresh_token') ?? '',
     totalAuthorities: [],
-    userInfo: storageSession.getItem('userInfo') || undefined,
+    userInfo: storageSession.getItem('-userInfo') || undefined,
     // 这个id是该用户全局id,各个子系统里面的userid不一样
     userId: +sessionStorage.getItem('userId'),
     // 登陆显示组件判断 0：登陆 1：手机登陆 2：二维码登陆 3：注册 4：忘记密码，默认0：登陆
@@ -81,7 +81,7 @@ export const useUserStore = defineStore({
       const [err, res] = await to(getRoleUserInfo())
       if (!err) {
         this.userInfo = res.data
-        storageSession.setItem('userInfo', res.data)
+        storageSession.setItem('-userInfo', res.data)
         return Promise.resolve<RoleUserInfo>(res.data)
       }
     },
