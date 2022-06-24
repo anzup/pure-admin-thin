@@ -99,7 +99,8 @@ router.beforeEach((to: toRouteType, _from, next) => {
         next()
       }
     } else {
-      if (usePermissionStoreHook().wholeMenus.length === 0)
+      console.log(usePermissionStoreHook().wholeMenus.length)
+      if (usePermissionStoreHook().wholeMenus.length === 0) {
         initRouter().then((router: Router) => {
           if (!useMultiTagsStoreHook().getMultiTagsCache) {
             const handTag = (
@@ -151,6 +152,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
           }
           router.push(to.fullPath)
         })
+      }
       next()
     }
   } else {
