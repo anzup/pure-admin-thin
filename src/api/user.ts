@@ -15,41 +15,6 @@ export type DegreeType =
   | 'MASTER_DEGREE'
   | 'DOCTOR_DEGREE'
 
-export interface CurrentUserInfo {
-  address: string
-  airplaneTypes: string
-  customer: DefaultAllListItem
-  degreeType: DegreeType
-  email: string
-  gender: 'M' | 'F'
-  graduationSchool: string
-  id: number
-  idNumber: string
-  landline: string
-  lastLoginTime: string
-  major: string
-  name: string
-  nationality: DefaultAllListItem
-  phone: string
-  planejob: DefaultAllListItem
-  politicalType: string
-  position: DefaultAllListItem
-  positions: DefaultAllListItem
-  postTitle: string
-  prohibited: boolean
-  remark: string
-  roles: any[]
-  signatureFileUuid: string
-  studentType: DefaultAllListItem
-  subsystems: string
-  teacherType: DefaultAllListItem
-  team: DefaultAllListItem
-  title: string
-  userId: number
-  username: string
-  workStartTime: string
-}
-
 export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
   request<CurrentUserInfo>({
     url: url + '/users/current/userInfo',
@@ -102,6 +67,7 @@ export interface LoginRes {
   refresh_token: string
   token_type: string
 }
+
 export const login = (data: UserForm) =>
   request<LoginRes>({
     url: accountUrl + '/users/token',
@@ -246,6 +212,7 @@ export const postSignature = function (params: { file: File; pinCode: string }) 
     data,
   })
 }
+
 /**
  * @function putPinCode 修改pin码
  * */
@@ -255,6 +222,7 @@ export interface PutPinCode {
   pinCode: string
   smsCode?: string
 }
+
 export const putPinCode = (data: PutPinCode) => {
   return request({
     url: url + `/users/pinCode`,
@@ -262,6 +230,7 @@ export const putPinCode = (data: PutPinCode) => {
     data,
   })
 }
+
 /**
  * @function getSmsCode 获取验证码
  * */
@@ -270,12 +239,14 @@ export interface GetSmsCode {
   phone: string
   type: 'VERIFY_PHONE' | 'LOGIN'
 }
+
 export const getSmsCode = (data: GetSmsCode) =>
   request({
     url: accountUrl + `/users/smsCode`,
     method: 'post',
     data,
   })
+
 /**
  * @function getSmsCode 获取验证码
  * */
@@ -285,6 +256,7 @@ export interface PostChangePassword {
   password: string
   smsCode?: string
 }
+
 export const postChangePassword = (data: PostChangePassword) =>
   request({
     url: url + `/users/changePassword`,

@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode'
 import { userType } from './types'
 import { router } from '/@/router'
 import { storageSession } from '/@/utils/storage'
-import { getRoleUserInfo, login } from '/@/api/user'
+import { getCurrentUserInfo, login } from '/@/api/user'
 
 import { useMultiTagsStoreHook } from '/@/store/modules/multiTags'
 
@@ -77,16 +77,16 @@ export const useUserStore = defineStore({
       router.push('/login')
     },
     // 获取当前用户信息(用于在右上角显示用户信息)
-    async getUserInfo() {
-      const [err, res] = await to(getRoleUserInfo())
+    async getUserInfo(): Promise<CurrentUserInfo> {
+      const [err, res] = await to(getCurrentUserInfo())
       if (!err) {
         this.userInfo = res.data
         storageSession.setItem('-userInfo', res.data)
-        return Promise.resolve<RoleUserInfo>(res.data)
+        return Promise.resolve<CurrentUserInfo>(res.data)
       }
     },
     // 刷新token
-    async refreshToken(data) {
+    async refreshToken() {
       // return refreshToken(data).then(data => {
       //   if (data) {
       //     setToken(data);
