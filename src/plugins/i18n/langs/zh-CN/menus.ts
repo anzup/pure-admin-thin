@@ -1,8 +1,8 @@
 export default {
-  hshome: '首页',
-  hslogin: '登陆',
+  homePage: '首页',
+  login: '登陆',
   hserror: '错误页面',
-  hsfourZeroFour: '404',
+  fourZeroFour: '404',
   hsfourZeroOne: '403',
   hsFive: '500',
   permission: '权限管理',

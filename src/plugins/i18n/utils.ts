@@ -14,7 +14,6 @@ export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
 
 export function genMessage(langs: Record<string, Record<string, any>>, prefix = 'lang') {
   const obj: Recordable = {}
-  console.log(langs)
 
   Object.keys(langs).forEach((key) => {
     const langFileModule = langs[key].default

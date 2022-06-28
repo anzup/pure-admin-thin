@@ -301,7 +301,7 @@
             path: '/welcome',
             parentPath: '/',
             meta: {
-              title: 'menus.hshome',
+              title: 'menus.homePage',
               icon: 'home-filled',
             },
           },
@@ -666,7 +666,7 @@
     <ul class="right-button">
       <li>
         <span
-          :title="t('buttons.hsrefreshRoute')"
+          :title="t('buttons.refreshRoute')"
           class="el-icon-refresh-right rotate"
           @click="onFresh"
         >
@@ -682,8 +682,8 @@
                 v-for="(item, key) in tagsViews"
                 :key="key"
                 :command="{ key, item }"
-                :divided="item.divided"
                 :disabled="item.disabled"
+                :divided="item.divided"
               >
                 <component :is="toRaw(item.icon)" :key="key" style="margin-right: 6px" />
                 {{ t(item.text) }}

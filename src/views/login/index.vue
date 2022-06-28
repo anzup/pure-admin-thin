@@ -46,10 +46,10 @@
               username: 'admin',
               accessToken: 'eyJhbGciOiJIUzUxMiJ9.test',
             })
-            initRouter().then(() => {
-              message.success('登陆成功')
-              router.push('/')
-            })
+            // initRouter().then(() => {
+            message.success('登陆成功')
+            router.push('/')
+            // })
           })
       } else {
         loading.value = false

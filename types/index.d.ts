@@ -1,9 +1,9 @@
 declare interface Fn<T = any, R = T> {
-  (...arg: T[]): R;
+  (...arg: T[]): R
 }
 
 declare interface PromiseFn<T = any, R = T> {
-  (...arg: T[]): Promise<R>;
+  (...arg: T[]): Promise<R>
 }
 
 declare type RefType<T> = T | null
@@ -117,7 +117,8 @@ declare type DegreeType =
   | 'MASTER_DEGREE'
   | 'DOCTOR_DEGREE'
 
-declare interface CurrentUserInfo {
+declare interface UserInfo {
+  // 用户id
   address: string
   airplaneTypes: string
   customer: DefaultAllListItem
@@ -159,7 +160,7 @@ declare interface CurrentUserInfo {
 
 declare type AccountType = 'UNKNOWN' | 'STUDENT' | 'EMPLOYEE' | 'ADMIN'
 
-declare interface RoleUserInfo {
+declare interface CurrentUserInfo {
   accountType: AccountType
   builtinRole: string
   filiale: DefaultAllListItem
@@ -175,4 +176,6 @@ declare interface RoleUserInfo {
   tempStudent: boolean
   userId: number
   username: string
+  user: UserInfo
+  homePath?: string
 }

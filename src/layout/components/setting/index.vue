@@ -150,7 +150,7 @@
         path: '/welcome',
         parentPath: '/',
         meta: {
-          title: 'menus.hshome',
+          title: 'menus.homePage',
           icon: 'home-filled',
         },
       },

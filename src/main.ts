@@ -1,9 +1,9 @@
 import App from './App.vue'
-import router from './router'
+import { setupRouter, router } from './router'
 import { setupStore } from '/@/store'
 import { getServerConfig } from './config'
 import { createApp, Directive } from 'vue'
-import { useI18n } from './plugins/i18n'
+import { useI18n } from '/@/plugins/i18n'
 import { MotionPlugin } from '@vueuse/motion'
 import { injectResponsiveStorage } from '/@/utils/storage/responsive'
 
@@ -26,6 +26,7 @@ import * as directives from '/@/directives'
 // 全局注册`@iconify/vue`图标库
 import { IconifyIconOffline, IconifyIconOnline, FontIcon } from './components/ReIcon'
 import { useTable } from '/@/plugins/vxe-table'
+import { setupRouterGuard } from '/@/router/guard'
 
 const app = createApp(App)
 
@@ -38,8 +39,9 @@ app.component('IconifyIconOnline', IconifyIconOnline)
 app.component('FontIcon', FontIcon)
 
 getServerConfig(app).then(async (config) => {
-  app.use(router)
+  setupRouter(app)
   await router.isReady()
+  setupRouterGuard(router)
   injectResponsiveStorage(app, config)
   setupStore(app)
   app.use(MotionPlugin).use(useI18n).use(useTable)

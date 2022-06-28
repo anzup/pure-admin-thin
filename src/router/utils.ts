@@ -13,7 +13,7 @@ import { RouteConfigs } from '/@/layout/types'
 import { buildHierarchyTree } from '/@/utils/tree'
 import { usePermissionStoreHook } from '/@/store/modules/permission'
 import { useUserStoreHook } from '/@/store/modules/user'
-import { authRoutes } from '/@/router/authRoutes'
+import { asyncRoutes } from '/@/router/routes'
 import { toRaw } from 'vue'
 
 const Layout = () => import('/@/layout/index.vue')
@@ -136,7 +136,7 @@ function filter<T = any>(
   return listFilter(tree)
 }
 
-async function generateRoutes(data: RoleUserInfo) {
+async function generateRoutes(data: CurrentUserInfo) {
   let accessedRouters
   const permissionsList = data.totalAuthorities || []
   const routeFilter = (route) => {
@@ -150,7 +150,7 @@ async function generateRoutes(data: RoleUserInfo) {
 
   try {
     //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
-    accessedRouters = filter(authRoutes, routeFilter)
+    accessedRouters = filter(asyncRoutes, routeFilter)
   } catch (error) {
     console.log(error)
   }

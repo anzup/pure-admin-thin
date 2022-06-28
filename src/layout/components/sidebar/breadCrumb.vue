@@ -62,7 +62,7 @@
         {
           path: '/welcome',
           parentPath: '/',
-          meta: { title: 'menus.hshome' },
+          meta: { title: 'menus.homePage' },
         } as unknown as RouteLocationMatched,
       ].concat(matched)
     }

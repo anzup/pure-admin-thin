@@ -1,9 +1,11 @@
+// noinspection AllyPlainJsInspection
+
 export default {
   hsLoginOut: '退出系统',
-  hsfullscreen: '全屏',
-  hsexitfullscreen: '退出全屏',
-  hsrefreshRoute: '刷新路由',
-  hslogin: '登陆',
+  fullscreen: '全屏',
+  exitFullscreen: '退出全屏',
+  refreshRoute: '刷新路由',
+  login: '登陆',
   hsadd: '新增',
   hsmark: '标记/取消',
   hssave: '保存',

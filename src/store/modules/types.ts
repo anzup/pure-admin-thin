@@ -39,7 +39,8 @@ export type userType = {
   token: string
   refresh_token: string
   totalAuthorities: string[]
-  userInfo: RoleUserInfo
+  userInfo: CurrentUserInfo
   userId: number
   currentPage?: number
+  lastUpdateTime: number
 }

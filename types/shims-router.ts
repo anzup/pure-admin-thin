@@ -1,4 +1,5 @@
 import 'vue-router'
+
 declare module 'vue-router' {
   interface RouteMeta {
     /**
@@ -30,9 +31,9 @@ declare module 'vue-router' {
      */
     icon?: string
     /**
-     * @param rank 路由顺序
+     * @param orderNo 路由顺序
      */
-    rank?: number
+    orderNo?: number
     /**
      * @param showLink 是否在菜单中显示（可不写，默认true）
      */

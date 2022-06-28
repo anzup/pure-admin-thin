@@ -18,12 +18,16 @@ export const useUserStore = defineStore({
     userInfo: storageSession.getItem('-userInfo') || undefined,
     // 这个id是该用户全局id,各个子系统里面的userid不一样
     userId: +sessionStorage.getItem('userId'),
+    lastUpdateTime: 0,
     // 登陆显示组件判断 0：登陆 1：手机登陆 2：二维码登陆 3：注册 4：忘记密码，默认0：登陆
     currentPage: 0,
   }),
   getters: {
-    subsystems() {
-      return this.userInfo?.subsystems || []
+    getToken(): string {
+      return this.token
+    },
+    getLastUpdateTime(): number {
+      return this.lastUpdateTime
     },
   },
   actions: {
@@ -44,6 +48,11 @@ export const useUserStore = defineStore({
 
     SET_CURRENTPAGE(value) {
       this.currentPage = value
+    },
+    setUserInfo(info: CurrentUserInfo | null) {
+      this.userInfo = info
+      this.lastUpdateTime = new Date().getTime()
+      storageSession.setItem('-userInfo', info)
     },
     // 登入
     async loginByUsername(data) {
@@ -69,7 +78,7 @@ export const useUserStore = defineStore({
           path: '/welcome',
           parentPath: '/',
           meta: {
-            title: 'menus.hshome',
+            title: 'menus.homePage',
             icon: 'home-filled',
           },
         },
@@ -80,8 +89,7 @@ export const useUserStore = defineStore({
     async getUserInfo(): Promise<CurrentUserInfo> {
       const [err, res] = await to(getCurrentUserInfo())
       if (!err) {
-        this.userInfo = res.data
-        storageSession.setItem('-userInfo', res.data)
+        this.setUserInfo(res.data)
         return Promise.resolve<CurrentUserInfo>(res.data)
       }
     },
