@@ -6,7 +6,6 @@ import { usePermissionStoreHook } from '/@/store/modules/permission'
 export function createParamMenuGuard(router: Router) {
   const permissionStore = usePermissionStoreHook()
   router.beforeEach((to, _, next) => {
-    console.log(111)
     // filter no name route
     if (!to.name) {
       next()

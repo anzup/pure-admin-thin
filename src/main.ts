@@ -40,7 +40,7 @@ app.component('FontIcon', FontIcon)
 
 getServerConfig(app).then(async (config) => {
   setupRouter(app)
-  await router.isReady()
+  // await router.isReady()
   setupRouterGuard(router)
   injectResponsiveStorage(app, config)
   setupStore(app)

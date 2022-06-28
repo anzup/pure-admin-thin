@@ -86,7 +86,7 @@ export const HOME_ROUTE: AppRouteRecordRaw = {
   name: 'welcome',
   component: LAYOUT,
   meta: {
-    title: 'menus.home',
+    title: 'menus.homePage',
   },
 }
 

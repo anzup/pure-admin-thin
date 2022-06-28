@@ -1,4 +1,4 @@
-import { AppRouteModule } from '/@/router/types'
+import { AppRouteModule, MenuModule } from '/@/router/types'
 import type { Menu, AppRouteRecordRaw } from '/@/router/types'
 import { findPath, treeMap } from '/@/utils/helper/treeHelper'
 import { cloneDeep } from 'lodash-es'
@@ -25,6 +25,15 @@ function joinParentPath(menus: Menu[], parentPath = '') {
       joinParentPath(menu.children, menu.meta?.hidePathForChildren ? parentPath : menu.path)
     }
   }
+}
+// Parsing the menu module
+export function transformMenuModule(menuModule: MenuModule): Menu {
+  const { menu } = menuModule
+
+  const menuList = [menu]
+
+  joinParentPath(menuList)
+  return menuList[0]
 }
 
 export function transformRouteToMenu(routeModList: AppRouteModule[], routerMapping = false) {

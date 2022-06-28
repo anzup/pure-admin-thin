@@ -18,9 +18,9 @@ Object.keys(modules).forEach((key) => {
   routeModuleList.push(...modList)
 })
 
-export const asyncRoutes = [ERROR_ROUTE, ...routeModuleList]
+export const asyncRoutes = [...routeModuleList, ERROR_ROUTE]
 
-export { LOGIN_ROUTE, ROOT_ROUTE }
+export { LOGIN_ROUTE, ROOT_ROUTE, HOME_ROUTE }
 
 // Basic routing without permission
-export const basicRoutes = [ROOT_ROUTE, HOME_ROUTE, LOGIN_ROUTE, ERROR_ROUTE, REDIRECT_ROUTE]
+export const basicRoutes = [ROOT_ROUTE, LOGIN_ROUTE, ERROR_ROUTE, REDIRECT_ROUTE]

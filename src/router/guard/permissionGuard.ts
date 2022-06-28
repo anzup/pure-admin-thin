@@ -22,8 +22,8 @@ export function createPermissionGuard(router: Router) {
     if (
       from.path === ROOT_PATH &&
       to.path === PageEnum.BASE_HOME &&
-      userStore.userInfo.homePath &&
-      userStore.userInfo.homePath !== PageEnum.BASE_HOME
+      userStore.userInfo?.homePath &&
+      userStore.userInfo?.homePath !== PageEnum.BASE_HOME
     ) {
       next(userStore.userInfo.homePath)
       return

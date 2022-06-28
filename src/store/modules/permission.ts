@@ -9,7 +9,7 @@ import { useUserStore } from '/@/store/modules/user'
 import { toRaw } from 'vue'
 
 import { filter } from '/@/utils/helper/treeHelper'
-import { asyncRoutes } from '/@/router/routes'
+import { asyncRoutes, HOME_ROUTE } from '/@/router/routes'
 import { flatMultiLevelRoutes } from '/@/router/helper/routeHelper'
 import { transformRouteToMenu } from '/@/router/helper/menuHelper'
 
@@ -89,7 +89,7 @@ export const usePermissionStore = defineStore({
 
       const routeFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route
-        const { roles = [] } = meta || {}
+        const { roles } = meta || {}
         if (!roles) return true
         // @ts-ignore
         return roleList.some((role) => roles.includes(role))
@@ -133,7 +133,7 @@ export const usePermissionStore = defineStore({
         return
       }
 
-      routes = filter(asyncRoutes, routeFilter)
+      routes = filter([HOME_ROUTE, ...asyncRoutes], routeFilter)
       routes = routes.filter(routeFilter)
       const menuList = transformRouteToMenu(routes, true)
       routes = filter(routes, routeRemoveIgnoreFilter)
