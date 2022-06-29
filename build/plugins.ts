@@ -22,7 +22,9 @@ import { genScssMultipleScopeVars } from '/@/layout/theme'
 export function getPluginsList(command, VITE_LEGACY) {
   const lifecycle = process.env.npm_lifecycle_event
   return [
-    vue(),
+    vue({
+      reactivityTransform: true,
+    }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),

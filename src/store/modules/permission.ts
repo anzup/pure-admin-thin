@@ -12,6 +12,7 @@ import { filter } from '/@/utils/helper/treeHelper'
 import { asyncRoutes, HOME_ROUTE } from '/@/router/routes'
 import { flatMultiLevelRoutes } from '/@/router/helper/routeHelper'
 import { transformRouteToMenu } from '/@/router/helper/menuHelper'
+import { PageEnum } from '/@/enums/pageEnum'
 
 export const usePermissionStore = defineStore({
   id: 'pure-permission',
@@ -106,7 +107,7 @@ export const usePermissionStore = defineStore({
        * */
       const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
         if (!routes || routes.length === 0) return
-        let homePath: string = (userStore.userInfo as any).homePath || '/welcome'
+        let homePath: string = (userStore.userInfo as any).homePath || PageEnum.BASE_HOME
 
         function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
           if (parentPath) parentPath = parentPath + '/'
@@ -148,6 +149,7 @@ export const usePermissionStore = defineStore({
 
       // routes.push(ERROR_LOG_ROUTE)
       patchHomeAffix(routes)
+      console.log(routes)
       return routes
     },
   },

@@ -357,6 +357,6 @@ export const useMultipleTabStore = defineStore({
 })
 
 // Need to be used outside the setup
-export function useMultipleTabWithOutStore() {
+export function useMultipleTabStoreHook() {
   return useMultipleTabStore(store)
 }
