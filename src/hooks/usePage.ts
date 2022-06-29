@@ -41,7 +41,6 @@ export function useGo(_router?: Router) {
 export const useRedo = (_router?: Router) => {
   const { push, currentRoute } = _router || useRouter()
   const { query, params = {}, name, fullPath } = unref(currentRoute.value)
-
   function redo(): Promise<boolean> {
     return new Promise((resolve) => {
       if (name === REDIRECT_NAME) {
@@ -55,6 +54,7 @@ export const useRedo = (_router?: Router) => {
         params['_redirect_type'] = 'path'
         params['path'] = fullPath
       }
+      console.log({ name: REDIRECT_NAME, params, query })
       push({ name: REDIRECT_NAME, params, query }).then(() => resolve(true))
     })
   }

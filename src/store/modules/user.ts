@@ -7,8 +7,6 @@ import { router } from '/@/router'
 import { storageSession } from '/@/utils/storage'
 import { getCurrentUserInfo, login } from '/@/api/user'
 
-import { useMultiTagsStoreHook } from '/@/store/modules/multiTags'
-
 export const useUserStore = defineStore({
   id: 'pure-user',
   state: (): userType => ({
@@ -73,16 +71,6 @@ export const useUserStore = defineStore({
     logOut() {
       this.token = ''
       storageSession.clear()
-      useMultiTagsStoreHook().handleTags('equal', [
-        {
-          path: '/welcome',
-          parentPath: '/',
-          meta: {
-            title: 'menus.homePage',
-            icon: 'home-filled',
-          },
-        },
-      ])
       router.push('/login')
     },
     // 获取当前用户信息(用于在右上角显示用户信息)

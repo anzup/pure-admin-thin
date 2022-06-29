@@ -6,19 +6,19 @@
   import { emitter } from '/@/utils/mitt'
   import { useAppStoreHook } from '/@/store/modules/app'
   import { deviceDetection } from '/@/utils/deviceDetection'
-  import { useMultiTagsStore } from '/@/store/modules/multiTags'
   import { useSettingStoreHook } from '/@/store/modules/settings'
 
-  import backTop from '/@/assets/svg/back_top.svg?component'
+  import BackTop from '/@/assets/svg/back_top.svg?component'
   import fullScreen from '/@/assets/svg/full_screen.svg?component'
   import exitScreen from '/@/assets/svg/exit_screen.svg?component'
 
   import navbar from './components/navbar.vue'
   import tag from './components/tag/index.vue'
-  import appMain from './components/appMain.vue'
-  import setting from './components/setting/index.vue'
+  import AppMain from './components/appMain.vue'
+  import Setting from './components/setting/index.vue'
   import Vertical from './components/sidebar/vertical.vue'
   import Horizontal from './components/sidebar/horizontal.vue'
+  import { useMultipleTabStoreHook } from '/@/store/modules/multipleTab'
 
   const isMobile = deviceDetection()
   const pureSetting = useSettingStoreHook()
@@ -27,13 +27,13 @@
   // 清空缓存后从serverConfig.json读取默认配置并赋值到storage中
   const layout = computed(() => {
     // 路由
-    if (
-      useMultiTagsStore().multiTagsCache &&
-      (!instance.$storage.tags || instance.$storage.tags.length === 0)
-    ) {
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      instance.$storage.tags = routerArrays
-    }
+    // if (
+    //   useMultipleTabStoreHook().multiTagsCache &&
+    //   (!instance.$storage.tags || instance.$storage.tags.length === 0)
+    // ) {
+    //   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+    //   instance.$storage.tags = routerArrays
+    // }
     // 国际化
     if (!instance.$storage.locale) {
       // eslint-disable-next-line
@@ -199,7 +199,7 @@
       v-show="set.device === 'mobile' && set.sidebar.opened && layout.includes('vertical')"
       class="app-mask"
       @click="useAppStoreHook().toggleSideBar()"
-    />
+    ></div>
     <Vertical
       v-show="!pureSetting.hiddenSideBar && (layout.includes('vertical') || layout.includes('mix'))"
     />
@@ -211,7 +211,7 @@
       </div>
       <el-scrollbar v-else>
         <el-backtop target=".main-container .el-scrollbar__wrap" title="回到顶部">
-          <backTop />
+          <BackTop />
         </el-backtop>
         <layout-header />
         <!-- 主体内容 -->
@@ -219,7 +219,7 @@
       </el-scrollbar>
     </div>
     <!-- 系统设置 -->
-    <setting />
+    <Setting />
   </div>
 </template>
 

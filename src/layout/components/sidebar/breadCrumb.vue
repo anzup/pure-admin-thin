@@ -1,113 +1,138 @@
-<script lang="ts" setup>
-  import { ref, watch } from 'vue'
-  import { isEqual } from 'lodash-unified'
-  import { transformI18n } from '/@/plugins/i18n'
-  import { getParentPaths, findRouteByPath } from '/@/router/utils'
-  import { useMultiTagsStoreHook } from '/@/store/modules/multiTags'
-  import { useRoute, useRouter, RouteLocationMatched } from 'vue-router'
-
-  const route = useRoute()
-  const levelList = ref([])
-  const router = useRouter()
-  const routes = router.options.routes
-  const multiTags = useMultiTagsStoreHook().multiTags
-
-  const isDashboard = (route: RouteLocationMatched): boolean | string => {
-    const name = route && (route.name as string)
-    if (!name) {
-      return false
-    }
-    return name.trim().toLocaleLowerCase() === 'welcome'.toLocaleLowerCase()
-  }
-
-  const getBreadcrumb = (): void => {
-    // 当前路由信息
-    let currentRoute
-    if (Object.keys(route.query).length > 0) {
-      multiTags.forEach((item) => {
-        if (isEqual(route.query, item?.query)) {
-          currentRoute = item
-        }
-      })
-    } else {
-      currentRoute = findRouteByPath(router.currentRoute.value.path, multiTags)
-    }
-    // 当前路由的父级路径组成的数组
-    const parentRoutes = getParentPaths(router.currentRoute.value.path, routes)
-    // 存放组成面包屑的数组
-    let matched = []
-    // 获取每个父级路径对应的路由信息
-    parentRoutes.forEach((path) => {
-      if (path !== '/') {
-        matched.push(findRouteByPath(path, routes))
-      }
-    })
-    if (router.currentRoute.value.meta?.refreshRedirect) {
-      matched.unshift(
-        findRouteByPath(router.currentRoute.value.meta.refreshRedirect as string, routes),
-      )
-    } else {
-      // 过滤与子级相同标题的父级路由
-      matched = matched.filter((item) => {
-        return !item.redirect || (item.redirect && item.children.length !== 1)
-      })
-    }
-    if (currentRoute?.path !== '/welcome') {
-      matched.push(currentRoute)
-    }
-
-    const first = matched[0]
-    if (!isDashboard(first)) {
-      matched = [
-        {
-          path: '/welcome',
-          parentPath: '/',
-          meta: { title: 'menus.homePage' },
-        } as unknown as RouteLocationMatched,
-      ].concat(matched)
-    }
-
-    levelList.value = matched.filter((item) => item?.meta && item?.meta.title !== false)
-  }
-
-  getBreadcrumb()
-
-  watch(
-    () => route.path,
-    () => getBreadcrumb(),
-  )
-
-  watch(
-    () => route.query,
-    () => getBreadcrumb(),
-  )
-
-  const handleLink = (item: RouteLocationMatched): any => {
-    const { redirect, path } = item
-    if (redirect) {
-      router.push(redirect.toString())
-      return
-    }
-    router.push(path)
-  }
-</script>
-
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group appear name="breadcrumb">
-      <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
+      <el-breadcrumb-item v-for="(item, index) in routes" :key="item.path">
         <span
-          v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
+          v-if="item.redirect === 'noRedirect' || index === routes.length - 1"
           class="no-redirect"
-          >{{ transformI18n(item.meta.title) }}</span
+          >{{ t(item.name || item.meta?.title) }}</span
         >
-        <a v-else @click.prevent="handleLink(item)">
-          {{ transformI18n(item.meta.title) }}
+        <a v-else @click="handleClick(item, $event)">
+          {{ t(item.name || item.meta?.title) }}
         </a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
 </template>
+<script lang="ts" setup>
+  import { RouteLocationMatched, useRouter } from 'vue-router'
+  import { ref, watchEffect } from 'vue'
+  import { useGo } from '/@/hooks/usePage'
+  import { useI18n } from '/@/hooks/useI18n'
+  import { REDIRECT_NAME } from '/@/router/constant'
+  import { getMenus } from '/@/router/menus'
+  import { getAllParentPath } from '/@/router/helper/menuHelper'
+  import { Menu } from '/@/router/types'
+  import { filter } from '/@/utils/helper/treeHelper'
+  import { isString } from '/@/utils/is'
+  import { Route } from '/@/layout/components/sidebar/111'
+
+  const routes = ref<RouteLocationMatched[]>([])
+  const { currentRoute } = useRouter()
+  const go = useGo()
+  const { t } = useI18n()
+
+  watchEffect(async () => {
+    if (currentRoute.value.name === REDIRECT_NAME) return
+    const menus = await getMenus()
+
+    const routeMatched = currentRoute.value.matched
+    const cur = routeMatched?.[routeMatched.length - 1]
+    let path = currentRoute.value.path
+
+    if (cur && cur?.meta?.currentActiveMenu) {
+      path = cur.meta.currentActiveMenu as string
+    }
+
+    const parent = getAllParentPath(menus, path)
+    const filterMenus = menus.filter((item) => item.path === parent[0])
+    const matched = getMatched(filterMenus, parent) as any
+
+    if (!matched || matched.length === 0) return
+
+    const breadcrumbList = filterItem(matched)
+
+    if (currentRoute.value.meta?.currentActiveMenu) {
+      breadcrumbList.push({
+        ...currentRoute.value,
+        name: currentRoute.value.meta?.title || currentRoute.value.name,
+      } as unknown as RouteLocationMatched)
+    }
+    console.log(breadcrumbList)
+    routes.value = breadcrumbList
+  })
+
+  function getMatched(menus: Menu[], parent: string[]) {
+    const metched: Menu[] = []
+    menus.forEach((item) => {
+      if (parent.includes(item.path)) {
+        metched.push({
+          ...item,
+          name: (item.meta?.title || item.name) as string,
+        })
+      }
+      if (item.children?.length) {
+        metched.push(...getMatched(item.children, parent))
+      }
+    })
+    return metched
+  }
+
+  function filterItem(list: RouteLocationMatched[]) {
+    return filter(list, (item) => {
+      const { meta, name } = item
+      if (!meta) {
+        return !!name
+      }
+      const { title, hideBreadcrumb } = meta
+      return !(!title || hideBreadcrumb)
+    }).filter((item) => !item.meta?.hideBreadcrumb)
+  }
+
+  const getPath = (path: string, params: unknown) => {
+    path = (path || '').replace(/^\//, '')
+    Object.keys(params).forEach((key) => {
+      path = path.replace(`:${key}`, params[key])
+    })
+    return path
+  }
+
+  function handleClick(route: RouteLocationMatched & any, e: Event) {
+    e?.preventDefault()
+    const { children, redirect, meta } = route
+    const paths: string[] = []
+    const currentRoutePath = getPath(route.path, (route.params = {}))
+    console.log(currentRoutePath)
+    for (let i = 0; i < routes.value.length; i++) {
+      const { path: itemPath, params: itemParams = {} } = routes.value[i]
+      const itemRealPath = getPath(itemPath, itemParams)
+      paths.push(itemRealPath)
+      if (itemRealPath == currentRoutePath) break
+    }
+    if (children?.length && !redirect) {
+      e?.stopPropagation()
+      return
+    }
+    if (meta?.carryParam) {
+      return
+    }
+
+    if (redirect && isString(redirect)) {
+      go(redirect)
+    } else {
+      let goPath: string
+      if (paths.length === 1) {
+        goPath = paths[0]
+      } else {
+        const ps = paths.slice(1)
+        const lastPath = ps.pop() || ''
+        goPath = `${lastPath}`
+      }
+      goPath = /^\//.test(goPath) ? goPath : `/${goPath}`
+      go(goPath)
+    }
+  }
+</script>
 
 <style lang="scss" scoped>
   .app-breadcrumb.el-breadcrumb {

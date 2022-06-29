@@ -85,9 +85,22 @@ export const HOME_ROUTE: AppRouteRecordRaw = {
   path: '/welcome',
   name: 'welcome',
   component: LAYOUT,
+  redirect: '/welcome/index',
   meta: {
     title: 'menus.homePage',
   },
+  children: [
+    {
+      path: '/index',
+      name: 'welcomeIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
+      meta: {
+        title: 'menus.homePage',
+        showLink: false,
+        rank: 101,
+      },
+    },
+  ],
 }
 
 // 404 on a page
