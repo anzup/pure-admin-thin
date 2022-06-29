@@ -25,7 +25,6 @@
   import { Menu } from '/@/router/types'
   import { filter } from '/@/utils/helper/treeHelper'
   import { isString } from '/@/utils/is'
-  import { Route } from '/@/layout/components/sidebar/111'
 
   const routes = ref<RouteLocationMatched[]>([])
   const { currentRoute } = useRouter()

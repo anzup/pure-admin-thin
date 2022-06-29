@@ -268,9 +268,9 @@ export const useMultipleTabStore = defineStore({
             pathList.push(item.fullPath)
           }
         }
-        this.bulkCloseTabs(pathList)
+        await this.bulkCloseTabs(pathList)
       }
-      this.updateCacheTab()
+      await this.updateCacheTab()
       handleGotoPage(router)
     },
 
@@ -288,9 +288,9 @@ export const useMultipleTabStore = defineStore({
             pathList.push(item.fullPath)
           }
         }
-        this.bulkCloseTabs(pathList)
+        await this.bulkCloseTabs(pathList)
       }
-      this.updateCacheTab()
+      await this.updateCacheTab()
       handleGotoPage(router)
     },
 
@@ -320,8 +320,8 @@ export const useMultipleTabStore = defineStore({
           }
         }
       }
-      this.bulkCloseTabs(pathList)
-      this.updateCacheTab()
+      await this.bulkCloseTabs(pathList)
+      await this.updateCacheTab()
       handleGotoPage(router)
     },
 
