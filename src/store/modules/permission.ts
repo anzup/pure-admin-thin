@@ -33,6 +33,7 @@ export const usePermissionStore = defineStore({
       this.isDynamicAddedRoute = added
     },
     setMenuList(list: Menu[]) {
+      console.log(list)
       this.wholeMenus = list
     },
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
@@ -102,7 +103,6 @@ export const usePermissionStore = defineStore({
 
       // routes.push(ERROR_LOG_ROUTE)
       patchHomeAffix(routes)
-      console.log(routes)
       return routes
     },
   },
