@@ -1,16 +1,5 @@
 import { Component } from 'vue'
 
-export const routerArrays: Array<RouteConfigs> = [
-  {
-    path: '/welcome',
-    parentPath: '/',
-    meta: {
-      title: 'menus.homePage',
-      icon: 'home-filled',
-    },
-  },
-]
-
 export type routeMetaType = {
   title?: string
   i18n?: boolean

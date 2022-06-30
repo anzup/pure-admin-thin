@@ -2,7 +2,6 @@
   import { h, reactive, computed, onMounted, defineComponent, getCurrentInstance } from 'vue'
   import { setType } from './types'
   import { useI18n } from '/@/hooks/useI18n'
-  import { routerArrays } from './types'
   import { emitter } from '/@/utils/mitt'
   import { useAppStoreHook } from '/@/store/modules/app'
   import { deviceDetection } from '/@/utils/deviceDetection'

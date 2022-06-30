@@ -5,9 +5,12 @@
   import SidebarItem from './sidebarItem.vue'
   import { storageLocal } from '/@/utils/storage'
   import { useRoute, useRouter } from 'vue-router'
-  import { ref, computed, watch, onBeforeMount } from 'vue'
+  import { computed, onBeforeMount, ref, unref, watch } from 'vue'
   import { findRouteByPath, getParentPaths } from '/@/router/utils'
   import { usePermissionStoreHook } from '/@/store/modules/permission'
+  import { getMenus, getShallowMenus } from '/@/router/menus'
+  import { Menu } from '/@/router/types'
+  import { useAppStoreHook } from '/@/store/modules/app'
 
   const route = useRoute()
   const routers = useRouter().options.routes
@@ -20,6 +23,26 @@
   const menuData = computed(() => {
     return pureApp.layout === 'mix' ? subMenuData.value : usePermissionStoreHook().wholeMenus
   })
+
+  const menusRef = ref<Menu[]>([])
+  const normalType = computed<boolean>(() => pureApp.layout === 'vertical')
+  const getIsMobile = computed<boolean>(() => useAppStoreHook().device === 'mobile')
+  // get menus
+  async function genMenus() {
+    // normal mode
+    if (unref(normalType) || unref(getIsMobile)) {
+      menusRef.value = await getMenus()
+      console.log(menusRef.value)
+      return
+    }
+
+    // split-top
+    if (unref(pureApp.layout === 'mix')) {
+      menusRef.value = await getShallowMenus()
+      console.log(menusRef.value)
+      return
+    }
+  }
 
   function getSubMenuData(path) {
     // path的上级路由组成的数组
@@ -54,6 +77,7 @@
     () => {
       getSubMenuData(route.path)
       menuSelect(route.path, routers)
+      genMenus()
     },
   )
 </script>

@@ -32,7 +32,7 @@ const staticMenus: Menu[] = []
 
 async function getAsyncMenus() {
   const permissionStore = usePermissionStore()
-
+  console.log(permissionStore.getFrontMenuList)
   return permissionStore.getFrontMenuList.filter((item) => !item.hideMenu)
 }
 
@@ -42,7 +42,7 @@ export const getMenus = async (): Promise<Menu[]> => {
 
 export async function getCurrentParentPath(currentPath: string) {
   const menus = await getAsyncMenus()
-  const allParentPath = await getAllParentPath(menus, currentPath)
+  const allParentPath = getAllParentPath(menus, currentPath)
   return allParentPath?.[0]
 }
 
