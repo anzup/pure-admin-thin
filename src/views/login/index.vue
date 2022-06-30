@@ -10,7 +10,6 @@
   // import { ReImageVerify } from '/@/components/ReImageVerify'
   import { useRenderIcon } from '/@/components/ReIcon/src/hooks'
   import { storageSession } from '/@/utils/storage'
-  import { initRouter } from '/@/router/utils'
   import { message } from '/@/utils/resetMessage'
   import Phone from './components/phone.vue'
   import QrCode from './components/qrCode.vue'
@@ -42,10 +41,6 @@
           .loginByUsername(ruleForm)
           .then(() => {
             loading.value = false
-            storageSession.setItem('info', {
-              username: 'admin',
-              accessToken: 'eyJhbGciOiJIUzUxMiJ9.test',
-            })
             // initRouter().then(() => {
             message.success('登陆成功')
             router.push('/')

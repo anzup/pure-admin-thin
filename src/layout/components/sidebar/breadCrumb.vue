@@ -57,7 +57,6 @@
         name: currentRoute.value.meta?.title || currentRoute.value.name,
       } as unknown as RouteLocationMatched)
     }
-    console.log(breadcrumbList)
     routes.value = breadcrumbList
   })
 

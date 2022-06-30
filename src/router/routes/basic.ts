@@ -1,5 +1,6 @@
 import type { AppRouteRecordRaw } from '../types'
-import { LAYOUT } from '/@/router/constant'
+import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME } from '/@/router/constant'
+import { PageEnum } from '/@/enums/pageEnum'
 
 export const ERROR_ROUTE: AppRouteRecordRaw = {
   path: '/error',
@@ -42,7 +43,7 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
 export const ROOT_ROUTE: AppRouteRecordRaw = {
   path: '/',
   name: 'Root',
-  redirect: '/welcome',
+  redirect: PageEnum.BASE_HOME,
   meta: {
     title: 'root',
   },
@@ -91,7 +92,7 @@ export const HOME_ROUTE: AppRouteRecordRaw = {
   },
   children: [
     {
-      path: '/index',
+      path: 'index',
       name: 'welcomeIndex',
       component: () => import('/@/views/dashboard/index.vue'),
       meta: {
@@ -104,7 +105,25 @@ export const HOME_ROUTE: AppRouteRecordRaw = {
 }
 
 // 404 on a page
-export const PAGE_NOT_FOUND_ROUTE = {
-  path: '/:pathMatch(.*)',
-  redirect: '/error/404',
+export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
+  path: '/:path(.*)*',
+  name: PAGE_NOT_FOUND_NAME,
+  component: LAYOUT,
+  meta: {
+    title: 'ErrorPage',
+    hideBreadcrumb: true,
+    hideMenu: true,
+  },
+  children: [
+    {
+      path: '/:path(.*)*',
+      name: PAGE_NOT_FOUND_NAME,
+      component: EXCEPTION_COMPONENT,
+      meta: {
+        title: 'ErrorPage',
+        hideBreadcrumb: true,
+        hideMenu: true,
+      },
+    },
+  ],
 }
