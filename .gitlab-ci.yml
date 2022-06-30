@@ -22,7 +22,8 @@ compile:
     - docker login -u ${DOCKER_REPO_USER} -p ${DOCKER_REPO_PASSWORD} registry.cn-hangzhou.aliyuncs.com
     - echo "Buiding package..."
     - image=${DOCKER_REPO_NAME}
-    - pnpm build:prod > /tmp/opm_web_build.log 2>&1
+    #- pnpm build > /tmp/opm_web_build.log 2>&1
+    - pnpm build
     - echo "Building latest image"
     - docker build -t $image:latest .
     - docker push $image
