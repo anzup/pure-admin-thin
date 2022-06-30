@@ -1,6 +1,4 @@
 {
-  "name": "pure-admin-thin",
-  "version": "3.3.0",
   "private": true,
   "scripts": {
     "dev": "cross-env --max_old_space_size=4096 vite",
@@ -134,8 +132,5 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-svg-loader": "^3.3.0",
     "vue-eslint-parser": "^8.2.0"
-  },
-  "repository": "git@github.com:xiaoxian521/vue-pure-admin.git",
-  "author": "xiaoxian521",
-  "license": "MIT"
+  }
 }
