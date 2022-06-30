@@ -1,0 +1,39 @@
+before_script:
+  - echo "before script"
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - compile,package and publish
+
+compile:
+  tags:
+    - shell
+  stage: compile,package and publish
+  before_script:
+    - pnpm --version
+  script:
+    - echo "Start compile..."
+    - nvm use 16.13.1
+    - pnpm install
+    - echo "Start package..."
+    - docker login -u ${DOCKER_REPO_USER} -p ${DOCKER_REPO_PASSWORD} registry.cn-hangzhou.aliyuncs.com
+    - echo "Buiding package..."
+    - image=${DOCKER_REPO_NAME}
+    - pnpm build:prod > /tmp/opm_web_build.log 2>&1
+    - echo "Building latest image"
+    - docker build -t $image:latest .
+    - docker push $image
+    - |
+      if [ "$CI_COMMIT_TAG" != "" ]
+      then
+        echo "Buiding tag image: $CI_COMMIT_TAG"
+        docker build -t $image:$CI_COMMIT_TAG .
+        docker push $image:$CI_COMMIT_TAG
+      fi
+    - echo "Start publish..."
+    - ssh root@$DEV_IP "docker-compose -f ~/docker/hyx/docker-compose.yml pull && docker-compose -f ~/docker/hyx/docker-compose.yml up -d"
+  only:
+    - main
