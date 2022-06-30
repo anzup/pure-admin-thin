@@ -14,13 +14,13 @@ declare module 'vue' {
 declare global {
   const __APP_INFO__: {
     pkg: {
-      name: string;
-      version: string;
-      dependencies: Recordable<string>;
-      devDependencies: Recordable<string>;
-    };
-    lastBuildTime: string;
-  };
+      name: string
+      version: string
+      dependencies: Recordable<string>
+      devDependencies: Recordable<string>
+    }
+    lastBuildTime: string
+  }
 
   interface Window {
     // Global vue app instance
@@ -36,33 +36,33 @@ declare global {
   }
 
   // vue
-  type PropType<T> = VuePropType<T>;
+  type PropType<T> = VuePropType<T>
 
   type Writable<T> = {
-    -readonly [P in keyof T]: T[P];
-  };
+    -readonly [P in keyof T]: T[P]
+  }
 
-  type Nullable<T> = T | null;
-  type NonNullable<T> = T extends null | undefined ? never : T;
-  type Recordable<T = any> = Record<string, T>;
+  type Nullable<T> = T | null
+  type NonNullable<T> = T extends null | undefined ? never : T
+  type Recordable<T = any> = Record<string, T>
   type ReadonlyRecordable<T = any> = {
-    readonly [key: string]: T;
-  };
+    readonly [key: string]: T
+  }
   type Indexable<T = any> = {
-    [key: string]: T;
-  };
+    [key: string]: T
+  }
   type DeepPartial<T> = {
-    [P in keyof T]?: DeepPartial<T[P]>;
-  };
-  type TimeoutHandle = ReturnType<typeof setTimeout>;
-  type IntervalHandle = ReturnType<typeof setInterval>;
+    [P in keyof T]?: DeepPartial<T[P]>
+  }
+  type TimeoutHandle = ReturnType<typeof setTimeout>
+  type IntervalHandle = ReturnType<typeof setInterval>
 
   interface ChangeEvent extends Event {
-    target: HTMLInputElement;
+    target: HTMLInputElement
   }
 
   interface WheelEvent {
-    path?: EventTarget[];
+    path?: EventTarget[]
   }
 
   interface ImportMetaEnv extends ViteEnv {
@@ -78,10 +78,7 @@ declare global {
     VITE_APPNAME: string
     VITE_BASE_API_ACCOUNT: string
     VITE_BASE_API_PUB: string
-    VITE_BASE_API_CPM: string
-    VITE_BASE_API_CSM: string
-    VITE_BASE_API_CTM: string
-    VITE_BASE_API_FTM: string
+    VITE_BASE_API_LOGISTICS: string
     VITE_BASE_URL: string
   }
 
@@ -113,15 +110,15 @@ declare global {
     }
   }
 
-  function parseInt(s: string | number, radix?: number): number;
+  function parseInt(s: string | number, radix?: number): number
 
-  function parseFloat(string: string | number): number;
+  function parseFloat(string: string | number): number
 
   namespace JSX {
     // tslint:disable no-empty-interface
-    type Element = VNode;
+    type Element = VNode
     // tslint:disable no-empty-interface
-    type ElementClass = ComponentRenderProxy;
+    type ElementClass = ComponentRenderProxy
 
     interface ElementAttributesProperty {
       $props: any
@@ -137,20 +134,20 @@ declare global {
   }
 
   declare interface TableButton extends VxeButtonProps {
-    name: string;
-    visible?: boolean;
-    type?: string;
-    disabled?: boolean;
-    status?: "perfect" | "primary" | "success" | "info" | "warning" | "danger";
+    name: string
+    visible?: boolean
+    type?: string
+    disabled?: boolean
+    status?: 'perfect' | 'primary' | 'success' | 'info' | 'warning' | 'danger'
     event?: (params?: {
-      row;
-      rowIndex;
-      $rowIndex;
-      column;
-      columnIndex;
-      $columnIndex;
-      _columnIndex;
-    }) => void;
+      row
+      rowIndex
+      $rowIndex
+      column
+      columnIndex
+      $columnIndex
+      _columnIndex
+    }) => void
   }
 
   declare type ButtonArr = Array<TableButton>
@@ -166,11 +163,11 @@ declare global {
   }
 
   declare type ElFormInstance = InstanceType<typeof ElForm>
-  declare type FormItemRule = ItemRules | ItemRules[];
+  declare type FormItemRule = ItemRules | ItemRules[]
 
-  export type SFCWithInstall<T> = T & Plugin;
+  export type SFCWithInstall<T> = T & Plugin
 
   export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
-    _context: AppContext | null;
-  };
+    _context: AppContext | null
+  }
 }

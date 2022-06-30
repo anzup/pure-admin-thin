@@ -1,7 +1,7 @@
 import { AxiosPromise } from 'axios'
 import request from '/@/utils/request'
 
-const url = import.meta.env.VITE_BASE_API_CPM
+const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
 /**
  *
@@ -108,6 +108,7 @@ export const getStudentTypesList = function (params) {
     params,
   })
 }
+
 /**
  * @function 获取职位的权限列表
  **/

@@ -70,7 +70,7 @@
   import { AxiosPromise } from 'axios'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { onMounted, reactive, ref } from 'vue'
-  import { useI18n } from 'vue-i18n'
+  import { useI18n } from '/@/hooks/useI18n'
 
   export interface Props {
     api: {

@@ -5,7 +5,7 @@ import request from '/@/utils/request'
 
 const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT
 // const opmUrl = import.meta.env.VITE_BASE_API_OPM
-const url = import.meta.env.VITE_BASE_API_CPM
+const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
 export type DegreeType =
   | 'HIGH_SCHOOL'

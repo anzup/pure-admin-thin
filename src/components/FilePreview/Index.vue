@@ -20,7 +20,7 @@
   import Audio from './components/AudioPlayer.vue'
   import Office from './components/OfficePreview.vue'
   import Pdf from './components/PdfPreview.vue'
-  import { useI18n } from 'vue-i18n'
+  import { useI18n } from '/@/hooks/useI18n'
 
   const { t } = useI18n()
 

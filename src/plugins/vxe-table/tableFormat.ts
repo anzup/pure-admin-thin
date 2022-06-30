@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { useI18n } from 'vue-i18n'
+import { useI18n } from '/@/hooks/useI18n'
 
 export default {
   // 格式化时间

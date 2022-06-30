@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { useI18n } from 'vue-i18n'
+  import { useI18n } from '/@/hooks/useI18n'
   import { useNav } from '../hooks/nav'
   import { useRoute } from 'vue-router'
   import Search from './search/index.vue'

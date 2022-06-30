@@ -12,7 +12,7 @@
     getCurrentInstance,
   } from 'vue'
 
-  import { useI18n } from 'vue-i18n'
+  import { useI18n } from '/@/hooks/useI18n'
   import { emitter } from '/@/utils/mitt'
   import { storageLocal } from '/@/utils/storage'
   import { RouteLocationNormalized, RouteMeta, useRoute, useRouter } from 'vue-router'
