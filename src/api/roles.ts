@@ -5,9 +5,7 @@ const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
 /**
  *
- * @param {
- * 职位列表
- * }
+ * @description 职位列表
  */
 
 export interface Roles extends PageBase {
@@ -28,9 +26,7 @@ export const getRolesList = function (params: Roles): AxiosPromise<DefaultPaging
 }
 
 /**
- * @param {
- * 职位详情
- * }
+ * @description  职位详情
  */
 
 export const getRolesDetail = function (params) {
@@ -41,9 +37,7 @@ export const getRolesDetail = function (params) {
 }
 
 /**
- * @param {
- * 职位新增
- * }
+ * @description  职位新增
  */
 
 export const postRoles = function (data) {
@@ -55,9 +49,7 @@ export const postRoles = function (data) {
 }
 
 /**
- * @param {
- * 职位修改
- * }
+ * @description  职位修改
  */
 
 export const putRolesId = function (data) {
@@ -69,9 +61,8 @@ export const putRolesId = function (data) {
 }
 
 /**
- * @param {
- * 职位删除
- * }
+ * @description  职位删除
+
  */
 
 export const deleteRolesId = function (data) {
@@ -82,9 +73,7 @@ export const deleteRolesId = function (data) {
 }
 
 /**
- * @param {
- * 职位批量删除
- * }
+ * @description  职位批量删除
  */
 
 export const postRolesBatchDelete = function () {
@@ -96,9 +85,7 @@ export const postRolesBatchDelete = function () {
 
 /**
  *
- * @param {
- * 学员类型
- * }
+ * @description 学员类型
  */
 
 export const getStudentTypesList = function (params) {
@@ -110,7 +97,7 @@ export const getStudentTypesList = function (params) {
 }
 
 /**
- * @function 获取职位的权限列表
+ * @description 获取职位的权限列表
  **/
 export interface RolesAuth {
   authCode: string

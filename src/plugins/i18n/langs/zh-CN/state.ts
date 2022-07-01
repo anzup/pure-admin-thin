@@ -6,7 +6,7 @@ export default {
   remark: '备注',
   isItBuiltIn: '是否内置',
   operation: '操作',
-  newJob: '新增职位',
+  newPosition: '新增职位',
   seq: '序号',
   yes: '是',
   no: '否',
@@ -18,4 +18,5 @@ export default {
   operationAuthority: '操作权限',
   display: '显示',
   hide: '隐藏',
+
 }

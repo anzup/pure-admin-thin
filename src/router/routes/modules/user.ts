@@ -43,6 +43,26 @@ const userRouter: RouteRecordRaw = {
         },
       ],
     },
+    {
+      path: 'departments',
+      redirect: '/user/departments/index',
+      name: 'Departments',
+      component: getParentLayout('Departments'),
+      meta: {
+        title: 'menus.departmentManagement',
+        hideChildrenInMenu: true,
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'DepartmentsIndex',
+          component: () => import('/@/views/user/departments/index.vue'),
+          meta: {
+            title: 'menus.departmentManagement',
+          },
+        },
+      ],
+    },
   ],
 }
 

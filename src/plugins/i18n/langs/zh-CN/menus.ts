@@ -15,4 +15,5 @@ export default {
   managementTrainees: '参训人员管理',
   accountManagement: '账号管理',
   positionManagement: '职位管理',
+  departmentManagement: '部门管理',
 }

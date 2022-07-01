@@ -11,16 +11,17 @@
     >
       <el-form ref="formRef" :model="form" :rules="rules" class="demo-form" label-width="80px">
         <el-form-item :label="$t('state.positionName')" prop="name">
-          <el-input v-model="form.name" :placeholder="$t('tip.pleaseEnter')"></el-input>
+          <el-input v-model="form.name" :placeholder="$t('tip.pleaseEnter')" />
         </el-form-item>
-
-        <el-form-item :label="$t('state.remark')" prop="remark">
-          <el-input
-            v-model="form.remark"
-            :autosize="{ minRows: 2, maxRows: 5 }"
-            :placeholder="$t('tip.pleaseEnter')"
-            type="textarea"
-          />
+        <el-form-item :label="$t('state.positionName')" prop="name">
+          <el-select v-model="form">
+            <el-option
+              v-for="item in departmentList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.name"
+            />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -38,6 +39,7 @@
   import { postRoles, getRolesDetail, putRolesId } from '/@/api/roles'
   import { ElMessage } from 'element-plus'
   import { useI18n } from '/@/hooks/useI18n'
+  import { departmentList } from '/@/enums/departmentEnum'
 
   interface IForm {
     name: string
@@ -95,6 +97,7 @@
         resetForm()
       }
       const open = () => {
+        console.log(departmentList)
         if (props.type == 'edit') {
           getRolesDetail(props.id).then((res) => {
             if (res.status == 200) {

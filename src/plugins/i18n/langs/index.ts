@@ -17,4 +17,7 @@ export const localesConfigs = {
     ...enLocale,
     ...enVxeTable,
   },
+  buttons: {
+    confirm: '',
+  },
 }
