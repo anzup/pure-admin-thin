@@ -20,6 +20,7 @@ const userRouter: RouteRecordRaw = {
       component: getParentLayout('Roles'),
       meta: {
         title: 'menus.positionManagement',
+        hideChildrenInMenu: true,
       },
       children: [
         {

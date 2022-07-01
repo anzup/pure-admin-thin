@@ -91,6 +91,7 @@ export const usePermissionStore = defineStore({
       routes = filter([HOME_ROUTE, ...asyncRoutes], routeFilter)
       routes = routes.filter(routeFilter)
       const menuList = transformRouteToMenu(routes, true)
+      console.log(menuList)
       routes = filter(routes, routeRemoveIgnoreFilter)
       routes = routes.filter(routeRemoveIgnoreFilter)
       menuList.sort((a, b) => {
