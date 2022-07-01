@@ -51,17 +51,6 @@ export function getPluginsList(command, VITE_LEGACY) {
         },
       ],
     }),
-    // createStyleImportPlugin({
-    // resolves: [VxeTableResolve()],
-    // libs: [
-    //   {
-    //     libraryName: 'vxe-table',
-    //     esModule: true,
-    //     // resolveComponent: (name) => `vxe-table/es/${name}`,
-    //     resolveStyle: (name) => `vxe-table/es/${name}/style.css`,
-    //   },
-    // ],
-    // }),
     // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
     VueI18n({
       runtimeOnly: true,
@@ -77,15 +66,19 @@ export function getPluginsList(command, VITE_LEGACY) {
     // 自定义主题
     themePreprocessorPlugin({
       scss: {
+        // 是否启用任意主题色模式，这里不启用
+        arbitraryMode: false,
         multipleScopeVars: genScssMultipleScopeVars(),
-        // // 在生产模式是否抽取独立的主题css文件，extract为true以下属性有效
-        // extract: true,
-        // // 会选取defaultScopeName对应的主题css文件在html添加link
-        // themeLinkTagId: 'head',
-        // // "head"||"head-prepend" || "body" ||"body-prepend"
-        // themeLinkTagInjectTo: 'head',
-        // // 是否对抽取的css文件内对应scopeName的权重类名移除
-        // removeCssScopeName: false,
+        // 在生产模式是否抽取独立的主题css文件，extract为true以下属性有效
+        extract: true,
+        // 会选取defaultScopeName对应的主题css文件在html添加link
+        themeLinkTagId: 'head',
+        // "head"||"head-prepend" || "body" ||"body-prepend"
+        themeLinkTagInjectTo: 'head',
+        // 是否对抽取的css文件内对应scopeName的权重类名移除
+        removeCssScopeName: false,
+        // 独立主题css文件的输出路径，默认取 viteConfig.build.assetsDir 相对于 (viteConfig.build.outDir)
+        outputDir: './assets/',
       },
     }), // svg组件化支持
     svgLoader(),
