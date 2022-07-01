@@ -33,7 +33,6 @@ export const usePermissionStore = defineStore({
       this.isDynamicAddedRoute = added
     },
     setMenuList(list: Menu[]) {
-      console.log(list)
       this.wholeMenus = list
     },
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
@@ -91,7 +90,6 @@ export const usePermissionStore = defineStore({
       routes = filter([HOME_ROUTE, ...asyncRoutes], routeFilter)
       routes = routes.filter(routeFilter)
       const menuList = transformRouteToMenu(routes, true)
-      console.log(menuList)
       routes = filter(routes, routeRemoveIgnoreFilter)
       routes = routes.filter(routeRemoveIgnoreFilter)
       menuList.sort((a, b) => {

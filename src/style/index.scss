@@ -48,17 +48,6 @@ html {
   margin: 0;
 }
 
-// 修改样式变量
-/*color*/
-$vxe-primary-color: $systemColor !default;
-$vxe-success-color: #3eab45 !default;
-// $vxe-info-color: #909399 !default;
-$vxe-warning-color: #fcb900 !default;
-$vxe-danger-color: #d44949 !default;
-// $vxe-disabled-color: #BFBFBF !default;
-// $vxe-primary-disabled-color: #c0c4cc !default;
-
-@import "vxe-table/styles/index.scss";
 
 /********** 表格滚动条样式 ***********/
 .vxe-grid {
@@ -152,34 +141,6 @@ body::-webkit-scrollbar {
 
 .vxe-modal--content {
   white-space: normal !important;
-}
-
-.width90 {
-  width: 90px !important;
-}
-
-.width100 {
-  width: 100px !important;
-}
-
-.width120 {
-  width: 120px !important;
-}
-
-.width150 {
-  width: 150px !important;
-}
-
-.width180 {
-  width: 180px !important;
-}
-
-.width220 {
-  width: 220px !important;
-}
-
-.width250 {
-  width: 250px !important;
 }
 
 .container {

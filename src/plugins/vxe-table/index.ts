@@ -4,8 +4,6 @@ import XEUtils from 'xe-utils'
 import { App, unref } from 'vue'
 import { i18n } from '/@/plugins/i18n'
 import 'font-awesome/css/font-awesome.min.css'
-import zh from 'vxe-table/lib/locale/lang/zh-CN'
-import en from 'vxe-table/lib/locale/lang/en-US'
 import tableFormat from './tableFormat'
 // import VXETablePluginExportXLSX from 'vxe-table-plugin-export-xlsx'
 // import VXETablePluginElement from 'vxe-table-plugin-element'
@@ -63,6 +61,7 @@ VXETable.formats.mixin(tableFormat)
 renderer(VXETable.renderer)
 
 // 全局默认参数
+// @ts-ignore
 VXETable.setup({
   size: 'mini',
   version: 0,
@@ -85,18 +84,15 @@ VXETable.setup({
   input: {
     clearable: true,
   },
-  i18n: (key, args) => {
-    return unref(i18n.global.locale) === 'zh'
-      ? XEUtils.toFormatString(XEUtils.get(zh, key), args)
-      : XEUtils.toFormatString(XEUtils.get(en, key), args)
-  },
-  translate(key) {
-    const NAMESPACED = ['el.', 'buttons.']
-    if (key && NAMESPACED.findIndex((v) => key.includes(v)) !== -1) {
-      return i18n.global.t.call(i18n.global.locale, key)
-    }
-    return key
-  },
+  // @ts-ignore
+  i18n: (key, args) => i18n.global.t(key, args),
+  // translate(key) {
+  //   const NAMESPACED = ['el.', 'buttons.']
+  //   if (key && NAMESPACED.findIndex((v) => key.includes(v)) !== -1) {
+  //     return i18n.global.t.call(i18n.global.locale, key)
+  //   }
+  //   return key
+  // },
 })
 
 export function useTable(app: App) {

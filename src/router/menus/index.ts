@@ -32,7 +32,6 @@ const staticMenus: Menu[] = []
 
 async function getAsyncMenus() {
   const permissionStore = usePermissionStore()
-  console.log(permissionStore.getFrontMenuList)
   return permissionStore.getFrontMenuList.filter((item) => !item.hideMenu)
 }
 

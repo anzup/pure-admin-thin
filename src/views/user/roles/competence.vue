@@ -20,10 +20,10 @@
       <template #bottom>
         <div class="w-full py-4 text-center">
           <el-button @click="$router.back()">
-            {{ t('button.back') }}
+            {{ t('buttons.back') }}
           </el-button>
           <el-button type="primary" @click="confirm">
-            {{ t('button.save') }}
+            {{ t('buttons.save') }}
           </el-button>
         </div>
       </template>
@@ -112,7 +112,7 @@
     const keyMap: any = {}
     XEUtils.eachTree<RolesAuthTree>(
       treeData,
-      (item, index, result, paths, parent, nodes) => {
+      (item, index, result, paths, parent) => {
         keyMap[item.authCode] = item
         item.keys = parent ? parent.keys.concat([item.authCode]) : [item.authCode]
         //判断为树节点的最后一层或者无子权限的层级
@@ -169,7 +169,7 @@
           })
         })
     })
-    postRolesAuthConfigs(route.query.id as unknown as number, [...map.values()]).then((res) => {
+    postRolesAuthConfigs(route.query.id as unknown as number, [...map.values()]).then(() => {
       router.back()
     })
   }

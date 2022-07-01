@@ -17,7 +17,4 @@ export const localesConfigs = {
     ...enLocale,
     ...enVxeTable,
   },
-  buttons: {
-    hsAdd: '',
-  },
 }

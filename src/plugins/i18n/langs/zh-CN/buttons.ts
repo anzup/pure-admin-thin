@@ -19,4 +19,10 @@ export default {
   closeRightTabs: '关闭右侧标签页',
   closeOtherTabs: '关闭其他标签页',
   closeAllTabs: '关闭全部标签页',
+  detail: '详情',
+  modify: '修改',
+  competence: '权限',
+  cancel: '取消',
+  confirm: '确认',
+  back: '返回',
 }

@@ -7,7 +7,7 @@
         :prop="'clients.' + index + '.name'"
         :rules="{
           required: true,
-          message: $t('tip.please_enter'),
+          message: $t('tip.pleaseEnter'),
           trigger: 'blur',
         }"
       >
@@ -66,132 +66,133 @@
 </template>
 
 <script lang="ts" setup>
-  import to from 'await-to-js'
-  import { AxiosPromise } from 'axios'
-  import { ElMessage, ElMessageBox } from 'element-plus'
-  import { onMounted, reactive, ref } from 'vue'
-  import { useI18n } from '/@/hooks/useI18n'
+import to from 'await-to-js'
+import { AxiosPromise } from 'axios'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { onMounted, reactive, ref } from 'vue'
+import { useI18n } from '/@/hooks/useI18n'
 
-  export interface Props {
-    api: {
-      // eslint-disable-next-line no-undef
-      getList: (params?: any) => AxiosPromise<DefaultPagingData>
-      postData: (params?: any) => AxiosPromise<any>
-      putData: (params?: any) => AxiosPromise<any>
-      deleteData: (params?: any) => AxiosPromise<any>
-    }
-    getForm?: {
-      page?: number
-      size?: number
-      order?: string
-      limited?: boolean
-    }
+export interface Props {
+  api: {
+    // eslint-disable-next-line no-undef
+    getList: (params?: any) => AxiosPromise<DefaultPagingData>
+    postData: (params?: any) => AxiosPromise<any>
+    putData: (params?: any) => AxiosPromise<any>
+    deleteData: (params?: any) => AxiosPromise<any>
   }
-
-  export interface Item {
-    canEdit?: boolean
-    id?: number
-    name: string
+  getForm?: {
+    page?: number
+    size?: number
+    order?: string
+    limited?: boolean
   }
+}
 
-  const { t } = useI18n()
+export interface Item {
+  canEdit?: boolean
+  id?: number
+  name: string
+}
 
-  const props = defineProps<Props>()
+const { t } = useI18n()
 
-  const state = reactive<{
-    form: {
-      clients: Item[]
-    }
-  }>({
-    form: {
-      clients: [],
-    },
+const props = defineProps<Props>()
+
+const state = reactive<{
+  form: {
+    clients: Item[]
+  }
+}>({
+  form: {
+    clients: [],
+  },
+})
+const formRef = ref(),
+  loading = ref(false)
+const getList = async () => {
+  if (!props.api?.getList) return
+  loading.value = true
+  const [err, res] = await to(
+    props.api.getList(Object.assign({ page: 1, size: 1000, order: 'asc' }, props.getForm)),
+  )
+  if (err) return
+  state.form.clients = res.data.content.map((v) => {
+    v.canEdit = false
+    return v
   })
-  const formRef = ref(),
-    loading = ref(false)
-  const getList = async () => {
-    if (!props.api?.getList) return
-    loading.value = true
-    const [err, res] = await to(
-      props.api.getList(Object.assign({ page: 1, size: 1000, order: 'asc' }, props.getForm)),
-    )
-    if (err) return
-    state.form.clients = res.data.content.map((v) => {
-      v.canEdit = false
-      return v
-    })
-    loading.value = false
-  }
+  loading.value = false
+}
 
-  const editClient = (item: any) => {
-    item.canEdit = true
-  }
+const editClient = (item: any) => {
+  item.canEdit = true
+}
 
-  const saveClient = (item: Item, prop: string) => {
-    formRef.value.validateField(prop, (valid) => {
-      console.log(valid)
+const saveClient = (item: Item, prop: string) => {
+  formRef.value.validateField(prop, (valid) => {
+    console.log(valid)
 
-      if (valid) {
-        if (!item.id) {
-          // 新增
-          props.api.postData(item).then(() => {
-            ElMessage.success(t('messages.successfully_added'))
-            getList()
-          })
-          return
-        }
-        // 编辑
-        props.api.putData(item).then(() => {
-          ElMessage.success(t('message.modified_successfully'))
+    if (valid) {
+      if (!item.id) {
+        // 新增
+        props.api.postData(item).then(() => {
+          ElMessage.success(t('messages.successfully_added'))
           getList()
         })
+        return
+      }
+      // 编辑
+      props.api.putData(item).then(() => {
+        ElMessage.success(t('message.modified_successfully'))
+        getList()
+      })
+    }
+  })
+}
+const removeDomain = (item) => {
+  ElMessageBox.confirm(t('tip.deleteTheSelectedData'), {
+    type: 'warning',
+  })
+    .then(() => {
+      var index = state.form.clients.indexOf(item)
+
+      if (index !== -1 && item.id) {
+        props.api.deleteData(item.id).then(() => {
+          ElMessage.success(t('message.delete_succeeded'))
+          state.form.clients.splice(index, 1)
+        })
+      } else {
+        state.form.clients.splice(index, 1)
       }
     })
-  }
-  const removeDomain = (item) => {
-    ElMessageBox.confirm(t('tip.deleteTheSelectedData'), {
-      type: 'warning',
+    .catch((_) => {
     })
-      .then(() => {
-        var index = state.form.clients.indexOf(item)
-
-        if (index !== -1 && item.id) {
-          props.api.deleteData(item.id).then(() => {
-            ElMessage.success(t('message.delete_succeeded'))
-            state.form.clients.splice(index, 1)
-          })
-        } else {
-          state.form.clients.splice(index, 1)
-        }
-      })
-      .catch((_) => {})
-  }
-  const addDomain = () => {
-    state.form.clients.push({
-      id: undefined,
-      name: '',
-      canEdit: true,
-    })
-  }
-
-  onMounted(() => {
-    getList()
+}
+const addDomain = () => {
+  state.form.clients.push({
+    id: undefined,
+    name: '',
+    canEdit: true,
   })
+}
+
+onMounted(() => {
+  getList()
+})
 </script>
 
 <style lang="scss" scoped>
-  :deep(.el-form-item) {
-    .el-form-item__content {
-      width: 150px;
-      display: flex;
-    }
+:deep(.el-form-item) {
+  .el-form-item__content {
+    width: 150px;
+    display: flex;
   }
+}
 
-  :deep(.el-tag) {
-    width: 100%;
-    height: 100%;
-    line-height: 30px;
-    text-align: center;
-    font-size: 14px;
-  }
+:deep(.el-tag) {
+  width: 100%;
+  height: 100%;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+}
 </style>

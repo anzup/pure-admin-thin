@@ -9,34 +9,24 @@
       @close="close"
       @open="open"
     >
-      <el-form ref="formRef" :model="form" :rules="rules" class="demo-form" label-width="110px">
-        <el-form-item :label="$t('state.job_title')" prop="name">
-          <el-input v-model="form.name" :placeholder="$t('tip.please_enter')"></el-input>
+      <el-form ref="formRef" :model="form" :rules="rules" class="demo-form" label-width="80px">
+        <el-form-item :label="$t('state.positionName')" prop="name">
+          <el-input v-model="form.name" :placeholder="$t('tip.pleaseEnter')"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('state.isCenterPerson')" prop="fromTrainingCenter">
-          <el-switch
-            v-model="form.fromTrainingCenter"
-            :active-text="$t('state.yes')"
-            :active-value="true"
-            :inactive-text="$t('state.no')"
-            :inactive-value="false"
-            :width="40"
-            class="switchStyle"
-          ></el-switch>
-        </el-form-item>
-        <el-form-item :label="$t('state.remarks')" prop="remark">
+
+        <el-form-item :label="$t('state.remark')" prop="remark">
           <el-input
             v-model="form.remark"
             :autosize="{ minRows: 2, maxRows: 5 }"
-            :placeholder="$t('tip.please_enter')"
+            :placeholder="$t('tip.pleaseEnter')"
             type="textarea"
-          ></el-input>
+          />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">{{ $t('button.hscancel') }}</el-button>
-          <el-button type="primary" @click="confirm">{{ $t('button.hsdefine') }}</el-button>
+          <el-button @click="dialogVisible = false">{{ $t('buttons.cancel') }}</el-button>
+          <el-button type="primary" @click="confirm">{{ $t('buttons.confirm') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -47,14 +37,13 @@
   import { defineComponent, reactive, ref, computed, toRefs } from 'vue'
   import { postRoles, getRolesDetail, putRolesId } from '/@/api/roles'
   import { ElMessage } from 'element-plus'
+  import { useI18n } from '/@/hooks/useI18n'
 
   interface IForm {
     name: string
     remark: string
     fromTrainingCenter: boolean
   }
-
-  import { useI18n } from '/@/hooks/useI18n'
 
   export default defineComponent({
     name: 'RolesDiaLog',
@@ -75,26 +64,25 @@
         set: (val: boolean) => emit('update:isShow', val),
       })
       const getTitle = computed(() => {
-        return props.type == 'add' ? t('state.new_position') : t('state.modify_position')
+        return props.type == 'add' ? t('state.new_position') : t('state.modifyPosition')
       })
       const state = reactive({
         form: {
           remark: undefined,
           name: undefined,
-          fromTrainingCenter: false,
         } as IForm,
         rules: {
           remark: [
             {
               required: false,
-              message: t('tip.please_enter'),
+              message: t('tip.pleaseEnter'),
               trigger: 'change',
             },
           ],
           name: [
             {
               required: true,
-              message: t('tip.please_enter'),
+              message: t('tip.pleaseEnter'),
               trigger: 'change',
             },
           ],

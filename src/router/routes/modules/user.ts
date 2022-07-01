@@ -37,7 +37,7 @@ const userRouter: RouteRecordRaw = {
           component: () => import('/@/views/user/roles/competence.vue'),
           meta: {
             hideMenu: true,
-            title: 'state.jurisdiction',
+            title: 'buttons.competence',
             activeMenu: '/user/roles/index',
           },
         },

@@ -35,8 +35,8 @@
   )
 
   function translationCh() {
-    instance.locale = { locale: 'zh' }
-    locale.value = 'zh'
+    instance.locale = { locale: 'zh-CN' }
+    locale.value = 'zh-CN'
   }
 
   function translationEn() {

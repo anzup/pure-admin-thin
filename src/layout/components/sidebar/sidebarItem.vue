@@ -1,93 +1,101 @@
 <template>
-  <template
-    v-if="
-      hasOneShowingChild(props.item.children, props.item) &&
-      (!onlyOneChild.children || onlyOneChild.noShowingChildren)
-    "
-  >
-    <el-menu-item
-      :class="{ 'submenu-title-noDropdown': !isNest }"
-      :index="resolvePath(onlyOneChild.path)"
-      :style="getNoDropdownStyle"
+  <template v-if="!props.item?.meta.hideMenu">
+    <template
+      v-if="
+        hasOneShowingChild(props.item.children, props.item) &&
+        (!onlyOneChild.children || onlyOneChild.noShowingChildren)
+      "
     >
-      <div v-show="props.item.meta.icon" class="sub-menu-icon">
-        <component
-          :is="useRenderIcon(onlyOneChild.meta.icon || (props.item.meta && props.item.meta.icon))"
-        />
-      </div>
-      <div
-        v-if="
-          !pureApp.sidebar.opened && pureApp.layout === 'mix' && props.item?.pathList?.length === 2
-        "
-        :style="getDivStyle"
+      <el-menu-item
+        :class="{ 'submenu-title-noDropdown': !isNest }"
+        :index="resolvePath(onlyOneChild.path)"
+        :style="getNoDropdownStyle"
       >
-        <span :style="getMenuTextStyle">
-          {{ transformI18n(onlyOneChild.meta.title) }}
-        </span>
-      </div>
-      <template #title>
-        <div :style="getDivStyle">
-          <span v-if="!menuMode">{{ transformI18n(onlyOneChild.meta.title) }}</span>
-          <el-tooltip v-else :disabled="!onlyOneChild.showTooltip" :offset="-10" placement="top">
-            <template #content>
-              {{ transformI18n(onlyOneChild.meta.title) }}
-            </template>
-            <span ref="menuTextRef" :style="getMenuTextStyle" @mouseover="hoverMenu(onlyOneChild)">
-              {{ transformI18n(onlyOneChild.meta.title) }}
-            </span>
-          </el-tooltip>
-          <FontIcon
-            v-if="onlyOneChild.meta.extraIcon"
-            :icon="onlyOneChild.meta.extraIcon.name"
-            :style="getExtraIconStyle"
-            :svg="onlyOneChild.meta.extraIcon.svg ? true : false"
-            height="30px"
-            width="30px"
+        <div v-show="props.item.meta.icon" class="sub-menu-icon">
+          <component
+            :is="useRenderIcon(onlyOneChild.meta.icon || (props.item.meta && props.item.meta.icon))"
           />
         </div>
-      </template>
-    </el-menu-item>
-  </template>
-
-  <el-sub-menu v-else ref="subMenu" :index="resolvePath(props.item.path)" popper-append-to-body>
-    <template #title>
-      <div v-show="props.item.meta.icon" class="sub-menu-icon">
-        <component :is="useRenderIcon(props.item.meta && props.item.meta.icon)" />
-      </div>
-      <span v-if="!menuMode">{{ transformI18n(props.item.meta.title) }}</span>
-      <el-tooltip
-        v-else
-        :disabled="!pureApp.sidebar.opened || !props.item.showTooltip"
-        :offset="-10"
-        placement="top"
-      >
-        <template #content>
-          {{ transformI18n(props.item.meta.title) }}
-        </template>
-        <div ref="menuTextRef" :style="getSubTextStyle" @mouseover="hoverMenu(props.item)">
-          <span :style="getSpanStyle">
-            {{ transformI18n(props.item.meta.title) }}
+        <div
+          v-if="
+            !pureApp.sidebar.opened &&
+            pureApp.layout === 'mix' &&
+            props.item?.pathList?.length === 2
+          "
+          :style="getDivStyle"
+        >
+          <span :style="getMenuTextStyle">
+            {{ transformI18n(onlyOneChild.meta.title) }}
           </span>
         </div>
-      </el-tooltip>
-      <FontIcon
-        v-if="props.item.meta.extraIcon"
-        :icon="props.item.meta.extraIcon.name"
-        :svg="props.item.meta.extraIcon.svg ? true : false"
-        height="30px"
-        style="position: absolute; right: 10px"
-        width="30px"
-      />
+        <template #title>
+          <div :style="getDivStyle">
+            <span v-if="!menuMode">{{ transformI18n(onlyOneChild.meta.title) }}</span>
+            <el-tooltip v-else :disabled="!onlyOneChild.showTooltip" :offset="-10" placement="top">
+              <template #content>
+                {{ transformI18n(onlyOneChild.meta.title) }}
+              </template>
+              <span
+                ref="menuTextRef"
+                :style="getMenuTextStyle"
+                @mouseover="hoverMenu(onlyOneChild)"
+              >
+                {{ transformI18n(onlyOneChild.meta.title) }}
+              </span>
+            </el-tooltip>
+            <FontIcon
+              v-if="onlyOneChild.meta.extraIcon"
+              :icon="onlyOneChild.meta.extraIcon.name"
+              :style="getExtraIconStyle"
+              :svg="onlyOneChild.meta.extraIcon.svg ? true : false"
+              height="30px"
+              width="30px"
+            />
+          </div>
+        </template>
+      </el-menu-item>
     </template>
-    <sidebar-item
-      v-for="child in props.item.children"
-      :key="child.path"
-      :base-path="resolvePath(child.path)"
-      :is-nest="true"
-      :item="child"
-      class="nest-menu"
-    />
-  </el-sub-menu>
+
+    <el-sub-menu v-else ref="subMenu" :index="resolvePath(props.item.path)" popper-append-to-body>
+      <template #title>
+        <div v-show="props.item.meta.icon" class="sub-menu-icon">
+          <component :is="useRenderIcon(props.item.meta && props.item.meta.icon)" />
+        </div>
+        <span v-if="!menuMode">{{ transformI18n(props.item.meta.title) }}</span>
+        <el-tooltip
+          v-else
+          :disabled="!pureApp.sidebar.opened || !props.item.showTooltip"
+          :offset="-10"
+          placement="top"
+        >
+          <template #content>
+            {{ transformI18n(props.item.meta.title) }}
+          </template>
+          <div ref="menuTextRef" :style="getSubTextStyle" @mouseover="hoverMenu(props.item)">
+            <span :style="getSpanStyle">
+              {{ transformI18n(props.item.meta.title) }}
+            </span>
+          </div>
+        </el-tooltip>
+        <FontIcon
+          v-if="props.item.meta.extraIcon"
+          :icon="props.item.meta.extraIcon.name"
+          :svg="props.item.meta.extraIcon.svg ? true : false"
+          height="30px"
+          style="position: absolute; right: 10px"
+          width="30px"
+        />
+      </template>
+      <sidebar-item
+        v-for="child in props.item.children"
+        :key="child.path"
+        :base-path="resolvePath(child.path)"
+        :is-nest="true"
+        :item="child"
+        class="nest-menu"
+      />
+    </el-sub-menu>
+  </template>
 </template>
 <script lang="ts" setup>
   import path from 'path'
@@ -195,8 +203,8 @@
 
   function hasOneShowingChild(children: childrenType[] = [], parent: childrenType) {
     const showingChildren = children.filter((item: any) => {
-      onlyOneChild.value = item
-      return true
+      !item.meta.hideMenu && (onlyOneChild.value = item)
+      return !item.meta.hideMenu
     })
 
     if (showingChildren[0]?.meta?.showParent) {

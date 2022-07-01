@@ -7,8 +7,10 @@
   >
     <!--自定义插槽 toolbar buttons 插槽-->
     <template #toolbar_tools>
-      <el-button type="primary" @click="add">{{ $t('buttons.hsAdd') }}</el-button>
-      <DiaLog :id="detailId" v-model:isShow="isShow" :type="type" @updateData="updateData" />
+      <div class="px-4">
+        <el-button type="primary" @click="add">{{ $t('buttons.hsAdd') }}</el-button>
+        <DiaLog :id="detailId" v-model:isShow="isShow" :type="type" @updateData="updateData" />
+      </div>
     </template>
   </VxeTable>
 </template>
@@ -26,43 +28,36 @@
   const { t } = useI18n()
 
   const gridOptions = reactive<VxeTableAllProps>({
+    height: 'auto',
     columns: [
       // { type: "checkbox", width: 50 },
       { type: 'seq', width: 60, title: t('state.seq') },
       {
         field: 'name',
-        title: t('state.job_title'),
+        title: t('state.positionName'),
         // sortable: true,
         minWidth: 100,
       },
       {
         // sortable: true,
         field: 'userCount',
-        title: t('state.number_of_positions'),
+        title: t('state.numberOfPeople'),
         minWidth: 100,
       },
       {
         // sortable: true,
         field: 'builtin',
-        title: t('state.job_type'),
+        title: t('state.isItBuiltIn'),
         // width:300
         minWidth: 100,
         formatter: ({ row }) => {
-          return row.builtin ? t('state.builtinRoles') : t('state.notBuiltinRoles')
+          return row.builtin ? t('state.yes') : t('state.no')
         },
       },
       {
         // sortable: true,
-        field: 'fromTrainingCenter',
-        title: t('state.isCenterPerson'),
-        // width:300
-        minWidth: 100,
-        formatter: 'formatBool',
-      },
-      {
-        // sortable: true,
         field: 'remark',
-        title: t('state.remarks'),
+        title: t('state.remark'),
         // width:300
         minWidth: 100,
       },
@@ -78,20 +73,20 @@
     data: [],
     buttons: ({ row }) => [
       {
-        name: t('button.hsDetail'),
+        name: t('buttons.detail'),
         type: 'permission',
       },
       {
-        name: t('button.modify'),
+        name: t('buttons.modify'),
         type: 'edit',
       },
       {
-        name: t('state.jurisdiction'),
+        name: t('buttons.competence'),
         type: 'competence',
         disabled: ['STUDENT', 'CUSTOMER_CONTACTER'].includes(row?.builtinRole),
       },
       {
-        name: t('button.hsDelete'),
+        name: t('buttons.hsDelete'),
         type: 'delete',
         status: 'danger',
         disabled: row.builtin,
@@ -111,7 +106,7 @@
     page: 1,
     size: 10,
     total: 0,
-    builtinRoleNI: 'STUDENT,CUSTOMER_CONTACTER',
+    builtinRoleNI: 'STUDENT',
   })
   const isShow = ref(false)
   onMounted(() => {

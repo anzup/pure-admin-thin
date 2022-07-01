@@ -67,7 +67,7 @@
       editor.config.onfocus = (newHtml) => {
         this.foucs(newHtml)
       }
-      editor.config.placeholder = this.$t('tip.please_enter')
+      editor.config.placeholder = this.$t('tip.pleaseEnter')
       editor.config.showFullScreen = false
       editor.config.focus = false
       // editor.config.uploadImgHeaders = {

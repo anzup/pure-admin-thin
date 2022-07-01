@@ -34,9 +34,9 @@ declare module 'vue-router' {
      */
     orderNo?: number
     /**
-     * @param showLink 是否在菜单中显示（可不写，默认true）
+     * @param showLink 是否隐藏菜单 默认false
      */
-    showLink?: boolean
+    hideMenu?: boolean
     /**
      * @param activeMenu 选中的菜单栏，用于页面隐藏时的显示
      */

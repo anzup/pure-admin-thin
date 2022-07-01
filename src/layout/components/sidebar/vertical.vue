@@ -11,6 +11,7 @@
   import { getMenus, getShallowMenus } from '/@/router/menus'
   import { Menu } from '/@/router/types'
   import { useAppStoreHook } from '/@/store/modules/app'
+  import { BasicMenu } from '../Menu/index'
 
   const route = useRoute()
   const routers = useRouter().options.routes
@@ -104,6 +105,8 @@
           class="outer-most"
         />
       </el-menu>
+
+      <!--<BasicMenu :items="menuData" :collapse="isCollapse" class="outer-most" />-->
     </el-scrollbar>
   </div>
 </template>
