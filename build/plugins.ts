@@ -78,14 +78,14 @@ export function getPluginsList(command, VITE_LEGACY) {
     themePreprocessorPlugin({
       scss: {
         multipleScopeVars: genScssMultipleScopeVars(),
-        // 在生产模式是否抽取独立的主题css文件，extract为true以下属性有效
-        extract: true,
-        // 会选取defaultScopeName对应的主题css文件在html添加link
-        themeLinkTagId: 'head',
-        // "head"||"head-prepend" || "body" ||"body-prepend"
-        themeLinkTagInjectTo: 'head',
-        // 是否对抽取的css文件内对应scopeName的权重类名移除
-        removeCssScopeName: false,
+        // // 在生产模式是否抽取独立的主题css文件，extract为true以下属性有效
+        // extract: true,
+        // // 会选取defaultScopeName对应的主题css文件在html添加link
+        // themeLinkTagId: 'head',
+        // // "head"||"head-prepend" || "body" ||"body-prepend"
+        // themeLinkTagInjectTo: 'head',
+        // // 是否对抽取的css文件内对应scopeName的权重类名移除
+        // removeCssScopeName: false,
       },
     }), // svg组件化支持
     svgLoader(),
