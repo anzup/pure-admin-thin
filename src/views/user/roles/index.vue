@@ -7,7 +7,7 @@
   >
     <!--自定义插槽 toolbar buttons 插槽-->
     <template #toolbar_tools>
-      <el-button type="primary" @click="add">{{ $t('buttons.hsadd') }}</el-button>
+      <el-button type="primary" @click="add">{{ $t('buttons.hsAdd') }}</el-button>
       <DiaLog :id="detailId" v-model:isShow="isShow" :type="type" @updateData="updateData" />
     </template>
   </VxeTable>
@@ -91,7 +91,7 @@
         disabled: ['STUDENT', 'CUSTOMER_CONTACTER'].includes(row?.builtinRole),
       },
       {
-        name: t('button.hsdelete'),
+        name: t('button.hsDelete'),
         type: 'delete',
         status: 'danger',
         disabled: row.builtin,

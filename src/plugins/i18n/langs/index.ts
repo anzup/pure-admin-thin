@@ -18,6 +18,6 @@ export const localesConfigs = {
     ...enVxeTable,
   },
   buttons: {
-    hsadd: '',
+    hsAdd: '',
   },
 }

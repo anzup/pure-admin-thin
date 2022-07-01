@@ -26,7 +26,7 @@
   })
 
   const ruleForm = reactive({
-    username: 'A02750',
+    username: 'logAdmin',
     password: '111111',
     verifyCode: '',
   })

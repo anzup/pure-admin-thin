@@ -23,7 +23,7 @@
             {{ t('button.back') }}
           </el-button>
           <el-button type="primary" @click="confirm">
-            {{ t('button.hssave') }}
+            {{ t('button.save') }}
           </el-button>
         </div>
       </template>

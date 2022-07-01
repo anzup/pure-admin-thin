@@ -58,7 +58,7 @@
           type="primary"
           @click="addDomain"
         >
-          {{ $t('buttons.hsadd') }}
+          {{ $t('buttons.hsAdd') }}
         </el-button>
       </el-form-item>
     </el-form>

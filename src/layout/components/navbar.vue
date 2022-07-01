@@ -97,7 +97,7 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span :title="t('buttons.hssystemSet')" class="el-icon-setting" @click="onPanel">
+      <span :title="t('buttons.systemSet')" class="el-icon-setting" @click="onPanel">
         <IconifyIconOffline icon="setting" />
       </span>
     </div>
