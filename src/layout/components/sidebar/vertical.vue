@@ -27,12 +27,12 @@
   const menusRef = ref<Menu[]>([])
   const normalType = computed<boolean>(() => pureApp.layout === 'vertical')
   const getIsMobile = computed<boolean>(() => useAppStoreHook().device === 'mobile')
+
   // get menus
   async function genMenus() {
     // normal mode
     if (unref(normalType) || unref(getIsMobile)) {
       menusRef.value = await getMenus()
-      console.log(menusRef.value)
       return
     }
 
