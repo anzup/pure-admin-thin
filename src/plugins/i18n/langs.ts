@@ -8,12 +8,12 @@ import enVxeTable from 'vxe-table/lib/locale/lang/en-US'
 
 export const localesConfigs = {
   'zh-CN': {
-    ...genMessage(import.meta.globEager('./zh-CN/**/*.ts'), 'zh-CN'),
+    ...genMessage(import.meta.globEager('../../../locales/zh-CN/*.y(a)?ml')),
     ...zhLocale,
     ...zhVxeTable,
   },
   en: {
-    ...genMessage(import.meta.globEager('./en/**/*.ts'), 'en'),
+    ...genMessage(import.meta.globEager('../../../locales/*.y(a)?ml')),
     ...enLocale,
     ...enVxeTable,
   },

@@ -2,7 +2,7 @@
 const warpperEnv = (envConf: Recordable): Partial<ViteEnv> => {
   // 此处为默认值，无需修改
   const ret: Partial<ViteEnv> = {
-    VITE_PORT: 8848,
+    VITE_PORT: 5004,
     VITE_PUBLIC_PATH: '',
     VITE_PROXY_DOMAIN: '',
     VITE_ROUTER_HISTORY: '',
@@ -28,12 +28,12 @@ const warpperEnv = (envConf: Recordable): Partial<ViteEnv> => {
 
 // 跨域代理重写
 const regExps = (value: string, reg: string): string => {
-  return value.replace(new RegExp(reg, "g"), "");
-};
+  return value.replace(new RegExp(reg, 'g'), '')
+}
 
 // 环境变量
 const loadEnv = (): ViteEnv => {
-  return import.meta.env;
-};
+  return import.meta.env
+}
 
-export { warpperEnv, regExps, loadEnv };
+export { warpperEnv, regExps, loadEnv }

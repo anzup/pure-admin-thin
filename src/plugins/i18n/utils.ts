@@ -12,14 +12,11 @@ export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
   cb(loadLocalePool)
 }
 
-export function genMessage(langs: Record<string, Record<string, any>>, prefix = 'lang') {
+export function genMessage(langs: Record<string, Record<string, any>>) {
   const obj: Recordable = {}
-
   Object.keys(langs).forEach((key) => {
     const langFileModule = langs[key].default
-    let fileName = key.replace(`./${prefix}/`, '').replace(/^\.\//, '')
-    const lastIndex = fileName.lastIndexOf('.')
-    fileName = fileName.substring(0, lastIndex)
+    const fileName = key.match(/([A-Za-z\d-_]+)\./i)[1]
     const keyList = fileName.split('/')
     const moduleName = keyList.shift()
     const objKey = keyList.join('.')
@@ -33,5 +30,6 @@ export function genMessage(langs: Record<string, Record<string, any>>, prefix = 
       }
     }
   })
+  console.log(obj)
   return obj
 }
