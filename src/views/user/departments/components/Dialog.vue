@@ -97,7 +97,6 @@
         resetForm()
       }
       const open = () => {
-        console.log(departmentList)
         if (props.type == 'edit') {
           getRolesDetail(props.id).then((res) => {
             if (res.status == 200) {
@@ -143,6 +142,7 @@
         close,
         confirm,
         open,
+        departmentList,
       }
     },
   })

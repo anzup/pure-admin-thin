@@ -14,6 +14,37 @@ const userRouter: RouteRecordRaw = {
   },
   children: [
     {
+      path: 'staffManagement',
+      redirect: '/user/staffManagement/index',
+      name: 'StaffManagement',
+      component: getParentLayout('StaffManagement'),
+      meta: {
+        title: 'menus.staffManagement',
+      },
+      children: [
+        {
+          path: 'index',
+          name: 'StaffManagementIndex',
+          component: () => import('/@/views/user/staff/index.vue'),
+          meta: {
+            title: 'menus.staffManagement',
+            breadcrumb: false,
+            keepAlive: true,
+          },
+        },
+        {
+          path: 'detail',
+          name: 'StaffManagementDetail',
+          component: () => import('/@/views/user/staff/detail.vue'),
+          meta: {
+            hideMenu: true,
+            title: 'buttons.hsDetail',
+            activeMenu: '/user/staffManagement',
+          },
+        },
+      ],
+    },
+    {
       path: 'roles',
       redirect: '/user/roles/index',
       name: 'Roles',

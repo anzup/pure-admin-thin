@@ -78,7 +78,7 @@ export function getPluginsList(command, VITE_LEGACY) {
         // 是否对抽取的css文件内对应scopeName的权重类名移除
         removeCssScopeName: false,
         // 独立主题css文件的输出路径，默认取 viteConfig.build.assetsDir 相对于 (viteConfig.build.outDir)
-        outputDir: './logistics/assets/',
+        // outputDir: './logistics/assets/',
       },
     }), // svg组件化支持
     svgLoader(),

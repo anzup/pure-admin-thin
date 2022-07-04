@@ -20,7 +20,6 @@ export function genMessage(langs: Record<string, Record<string, any>>) {
     const keyList = fileName.split('/')
     const moduleName = keyList.shift()
     const objKey = keyList.join('.')
-
     if (moduleName) {
       if (objKey) {
         set(obj, moduleName, obj[moduleName] || {})
@@ -30,6 +29,5 @@ export function genMessage(langs: Record<string, Record<string, any>>) {
       }
     }
   })
-  console.log(obj)
   return obj
 }

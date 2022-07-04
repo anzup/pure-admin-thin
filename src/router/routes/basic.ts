@@ -9,7 +9,7 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
   redirect: '/error/403',
   meta: {
     icon: 'information-line',
-    title: 'menus.hserror',
+    title: 'menus.error',
     rank: 9,
   },
   children: [
@@ -18,7 +18,7 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
       name: '403',
       component: () => import('/@/views/error/403.vue'),
       meta: {
-        title: 'menus.hsfourZeroOne',
+        title: 'menus.fourZeroOne',
       },
     },
     {
