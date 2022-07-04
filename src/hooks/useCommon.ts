@@ -31,19 +31,6 @@ export default function useCommon() {
     },
   ])
   /**
-   * @param 学员类型
-   */
-  const studentTypeList = ref([
-    {
-      name: t('state.ordinary_students'),
-      id: 'NORMAL',
-    },
-    {
-      name: t('state.important_students'),
-      id: 'VIP',
-    },
-  ])
-  /**
    * @param 账号状态 是否禁用
    */
   const accountStatus = ref([
@@ -52,44 +39,14 @@ export default function useCommon() {
       id: false,
     },
     {
-      name: t('state.disable'),
+      name: t('state.disabled'),
       id: true,
-    },
-  ])
-
-  /**
-   * 通过、未通过
-   */
-  const passList = ref([
-    {
-      name: t('state.pass'),
-      id: true,
-    },
-    {
-      name: t('state.filled'),
-      id: false,
-    },
-  ])
-  /**
-   * 状态-通过、未通过
-   */
-  const passStatusList = ref([
-    {
-      name: t('state.pass'),
-      id: 'PASSED',
-    },
-    {
-      name: t('state.filled'),
-      id: 'FAILED',
     },
   ])
 
   return {
     booleanList,
     genderList,
-    studentTypeList,
     accountStatus,
-    passList,
-    passStatusList,
   }
 }

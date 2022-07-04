@@ -71,16 +71,14 @@ export default function useUser() {
    */
   const postUsersStatus = (val: IStstus, callBack) => {
     ElMessageBox.confirm(
-      `${t('state.this_operation_will')}${
-        val.prohibited ? t('state.disable') : t('state.enable')
-      }${t('state.select_account')}`,
+      val.prohibited ? t('tip.enableSelectedAccount') : t('tip.disableTheSelectedAccount'),
       {
         type: 'warning',
       },
     )
       .then(() => {
         postUsersProhibit(val).then(() => {
-          ElMessage.success(t('message.operation_succeeded'))
+          ElMessage.success(t('message.successfulOperation'))
           callBack()
         })
       })
@@ -95,7 +93,7 @@ export default function useUser() {
     })
       .then(() => {
         putUsersPassword(val).then(() => {
-          ElMessage.success(t('message.operation_succeeded'))
+          ElMessage.success(t('message.successfulOperation'))
         })
       })
       .catch((_) => {})

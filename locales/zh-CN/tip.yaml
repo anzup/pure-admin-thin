@@ -1,2 +1,9 @@
 pleaseEnter: 请输入
 deleteTheSelectedData: 删除所选数据
+pleaseChoose: 请选择
+keywordToSearch: 请输入关键字搜索
+pleaseEnterLoginName: 请输入登录名
+pleaseEnterTheIDNumber: 请输入证件号码
+pleaseEnterPhoneNumber: 请输入手机号
+disableTheSelectedAccount: 该操作将禁用选定账号，是否继续？
+enableSelectedAccount: 该操作将启用选定账号，是否继续？

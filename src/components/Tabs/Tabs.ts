@@ -167,14 +167,18 @@ export const Tabs = defineComponent({
     })
 
     return () => {
-      const header = h('div', { class: ['d-tabs__header ', 'overflow-hidden', 'px-4'] }, [
-        h(TabNav, {
-          currentName: currentName.value,
-          panes: panes.value,
-          ref: nav$,
-          onTabClick: handleTabClick,
-        }),
-      ])
+      const header = h(
+        'div',
+        { class: ['d-tabs__header ', 'overflow-hidden'], style: 'padding:0 18px' },
+        [
+          h(TabNav, {
+            currentName: currentName.value,
+            panes: panes.value,
+            ref: nav$,
+            onTabClick: handleTabClick,
+          }),
+        ],
+      )
 
       const panels = h('div', { class: 'd-tabs__content' }, [renderSlot(slots, 'default')])
 

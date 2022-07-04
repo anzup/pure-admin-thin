@@ -11,9 +11,9 @@
       </Tabs>
     </div>
 
-    <!--<div class="main-table-content">-->
-    <!--  <Table ref="refTable" :roleInfo="roleAllList[tabActive]" />-->
-    <!--</div>-->
+    <div class="main-table-content">
+      <Table ref="refTable" :roleInfo="roleAllList[tabActive]" />
+    </div>
   </div>
 </template>
 
@@ -26,7 +26,7 @@
 <script lang="ts" setup>
   import { onActivated, onMounted, ref } from 'vue'
   import useUser from '/@/hooks/useUser'
-  // import Table from './components/Table.vue'
+  import Table from './components/Table.vue'
   import { Tabs, TabPanel } from '/@/components/Tabs'
 
   const refTable = ref()

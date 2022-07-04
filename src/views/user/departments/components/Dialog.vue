@@ -10,16 +10,16 @@
       @open="open"
     >
       <el-form ref="formRef" :model="form" :rules="rules" class="demo-form" label-width="80px">
-        <el-form-item :label="$t('state.positionName')" prop="name">
+        <el-form-item :label="$t('state.departmentName')" prop="name">
           <el-input v-model="form.name" :placeholder="$t('tip.pleaseEnter')" />
         </el-form-item>
-        <el-form-item :label="$t('state.positionName')" prop="name">
-          <el-select v-model="form">
+        <el-form-item :label="$t('state.owningSystem')" prop="subsystem">
+          <el-select v-model="form.subsystem" :placeholder="$t('tip.pleaseChoose')">
             <el-option
-              v-for="item in departmentList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.name"
+              v-for="(value, key) in subsystemMap"
+              :key="key"
+              :label="value"
+              :value="key"
             />
           </el-select>
         </el-form-item>
@@ -36,16 +36,15 @@
 
 <script lang="ts">
   import { defineComponent, reactive, ref, computed, toRefs } from 'vue'
-  import { postRoles, getRolesDetail, putRolesId } from '/@/api/roles'
   import { ElMessage } from 'element-plus'
   import { useI18n } from '/@/hooks/useI18n'
-  import { departmentList } from '/@/enums/departmentEnum'
-
-  interface IForm {
-    name: string
-    remark: string
-    fromTrainingCenter: boolean
-  }
+  import {
+    getDepartmentsDetail,
+    PostDepartment,
+    postDepartments,
+    putDepartmentsId,
+  } from '/@/api/departments'
+  import useDepartment from '/@/hooks/useDepartment'
 
   export default defineComponent({
     name: 'RolesDiaLog',
@@ -68,16 +67,21 @@
       const getTitle = computed(() => {
         return props.type == 'add' ? t('state.newPosition') : t('state.modifyPosition')
       })
-      const state = reactive({
+
+      const { subsystemMap } = useDepartment()
+      const state = reactive<{
+        form: PostDepartment
+        rules: Partial<Record<keyof PostDepartment, FormItemRule>>
+      }>({
         form: {
-          remark: undefined,
+          subsystem: undefined,
           name: undefined,
-        } as IForm,
+        },
         rules: {
-          remark: [
+          subsystem: [
             {
-              required: false,
-              message: t('tip.pleaseEnter'),
+              required: true,
+              message: t('tip.pleaseChoose'),
               trigger: 'change',
             },
           ],
@@ -98,7 +102,7 @@
       }
       const open = () => {
         if (props.type == 'edit') {
-          getRolesDetail(props.id).then((res) => {
+          getDepartmentsDetail(props.id).then((res) => {
             if (res.status == 200) {
               state.form = res.data
             }
@@ -108,11 +112,11 @@
       const confirm = () => {
         formRef.value.validate((valid: boolean) => {
           if (valid) {
-            let api = undefined
+            let api
             if (props.type == 'add') {
-              api = postRoles
+              api = postDepartments
             } else {
-              api = putRolesId
+              api = putDepartmentsId
             }
             api(state.form).then((res) => {
               const { status } = res
@@ -142,7 +146,7 @@
         close,
         confirm,
         open,
-        departmentList,
+        subsystemMap,
       }
     },
   })

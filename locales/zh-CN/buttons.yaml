@@ -22,3 +22,14 @@ competence: 权限
 cancel: 取消
 confirm: 确认
 back: 返回
+batchDelete: 批量删除
+inquiry: 查询
+reset: 重置
+bulkDisable: 批量禁用
+batchDeletion: 批量删除
+resetPassword: 重置密码
+disabled: 禁用
+edit: 编辑
+disable: 停用
+enable: 启用
+departmentHeads: 部门主管

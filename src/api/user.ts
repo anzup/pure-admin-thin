@@ -7,14 +7,6 @@ const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT
 // const opmUrl = import.meta.env.VITE_BASE_API_OPM
 const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
-export type DegreeType =
-  | 'HIGH_SCHOOL'
-  | 'TECHNICAL_SECONDARY_SCHOOL'
-  | 'ASSOCIATE_DEGREE'
-  | 'BACHELOR_DEGREE'
-  | 'MASTER_DEGREE'
-  | 'DOCTOR_DEGREE'
-
 export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
   request<CurrentUserInfo>({
     url: url + '/users/current/userInfo',
@@ -35,23 +27,6 @@ export const getUserInfo = (userId: number) =>
     // params
     headers: {
       Authorization: 'Basic aHVheXVleGluZzpodWF5dWV4aW5n',
-    },
-  })
-
-/**@function getRoleUserInfo 获取当前职位下的角色信息 */
-export const getRoleUserInfo = (
-  roleId: number,
-): AxiosPromise<{
-  // 所有权限
-  totalAuthorities: string[]
-  selfAuthorities: string[]
-  roleAuthorities: string[]
-}> =>
-  request({
-    url: url + `/users/current/roleUserInfo`,
-    method: 'get',
-    params: {
-      roleId,
     },
   })
 
@@ -120,13 +95,40 @@ export const getUsersDetail = function (params) {
     method: 'get',
   })
 }
+
 /**
  * 用户新增
  * }
  * @param data
  */
+export interface PostUser {
+  address?: string
+  canteenId?: number
+  courseNumber?: DefaultAllListItem
+  customer?: DefaultAllListItem
+  degreeType?: DegreeType
+  departmentId?: number
+  email?: string
+  gender?: 'M' | 'F'
+  graduationSchool?: string
+  idNumber?: string
+  jobTitle?: string
+  landline?: string
+  major?: string
+  name: string
+  phone?: string
+  pinCode?: string
+  politicalType?: string
+  postTitle?: string
+  remark?: string
+  roleIds?: number[]
+  signatureFileUuid?: string
+  trainingItem?: DefaultAllListItem
+  username?: string
+  workStartTime?: string
+}
 
-export const postUsers = function (data) {
+export const postUsers = function (data: PostUser) {
   return request({
     url: url + `/users`,
     method: 'post',

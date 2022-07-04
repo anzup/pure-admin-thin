@@ -1,10 +1,10 @@
 <template>
-  <el-button type="primary" @click="submit('confirm')">{{ $t('state.query') }}</el-button>
-  <el-button plain type="primary" @click="submit('reset')">{{ $t('state.reset') }}</el-button>
+  <el-button type="primary" @click="submit('confirm')">{{ $t('buttons.inquiry') }}</el-button>
+  <el-button plain type="primary" @click="submit('reset')">{{ $t('buttons.reset') }}</el-button>
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue'
+  import { defineComponent } from 'vue'
 
   export default defineComponent({
     name: 'HeaderFormBtn',

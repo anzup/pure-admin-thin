@@ -38,7 +38,7 @@ const userRouter: RouteRecordRaw = {
           component: () => import('/@/views/user/staff/detail.vue'),
           meta: {
             hideMenu: true,
-            title: 'buttons.hsDetail',
+            title: 'buttons.detail',
             activeMenu: '/user/staffManagement',
           },
         },
@@ -51,7 +51,6 @@ const userRouter: RouteRecordRaw = {
       component: getParentLayout('Roles'),
       meta: {
         title: 'menus.positionManagement',
-        hideChildrenInMenu: true,
       },
       children: [
         {

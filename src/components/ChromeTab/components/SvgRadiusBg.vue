@@ -60,7 +60,8 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { mixColor } from '/@/utils/color'
+
+  // import { mixColor } from '/@/utils/color'
 
   interface Props {
     /** 激活状态 */
@@ -79,14 +80,14 @@
   const props = withDefaults(defineProps<Props>(), {
     isActive: false,
     isHover: false,
-    primaryColor: '#409EFF',
+    primaryColor: '#FFFFFF',
     darkMode: false,
   })
 
-  const defaultColor: FillColor = ['#d7e1f2', '#18181c']
-  const hoverColor: FillColor = ['#dee1e6', '#3f3c37']
-  const mixColors: FillColor = ['#ffffff', '#000000']
-  const bgDefaultColor: FillColor = ['#f8f8fa', '#18181c']
+  const defaultColor: FillColor = ['var(--el-color-primary-light-7)', '#18181c']
+  const hoverColor: FillColor = ['var(--el-color-primary-light-3)', '#3f3c37']
+  const mixColors: FillColor = ['var(--el-color-primary)', '#000000']
+  const bgDefaultColor: FillColor = ['var(--el-color-primary-light-9)', '#18181c']
 
   const fill = computed(() => {
     const index = Number(props.darkMode)
@@ -95,8 +96,9 @@
       color = hoverColor[index]
     }
     if (props.isActive) {
-      const alpha = props.darkMode ? 0.1 : 0.15
-      color = mixColor(mixColors[index], props.primaryColor, alpha)
+      // const alpha = props.darkMode ? 0.1 : 0.15
+
+      color = mixColors[index] //mixColor(mixColors[index], props.primaryColor, alpha)
     }
     return color
   })
@@ -108,8 +110,8 @@
       color = hoverColor[index]
     }
     if (props.isActive) {
-      const alpha = props.darkMode ? 0.1 : 0.15
-      color = mixColor(mixColors[index], props.primaryColor, alpha)
+      // const alpha = props.darkMode ? 0.1 : 0.15
+      color = mixColors[index] //mixColor(mixColors[index], props.primaryColor, alpha)
     }
     return color
   })

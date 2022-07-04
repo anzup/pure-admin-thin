@@ -16,10 +16,10 @@
       />
     </div>
     <span
-      :style="{ color: isActive || isHover ? '#215ebe' : '#333' }"
+      :style="{ color: getColor }"
       class="relative whitespace-nowrap z-2 leading-8 transition-all duration-300 ease-in-out"
     >
-      <slot></slot>
+      <slot />
     </span>
   </div>
 </template>
@@ -28,6 +28,7 @@
   import useBoolean from '/@/hooks/useBoolean'
 
   import { SvgRadiusBg } from './components'
+  import { computed } from 'vue'
 
   interface Props {
     /** 激活状态 */
@@ -36,7 +37,7 @@
     primaryColor?: string
   }
 
-  withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<Props>(), {
     isActive: false,
     primaryColor: '#fff',
     closable: true,
@@ -45,5 +46,14 @@
   })
 
   const { bool: isHover, setTrue, setFalse } = useBoolean()
+  const getColor = computed(() => {
+    if (props.isActive) {
+      return '#FFFFFF'
+    } else if (isHover.value) {
+      return 'var(--el-color-primary-light-9)'
+    } else {
+      return 'var(--el-color-primary)'
+    }
+  })
 </script>
 <style scoped></style>

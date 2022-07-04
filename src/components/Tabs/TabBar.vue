@@ -3,14 +3,10 @@
     ref="bar$"
     :class="['el-tabs__active-bar', `is-${rootTabs.props.tabPosition}`]"
     :style="barStyle"
-  ></div>
+  />
 </template>
 <script lang="ts">
-  import { defineComponent, inject, getCurrentInstance, watch, nextTick, ref } from 'vue'
-  import { capitalize } from '@vue/shared'
-  import { useResizeObserver } from '@vueuse/core'
-
-  import type { CSSProperties } from 'vue'
+  import { defineComponent, inject, ref } from 'vue'
 
   const COMPONENT_NAME = 'ElTabBar'
   export default defineComponent({
@@ -22,8 +18,7 @@
       },
     },
 
-    setup(props) {
-      const instance = getCurrentInstance()!
+    setup() {
       const rootTabs = inject<any>('tabsRootContextKey')
       if (!rootTabs) return
 

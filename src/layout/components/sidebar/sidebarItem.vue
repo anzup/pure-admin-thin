@@ -1,5 +1,5 @@
 <template>
-  <template v-if="!props.item?.meta.hideMenu">
+  <template v-if="!props.item?.meta?.hideMenu">
     <template
       v-if="
         hasOneShowingChild(props.item.children, props.item) &&
@@ -11,9 +11,11 @@
         :index="resolvePath(onlyOneChild.path)"
         :style="getNoDropdownStyle"
       >
-        <div v-show="props.item.meta.icon" class="sub-menu-icon">
+        <div v-show="props.item?.meta?.icon" class="sub-menu-icon">
           <component
-            :is="useRenderIcon(onlyOneChild.meta.icon || (props.item.meta && props.item.meta.icon))"
+            :is="
+              useRenderIcon(onlyOneChild.meta?.icon || (props.item?.meta && props.item?.meta?.icon))
+            "
           />
         </div>
         <div
@@ -25,29 +27,29 @@
           :style="getDivStyle"
         >
           <span :style="getMenuTextStyle">
-            {{ transformI18n(onlyOneChild.meta.title) }}
+            {{ transformI18n(onlyOneChild.meta?.title) }}
           </span>
         </div>
         <template #title>
           <div :style="getDivStyle">
-            <span v-if="!menuMode">{{ transformI18n(onlyOneChild.meta.title) }}</span>
+            <span v-if="!menuMode">{{ transformI18n(onlyOneChild.meta?.title) }}</span>
             <el-tooltip v-else :disabled="!onlyOneChild.showTooltip" :offset="-10" placement="top">
               <template #content>
-                {{ transformI18n(onlyOneChild.meta.title) }}
+                {{ transformI18n(onlyOneChild.meta?.title) }}
               </template>
               <span
                 ref="menuTextRef"
                 :style="getMenuTextStyle"
                 @mouseover="hoverMenu(onlyOneChild)"
               >
-                {{ transformI18n(onlyOneChild.meta.title) }}
+                {{ transformI18n(onlyOneChild.meta?.title) }}
               </span>
             </el-tooltip>
             <FontIcon
-              v-if="onlyOneChild.meta.extraIcon"
-              :icon="onlyOneChild.meta.extraIcon.name"
+              v-if="onlyOneChild.meta?.extraIcon"
+              :icon="onlyOneChild.meta?.extraIcon.name"
               :style="getExtraIconStyle"
-              :svg="onlyOneChild.meta.extraIcon.svg ? true : false"
+              :svg="onlyOneChild.meta?.extraIcon.svg ? true : false"
               height="30px"
               width="30px"
             />
@@ -58,10 +60,10 @@
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(props.item.path)" popper-append-to-body>
       <template #title>
-        <div v-show="props.item.meta.icon" class="sub-menu-icon">
-          <component :is="useRenderIcon(props.item.meta && props.item.meta.icon)" />
+        <div v-show="props.item.meta?.icon" class="sub-menu-icon">
+          <component :is="useRenderIcon(props.item.meta && props.item.meta?.icon)" />
         </div>
-        <span v-if="!menuMode">{{ transformI18n(props.item.meta.title) }}</span>
+        <span v-if="!menuMode">{{ transformI18n(props.item.meta?.title) }}</span>
         <el-tooltip
           v-else
           :disabled="!pureApp.sidebar.opened || !props.item.showTooltip"
@@ -69,18 +71,18 @@
           placement="top"
         >
           <template #content>
-            {{ transformI18n(props.item.meta.title) }}
+            {{ transformI18n(props.item.meta?.title) }}
           </template>
           <div ref="menuTextRef" :style="getSubTextStyle" @mouseover="hoverMenu(props.item)">
             <span :style="getSpanStyle">
-              {{ transformI18n(props.item.meta.title) }}
+              {{ transformI18n(props.item.meta?.title) }}
             </span>
           </div>
         </el-tooltip>
         <FontIcon
-          v-if="props.item.meta.extraIcon"
-          :icon="props.item.meta.extraIcon.name"
-          :svg="props.item.meta.extraIcon.svg ? true : false"
+          v-if="props.item.meta?.extraIcon"
+          :icon="props.item.meta?.extraIcon.name"
+          :svg="props.item.meta?.extraIcon.svg ? true : false"
           height="30px"
           style="position: absolute; right: 10px"
           width="30px"
@@ -203,8 +205,8 @@
 
   function hasOneShowingChild(children: childrenType[] = [], parent: childrenType) {
     const showingChildren = children.filter((item: any) => {
-      !item.meta.hideMenu && (onlyOneChild.value = item)
-      return !item.meta.hideMenu
+      !item.meta?.hideMenu && (onlyOneChild.value = item)
+      return !item.meta?.hideMenu
     })
 
     if (showingChildren[0]?.meta?.showParent) {

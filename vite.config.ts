@@ -19,6 +19,7 @@ const alias: Record<string, string> = {
   '@build': pathResolve('build'),
 }
 
+// @ts-ignore
 const { dependencies, devDependencies, name, version } = pkg
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
@@ -50,7 +51,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     },
     plugins: getPluginsList(command, VITE_LEGACY),
     optimizeDeps: {
-      include: ['pinia', 'vue-i18n', 'lodash-es', '@vueuse/core', 'element-plus/es'],
+      include: ['pinia', 'vue-i18n', 'lodash-es', '@vueuse/core', 'element-plus/es', 'xe-utils'],
       // 'element-plus/es/components/config-provider/style/index',
       exclude: ['@pureadmin/theme/dist/browser-utils'],
     },

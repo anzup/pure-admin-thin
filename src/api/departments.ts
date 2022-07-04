@@ -9,12 +9,12 @@ const url = import.meta.env.VITE_BASE_API_LOGISTICS
  */
 
 export interface Departments extends PageBase {
-  subsystem: DepartmentEnum
+  subsystem?: DepartmentEnum
 }
 
 export const getDepartmentsList = function (params: Departments) {
-  return request({
-    url: url + `departments`,
+  return request<DefaultPagingData>({
+    url: url + `/departments`,
     method: 'get',
     params,
   })
@@ -26,7 +26,7 @@ export const getDepartmentsList = function (params: Departments) {
 
 export const getDepartmentsDetail = function (params) {
   return request({
-    url: url + `departments/${params}`,
+    url: url + `/departments/${params}`,
     method: 'get',
   })
 }
@@ -35,9 +35,14 @@ export const getDepartmentsDetail = function (params) {
  * @description  部门新增
  */
 
+export interface PostDepartment {
+  name: string
+  subsystem: string
+}
+
 export const postDepartments = function (data) {
   return request({
-    url: url + `departments`,
+    url: url + `/departments`,
     method: 'post',
     data,
   })
@@ -49,7 +54,7 @@ export const postDepartments = function (data) {
 
 export const putDepartmentsId = function (data) {
   return request({
-    url: url + `departments/${data.id}`,
+    url: url + `/departments/${data.id}`,
     method: 'put',
     data,
   })
@@ -62,7 +67,7 @@ export const putDepartmentsId = function (data) {
 
 export const deleteDepartmentsId = function (data) {
   return request({
-    url: url + `departments/${data}`,
+    url: url + `/departments/${data}`,
     method: 'delete',
   })
 }
@@ -73,21 +78,8 @@ export const deleteDepartmentsId = function (data) {
 
 export const postDepartmentsBatchDelete = function () {
   return request({
-    url: url + `departments/batchDelete`,
+    url: url + `/departments/batchDelete`,
     method: 'post',
-  })
-}
-
-/**
- *
- * @description 学员类型
- */
-
-export const getStudentTypesList = function (params) {
-  return request({
-    url: url + `/studentTypes`,
-    method: 'get',
-    params,
   })
 }
 
@@ -104,7 +96,7 @@ export interface DepartmentsAuth {
 
 export const getDepartmentsAuthConfigs = function (id: number) {
   return request<DepartmentsAuth[]>({
-    url: url + `departments/${id}/authConfigs`,
+    url: url + `/departments/${id}/authConfigs`,
     method: 'get',
   })
 }
@@ -113,7 +105,7 @@ export const postDepartmentsAuthConfigs = function (
   data: { authCode: string; authorized: boolean }[],
 ) {
   return request<DepartmentsAuth[]>({
-    url: url + `departments/${id}/authConfigs`,
+    url: url + `/departments/${id}/authConfigs`,
     method: 'post',
     data,
   })
