@@ -211,10 +211,6 @@
 
       const { postUsersStatus, resetPassword } = useData()
       const { getDepartmentList, departmentList } = useDepartment()
-      onMounted(async () => {
-        await getDepartmentList()
-        getList()
-      })
 
       function getButtons({ row }) {
         return [
@@ -367,6 +363,11 @@
         }
         getList()
       }
+
+      onMounted(async () => {
+        await getDepartmentList()
+        getList()
+      })
 
       return {
         btnClick,

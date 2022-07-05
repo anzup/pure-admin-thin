@@ -28,6 +28,8 @@ import { IconifyIconOffline, IconifyIconOnline, FontIcon } from './components/Re
 import { useTable } from '/@/plugins/vxe-table'
 import { setupRouterGuard } from '/@/router/guard'
 
+import 'vue-datepicker-next/index.css'
+
 const app = createApp(App)
 
 Object.keys(directives).forEach((key) => {

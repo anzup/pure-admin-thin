@@ -31,3 +31,14 @@ initialPassword: 初始密码
 email: 邮箱
 departmentName: 部门名称
 owningSystem: 所属系统
+restaurantSetting: 餐厅设置
+mealTime: 用餐时段
+timesConfiguration: 次数配置
+restaurantName: 餐厅名称
+cashierMethod: 收银方式
+frequency: 次数
+topUp: 充钱
+name: 名称
+period: 时段
+timesName: 次数名称
+applicableMeals: 适用餐食

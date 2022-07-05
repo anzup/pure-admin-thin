@@ -9,7 +9,6 @@ const userRouter: RouteRecordRaw = {
   meta: {
     icon: 'svg-personnel',
     title: 'menus.personnelManagement',
-
     orderNo: 1,
   },
   children: [
