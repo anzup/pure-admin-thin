@@ -7,12 +7,14 @@ import { useI18n } from '/@/plugins/i18n'
 import { MotionPlugin } from '@vueuse/motion'
 import { injectResponsiveStorage } from '/@/utils/storage/responsive'
 
-// import { useTable } from './plugins/vxe-table'
+import ElementPlus from 'element-plus'
 
 import 'uno.css'
 import 'animate.css'
 // 引入重置样式
 import './style/reset.scss'
+
+import 'element-plus/dist/index.css'
 // 导入公共样式
 import './style/index.scss'
 import 'element-plus/dist/index.css'
@@ -44,6 +46,6 @@ getServerConfig(app).then(async (config) => {
   setupRouterGuard(router)
   injectResponsiveStorage(app, config)
   setupStore(app)
-  app.use(MotionPlugin).use(useI18n).use(useTable)
+  app.use(MotionPlugin).use(useI18n).use(useTable).use(ElementPlus)
   app.mount('#app')
 })
