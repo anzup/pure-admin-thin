@@ -90,7 +90,7 @@ export const getUsersList = function (params: GetUsers): AxiosPromise<DefaultPag
  * @param params
  */
 
-export const getUsersDetail = function (params) {
+export const getUsersDetail = function (params: number | string) {
   return request({
     url: url + `/users/${params}`,
     method: 'get',

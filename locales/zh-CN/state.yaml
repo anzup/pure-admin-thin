@@ -61,3 +61,12 @@ validityPeriod: 有效期
 operator: 操作人
 rechargeTime: 充值时间
 meal: 餐食
+typeOfMeal: 用餐类型
+paymentMethod: 支付方式
+amountOfConsumption: 消费金额
+diningTime: 用餐时间
+secondary: 次
+functionName: 功能名称
+value: 值
+type: 类型
+tip: 提示

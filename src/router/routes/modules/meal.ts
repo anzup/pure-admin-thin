@@ -38,6 +38,14 @@ const mealRouter: RouteRecordRaw = {
         title: 'menus.mealSettings',
       },
     },
+    {
+      path: 'settlement',
+      name: 'Settlement',
+      component: () => import('/@/views/meal/settlement/index.vue'),
+      meta: {
+        title: 'menus.cashierManagement',
+      },
+    },
   ],
 }
 export default mealRouter

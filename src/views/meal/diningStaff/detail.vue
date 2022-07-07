@@ -1,17 +1,17 @@
 <template>
   <div class="!h-auto">
     <el-descriptions :column="2" border class="mb-4">
-      <el-descriptions-item :label="$t('state.fullName')" width="25%"
-        >kooriookami
+      <el-descriptions-item :label="$t('state.fullName')" width="25%">
+        {{ userInfo.name }}
       </el-descriptions-item>
       <el-descriptions-item :label="$t('state.department')" width="25%"
-        >18100000000
+        >{{ userInfo.department?.name }}
       </el-descriptions-item>
       <el-descriptions-item :label="$t('state.position')" width="25%">
-        <el-tag size="small">School</el-tag>
+        {{ userInfo.roles?.map((v) => v.name)?.join() }}
       </el-descriptions-item>
-      <el-descriptions-item :label="$t('state.phoneNumber')" width="25%"
-        >No.1188,
+      <el-descriptions-item :label="$t('state.phoneNumber')" width="25%">
+        {{ userInfo.phone }}
       </el-descriptions-item>
     </el-descriptions>
 
@@ -30,11 +30,20 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
   import { Tabs, TabPanel } from '/@/components/Tabs'
   import BasicTable from './components/BasicTable.vue'
   import { transactionTypeEnum } from '/@/enums/transactionTypeEnum'
   import { payMethodEnum } from '/@/enums/payMethodEnum'
+  import { useRoute } from 'vue-router'
+  import { getUsersDetail } from '/@/api/user'
 
   const tabName = ref(payMethodEnum.COUNT)
+  let userInfo = $ref<UserInfo>({})
+  const route = useRoute()
+  onMounted(() => {
+    getUsersDetail(route.params?.id as string).then((res) => {
+      userInfo = res.data
+    })
+  })
 </script>

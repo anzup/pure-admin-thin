@@ -13,6 +13,15 @@ export interface TransactionRecords extends PageBase {
   userId?: number
   userUserId?: number
   transactionType?: transactionTypeEnum
+  canteenId?: number
+  consumeCode?: string
+  countConfigId?: number
+  courseNumberId?: number
+  courseNumberLK?: string
+  departmentId?: number
+  mealTimeId?: number
+  trainingItemId?: number
+  trainingItemLK?: string
 }
 
 export const getTransactionRecordsList = function (params: TransactionRecords) {
@@ -77,6 +86,24 @@ export const putTransactionRecordsId = function (data) {
   return request({
     url: url + `/transactionRecords/${data.id}`,
     method: 'put',
+    data,
+  })
+}
+
+/**
+ * @description  消费记录修改
+ */
+export interface ConsumeCodesUse {
+  amount: number
+  canteenId: number
+  code: string
+  type: string
+}
+
+export const postConsumeCodesUse = function (data: ConsumeCodesUse) {
+  return request({
+    url: url + `/transactionRecords/consumeCodes/use`,
+    method: 'post',
     data,
   })
 }

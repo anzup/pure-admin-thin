@@ -96,16 +96,16 @@
         title: t('state.phoneNumber'),
         minWidth: 100,
       },
-      {
-        field: 'trainingItem.name',
-        title: t('state.trainingProgram'),
-        minWidth: 100,
-      },
-      {
-        field: 'courseNumber.name',
-        title: t('state.trainingClass'),
-        minWidth: 100,
-      },
+      // {
+      //   field: 'trainingItem.name',
+      //   title: t('state.trainingProgram'),
+      //   minWidth: 100,
+      // },
+      // {
+      //   field: 'courseNumber.name',
+      //   title: t('state.trainingClass'),
+      //   minWidth: 100,
+      // },
       // {
       //   field: 'balances.amount',
       //   title: t('state.balance') + ' / ' + t('state.dollar'),
@@ -174,7 +174,7 @@
           minWidth: 100,
         } as VxeTableDefines.ColumnOptions
       })
-      gridOptions.columns.splice(8, 0, arr[0], {
+      gridOptions.columns.splice(6, 0, arr[0], {
         title: t('state.frequency'),
         children: arr.slice(1),
       } as VxeTableDefines.ColumnOptions)

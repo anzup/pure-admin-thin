@@ -28,6 +28,8 @@
               v-model="item.amount"
               :controls="false"
               :label="$t('tip.pleaseEnter')"
+              :min="0"
+              :precision="0"
               class="!w-16"
               @change="onItemAmountChange"
             />
@@ -39,6 +41,8 @@
           v-model="state.form.amount"
           :controls="false"
           :label="$t('tip.pleaseEnter')"
+          :min="0"
+          :precision="2"
           class="!w-full"
         />
       </el-form-item>
