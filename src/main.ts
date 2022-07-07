@@ -6,9 +6,8 @@ import { createApp, Directive } from 'vue'
 import { useI18n } from '/@/plugins/i18n'
 import { MotionPlugin } from '@vueuse/motion'
 import { injectResponsiveStorage } from '/@/utils/storage/responsive'
-import ElementPlus from 'element-plus'
 
-// import { useTable } from './plugins/vxe-table'
+import ElementPlus from 'element-plus'
 
 import 'uno.css'
 import 'animate.css'
@@ -16,7 +15,6 @@ import 'animate.css'
 import './style/reset.scss'
 
 import 'element-plus/dist/index.css'
-
 // 导入公共样式
 import './style/index.scss'
 import 'element-plus/dist/index.css'
@@ -31,8 +29,6 @@ import * as directives from '/@/directives'
 import { IconifyIconOffline, IconifyIconOnline, FontIcon } from './components/ReIcon'
 import { useTable } from '/@/plugins/vxe-table'
 import { setupRouterGuard } from '/@/router/guard'
-
-import 'vue-datepicker-next/index.css'
 
 const app = createApp(App)
 

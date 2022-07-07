@@ -12,7 +12,7 @@
   import { find } from 'lodash-unified'
   import { getConfig } from '/@/config'
   import { useRouter } from 'vue-router'
-  import panel from '../panel/index.vue'
+  import Panel from '../panel/index.vue'
   import { emitter } from '/@/utils/mitt'
   import { templateRef } from '@vueuse/core'
   import { debounce } from '/@/utils/debounce'
@@ -21,7 +21,6 @@
   import { shadeBgColor } from '../../theme/element-plus'
   import { useEpThemeStoreHook } from '/@/store/modules/epTheme'
   import { storageLocal, storageSession } from '/@/utils/storage'
-  import { useMultiTagsStoreHook } from '/@/store/modules/multiTags'
   import { createNewStyle, writeNewStyle } from '../../theme/element-plus'
   import { toggleTheme } from '@pureadmin/theme/dist/browser-utils'
 
@@ -133,28 +132,16 @@
   const multiTagsCacheChange = () => {
     let multiTagsCache = settings.multiTagsCache
     storageConfigureChange('multiTagsCache', multiTagsCache)
-    useMultiTagsStoreHook().multiTagsCacheChange(multiTagsCache)
   }
 
   // 清空缓存并返回登录页
   function onReset() {
     router.push('/login')
-    const { Grey, Weak, MultiTagsCache, EpThemeColor, Layout } = getConfig()
+    const { Grey, Weak, EpThemeColor, Layout } = getConfig()
     useAppStoreHook().setLayout(Layout)
     useEpThemeStoreHook().setEpThemeColor(EpThemeColor)
-    useMultiTagsStoreHook().multiTagsCacheChange(MultiTagsCache)
     toggleClass(Grey, 'html-grey', document.querySelector('html'))
     toggleClass(Weak, 'html-weakness', document.querySelector('html'))
-    useMultiTagsStoreHook().handleTags('equal', [
-      {
-        path: '/welcome',
-        parentPath: '/',
-        meta: {
-          title: 'menus.homePage',
-          icon: 'home-filled',
-        },
-      },
-    ])
     storageLocal.clear()
     storageSession.clear()
   }
@@ -291,7 +278,7 @@
 </script>
 
 <template>
-  <panel>
+  <Panel>
     <el-divider>主题</el-divider>
     <el-switch
       v-model="dataTheme"
@@ -431,7 +418,7 @@
       />
       清空缓存并返回登录页
     </el-button>
-  </panel>
+  </Panel>
 </template>
 
 <style module scoped>
