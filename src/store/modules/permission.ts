@@ -15,10 +15,10 @@ export const usePermissionStore = defineStore({
   state: () => ({
     // 整体路由生成的菜单（静态、动态）
     wholeMenus: [],
-    buttonAuth: [],
     // 缓存页面keepAlive
     cachePageList: [],
     isDynamicAddedRoute: false,
+    lastBuildMenuTime: 0,
   }),
   getters: {
     getIsDynamicAddedRoute(): boolean {
@@ -27,6 +27,9 @@ export const usePermissionStore = defineStore({
     getFrontMenuList(): Menu[] {
       return this.wholeMenus
     },
+    getLastBuildMenuTime(): number {
+      return this.lastBuildMenuTime
+    },
   },
   actions: {
     setDynamicAddedRoute(added: boolean) {
@@ -34,6 +37,14 @@ export const usePermissionStore = defineStore({
     },
     setMenuList(list: Menu[]) {
       this.wholeMenus = list
+    },
+    // setLastBuildMenuTime() {
+    //   this.lastBuildMenuTime = new Date().getTime()
+    // },
+    resetState(): void {
+      this.isDynamicAddedRoute = false
+      this.wholeMenus = []
+      this.lastBuildMenuTime = 0
     },
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const userStore = useUserStore()

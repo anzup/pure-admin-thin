@@ -11,7 +11,8 @@
   import { getMenus, getShallowMenus } from '/@/router/menus'
   import { Menu } from '/@/router/types'
   import { useAppStoreHook } from '/@/store/modules/app'
-  import { BasicMenu } from '../Menu/index'
+  import { BasicMenu } from '../../../components/Menu/index'
+  import { useMenuSetting } from '/@/hooks/settings/useMenuSetting'
 
   const route = useRoute()
   const routers = useRouter().options.routes
@@ -58,14 +59,17 @@
   }
 
   getSubMenuData(route.path)
-  const activeMenu = computed((): string => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
+  const currentRoutePath = computed((): string => {
     const { meta, path } = route
-    if (meta.activeMenu) {
+    if (meta.currentRoutePath) {
       // @ts-ignore
-      return meta.activeMenu
+      return meta.currentRoutePath
     }
     return path
   })
+
+  useMenuSetting()
 
   onBeforeMount(() => {
     emitter.on('logoChange', (key) => {

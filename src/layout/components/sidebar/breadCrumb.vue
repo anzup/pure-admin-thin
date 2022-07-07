@@ -100,7 +100,6 @@
     const { children, redirect, meta } = route
     const paths: string[] = []
     const currentRoutePath = getPath(route.path, (route.params = {}))
-    console.log(currentRoutePath)
     for (let i = 0; i < routes.value.length; i++) {
       const { path: itemPath, params: itemParams = {} } = routes.value[i]
       const itemRealPath = getPath(itemPath, itemParams)
