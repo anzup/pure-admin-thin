@@ -38,7 +38,7 @@ const userRouter: RouteRecordRaw = {
           meta: {
             hideMenu: true,
             title: 'buttons.detail',
-            activeMenu: '/user/staffManagement',
+            currentActiveMenu: '/user/staffManagement',
           },
         },
       ],
@@ -67,7 +67,7 @@ const userRouter: RouteRecordRaw = {
           meta: {
             hideMenu: true,
             title: 'buttons.competence',
-            activeMenu: '/user/roles/index',
+            currentActiveMenu: '/user/roles/index',
           },
         },
       ],

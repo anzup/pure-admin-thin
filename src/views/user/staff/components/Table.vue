@@ -148,7 +148,7 @@
           },
           {
             field: 'phone',
-            title: t('state.cellphoneNumber'),
+            title: t('state.phoneNumber'),
             minWidth: 100,
           },
           {

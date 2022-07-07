@@ -11,7 +11,7 @@
   import { getMenus, getShallowMenus } from '/@/router/menus'
   import { Menu } from '/@/router/types'
   import { useAppStoreHook } from '/@/store/modules/app'
-  import { BasicMenu } from '../Menu/index'
+  // import { BasicMenu } from '../Menu/index'
 
   const route = useRoute()
   const routers = useRouter().options.routes
@@ -58,11 +58,11 @@
   }
 
   getSubMenuData(route.path)
-  const activeMenu = computed((): string => {
+  const currentActiveMenu = computed((): string => {
     const { meta, path } = route
-    if (meta.activeMenu) {
+    if (meta.currentActiveMenu) {
       // @ts-ignore
-      return meta.activeMenu
+      return meta.currentActiveMenu
     }
     return path
   })
@@ -90,7 +90,7 @@
       <el-menu
         :collapse="isCollapse"
         :collapse-transition="false"
-        :default-active="route.path"
+        :default-active="currentActiveMenu"
         class="outer-most"
         mode="vertical"
         router

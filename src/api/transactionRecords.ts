@@ -9,11 +9,15 @@ const url = import.meta.env.VITE_BASE_API_LOGISTICS
  * @description 消费记录列表
  */
 
-export type TransactionRecords = PageBase
+export interface TransactionRecords extends PageBase {
+  userId?: number
+  userUserId?: number
+  transactionType?: transactionTypeEnum
+}
 
 export const getTransactionRecordsList = function (params: TransactionRecords) {
   return request<DefaultPagingData>({
-    url: url + `/transactionRecord`,
+    url: url + `/transactionRecords`,
     method: 'get',
     params,
   })
@@ -24,8 +28,8 @@ export const getTransactionRecordsList = function (params: TransactionRecords) {
  */
 
 export const getTransactionRecordsDetail = function (id: number) {
-  return request({
-    url: url + `/transactionRecord/${id}`,
+  return request<DefaultPagingData>({
+    url: url + `/transactionRecords/${id}`,
     method: 'get',
   })
 }
@@ -52,7 +56,7 @@ export interface PostTransactionRecords {
 
 export const postTransactionRecords = function (data: PostTransactionRecords) {
   return request({
-    url: url + `/transactionRecord`,
+    url: url + `/transactionRecords`,
     method: 'post',
     data,
   })
@@ -71,7 +75,7 @@ export const postTransactionRecordsBatch = function (data: PostTransactionRecord
 
 export const putTransactionRecordsId = function (data) {
   return request({
-    url: url + `/transactionRecord/${data.id}`,
+    url: url + `/transactionRecords/${data.id}`,
     method: 'put',
     data,
   })

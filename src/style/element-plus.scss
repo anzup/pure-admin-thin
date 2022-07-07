@@ -188,7 +188,7 @@
   // --el-card-padding: 0px !important;
   // --el-card-border-radius: 0 !important;
   .el-card__header {
-    padding: 0 $padding16;
+    padding: 0 $padding;
     line-height: 40px;
     font-size: 14px;
     font-family: PingFang SC, PingFang SC-Bold;
@@ -226,7 +226,7 @@
 // 自定义tabs样式
 .el-tabs.base-tabs {
   .el-tabs__header.is-top {
-    padding: 0 $padding16;
+    padding: 0 $padding;
   }
 
   .el-tabs__nav-wrap::after {

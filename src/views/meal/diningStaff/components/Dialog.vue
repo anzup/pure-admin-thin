@@ -34,7 +34,7 @@
           </li>
         </ul>
       </el-form-item>
-      <el-form-item v-else :label="$t('state.rechargeAmount')">
+      <el-form-item v-else :label="$t('state.rechargeSum')">
         <el-input-number
           v-model="state.form.amount"
           :controls="false"
@@ -126,8 +126,8 @@
 
   const onDateChange = (val: Date[] | null) => {
     if (val) {
-      state.form.startTime = val[0]
-      state.form.endTime = val[1]
+      state.form.startTime = dayjs(val[0]).startOf('date').toDate()
+      state.form.endTime = dayjs(val[1]).endOf('date').toDate()
     }
   }
   const shortcuts = [
@@ -143,7 +143,6 @@
 
   const onItemAmountChange = () => {
     state.form.countConfigs = countConfigsList.value.filter((v) => v.amount > 0)
-    console.log(state.form.countConfigs)
   }
 
   const formRef = ref<ElFormInstance>()

@@ -79,7 +79,7 @@
         </el-col>
 
         <el-col :span="12">
-          <el-form-item :label="$t('state.cellphoneNumber')" prop="phone">
+          <el-form-item :label="$t('state.phoneNumber')" prop="phone">
             <el-input v-model="state.form.phone" :placeholder="$t('tip.pleaseEnter')" />
           </el-form-item>
         </el-col>

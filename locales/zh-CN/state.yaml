@@ -24,7 +24,7 @@ disabled: 禁用
 fullName: 姓名
 department: 部门
 position: 职位
-cellphoneNumber: 手机号码
+phoneNumber: 手机号码
 logInName: 登录名
 idNumber: 证件号码
 initialPassword: 初始密码
@@ -37,7 +37,6 @@ timesConfiguration: 次数配置
 restaurantName: 餐厅名称
 cashierMethod: 收银方式
 frequency: 次数
-topUp: 充钱
 name: 名称
 period: 时段
 timesName: 次数名称
@@ -48,6 +47,17 @@ balance: 余额
 dollar: 元
 sum: 金额
 rechargeTimes: 充值次数
-rechargeAmount: 充值金额
+rechargeSum: 充值金额
 effectiveTime: 有效时间
 permanent: 永久
+mealRecord: 用餐记录
+rechargeRecord: 充值记录
+mealManner: 用餐方式
+usageTime: 使用时间
+amount: 数量
+rechargeType: 充值类型
+rechargeAmount: 充值数量
+validityPeriod: 有效期
+operator: 操作人
+rechargeTime: 充值时间
+meal: 餐食

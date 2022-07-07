@@ -37,7 +37,7 @@
       </el-form>
     </template>
   </Table>
-  <Dialog :id="rowId" v-model="isShow" />
+  <Dialog :id="rowId" v-model="isShow" @updateData="getList" />
 </template>
 
 <script lang="ts" setup>
@@ -51,6 +51,7 @@
   import { useI18n } from '/@/hooks/useI18n'
   import useUser from '/@/hooks/useUser'
   import Dialog from './Dialog.vue'
+  import { useGo } from '/@/hooks/usePage'
 
   interface Props {
     departmentList: any[]
@@ -65,6 +66,8 @@
 
   const isShow = ref(false)
   const rowId = ref<number>(0)
+
+  const go = useGo()
 
   const gridOptions = reactive<VxeGridProps>({
     height: 'auto',
@@ -90,7 +93,7 @@
       },
       {
         field: 'phone',
-        title: t('state.cellphoneNumber'),
+        title: t('state.phoneNumber'),
         minWidth: 100,
       },
       {
@@ -119,7 +122,7 @@
               {
                 name: t('buttons.detail'),
                 event: ({ row }) => {
-                  console.log(row)
+                  go(`/meal/diningStaff_detail/${row.id}`)
                 },
               },
               {
@@ -161,7 +164,6 @@
   const getList = async () => {
     gridOptions.loading = true
     await getUsersList()
-    console.log(userList.value.length > 0 && userList.value[0].balances?.length > 0 && !loaded)
     if (userList.value.length > 0 && userList.value[0].balances?.length > 0 && !loaded) {
       loaded = true
       const arr: VxeTableDefines.ColumnOptions[] = userList.value[0].balances.map((item, index) => {
@@ -172,7 +174,6 @@
           minWidth: 100,
         } as VxeTableDefines.ColumnOptions
       })
-      console.log(arr)
       gridOptions.columns.splice(8, 0, arr[0], {
         title: t('state.frequency'),
         children: arr.slice(1),

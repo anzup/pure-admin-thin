@@ -5,7 +5,7 @@ export function usePayMethod() {
   const { t } = useI18n()
   const payMethodMap: Record<keyof typeof payMethodEnum, string> = {
     [payMethodEnum.COUNT]: t('state.frequency'),
-    [payMethodEnum.BALANCE]: t('state.topUp'),
+    [payMethodEnum.BALANCE]: t('state.balance'),
   }
 
   return {

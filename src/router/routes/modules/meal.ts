@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '/@/router/constant'
 
 const mealRouter: RouteRecordRaw = {
   path: '/meal',
@@ -14,50 +14,29 @@ const mealRouter: RouteRecordRaw = {
   children: [
     {
       path: 'diningStaff',
-      redirect: 'meal/diningStaff/index',
       name: 'DiningStaff',
-      component: getParentLayout('DiningStaff'),
+      component: () => import('/@/views/meal/diningStaff/index.vue'),
       meta: {
         title: 'menus.diningStaff',
       },
-      children: [
-        {
-          path: 'index',
-          name: 'DiningStaffIndex',
-          component: () => import('/@/views/meal/diningStaff/index.vue'),
-          meta: {
-            title: 'menus.diningStaff',
-          },
-        },
-        {
-          path: 'detail',
-          name: 'DiningStaffDetail',
-          component: () => import('/@/views/meal/diningStaff/detail.vue'),
-          meta: {
-            title: 'buttons.detail',
-            hideMenu: true,
-          },
-        },
-      ],
+    },
+    {
+      path: 'diningStaff_detail/:id',
+      name: 'DiningStaffDetail',
+      component: () => import('/@/views/meal/diningStaff/detail.vue'),
+      meta: {
+        title: 'buttons.detail',
+        hideMenu: true,
+        currentActiveMenu: '/meal/diningStaff',
+      },
     },
     {
       path: 'setting',
       name: 'Settings',
-      redirect: '/meal/settings/index',
-      component: getParentLayout('Settings'),
+      component: () => import('/@/views/meal/settings/index.vue'),
       meta: {
         title: 'menus.mealSettings',
       },
-      children: [
-        {
-          path: 'index',
-          name: 'SettingsIndex',
-          component: () => import('/@/views/meal/settings/index.vue'),
-          meta: {
-            title: 'menus.mealSettings',
-          },
-        },
-      ],
     },
   ],
 }

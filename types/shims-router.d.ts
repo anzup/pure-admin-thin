@@ -26,8 +26,8 @@ declare module 'vue-router' {
      */
     hideMenu?: boolean
     /**
-     * activeMenu 选中的菜单栏，用于页面隐藏时的显示
+     * currentActiveMenu 选中的菜单栏，用于页面隐藏时的显示
      */
-    activeMenu?: string
+    currentActiveMenu?: string
   }
 }
