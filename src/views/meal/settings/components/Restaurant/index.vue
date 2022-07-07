@@ -15,7 +15,7 @@
   import { useI18n } from '/@/hooks/useI18n'
   import RestaurantDialog from './dialog.vue'
   import useCanteens from '/@/hooks/useCanteens'
-  import usePayMethod from '/@/hooks/usePayMethod'
+  import { usePayMethod } from '/@/hooks/useEnumToMap'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { deleteCanteensId } from '/@/api/canteens'
 

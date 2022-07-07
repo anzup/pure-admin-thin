@@ -9,9 +9,9 @@ import VueI18n from '@intlify/vite-plugin-vue-i18n'
 // import ElementPlus from "unplugin-element-plus/vite";
 import { visualizer } from 'rollup-plugin-visualizer'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import AutoImport from 'unplugin-auto-import/vite'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
@@ -25,21 +25,21 @@ export function getPluginsList(command, VITE_LEGACY) {
     vue({
       reactivityTransform: true,
     }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
-      ],
-      dts: 'types/components.d.ts',
-    }),
+    // AutoImport({
+    //   resolvers: [ElementPlusResolver()],
+    // }),
+    // Components({
+    //   // allow auto load markdown components under `./src/components/`
+    //   extensions: ['vue', 'md'],
+    //   // allow auto import and register components used in markdown
+    //   include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+    //   resolvers: [
+    //     ElementPlusResolver({
+    //       importStyle: 'sass',
+    //     }),
+    //   ],
+    //   dts: 'types/components.d.ts',
+    // }),
     createStyleImportPlugin({
       libs: [
         // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR

@@ -1,5 +1,10 @@
 <template>
-  <Table :data="userList" v-bind="gridOptions" @handlePageChange="handlePageChange">
+  <Table
+    v-model:form="form"
+    :data="userList"
+    v-bind="gridOptions"
+    @handlePageChange="handlePageChange"
+  >
     <template #form>
       <el-form ref="headerFormRef" :model="form" class="header-form" inline>
         <el-form-item :label="$t('state.department')" prop="prohibited">
@@ -32,6 +37,7 @@
       </el-form>
     </template>
   </Table>
+  <Dialog :id="rowId" v-model="isShow" />
 </template>
 
 <script lang="ts" setup>
@@ -40,10 +46,11 @@
 
   import Table from '/@/components/Table/index.vue'
   import FormBtn from '/@/components/headerFormBtn/index.vue'
-  import { VxeGridProps } from 'vxe-table'
+  import type { VxeGridProps, VxeTableDefines } from 'vxe-table'
   import { setPage } from '/@/utils/utils'
   import { useI18n } from '/@/hooks/useI18n'
   import useUser from '/@/hooks/useUser'
+  import Dialog from './Dialog.vue'
 
   interface Props {
     departmentList: any[]
@@ -55,6 +62,9 @@
 
   // eslint-disable-next-line vue/no-setup-props-destructure
   const { departmentList = [], builtinRoles, roleId } = defineProps<Props>()
+
+  const isShow = ref(false)
+  const rowId = ref<number>(0)
 
   const gridOptions = reactive<VxeGridProps>({
     height: 'auto',
@@ -73,11 +83,6 @@
         formatter: 'formatGender',
       },
       {
-        field: 'idNumber',
-        title: t('state.idNumber'),
-        minWidth: 100,
-      },
-      {
         field: 'department.name',
         title: t('state.department'),
         // formatter: ({ cellValue }) =>
@@ -89,8 +94,23 @@
         minWidth: 100,
       },
       {
+        field: 'trainingItem.name',
+        title: t('state.trainingProgram'),
+        minWidth: 100,
+      },
+      {
+        field: 'courseNumber.name',
+        title: t('state.trainingClass'),
+        minWidth: 100,
+      },
+      // {
+      //   field: 'balances.amount',
+      //   title: t('state.balance') + ' / ' + t('state.dollar'),
+      //   minWidth: 100,
+      // },
+      {
         title: t('state.operation'),
-        width: 230,
+        width: 120,
         field: 'operationTypes',
         cellRender: {
           name: 'buttons',
@@ -102,6 +122,13 @@
                   console.log(row)
                 },
               },
+              {
+                name: t('buttons.recharge'),
+                event: ({ row }) => {
+                  rowId.value = row.id
+                  isShow.value = true
+                },
+              },
             ] as ButtonArr,
           },
         },
@@ -109,10 +136,11 @@
     ],
   })
 
-  const { userList, userForm: form, getUsersList: getList } = useUser()
+  const { userList, userForm: form, getUsersList } = useUser()
   form.size = 10
   form.builtinRoles = builtinRoles
   form.roleId = roleId
+  form.showBalance = true
 
   const headerFormRef = ref<FormInstance>()
 
@@ -129,11 +157,33 @@
     }
     getList()
   }
+  let loaded = false
+  const getList = async () => {
+    gridOptions.loading = true
+    await getUsersList()
+    console.log(userList.value.length > 0 && userList.value[0].balances?.length > 0 && !loaded)
+    if (userList.value.length > 0 && userList.value[0].balances?.length > 0 && !loaded) {
+      loaded = true
+      const arr: VxeTableDefines.ColumnOptions[] = userList.value[0].balances.map((item, index) => {
+        const { countConfig } = item
+        return {
+          field: `balances[${index}].amount`,
+          title: !index ? t('state.balance') + ' / ' + t('state.dollar') : countConfig?.name,
+          minWidth: 100,
+        } as VxeTableDefines.ColumnOptions
+      })
+      console.log(arr)
+      gridOptions.columns.splice(8, 0, arr[0], {
+        title: t('state.frequency'),
+        children: arr.slice(1),
+      } as VxeTableDefines.ColumnOptions)
+      gridOptions.columns = [...gridOptions.columns]
+    }
+    gridOptions.loading = false
+  }
 
   onMounted(async () => {
-    gridOptions.loading = true
     await getList()
-    gridOptions.loading = false
   })
 </script>
 

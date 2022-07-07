@@ -4,7 +4,7 @@ const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
 /**
  *
- * @description 餐厅列表
+ * @description 次数配置列表
  */
 
 export type CountConfigs = PageBase
@@ -18,7 +18,7 @@ export const getCountConfigsList = function (params: CountConfigs) {
 }
 
 /**
- * @description  餐厅详情
+ * @description  次数配置详情
  */
 
 export const getCountConfigsDetail = function (id: number) {
@@ -29,7 +29,7 @@ export const getCountConfigsDetail = function (id: number) {
 }
 
 /**
- * @description  餐厅新增
+ * @description  次数配置新增
  */
 
 export interface PostCountConfigs {
@@ -46,7 +46,7 @@ export const postCountConfigs = function (data: PostCountConfigs) {
 }
 
 /**
- * @description  餐厅修改
+ * @description  次数配置修改
  */
 
 export const putCountConfigsId = function (data) {
@@ -58,7 +58,7 @@ export const putCountConfigsId = function (data) {
 }
 
 /**
- * @description  餐厅删除
+ * @description  次数配置删除
 
  */
 
@@ -70,7 +70,7 @@ export const deleteCountConfigsId = function (data) {
 }
 
 /**
- * @description  餐厅批量删除
+ * @description  次数配置批量删除
  */
 
 export const postCountConfigsBatchDelete = function () {

@@ -1,7 +1,7 @@
 import { useI18n } from '/@/hooks/useI18n'
 import { payMethodEnum } from '/@/enums/payMethodEnum'
 
-export default function usePayMethod() {
+export function usePayMethod() {
   const { t } = useI18n()
   const payMethodMap: Record<keyof typeof payMethodEnum, string> = {
     [payMethodEnum.COUNT]: t('state.frequency'),

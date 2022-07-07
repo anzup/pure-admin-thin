@@ -39,7 +39,7 @@
   import { useVModel } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
   import { getCanteensDetail, postCanteens, PostCanteens, putCanteensId } from '/@/api/canteens'
-  import usePayMethod from '/@/hooks/usePayMethod'
+  import { usePayMethod } from '/@/hooks/useEnumToMap'
 
   interface Prop {
     modelValue: boolean

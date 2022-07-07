@@ -29,6 +29,15 @@ const mealRouter: RouteRecordRaw = {
             title: 'menus.diningStaff',
           },
         },
+        {
+          path: 'detail',
+          name: 'DiningStaffDetail',
+          component: () => import('/@/views/meal/diningStaff/detail.vue'),
+          meta: {
+            title: 'buttons.detail',
+            hideMenu: true,
+          },
+        },
       ],
     },
     {

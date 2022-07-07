@@ -73,6 +73,7 @@ export interface GetUsers extends PageBase {
   builtinRoles?: string
   builtinRolesNI?: string
   fromTrainingCenter?: boolean
+  showBalance?: boolean
 }
 
 export const getUsersList = function (params: GetUsers): AxiosPromise<DefaultPagingData> {

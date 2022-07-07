@@ -42,3 +42,12 @@ name: 名称
 period: 时段
 timesName: 次数名称
 applicableMeals: 适用餐食
+trainingProgram: 培训项目
+trainingClass: 培训班级
+balance: 余额
+dollar: 元
+sum: 金额
+rechargeTimes: 充值次数
+rechargeAmount: 充值金额
+effectiveTime: 有效时间
+permanent: 永久

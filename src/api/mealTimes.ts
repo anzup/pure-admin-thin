@@ -4,7 +4,7 @@ const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
 /**
  *
- * @description 餐厅列表
+ * @description 消费时段列表
  */
 
 export type MealTimes = PageBase
@@ -18,7 +18,7 @@ export const getMealTimesList = function (params: MealTimes) {
 }
 
 /**
- * @description  餐厅详情
+ * @description  消费时段详情
  */
 
 export const getMealTimesDetail = function (id: number) {
@@ -29,7 +29,7 @@ export const getMealTimesDetail = function (id: number) {
 }
 
 /**
- * @description  餐厅新增
+ * @description  消费时段新增
  */
 
 export interface PostMealTime {
@@ -47,7 +47,7 @@ export const postMealTimes = function (data: PostMealTime) {
 }
 
 /**
- * @description  餐厅修改
+ * @description  消费时段修改
  */
 
 export const putMealTimesId = function (data) {
@@ -59,7 +59,7 @@ export const putMealTimesId = function (data) {
 }
 
 /**
- * @description  餐厅删除
+ * @description  消费时段删除
 
  */
 
@@ -71,7 +71,7 @@ export const deleteMealTimesId = function (data) {
 }
 
 /**
- * @description  餐厅批量删除
+ * @description  消费时段批量删除
  */
 
 export const postMealTimesBatchDelete = function () {
