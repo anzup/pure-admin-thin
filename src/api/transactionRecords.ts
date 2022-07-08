@@ -112,6 +112,14 @@ export const postConsumeCodesUse = function (data: ConsumeCodesUse) {
   })
 }
 
+/**撤销消费记录**/
+export const postTransactionRecordsRevoke = function (id: number) {
+  return request({
+    url: url + `/transactionRecords/${id}/revoke`,
+    method: 'post',
+  })
+}
+
 /**消费记录统计**/
 export interface GetTransactionRecordStates {
   endTime: Date

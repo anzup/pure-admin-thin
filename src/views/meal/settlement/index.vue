@@ -56,6 +56,7 @@
   import {
     getTransactionRecordsList,
     postConsumeCodesUse,
+    postTransactionRecordsRevoke,
     TransactionRecords,
   } from '/@/api/transactionRecords'
   import { useUserStoreHook } from '/@/store/modules/user'
@@ -63,6 +64,7 @@
   import { transactionTypeEnum } from '/@/enums/transactionTypeEnum'
   import { payMethodEnum } from '/@/enums/payMethodEnum'
   import { getCanteensDetail } from '/@/api/canteens'
+  import { ElMessage, ElMessageBox } from 'element-plus'
 
   const { t } = useI18n()
 
@@ -108,20 +110,39 @@
         title: t('state.diningTime'),
         formatter: 'formatDateTime',
       },
-    ],
-    buttons: ({ row }) => [
       {
-        name: t('buttons.modify'),
-        type: 'edit',
-      },
-      {
-        name: t('buttons.hsDelete'),
-        type: 'delete',
-        status: 'danger',
-        disabled: row.builtin,
+        title: t('state.operation'),
+        width: 120,
+        field: 'operationTypes',
+        cellRender: {
+          name: 'buttons',
+          props: {
+            buttons: [
+              {
+                name: t('state.revoke'),
+                event: ({ row }) => {
+                  ElMessageBox.confirm(t('tip.cancelConsumptionRecords'), t('state.tip'), {
+                    type: 'warning',
+                  })
+                    .then(() => {
+                      return postTransactionRecordsRevoke(row.id)
+                    })
+                    .then(() => {
+                      ElMessage.success(t('status.undoSucceeded'))
+                      getList()
+                    })
+                    .catch(() => {})
+                },
+              },
+            ] as ButtonArr,
+          },
+        },
       },
     ],
     loading: false,
+    rowClassName: ({ row }) => {
+      return row.revoked ? 'revoked' : ''
+    },
   })
   const form = reactive<TransactionRecords>({
     page: 1,
@@ -156,10 +177,7 @@
     form.page = 1
     getList()
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-  const updateData = () => {
-    getList()
-  }
+
   const handlePageChange = (val) => {
     if (val.type == 'size') {
       form.page = setPage(form.total, form)
@@ -198,4 +216,8 @@
   })
 </script>
 
-<style scoped></style>
+<style scoped>
+  :deep(.revoked) {
+    background-color: var(--el-color-danger-light-9);
+  }
+</style>
