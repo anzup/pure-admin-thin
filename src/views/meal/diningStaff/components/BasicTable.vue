@@ -105,7 +105,7 @@
             title: t('state.rechargeAmount'),
           },
           {
-            field: 'creator',
+            field: 'creator.name',
             title: t('state.operator'),
           },
           {

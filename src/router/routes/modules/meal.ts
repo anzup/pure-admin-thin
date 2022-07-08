@@ -46,6 +46,14 @@ const mealRouter: RouteRecordRaw = {
         title: 'menus.cashierManagement',
       },
     },
+    {
+      path: 'statistics',
+      name: 'Statistics',
+      component: () => import('/@/views/meal/statistics/index.vue'),
+      meta: {
+        title: 'menus.mealStatistics',
+      },
+    },
   ],
 }
 export default mealRouter

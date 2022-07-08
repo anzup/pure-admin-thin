@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '/@/router/constant'
 
 const userRouter: RouteRecordRaw = {
   path: '/user',
@@ -7,90 +7,60 @@ const userRouter: RouteRecordRaw = {
   component: LAYOUT,
   redirect: '/user/staffManagement',
   meta: {
-    icon: 'svg-personnel',
+    icon: 'information-line',
     title: 'menus.personnelManagement',
     orderNo: 1,
   },
   children: [
     {
       path: 'staffManagement',
-      redirect: '/user/staffManagement/index',
-      name: 'StaffManagement',
-      component: getParentLayout('StaffManagement'),
+
+      name: 'StaffManagementIndex',
+      component: () => import('/@/views/user/staff/index.vue'),
       meta: {
         title: 'menus.staffManagement',
+        breadcrumb: false,
+        keepAlive: true,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StaffManagementIndex',
-          component: () => import('/@/views/user/staff/index.vue'),
-          meta: {
-            title: 'menus.staffManagement',
-            breadcrumb: false,
-            keepAlive: true,
-          },
-        },
-        {
-          path: 'detail',
-          name: 'StaffManagementDetail',
-          component: () => import('/@/views/user/staff/detail.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'buttons.detail',
-            currentActiveMenu: '/user/staffManagement',
-          },
-        },
-      ],
+    },
+    {
+      path: 'detail',
+      name: 'StaffManagementDetail',
+      component: () => import('/@/views/user/staff/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'buttons.detail',
+        currentActiveMenu: '/user/staffManagement',
+      },
     },
     {
       path: 'roles',
-      redirect: '/user/roles/index',
-      name: 'Roles',
-      component: getParentLayout('Roles'),
+
+      name: 'RolesIndex',
+      component: () => import('/@/views/user/roles/index.vue'),
       meta: {
         title: 'menus.positionManagement',
       },
-      children: [
-        {
-          path: 'index',
-          name: 'RolesIndex',
-          component: () => import('/@/views/user/roles/index.vue'),
-          meta: {
-            title: 'menus.positionManagement',
-          },
-        },
-        {
-          path: 'competence',
-          name: 'rolesCompetence',
-          component: () => import('/@/views/user/roles/competence.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'buttons.competence',
-            currentActiveMenu: '/user/roles/index',
-          },
-        },
-      ],
     },
     {
+      path: 'competence',
+      name: 'rolesCompetence',
+      component: () => import('/@/views/user/roles/competence.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'buttons.competence',
+        currentActiveMenu: '/user/roles/index',
+      },
+    },
+
+    {
       path: 'departments',
-      redirect: '/user/departments/index',
-      name: 'Departments',
-      component: getParentLayout('Departments'),
+
+      name: 'DepartmentsIndex',
+      component: () => import('/@/views/user/departments/index.vue'),
       meta: {
         title: 'menus.departmentManagement',
-        hideChildrenInMenu: true,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'DepartmentsIndex',
-          component: () => import('/@/views/user/departments/index.vue'),
-          meta: {
-            title: 'menus.departmentManagement',
-          },
-        },
-      ],
     },
   ],
 }

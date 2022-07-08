@@ -42,12 +42,6 @@
         </div>
       </el-form>
     </template>
-    <template #toolbar_tools>
-      <div class="px-4">
-        <el-button type="primary" @click="add">{{ $t('buttons.hsAdd') }}</el-button>
-        <!--<DiaLog :id="detailId" v-model:isShow="isShow" :type="type" @updateData="updateData" />-->
-      </div>
-    </template>
   </VxeTable>
 </template>
 
@@ -129,7 +123,6 @@
     ],
     loading: false,
   })
-  const isShow = ref(false)
   const form = reactive<TransactionRecords>({
     page: 1,
     size: 10,
@@ -140,9 +133,6 @@
 
   const amount = ref<number>()
   const barcode = ref<string>()
-
-  const detailId = ref(undefined)
-  const type = ref('')
 
   const getList = async () => {
     gridOptions.loading = true
@@ -165,11 +155,6 @@
     }
     form.page = 1
     getList()
-  }
-  const add = () => {
-    isShow.value = true
-    type.value = 'add'
-    detailId.value = undefined
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
   const updateData = () => {

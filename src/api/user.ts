@@ -266,3 +266,35 @@ export const postChangePassword = (data: PostChangePassword) =>
     method: 'post',
     data,
   })
+
+/**获取客户**/
+export interface GetOtherList extends PageBase {
+  name?: string
+  departmentId?: number
+}
+
+export const getCustomersList = function (params: GetOtherList) {
+  return request<DefaultPagingData>({
+    url: url + `/users/customers`,
+    method: 'get',
+    params,
+  })
+}
+
+/**获取班级客户**/
+export const getCourseNumbersList = function (params: GetOtherList) {
+  return request<DefaultPagingData>({
+    url: url + `/users/courseNumbers`,
+    method: 'get',
+    params,
+  })
+}
+
+/**获取培训项目**/
+export const getTrainingItemsList = function (params: GetOtherList) {
+  return request<DefaultPagingData>({
+    url: url + `/users/trainingItems`,
+    method: 'get',
+    params,
+  })
+}

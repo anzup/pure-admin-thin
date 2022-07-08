@@ -126,7 +126,7 @@
         break
       case 'competence':
         router.push({
-          path: '/user/roles/competence',
+          path: '/user/competence',
           query: {
             id: row.id,
           },

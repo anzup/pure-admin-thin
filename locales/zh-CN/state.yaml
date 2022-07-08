@@ -70,3 +70,11 @@ functionName: 功能名称
 value: 值
 type: 类型
 tip: 提示
+mealStatistics: 用餐统计
+mealDetails: 用餐明细
+total: 合计
+airline: 航空公司
+consumption: 消费
+recharge: 充值
+changeTheTime: 修改时间
+revoke: 撤销

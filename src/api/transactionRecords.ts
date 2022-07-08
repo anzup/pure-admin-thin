@@ -22,6 +22,10 @@ export interface TransactionRecords extends PageBase {
   mealTimeId?: number
   trainingItemId?: number
   trainingItemLK?: string
+  customerId?: number
+  type?: payMethodEnum
+  createdDateLE?: Date
+  createdDateGE?: Date
 }
 
 export const getTransactionRecordsList = function (params: TransactionRecords) {
@@ -107,3 +111,17 @@ export const postConsumeCodesUse = function (data: ConsumeCodesUse) {
     data,
   })
 }
+
+/**消费记录统计**/
+export interface GetTransactionRecordStates {
+  endTime: Date
+  startTime: Date
+  type: transactionTypeEnum
+}
+
+export const getTransactionRecordStates = (params: GetTransactionRecordStates) =>
+  request({
+    url: url + '/transactionRecords/stats',
+    method: 'get',
+    params,
+  })

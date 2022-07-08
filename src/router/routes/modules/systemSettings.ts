@@ -10,7 +10,7 @@ const userRouter: RouteRecordRaw = {
   component: LAYOUT,
   redirect: `/${routerName}/templateConfig`,
   meta: {
-    icon: 'svg-personnel',
+    icon: 'information-line',
     title: 'menus.systemSettings',
     i18n: true,
     rank: 20,
