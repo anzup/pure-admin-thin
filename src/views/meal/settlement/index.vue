@@ -22,7 +22,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-input ref="inputRef" v-model="barcode" />
+          <el-input ref="inputRef" v-model="barcode" @change="postConsumeCodes" />
         </el-form-item>
         <div class="flex">
           <el-form-item class="mr-4" prop="searchKey">
@@ -183,10 +183,16 @@
   const postConsumeCodes = () => {
     postConsumeCodesUse({
       canteenId: userStore.userInfo?.user?.canteen?.id,
-      amount: amount.value,
+      amount: payMethod.value === payMethodEnum.COUNT ? 1 : amount.value,
       code: barcode.value,
       type: payMethodEnum.COUNT,
     })
+      .then(() => {
+        getList()
+      })
+      .finally(() => {
+        barcode.value = undefined
+      })
   }
 
   const payMethod = ref<string>()
