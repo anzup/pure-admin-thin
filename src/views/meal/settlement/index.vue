@@ -80,12 +80,12 @@
     columns: [
       { type: 'seq', width: 60, title: t('state.seq') },
       {
-        field: 'name',
+        field: 'user.name',
         title: t('state.fullName'),
         minWidth: 100,
       },
       {
-        field: 'phone',
+        field: 'user.phone',
         title: t('state.phoneNumber'),
         minWidth: 100,
       },
@@ -101,10 +101,13 @@
       {
         field: 'amount',
         title: t('state.amountOfConsumption'),
-        formatter: ({ cellValue, row }) =>
-          cellValue + ' ' + row.type === payMethodEnum.COUNT
-            ? t('state.secondary')
-            : t('state.dollar'),
+        formatter: ({ cellValue, row }) => {
+          return (
+            cellValue +
+            ' ' +
+            (row.type === payMethodEnum.COUNT ? t('state.secondary') : t('state.dollar'))
+          )
+        },
       },
       {
         field: 'createdDate',
@@ -185,7 +188,7 @@
       canteenId: userStore.userInfo?.user?.canteen?.id,
       amount: payMethod.value === payMethodEnum.COUNT ? 1 : amount.value,
       code: barcode.value,
-      type: payMethodEnum.COUNT,
+      type: payMethod.value,
     })
       .then(() => {
         getList()

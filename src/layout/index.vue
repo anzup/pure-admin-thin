@@ -17,12 +17,10 @@
   import Setting from './components/setting/index.vue'
   import Vertical from './components/sidebar/vertical.vue'
   import Horizontal from './components/sidebar/horizontal.vue'
-  import { useMultipleTabStoreHook } from '/@/store/modules/multipleTab'
 
   const isMobile = deviceDetection()
   const pureSetting = useSettingStoreHook()
   const instance = getCurrentInstance().appContext.app.config.globalProperties
-
   // 清空缓存后从serverConfig.json读取默认配置并赋值到storage中
   const layout = computed(() => {
     // 路由
@@ -198,7 +196,7 @@
       v-show="set.device === 'mobile' && set.sidebar.opened && layout.includes('vertical')"
       class="app-mask"
       @click="useAppStoreHook().toggleSideBar()"
-    ></div>
+    />
     <Vertical
       v-show="!pureSetting.hiddenSideBar && (layout.includes('vertical') || layout.includes('mix'))"
     />

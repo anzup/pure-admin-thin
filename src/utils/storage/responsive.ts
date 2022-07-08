@@ -5,35 +5,28 @@ import Storage from 'responsive-storage'
 export const injectResponsiveStorage = (app: App, config: ServerConfigs) => {
   const configObj = {
     // 国际化 默认中文zh
-    locale: {
-      type: Object,
-      default: Storage.getData(import.meta.env.VITE_APPNAME, 'locale') ?? {
-        locale: config.Locale ?? 'zh-CN',
-      },
+    locale: Storage.getData(import.meta.env.VITE_APPNAME, 'locale') ?? {
+      locale: config.Locale ?? 'zh-CN',
     },
+
     // layout模式以及主题
-    layout: {
-      type: Object,
-      default: Storage.getData(import.meta.env.VITE_APPNAME, 'layout') ?? {
-        layout: config.Layout ?? 'vertical',
-        theme: config.Theme ?? 'default',
-        darkMode: config.DarkMode ?? false,
-        sidebarStatus: config.SidebarStatus ?? true,
-        epThemeColor: config.EpThemeColor ?? '#409EFF',
-      },
+    layout: Storage.getData(import.meta.env.VITE_APPNAME, 'layout') ?? {
+      layout: config.Layout ?? 'vertical',
+      theme: config.Theme ?? 'default',
+      darkMode: config.DarkMode ?? false,
+      sidebarStatus: config.SidebarStatus ?? true,
+      epThemeColor: config.EpThemeColor ?? '#409EFF',
     },
-    configure: {
-      type: Object,
-      default: Storage.getData(import.meta.env.VITE_APPNAME, 'configure') ?? {
-        grey: config.Grey ?? false,
-        weak: config.Weak ?? false,
-        hideTabs: config.HideTabs ?? false,
-        showLogo: config.ShowLogo ?? true,
-        showModel: config.ShowModel ?? '-smart',
-        multiTagsCache: config.MultiTagsCache ?? false,
-      },
+    configure: Storage.getData(import.meta.env.VITE_APPNAME, 'configure') ?? {
+      grey: config.Grey ?? false,
+      weak: config.Weak ?? false,
+      hideTabs: config.HideTabs ?? false,
+      showLogo: config.ShowLogo ?? true,
+      showModel: config.ShowModel ?? '-smart',
+      multiTagsCache: config.MultiTagsCache ?? false,
     },
   }
 
-  app.use(Storage, import.meta.env.VITE_APPNAME, configObj)
+  app.use(Storage, { nameSpace: import.meta.env.VITE_APPNAME, memory: configObj })
+  // app.use(Storage, { import.meta.env.VITE_APPNAME, configObj })
 }
