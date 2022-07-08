@@ -79,7 +79,7 @@
         </el-button>
       </template>
     </VxeTable>
-    <Dialog v-model="isShow" :role-info="roleInfo" @updateData="getList" />
+    <Dialog :id="detailId" v-model="isShow" :role-info="roleInfo" @updateData="getList" />
   </div>
 </template>
 

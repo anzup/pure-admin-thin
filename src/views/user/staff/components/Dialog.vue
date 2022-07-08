@@ -142,7 +142,7 @@
   const getTitle = computed(() => (!props.id ? t('buttons.hsAdd') : t('buttons.edit')))
 
   const getCanteen = computed(() =>
-    state.form.roleIds.includes(roleAllList.value.find((v) => v.builtinRole === 'CASHIER')?.id),
+    state.form.roleIds?.includes(roleAllList.value.find((v) => v.builtinRole === 'CASHIER')?.id),
   )
   const hasTeacherRole = ref(false)
   const { genderList } = useCommon()
@@ -305,6 +305,9 @@
     state.form.roleIds = [props.roleInfo.roleId]
     if (props.id) {
       getUsersDetail(props.id).then((res) => {
+        res.data.roleIds = res.data.roles.map((v) => v.id)
+        res.data.canteenId = res.data?.canteen?.id
+        res.data.departmentId = res.data?.department?.id
         state.form = res.data
       })
     }
