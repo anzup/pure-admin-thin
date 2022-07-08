@@ -12,6 +12,9 @@
         </el-form-item>
       </el-form>
     </template>
+    <!--<template #line="{}">-->
+    <!--  -->
+    <!--</template>-->
   </Table>
 </template>
 
@@ -44,6 +47,9 @@
         field: 'canteen.name',
         title: t('state.restaurantName'),
         minWidth: 100,
+        type: 'html',
+        formatter: ({ cellValue }) =>
+          `<span class="underline cursor-pointer" style="color: var(--el-color-primary)">${cellValue}</span>`,
       },
       {
         field: 'totalSums',
@@ -53,11 +59,17 @@
             field: 'totalSums[0].amount',
             title: payMethodMap[payMethodEnum.COUNT],
             minWidth: 80,
+            type: 'html',
+            formatter: ({ cellValue }) =>
+              `<span class="underline cursor-pointer" style="color: var(--el-color-primary)">${cellValue}</span>`,
           },
           {
             field: 'totalSums[1].amount',
             title: payMethodMap[payMethodEnum.BALANCE],
             minWidth: 80,
+            type: 'html',
+            formatter: ({ cellValue }) =>
+              `<span class="underline cursor-pointer" style="color: var(--el-color-primary)">${cellValue}</span>`,
           },
         ],
       },
@@ -87,11 +99,17 @@
                 field: `mealTimeSum[${index}].sums[0].amount`,
                 title: payMethodMap[payMethodEnum.COUNT],
                 minWidth: 80,
+                type: 'html',
+                formatter: ({ cellValue }) =>
+                  `<span class="underline cursor-pointer" style="color: var(--el-color-primary)">${cellValue}</span>`,
               },
               {
                 field: `mealTimeSum[${index}].sums[1].amount`,
                 title: payMethodMap[payMethodEnum.BALANCE] + ' / ' + t('state.dollar'),
                 minWidth: 80,
+                type: 'html',
+                formatter: ({ cellValue }) =>
+                  `<span class="underline cursor-pointer" style="color: var(--el-color-primary)">${cellValue}</span>`,
               },
             ],
           } as VxeTableDefines.ColumnOptions

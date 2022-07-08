@@ -131,7 +131,7 @@
     loading: false,
   })
 
-  const form = reactive<TransactionRecords>({
+  const form = reactive<TransactionRecords & { dateRange?: Date[] }>({
     page: 1,
     size: 10,
     total: 0,
@@ -139,6 +139,7 @@
   })
   listenerDetailChange((data) => {
     Object.assign(form, { ...(data || {}), page: 1 })
+    form.dateRange = [form.createdDateGE, form.createdDateLE]
     getList()
   }, false)
 
