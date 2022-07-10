@@ -1,3 +1,32 @@
+<template>
+  <div v-resize :class="['app-wrapper', set.classes]">
+    <div
+      v-show="set.device === 'mobile' && set.sidebar.opened && layout.includes('vertical')"
+      class="app-mask"
+      @click="useAppStoreHook().toggleSideBar()"
+    />
+    <Vertical
+      v-show="!pureSetting.hiddenSideBar && (layout.includes('vertical') || layout.includes('mix'))"
+    />
+    <div :class="['main-container', pureSetting.hiddenSideBar ? 'main-hidden' : '']">
+      <div v-if="set.fixedHeader">
+        <layout-header />
+        <!-- 主体内容 -->
+        <app-main :fixed-header="set.fixedHeader" />
+      </div>
+      <el-scrollbar v-else>
+        <el-backtop target=".main-container .el-scrollbar__wrap" title="回到顶部">
+          <BackTop />
+        </el-backtop>
+        <layout-header />
+        <!-- 主体内容 -->
+        <app-main :fixed-header="set.fixedHeader" />
+      </el-scrollbar>
+    </div>
+    <!-- 系统设置 -->
+    <Setting />
+  </div>
+</template>
 <script lang="ts" setup>
   import { h, reactive, computed, onMounted, defineComponent, getCurrentInstance } from 'vue'
   import { setType } from './types'
@@ -17,7 +46,6 @@
   import Setting from './components/setting/index.vue'
   import Vertical from './components/sidebar/vertical.vue'
   import Horizontal from './components/sidebar/horizontal.vue'
-  import { useMultipleTabStoreHook } from '/@/store/modules/multipleTab'
 
   const isMobile = deviceDetection()
   const pureSetting = useSettingStoreHook()
@@ -191,36 +219,6 @@
     },
   })
 </script>
-
-<template>
-  <div v-resize :class="['app-wrapper', set.classes]">
-    <div
-      v-show="set.device === 'mobile' && set.sidebar.opened && layout.includes('vertical')"
-      class="app-mask"
-      @click="useAppStoreHook().toggleSideBar()"
-    ></div>
-    <Vertical
-      v-show="!pureSetting.hiddenSideBar && (layout.includes('vertical') || layout.includes('mix'))"
-    />
-    <div :class="['main-container', pureSetting.hiddenSideBar ? 'main-hidden' : '']">
-      <div v-if="set.fixedHeader">
-        <layout-header />
-        <!-- 主体内容 -->
-        <app-main :fixed-header="set.fixedHeader" />
-      </div>
-      <el-scrollbar v-else>
-        <el-backtop target=".main-container .el-scrollbar__wrap" title="回到顶部">
-          <BackTop />
-        </el-backtop>
-        <layout-header />
-        <!-- 主体内容 -->
-        <app-main :fixed-header="set.fixedHeader" />
-      </el-scrollbar>
-    </div>
-    <!-- 系统设置 -->
-    <Setting />
-  </div>
-</template>
 
 <style lang="scss" scoped>
   @mixin clearfix {

@@ -1,4 +1,5 @@
 import { i18n } from '/@/plugins/i18n'
+import { ComputedRef } from 'vue'
 
 type I18nGlobalTranslation = {
   (key: string): string
@@ -23,7 +24,8 @@ function getKey(namespace: string | undefined, key: string) {
 
 export function useI18n(namespace?: string): {
   t: I18nGlobalTranslation
-} {
+  locale?: ComputedRef<string>
+} & any {
   const normalFn = {
     t: (key: string) => {
       return getKey(namespace, key)

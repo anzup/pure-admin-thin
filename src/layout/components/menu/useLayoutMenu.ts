@@ -32,7 +32,6 @@ export function useSplitMenu() {
     [() => unref(currentRoute).path, () => unref(getMenuType)],
     async ([path]: [string, MenuModeEnum]) => {
       if (unref(splitNotLeft) || unref(getIsMobile)) return
-
       const { meta } = unref(currentRoute)
       const currentActiveMenu = meta.currentActiveMenu as string
       let parentPath = await getCurrentParentPath(path)
@@ -66,7 +65,6 @@ export function useSplitMenu() {
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
     if (unref(getSplitLeft) || unref(getIsMobile)) return
-
     // spilt mode left
     const children = await getChildrenMenus(parentPath)
 
@@ -89,7 +87,6 @@ export function useSplitMenu() {
     // split-top
     if (unref(getSpiltTop)) {
       const shallowMenus = await getShallowMenus()
-
       menusRef.value = shallowMenus
       return
     }

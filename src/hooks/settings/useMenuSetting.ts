@@ -1,5 +1,5 @@
 import { useAppStoreHook } from '/@/store/modules/app'
-import { computed, getCurrentInstance, watch } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { MenuModeEnum } from '/@/enums/menuEnum'
 import { DeviceEnum } from '/@/enums/deviceEnum'
 
@@ -8,7 +8,7 @@ export function useMenuSetting() {
   const instance = computed(
     () => getCurrentInstance().appContext.app.config.globalProperties.$storage,
   )
-  const getMenuType = computed(() => appStore.layout)
+  const getMenuType = computed<MenuModeEnum>(() => appStore.layout)
   const getIsMix = computed(() => getMenuType.value === MenuModeEnum.MIX)
   const getCollapsed = computed(() => appStore.sidebar.opened)
   const getAccordion = computed(() => true)

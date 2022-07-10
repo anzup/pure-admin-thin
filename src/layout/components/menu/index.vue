@@ -20,7 +20,7 @@
     props: {
       isHorizontal: propTypes.bool,
       menuMode: {
-        type: [String] as PropType<Nullable<MenuModeEnum>>,
+        type: String as PropType<Nullable<MenuModeEnum>>,
         default: '',
       },
     },
@@ -92,12 +92,9 @@
 
       function renderMenu() {
         const { menus, ...menuProps } = unref(getCommonProps)
-        // console.log(menus);
+        // console.log(menus)
         if (!menus || !menus.length) return null
-        return !props.isHorizontal ? (
-          // <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus} />
-          <div>123</div>
-        ) : (
+        return (
           <BasicMenu
             {...(menuProps as any)}
             isHorizontal={props.isHorizontal}

@@ -1,3 +1,71 @@
+<template>
+  <div class="horizontal-header">
+    <div class="horizontal-header-left" @click="backHome">
+      <FontIcon icon="team-iconlogo" style="width: 35px; height: 35px" svg />
+      <h4>{{ title }}</h4>
+    </div>
+    <el-menu
+      v-if="menusRef.length > 0"
+      ref="menu"
+      :default-active="route.path"
+      class="horizontal-header-menu"
+      mode="horizontal"
+      router
+      @select="(indexPath) => menuSelect(indexPath, routers)"
+    >
+      <sidebar-item
+        v-for="route in menusRef"
+        :key="route.path"
+        :base-path="route.path"
+        :item="route"
+      />
+    </el-menu>
+    <div class="horizontal-header-right">
+      <!-- 菜单搜索 -->
+      <Search />
+      <!-- 通知 -->
+      <Notice id="header-notice" />
+      <!-- 全屏 -->
+      <ScreenFull v-show="!deviceDetection()" id="header-screenfull" />
+      <!-- 国际化 -->
+      <el-dropdown id="header-translation" trigger="click">
+        <Globalization />
+        <template #dropdown>
+          <el-dropdown-menu class="translation">
+            <el-dropdown-item :style="getDropdownItemStyle(locale, 'zh')" @click="translationCh">
+              <span v-show="locale === 'zh'" class="check-zh">
+                <IconifyIconOffline icon="check" /> </span
+              >简体中文
+            </el-dropdown-item>
+            <el-dropdown-item :style="getDropdownItemStyle(locale, 'en')" @click="translationEn">
+              <span v-show="locale === 'en'" class="check-en">
+                <IconifyIconOffline icon="check" /> </span
+              >English
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <!-- 退出登陆 -->
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          <img v-if="avatars" :src="avatars" :style="avatarsStyle" />
+          <p v-if="username">{{ username }}</p>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu class="logout">
+            <el-dropdown-item @click="logout">
+              <IconifyIconOffline icon="logout-circle-r-line" style="margin: 5px" />
+              {{ t('buttons.hsLoginOut') }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <span :title="t('buttons.systemSet')" class="el-icon-setting" @click="onPanel">
+        <IconifyIconOffline icon="setting" />
+      </span>
+    </div>
+  </div>
+</template>
 <script lang="ts" setup>
   import { useI18n } from '/@/hooks/useI18n'
   import { useNav } from '../../hooks/nav'
@@ -6,12 +74,13 @@
   import { templateRef } from '@vueuse/core'
   import SidebarItem from './sidebarItem.vue'
   import avatars from '/@/assets/avatars.jpg'
-  import screenfull from '../screenfull/index.vue'
+  import ScreenFull from '../screenfull/index.vue'
   import { useRoute, useRouter } from 'vue-router'
   import { deviceDetection } from '/@/utils/deviceDetection'
-  import { watch, nextTick, onMounted, getCurrentInstance } from 'vue'
-  import { usePermissionStoreHook } from '/@/store/modules/permission'
-  import globalization from '/@/assets/svg/globalization.svg?component'
+  import { watch, nextTick, onMounted, getCurrentInstance, ref } from 'vue'
+  import Globalization from '/@/assets/svg/globalization.svg?component'
+  import { Menu } from '/@/router/types'
+  import { getMenus } from '/@/router/menus'
 
   const route = useRoute()
   const { locale, t } = useI18n()
@@ -63,75 +132,14 @@
     locale.value = 'en'
     handleResize(menuRef.value)
   }
-</script>
 
-<template>
-  <div class="horizontal-header">
-    <div class="horizontal-header-left" @click="backHome">
-      <FontIcon icon="team-iconlogo" style="width: 35px; height: 35px" svg />
-      <h4>{{ title }}</h4>
-    </div>
-    <el-menu
-      ref="menu"
-      :default-active="route.path"
-      class="horizontal-header-menu"
-      mode="horizontal"
-      router
-      @select="(indexPath) => menuSelect(indexPath, routers)"
-    >
-      <sidebar-item
-        v-for="route in usePermissionStoreHook().wholeMenus"
-        :key="route.path"
-        :base-path="route.path"
-        :item="route"
-      />
-    </el-menu>
-    <div class="horizontal-header-right">
-      <!-- 菜单搜索 -->
-      <Search />
-      <!-- 通知 -->
-      <Notice id="header-notice" />
-      <!-- 全屏 -->
-      <screenfull v-show="!deviceDetection()" id="header-screenfull" />
-      <!-- 国际化 -->
-      <el-dropdown id="header-translation" trigger="click">
-        <globalization />
-        <template #dropdown>
-          <el-dropdown-menu class="translation">
-            <el-dropdown-item :style="getDropdownItemStyle(locale, 'zh')" @click="translationCh">
-              <span v-show="locale === 'zh'" class="check-zh">
-                <IconifyIconOffline icon="check" /> </span
-              >简体中文
-            </el-dropdown-item>
-            <el-dropdown-item :style="getDropdownItemStyle(locale, 'en')" @click="translationEn">
-              <span v-show="locale === 'en'" class="check-en">
-                <IconifyIconOffline icon="check" /> </span
-              >English
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-      <!-- 退出登陆 -->
-      <el-dropdown trigger="click">
-        <span class="el-dropdown-link">
-          <img v-if="avatars" :src="avatars" :style="avatarsStyle" />
-          <p v-if="username">{{ username }}</p>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu class="logout">
-            <el-dropdown-item @click="logout">
-              <IconifyIconOffline icon="logout-circle-r-line" style="margin: 5px" />
-              {{ t('buttons.hsLoginOut') }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-      <span :title="t('buttons.systemSet')" class="el-icon-setting" @click="onPanel">
-        <IconifyIconOffline icon="setting" />
-      </span>
-    </div>
-  </div>
-</template>
+  const menusRef = ref<Menu[]>([])
+  // get menus
+  async function genMenus() {
+    menusRef.value = await getMenus()
+  }
+  genMenus()
+</script>
 
 <style lang="scss" scoped>
   .translation {

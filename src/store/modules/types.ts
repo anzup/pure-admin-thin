@@ -1,4 +1,5 @@
 import { RouteRecordName } from 'vue-router'
+import { MenuModeEnum } from '/@/enums/menuEnum'
 
 export type cacheType = {
   mode: string
@@ -17,7 +18,7 @@ export type appType = {
     // 判断是否手动点击Hamburger
     isClickHamburger: boolean
   }
-  layout: string
+  layout: MenuModeEnum
   device: string
 }
 
