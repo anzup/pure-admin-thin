@@ -8,7 +8,7 @@ interface ProxyStorage {
   clear(): void
 }
 
-const appname = import.meta.env.VITE_APPNAME
+const appName = import.meta.env.VITE_APPNAME
 
 //sessionStorage operate
 class sessionStorageProxy implements ProxyStorage {
@@ -20,16 +20,17 @@ class sessionStorageProxy implements ProxyStorage {
 
   // 存
   public setItem(key: string, value: any): void {
-    this.storage.setItem(appname + key, JSON.stringify(value))
-  } // 取
+    this.storage.setItem(appName + key, JSON.stringify(value))
+  }
 
+  // 取
   public getItem(key: string): any {
-    return JSON.parse(this.storage.getItem(appname + key))
-  ;}
+    return JSON.parse(this.storage.getItem(appName + key))
+  }
 
   // 删
   public removeItem(key: string): void {
-    this.storage.removeItem(appname + key)
+    this.storage.removeItem(appName + key)
   }
 
   // 清空

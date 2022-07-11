@@ -9,9 +9,9 @@ import VueI18n from '@intlify/vite-plugin-vue-i18n'
 // import ElementPlus from "unplugin-element-plus/vite";
 import { visualizer } from 'rollup-plugin-visualizer'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import AutoImport from 'unplugin-auto-import/vite'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
