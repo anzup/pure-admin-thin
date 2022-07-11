@@ -15,7 +15,7 @@
             :label="$t('tip.pleaseEnter')"
             :min="0"
             :precision="2"
-            class="!w-16"
+            class="!w-20"
             @blur="inputFocus"
             @change="inputFocus"
             @clear="inputFocus"
@@ -117,24 +117,26 @@
         cellRender: {
           name: 'buttons',
           props: {
-            buttons: [
-              {
-                name: t('state.revoke'),
-                event: ({ row }) => {
-                  ElMessageBox.confirm(t('tip.cancelConsumptionRecords'), t('state.tip'), {
-                    type: 'warning',
-                  })
-                    .then(() => {
-                      return postTransactionRecordsRevoke(row.id)
+            buttons: ({ row }) =>
+              [
+                {
+                  name: t('state.revoke'),
+                  disabled: row?.revoked,
+                  event: ({ row }) => {
+                    ElMessageBox.confirm(t('tip.cancelConsumptionRecords'), t('state.tip'), {
+                      type: 'warning',
                     })
-                    .then(() => {
-                      ElMessage.success(t('status.undoSucceeded'))
-                      getList()
-                    })
-                    .catch(() => {})
+                      .then(() => {
+                        return postTransactionRecordsRevoke(row.id)
+                      })
+                      .then(() => {
+                        ElMessage.success(t('status.undoSucceeded'))
+                        getList()
+                      })
+                      .catch(() => {})
+                  },
                 },
-              },
-            ] as ButtonArr,
+              ] as ButtonArr,
           },
         },
       },

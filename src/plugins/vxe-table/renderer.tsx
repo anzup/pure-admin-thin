@@ -19,6 +19,7 @@ export default function tableRenderer(renderer: VXETable['renderer']) {
                 status={v.disabled ? '' : v.status || 'primary'}
                 type="text"
                 onClick={() => v.event(params as any)}
+                disabled={v.disabled}
               >
                 {v.name}
               </vxe-button>
