@@ -6,15 +6,15 @@
   import { templateRef } from '@vueuse/core'
   import avatars from '/@/assets/avatars.jpg'
   import { transformI18n } from '/@/plugins/i18n'
-  import screenfull from '../screenfull/index.vue'
   import { useRoute, useRouter } from 'vue-router'
   import { deviceDetection } from '/@/utils/deviceDetection'
   import { useRenderIcon } from '/@/components/ReIcon/src/hooks'
   import { useEpThemeStoreHook } from '/@/store/modules/epTheme'
-  import { getParentPaths, findRouteByPath } from '/@/router/utils'
-  import { usePermissionStoreHook } from '/@/store/modules/permission'
-  import globalization from '/@/assets/svg/globalization.svg?component'
-  import { ref, watch, nextTick, onMounted, getCurrentInstance } from 'vue'
+  import { findRouteByPath, getParentPaths } from '/@/router/utils'
+  import Globalization from '/@/assets/svg/globalization.svg?component'
+  import { getCurrentInstance, nextTick, onMounted, ref, watch } from 'vue'
+  import { getMenus } from '/@/router/menus'
+  import { Menu } from '/@/router/types'
 
   const route = useRoute()
   const { locale, t } = useI18n()
@@ -37,13 +37,16 @@
   } = useNav()
 
   let defaultActive = ref(null)
+  const wholeMenus = ref<Menu[]>([])
 
-  function getDefaultActive(routePath) {
-    const wholeMenus = usePermissionStoreHook().wholeMenus
+  async function getDefaultActive(routePath) {
+    wholeMenus.value = await getMenus()
     // 当前路由的父级路径
-    const parentRoutes = getParentPaths(routePath, wholeMenus)[0]
-    const byRoutes = findRouteByPath(parentRoutes, wholeMenus)
-    defaultActive.value = byRoutes?.meta?.currentActiveMenu || byRoutes?.children[0]?.path
+    const parentRoutes = getParentPaths(routePath, wholeMenus.value as unknown as any[])[0]
+    defaultActive.value = findRouteByPath(
+      parentRoutes,
+      wholeMenus.value as unknown as any[],
+    )?.children[0]?.path
   }
 
   onMounted(() => {
@@ -109,7 +112,7 @@
       @select="(indexPath) => menuSelect(indexPath, routers)"
     >
       <el-menu-item
-        v-for="route in usePermissionStoreHook().wholeMenus"
+        v-for="route in wholeMenus"
         :key="route.path"
         :index="resolvePath(route) || route.redirect"
       >
@@ -135,10 +138,10 @@
       <!-- 通知 -->
       <Notice id="header-notice" />
       <!-- 全屏 -->
-      <screenfull v-show="!deviceDetection()" id="header-screenfull" />
+      <Globalization v-show="!deviceDetection()" id="header-screenfull" />
       <!-- 国际化 -->
       <el-dropdown id="header-translation" trigger="click">
-        <globalization />
+        <Globalization />
         <template #dropdown>
           <el-dropdown-menu class="translation">
             <el-dropdown-item :style="getDropdownItemStyle(locale, 'zh')" @click="translationCh"
