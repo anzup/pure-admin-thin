@@ -15,18 +15,17 @@
 
 <script lang="ts" setup>
   import { defineProps, reactive, ref, toRefs, unref } from 'vue'
-  import { basicProps } from '/@/layout/components/Menu/src/props'
+  import { basicProps } from '/@/components/Menu/src/props'
   // import BasicSubMenuItem from './components/BasicSubMenuItem.vue'
   import { isFunction } from '/@/utils/is'
-  import { MenuState } from '/@/layout/components/Menu/src/types'
-  import SidebarItem from '../../sidebar/sidebarItem.vue'
+  import { MenuState } from '/@/components/Menu/src/types'
+  import SidebarItem from '../../../layout/components/sidebar/sidebarItem.vue'
   import { RouteLocationNormalizedLoaded, useRouter } from 'vue-router'
-  import { useOpenKeys } from '/@/layout/components/Menu/src/useOpenKeys'
+  import { useOpenKeys } from '/@/components/Menu/src/useOpenKeys'
   import { REDIRECT_NAME } from '/@/router/constant'
   import { listenerRouteChange } from '/@/utils/mitt/routeChange'
-  import { getAllParentPath } from '/@/router/helper/menuHelper'
   import { getCurrentParentPath } from '/@/router/menus'
-  import { useMenuSetting } from '/@/layout/components/Menu/hooks/useMenuSetting'
+  import { useMenuSetting } from '/@/components/Menu/hooks/useMenuSetting'
 
   const props = defineProps(basicProps)
   const emit = defineEmits<{
@@ -43,17 +42,12 @@
     collapsedOpenKeys: [],
   })
 
-  const { items, mode, accordion } = toRefs(props)
+  const { items, mode, accordion, router } = toRefs(props)
 
   const { getIsMixSidebar } = useMenuSetting()
 
   const { currentRoute } = useRouter()
-  const { handleOpenChange, setOpenKeys, getOpenKeys } = useOpenKeys(
-    menuState,
-    items,
-    mode as any,
-    accordion,
-  )
+  const { setOpenKeys } = useOpenKeys(menuState, items, mode as any, accordion)
 
   // const getIsTopMenu = computed(() => {
   //   const { type, mode } = props;
