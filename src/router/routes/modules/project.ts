@@ -366,45 +366,45 @@ const Contract: AppRouteRecordRaw = {
       ],
     },
     // 历史账单
-    {
-      path: 'historyBill',
-      name: 'ProjectContractHistoryBill',
-      redirect: 'index',
-      component: getParentLayout('ProjectContractHistoryBill'),
-      meta: {
-        title: 'message.HistoricalBills',
-      },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectContractHistoryBillIndex',
-          component: () => import('/@/views/project_opm/project/contract/historyBill/index.vue'),
-          meta: {
-            title: 'message.HistoricalBills',
-          },
-        },
-        {
-          path: 'billList/:id(\\d+)',
-          name: 'ProjectContractHistoryBillList',
-          component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.billsList',
-            currentActiveMenu: '/project/contract/historyBill/index',
-          },
-        },
-        {
-          path: 'detail/:id(\\d+)',
-          name: 'ProjectContractHistoryBillDetail',
-          component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/contract/historyBill/index',
-          },
-        },
-      ],
-    },
+    // {
+    //   path: 'historyBill',
+    //   name: 'ProjectContractHistoryBill',
+    //   redirect: 'index',
+    //   component: getParentLayout('ProjectContractHistoryBill'),
+    //   meta: {
+    //     title: 'message.HistoricalBills',
+    //   },
+    //   children: [
+    //     {
+    //       path: 'index',
+    //       name: 'ProjectContractHistoryBillIndex',
+    //       component: () => import('/@/views/project_opm/project/contract/historyBill/index.vue'),
+    //       meta: {
+    //         title: 'message.HistoricalBills',
+    //       },
+    //     },
+    //     {
+    //       path: 'billList/:id(\\d+)',
+    //       name: 'ProjectContractHistoryBillList',
+    //       component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
+    //       meta: {
+    //         hideMenu: true,
+    //         title: 'message.billsList',
+    //         currentActiveMenu: '/project/contract/historyBill/index',
+    //       },
+    //     },
+    //     {
+    //       path: 'detail/:id(\\d+)',
+    //       name: 'ProjectContractHistoryBillDetail',
+    //       component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
+    //       meta: {
+    //         hideMenu: true,
+    //         title: 'message.hsDetail',
+    //         currentActiveMenu: '/project/contract/historyBill/index',
+    //       },
+    //     },
+    //   ],
+    // },
   ],
 }
 /**
