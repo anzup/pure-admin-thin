@@ -43,7 +43,8 @@ export function useNav() {
 
   // 退出登录
   function logout() {
-    storageSession.removeItem('info')
+    storageSession.removeItem('-userInfo')
+    sessionStorage.removeItem('access_token')
     router.push('/login')
   }
 
@@ -106,6 +107,7 @@ export function useNav() {
   }
 
   // 判断路径是否参与菜单
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function isRemaining(path: string): boolean {
     return false //remainingPaths.includes(path)
   }
