@@ -60,9 +60,9 @@
   getSubMenuData(route.path)
   const activeMenu = computed((): string => {
     const { meta, path } = route
-    if (meta.activeMenu) {
+    if (meta.currentActiveMenu) {
       // @ts-ignore
-      return meta.activeMenu
+      return meta.currentActiveMenu
     }
     return path
   })
@@ -90,7 +90,7 @@
       <el-menu
         :collapse="isCollapse"
         :collapse-transition="false"
-        :default-active="route.path"
+        :default-active="activeMenu"
         class="outer-most"
         mode="vertical"
         router

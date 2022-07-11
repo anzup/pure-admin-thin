@@ -1,22 +1,22 @@
 <script lang="ts">
-export default {
-  name: "permissionButton"
-};
+  export default {
+    name: 'permissionButton',
+  }
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { storageSession } from "/@/utils/storage";
+  import { ref } from 'vue'
+  import { storageSession } from '/@/utils/storage'
 
-const auth = ref<boolean>(storageSession.getItem("info").username || "admin");
+  const auth = ref<boolean>(storageSession.getItem('info').username || 'admin')
 
-function changRole(value) {
-  storageSession.setItem("info", {
-    username: value,
-    accessToken: `eyJhbGciOiJIUzUxMiJ9.${value}`
-  });
-  window.location.reload();
-}
+  function changRole(value) {
+    storageSession.setItem('info', {
+      username: value,
+      accessToken: `eyJhbGciOiJIUzUxMiJ9.${value}`,
+    })
+    window.location.reload()
+  }
 </script>
 
 <template>

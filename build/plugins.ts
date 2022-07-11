@@ -25,21 +25,21 @@ export function getPluginsList(command, VITE_LEGACY) {
     vue({
       reactivityTransform: true,
     }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
-      ],
-      dts: 'types/components.d.ts',
-    }),
+    // AutoImport({
+    //   resolvers: [ElementPlusResolver()],
+    // }),
+    // Components({
+    //   // allow auto load markdown components under `./src/components/`
+    //   extensions: ['vue', 'md'],
+    //   // allow auto import and register components used in markdown
+    //   include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+    //   resolvers: [
+    //     ElementPlusResolver({
+    //       importStyle: 'sass',
+    //     }),
+    //   ],
+    //   dts: 'types/components.d.ts',
+    // }),
     createStyleImportPlugin({
       libs: [
         // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR

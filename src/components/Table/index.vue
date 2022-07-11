@@ -28,7 +28,7 @@
         :total="tablePageObj.total"
         background
         @page-change="handlePageChange"
-      ></vxe-pager>
+      />
     </template>
     <template #operate="data">
       <span>
@@ -72,6 +72,7 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
+    height: 'auto',
     border: true,
     autoResize: true,
     highlightCurrentColumn: true,
@@ -92,7 +93,7 @@
   })
 
   const tableHeight = computed(() => {
-    return props.height || useAppStoreHook().appHeight - 32
+    return props.height
   })
 
   const getStatus = computed(() => {
@@ -139,6 +140,7 @@
       immediate: true,
     },
   )
+
   const rangeEvent = debounce(selectChangeEvent, 200)
   const checkboxRange = (data) => {
     rangeEvent(data)

@@ -3,10 +3,10 @@ import { setupRouter, router } from './router'
 import { setupStore } from '/@/store'
 import { getServerConfig } from './config'
 import { createApp, Directive } from 'vue'
-import { useI18n } from '/@/plugins/i18n'
+import { useI18n } from '/@/plugins/i18n/index'
 import { MotionPlugin } from '@vueuse/motion'
 import { injectResponsiveStorage } from '/@/utils/storage/responsive'
-
+import ElementPlus from 'element-plus'
 // import { useTable } from './plugins/vxe-table'
 
 import 'uno.css'
@@ -21,6 +21,9 @@ import '@pureadmin/components/dist/theme.css'
 // 导入字体图标
 import './assets/iconfont/iconfont.js'
 import './assets/iconfont/iconfont.css'
+
+import 'element-plus/dist/index.css'
+
 // 自定义指令
 import * as directives from '/@/directives'
 // 全局注册`@iconify/vue`图标库
@@ -44,6 +47,6 @@ getServerConfig(app).then(async (config) => {
   setupRouterGuard(router)
   injectResponsiveStorage(app, config)
   setupStore(app)
-  app.use(MotionPlugin).use(useI18n).use(useTable)
+  app.use(MotionPlugin).use(useI18n).use(useTable).use(ElementPlus)
   app.mount('#app')
 })

@@ -8,9 +8,9 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
   name: 'Error',
   redirect: '/error/403',
   meta: {
-    icon: 'information-line',
     title: 'menus.error',
     rank: 9,
+    hideMenu: true,
   },
   children: [
     {

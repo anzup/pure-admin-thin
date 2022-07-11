@@ -9,7 +9,7 @@
   import screenfull from '../screenfull/index.vue'
   import { useRoute, useRouter } from 'vue-router'
   import { deviceDetection } from '/@/utils/deviceDetection'
-  import { watch, nextTick, onMounted, getCurrentInstance } from 'vue'
+  import { watch, nextTick, onMounted, getCurrentInstance, computed } from 'vue'
   import { usePermissionStoreHook } from '/@/store/modules/permission'
   import globalization from '/@/assets/svg/globalization.svg?component'
 
@@ -31,6 +31,10 @@
     avatarsStyle,
     getDropdownItemStyle,
   } = useNav()
+
+  const activeMenu = computed(() => {
+    return route?.meta?.currentActiveMenu || route.path
+  })
 
   onMounted(() => {
     nextTick(() => {
@@ -73,7 +77,7 @@
     </div>
     <el-menu
       ref="menu"
-      :default-active="route.path"
+      :default-active="activeMenu"
       class="horizontal-header-menu"
       mode="horizontal"
       router

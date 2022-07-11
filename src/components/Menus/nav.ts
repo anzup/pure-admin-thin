@@ -40,7 +40,7 @@ export const Nav = defineComponent({
               props.onTabClick(item, item.path, event)
             },
           },
-          () => [transformI18n(item.meta.title, item.meta.i18n)],
+          () => [transformI18n(item.meta.title, item.meta.i18n as boolean)],
         )
       })
 

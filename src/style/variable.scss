@@ -6,6 +6,16 @@ $padding16: 16px;
 $systemRed: #d44949;
 $navbarHeight: 44px;
 
+$systemDefaultColor:#215ebe ;
+$systemDefaultColor_grey:#f8f8fa;
+$defaultMarginWidth:16px;
+
+$headHeight: 70px;
+$scheculerHeight: calc(100vh - 20px);
+$scBodyWarpWidth: 100%;
+$scResourcesColumnWidth: 200px;
+$borderColor: #e6e6e6;
+
 $--colors: (
   "primary": (
     "base": $systemColor,
@@ -69,3 +79,4 @@ $--drawer: (
 
 // You can comment it to hide debug info.
 // @debug $--colors;
+
