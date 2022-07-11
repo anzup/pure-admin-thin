@@ -94,7 +94,7 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import useData from '/@/hooks/useUser'
   import { useI18n } from 'vue-i18n'
-  import { useRouter } from 'vue-router'
+
   import common from '/@/hooks/useCommon'
 
   import { batchDeleteUsersId, deleteUsersId, getUsersList } from '/@/api/user'
@@ -111,7 +111,6 @@
     },
     setup(props) {
       const { t } = useI18n()
-      const router = useRouter()
       const { accountStatus, genderList } = common()
       const selectedList = ref([])
       const checkbox = ({ ids }) => {
@@ -212,6 +211,8 @@
       const { postUsersStatus, resetPassword } = useData()
       const { getDepartmentList, departmentList } = useDepartment()
 
+      // const go = useGo()
+
       function getButtons({ row }) {
         return [
           {
@@ -253,12 +254,18 @@
             state.detailId = row.id
             break
           case 'detail':
-            router.push({
-              path: 'detail',
-              query: {
-                id: row.id,
-              },
-            })
+            // router.push({
+            //   path: 'detail',
+            //   query: {
+            //     id: row.id,
+            //   },
+            // })
+            // go({
+            //   path: '/user/detail',
+            //   query: {
+            //     id: row.id,
+            //   },
+            // })
             break
           case 'reset':
             resetPassword({

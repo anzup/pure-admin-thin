@@ -35,7 +35,6 @@ const userRouter: RouteRecordRaw = {
     },
     {
       path: 'roles',
-
       name: 'RolesIndex',
       component: () => import('/@/views/user/roles/index.vue'),
       meta: {
@@ -49,7 +48,7 @@ const userRouter: RouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'buttons.competence',
-        currentActiveMenu: '/user/roles/index',
+        currentActiveMenu: '/user/roles',
       },
     },
 
