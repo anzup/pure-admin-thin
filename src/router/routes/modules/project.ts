@@ -17,255 +17,169 @@ const Manage: AppRouteRecordRaw = {
     // 班级管理
     {
       path: 'class',
-      name: 'ProjectManageClass',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageClass'),
+      name: 'ProjectManageClassIndex',
+      component: () => import('/@/views/project_opm/project/manage/class/index.vue'),
       meta: {
         title: '班级管理',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageClassIndex',
-          component: () => import('/@/views/project_opm/project/manage/class/index.vue'),
-          meta: {
-            title: '班级管理',
-            i18n: false,
-          },
-        },
-        {
-          path: 'add/:type/:batch?',
-          name: 'ProjectManageClassAdd',
-          component: () => import('/@/views/project_opm/project/manage/class/add.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsadd',
-            currentActiveMenu: '/project/manage/class/index',
-          },
-        },
-        {
-          path: 'manage/:id(\\d+)',
-          component: () => import('/@/views/project_opm/project/manage/class/manage.vue'),
-          name: 'ProjectManageClassManage',
-          meta: {
-            hideMenu: true,
-            title: 'message.administration',
-            currentActiveMenu: '/project/manage/class/index',
-          },
-        },
-        {
-          path: ':id(\\d+)/:type',
-          component: () => import('/@/views/project_opm/project/manage/class/add.vue'),
-          name: 'ProjectManageClassEdit',
-          meta: {
-            title: 'message.modify',
-            hideMenu: true,
-            currentActiveMenu: '/project/manage/class/index',
-          },
-        },
-        {
-          path: 'detail/:id(\\d+)',
-          component: () => import('/@/views/project_opm/project/manage/class/detail.vue'),
-          name: 'ProjectManageClassDetail',
-          meta: {
-            title: 'message.hsDetail',
-            hideMenu: true,
-            currentActiveMenu: '/project/manage/class/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'class/add/:type/:batch?',
+      name: 'ProjectManageClassAdd',
+      component: () => import('/@/views/project_opm/project/manage/class/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsadd',
+        currentActiveMenu: '/project/manage/class',
+      },
+    },
+    {
+      path: 'class/manage/:id(\\d+)',
+      component: () => import('/@/views/project_opm/project/manage/class/manage.vue'),
+      name: 'ProjectManageClassManage',
+      meta: {
+        hideMenu: true,
+        title: 'message.administration',
+        currentActiveMenu: '/project/manage/class',
+      },
+    },
+    {
+      path: 'class/:id(\\d+)/:type',
+      component: () => import('/@/views/project_opm/project/manage/class/add.vue'),
+      name: 'ProjectManageClassEdit',
+      meta: {
+        title: 'message.modify',
+        hideMenu: true,
+        currentActiveMenu: '/project/manage/class',
+      },
+    },
+    {
+      path: 'class/detail/:id(\\d+)',
+      component: () => import('/@/views/project_opm/project/manage/class/detail.vue'),
+      name: 'ProjectManageClassDetail',
+      meta: {
+        title: 'message.hsDetail',
+        hideMenu: true,
+        currentActiveMenu: '/project/manage/class',
+      },
     },
     // 排课模板
     {
       path: 'template',
-      name: 'ProjectManageTemplate',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageTemplate'),
+      name: 'ProjectManageTemplateIndex',
+      component: () => import('/@/views/project_opm/project/manage/template/index.vue'),
       meta: {
         title: 'message.scheduling_template',
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageTemplateIndex',
-          component: () => import('/@/views/project_opm/project/manage/template/index.vue'),
-          meta: {
-            title: 'message.scheduling_template',
-          },
-        },
-        {
-          path: 'setting/:id(\\d+)',
-          name: 'ProjectManageTemplateSetting',
-          component: () => import('/@/views/project_opm/project/manage/template/setting.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'text.set_up',
-            currentActiveMenu: '/project/manage/template/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'template/setting/:id(\\d+)',
+      name: 'ProjectManageTemplateSetting',
+      component: () => import('/@/views/project_opm/project/manage/template/setting.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'text.set_up',
+        currentActiveMenu: '/project/manage/template',
+      },
     },
     // 补训管理
     {
       path: 'supplementaryTrain',
-      name: 'ProjectManageSupplementaryTrain',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageSupplementaryTrain'),
+      name: 'ProjectManageSupplementaryTrainIndex',
+      component: () => import('/@/views/project_opm/project/manage/supplementaryTrain/index.vue'),
       meta: {
         title: 'message.make_up_training_management',
-        i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageSupplementaryTrainIndex',
-          component: () =>
-            import('/@/views/project_opm/project/manage/supplementaryTrain/index.vue'),
-          meta: {
-            title: 'message.make_up_training_management',
-          },
-        },
-        {
-          path: ':id(\\d+)',
-          name: 'ProjectManageSupplementaryTrainDetail',
-          component: () =>
-            import('/@/views/project_opm/project/manage/supplementaryTrain/detail.vue'),
-          meta: {
-            title: 'message.hsDetail',
-            hideMenu: true,
-            currentActiveMenu: '/project/manage/supplementaryTrain/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'supplementaryTrain/:id(\\d+)',
+      name: 'ProjectManageSupplementaryTrainDetail',
+      component: () => import('/@/views/project_opm/project/manage/supplementaryTrain/detail.vue'),
+      meta: {
+        title: 'message.hsDetail',
+        hideMenu: true,
+        currentActiveMenu: '/project/manage/supplementaryTrain',
+      },
     },
     // 补考管理
     {
       path: 'makeupExam',
-      name: 'ProjectManageMakeupExam',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageMakeupExam'),
+      name: 'ProjectManageMakeupExamIndex',
+      component: () => import('/@/views/project_opm/project/manage/makeupExam/index.vue'),
       meta: {
         title: '补考管理',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageMakeupExamIndex',
-          component: () => import('/@/views/project_opm/project/manage/makeupExam/index.vue'),
-          meta: {
-            title: '补考管理',
-            i18n: false,
-          },
-        },
-        {
-          path: ':id(\\d+)/:status',
-          name: 'ProjectManageMakeupExamDetail',
-          component: () => import('/@/views/project_opm/project/manage/makeupExam/detail.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/manage/makeupExam/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'makeupExam/:id(\\d+)/:status',
+      name: 'ProjectManageMakeupExamDetail',
+      component: () => import('/@/views/project_opm/project/manage/makeupExam/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/manage/makeupExam',
+      },
     },
     // 完训确认
     {
       path: 'complateTrain',
-      name: 'ProjectManageComplateTrain',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageComplateTrain'),
+      name: 'ProjectManageComplateTrainIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '完训确认',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageComplateTrainIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '完训确认',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训课表
     {
       path: 'schedule',
-      name: 'ProjectManageSchedule',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageSchedule'),
+      name: 'ProjectManageScheduleIndex',
+      component: () => import('/@/views/project_opm/project/manage/schedule/index.vue'),
       meta: {
         title: '培训课表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageScheduleIndex',
-          component: () => import('/@/views/project_opm/project/manage/schedule/index.vue'),
-          meta: {
-            title: '培训课表',
-            i18n: false,
-          },
-        },
-        // 课表详情
-        {
-          path: 'detail',
-          name: 'ProjectManageScheduleDetail',
-          component: () => import('/@/views/project_opm/project/manage/schedule/detail.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/manage/schedule/index',
-          },
-        },
-        // 班级课表详情
-        {
-          path: 'class/detail/:type',
-          name: 'ProjectManageScheduleClassDetail',
-          component: () => import('/@/views/project_opm/project/manage/schedule/clazzDetail.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/manage/schedule/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'schedule/detail',
+      name: 'ProjectManageScheduleDetail',
+      component: () => import('/@/views/project_opm/project/manage/schedule/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/manage/schedule',
+      },
+    },
+    {
+      path: 'schedule/class/detail/:type',
+      name: 'ProjectManageScheduleClassDetail',
+      component: () => import('/@/views/project_opm/project/manage/schedule/clazzDetail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/manage/schedule',
+      },
     },
     // 训练历史
     {
       path: 'history',
-      name: 'ProjectManageHistory',
-      redirect: 'index',
-      component: getParentLayout('ProjectManageHistory'),
+      name: 'ProjectManageHistoryIndex',
+      component: () => import('/@/views/project_opm/project/manage/history/index.vue'),
       meta: {
         title: 'message.trainingHistory',
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectManageHistoryIndex',
-          component: () => import('/@/views/project_opm/project/manage/history/index.vue'),
-          meta: {
-            title: 'message.trainingHistory',
-          },
-        },
-        {
-          path: ':id(\\d+)',
-          name: 'ProjectManageHistoryDetail',
-          component: () => import('/@/views/project_opm/project/manage/history/detail.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/manage/history/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'history/:id(\\d+)',
+      name: 'ProjectManageHistoryDetail',
+      component: () => import('/@/views/project_opm/project/manage/history/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/manage/history',
+      },
     },
   ],
 }
@@ -284,86 +198,62 @@ const Contract: AppRouteRecordRaw = {
     // 合同列表
     {
       path: 'list',
-      name: 'ProjectContractList',
-      redirect: 'index',
-      component: getParentLayout('ProjectContractList'),
+      name: 'ProjectContractListIndex',
+      component: () => import('/@/views/project_opm/project/contract/list/index.vue'),
       meta: {
         title: '合同列表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectContractListIndex',
-          component: () => import('/@/views/project_opm/project/contract/list/index.vue'),
-          meta: {
-            title: '合同列表',
-            i18n: false,
-          },
-        },
-        {
-          path: 'add',
-          name: 'ProjectContractListAdd',
-          component: () => import('/@/views/project_opm/project/contract/list/add.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.addContract',
-            currentActiveMenu: '/project/contract/list/index',
-          },
-        },
-        {
-          path: ':id(\\d+)/:type?',
-          name: 'ProjectContractListModify',
-          component: () => import('/@/views/project_opm/project/contract/list/add.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/contract/list/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'list/add',
+      name: 'ProjectContractListAdd',
+      component: () => import('/@/views/project_opm/project/contract/list/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.addContract',
+        currentActiveMenu: '/project/contract/list',
+      },
+    },
+    {
+      path: 'list/:id(\\d+)/:type?',
+      name: 'ProjectContractListModify',
+      component: () => import('/@/views/project_opm/project/contract/list/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/contract/list',
+      },
     },
     // 账单管理
     {
       path: 'bill',
-      name: 'ProjectContractBill',
-      redirect: 'index',
-      component: getParentLayout('ProjectContractBill'),
+      name: 'ProjectContractBillIndex',
+      component: () => import('/@/views/project_opm/project/contract/bill/index.vue'),
       meta: {
         title: 'message.billManagement',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectContractBillIndex',
-          component: () => import('/@/views/project_opm/project/contract/bill/index.vue'),
-          meta: {
-            title: 'message.billManagement',
-            i18n: false,
-          },
-        },
-        {
-          path: ':id(\\d+)',
-          name: 'ProjectContractBillDetail',
-          component: () => import('/@/views/project_opm/project/contract/bill/detail.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/contract/bill/index',
-          },
-        },
-        {
-          path: 'print',
-          name: 'ProjectContractBillPrint',
-          component: () => import('/@/views/project_opm/project/contract/bill/print.vue'),
-          meta: {
-            hideMenu: true,
-            title: 'message.hsDetail',
-            currentActiveMenu: '/project/contract/bill/index',
-          },
-        },
-      ],
+    },
+    {
+      path: 'bill/:id(\\d+)',
+      name: 'ProjectContractBillDetail',
+      component: () => import('/@/views/project_opm/project/contract/bill/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/contract/bill',
+      },
+    },
+    {
+      path: 'bill/print',
+      name: 'ProjectContractBillPrint',
+      component: () => import('/@/views/project_opm/project/contract/bill/print.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/contract/bill',
+      },
     },
     // 历史账单
     // {

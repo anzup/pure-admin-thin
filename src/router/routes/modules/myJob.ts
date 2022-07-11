@@ -201,7 +201,7 @@ const Courseware: AppRouteRecordRaw = {
   redirect: '',
   component: getParentLayout('MyJobCourseware'),
   meta: {
-    title: '教学工作',
+    title: '课件工作',
     i18n: false,
   },
   children: [
