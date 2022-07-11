@@ -41,7 +41,7 @@
   }
 
   .main-table-content {
-    padding: $padding16;
+    padding: $padding;
     height: calc(100% - 32px);
   }
 
