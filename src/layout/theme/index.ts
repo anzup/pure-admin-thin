@@ -132,5 +132,6 @@ export function genScssMultipleScopeVars(): MultipleScopeVarsItem[] {
       varsContent: `$primary-color: ${themeColors[key].color} !default;$vxe-primary-color: $primary-color;$subMenuActiveText: ${themeColors[key].subMenuActiveText} !default;$menuBg: ${themeColors[key].menuBg} !default;$menuHover: ${themeColors[key].menuHover} !default;$subMenuBg: ${themeColors[key].subMenuBg} !default;$subMenuActiveBg: ${themeColors[key].subMenuActiveBg} !default;$navTextColor: ${themeColors[key].navTextColor} !default;$menuText: ${themeColors[key].menuText} !default;$sidebarLogo: ${themeColors[key].sidebarLogo} !default;$menuTitleHover: ${themeColors[key].menuTitleHover} !default;$menuActiveBefore: ${themeColors[key].menuActiveBefore} !default;`,
     } as MultipleScopeVarsItem)
   })
+  // console.log(result)
   return result
 }

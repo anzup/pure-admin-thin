@@ -26,11 +26,19 @@
   })
   const getMainContentHeight = computed(() => {
     return [
-      hideTabs.value && layout ? 'height: calc(100vh - 48px - 32px);' : '',
-      !hideTabs.value && layout ? 'height: calc(100vh - 85px - 32px);' : '',
-      hideTabs.value && !layout.value ? 'height: calc(100vh - 48px - 32px)' : '',
-      !hideTabs.value && !layout.value ? 'height: calc(100vh - 85px - 32px);' : '',
-      props.fixedHeader ? '' : 'height: calc(100vh - 32px)',
+      hideTabs.value && layout
+        ? 'height: calc(100vh - 48px - 32px);min-height: calc(100vh - 48px - 32px);'
+        : '',
+      !hideTabs.value && layout
+        ? 'height: calc(100vh - 85px - 32px);min-height: calc(100vh - 85px - 32px);'
+        : '',
+      hideTabs.value && !layout.value
+        ? 'height: calc(100vh - 48px - 32px);min-height: calc(100vh - 48px - 32px);'
+        : '',
+      !hideTabs.value && !layout.value
+        ? 'height: calc(100vh - 85px - 32px);min-height: calc(100vh - 85px - 32px);'
+        : '',
+      props.fixedHeader ? '' : 'height: calc(100vh - 32px);min-height: calc(100vh - 32px);',
     ]
   })
   const getSectionStyle = computed(() => {
@@ -137,7 +145,7 @@
     overflow-x: hidden;
 
     & > :deep(.el-scrollbar) {
-      padding: $margin16;
+      padding: $padding;
 
       & > .el-scrollbar__bar.is-vertical {
         top: $margin16;
@@ -152,7 +160,7 @@
   }
 
   .main-content {
-    padding: $padding16;
+    padding: $padding;
     background: #fff;
   }
 </style>

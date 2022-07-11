@@ -16,6 +16,7 @@ export default function useUser() {
   const userForm = reactive<GetUsers>({
     page: 1,
     size: 100,
+    total: 0,
   })
 
   interface IStstus {

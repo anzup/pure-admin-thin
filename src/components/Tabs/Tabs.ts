@@ -38,6 +38,10 @@ export const tabsProps = {
     default: () => true,
   },
   stretch: Boolean,
+  headBackground: {
+    type: String,
+    required: false,
+  },
 }
 export type TabsProps = ExtractPropTypes<typeof tabsProps>
 
@@ -169,7 +173,10 @@ export const Tabs = defineComponent({
     return () => {
       const header = h(
         'div',
-        { class: ['d-tabs__header ', 'overflow-hidden'], style: 'padding:0 18px' },
+        {
+          class: ['d-tabs__header ', 'overflow-hidden'],
+          style: ['padding:0 18px', `backgroundColor:${props.headBackground}`],
+        },
         [
           h(TabNav, {
             currentName: currentName.value,

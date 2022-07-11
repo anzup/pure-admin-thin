@@ -10,7 +10,7 @@
       <el-descriptions-item :label="$t('state.idNumber')" label-class-name="label"
         >{{ state.info.idNumber }}
       </el-descriptions-item>
-      <el-descriptions-item :label="$t('state.cellphoneNumber')" label-class-name="label"
+      <el-descriptions-item :label="$t('state.phoneNumber')" label-class-name="label"
         >{{ state.info.phone }}
       </el-descriptions-item>
       <el-descriptions-item :label="$t('state.logInName')" label-class-name="label"

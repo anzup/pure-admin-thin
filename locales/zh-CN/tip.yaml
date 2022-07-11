@@ -7,3 +7,5 @@ pleaseEnterTheIDNumber: 请输入证件号码
 pleaseEnterPhoneNumber: 请输入手机号
 disableTheSelectedAccount: 该操作将禁用选定账号，是否继续？
 enableSelectedAccount: 该操作将启用选定账号，是否继续？
+cancelConsumptionRecords: 该操作将撤销当前消费记录,是否继续?
+tipResetPwd: 该操作将重置当前账号密码,是否继续?

@@ -5,7 +5,7 @@
       <el-menu
         :collapse="isCollapse"
         :collapse-transition="false"
-        :default-active="currentRoutePath"
+        :default-active="currentActiveMenu"
         class="outer-most"
         mode="vertical"
         router
@@ -80,12 +80,11 @@
   }
 
   getSubMenuData(route.path)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-  const currentRoutePath = computed((): string => {
+  const currentActiveMenu = computed((): string => {
     const { meta, path } = route
-    if (meta.currentRoutePath) {
+    if (meta.currentActiveMenu) {
       // @ts-ignore
-      return meta.currentRoutePath
+      return meta.currentActiveMenu
     }
     return path
   })

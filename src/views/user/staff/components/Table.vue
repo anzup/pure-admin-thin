@@ -79,7 +79,7 @@
         </el-button>
       </template>
     </VxeTable>
-    <Dialog v-model="isShow" :role-info="roleInfo" @updateData="getList" />
+    <Dialog :id="detailId" v-model="isShow" :role-info="roleInfo" @updateData="getList" />
   </div>
 </template>
 
@@ -148,7 +148,7 @@
           },
           {
             field: 'phone',
-            title: t('state.cellphoneNumber'),
+            title: t('state.phoneNumber'),
             minWidth: 100,
           },
           {
@@ -211,10 +211,6 @@
 
       const { postUsersStatus, resetPassword } = useData()
       const { getDepartmentList, departmentList } = useDepartment()
-      onMounted(async () => {
-        await getDepartmentList()
-        getList()
-      })
 
       function getButtons({ row }) {
         return [
@@ -367,6 +363,11 @@
         }
         getList()
       }
+
+      onMounted(async () => {
+        await getDepartmentList()
+        getList()
+      })
 
       return {
         btnClick,

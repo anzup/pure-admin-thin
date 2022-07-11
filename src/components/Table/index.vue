@@ -1,7 +1,6 @@
 <template>
   <vxe-grid
     ref="xTable"
-    :height="tableHeight"
     :seq-config="{
       startIndex: tablePageObj ? (tablePageObj.page - 1) * tablePageObj.size : 0,
     }"
@@ -28,7 +27,7 @@
         :total="tablePageObj.total"
         background
         @page-change="handlePageChange"
-      ></vxe-pager>
+      />
     </template>
     <template #operate="data">
       <span>
@@ -56,7 +55,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { useAppStoreHook } from '/@/store/modules/app'
   import { computed, ref, useAttrs, watch } from 'vue'
   import { debounce } from 'lodash-es'
 
@@ -89,10 +87,6 @@
     set: (val: any) => {
       emit('update:form', val)
     },
-  })
-
-  const tableHeight = computed(() => {
-    return props.height || useAppStoreHook().appHeight - 32
   })
 
   const getStatus = computed(() => {
@@ -129,7 +123,7 @@
   const attrs = useAttrs()
   watch(
     () => attrs.data,
-    (val) => {
+    () => {
       emit('checkbox', {
         records: [],
         ids: [],

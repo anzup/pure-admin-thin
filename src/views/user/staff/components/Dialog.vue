@@ -63,6 +63,15 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col v-if="getCanteen" :span="24">
+          <el-form-item :label="$t('state.restaurantName')" prop="canteenId">
+            <el-radio-group v-model="state.form.canteenId">
+              <el-radio v-for="item in canteensList" :key="item.id" :label="item.id"
+                >{{ item.name }}
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item :label="$t('state.idNumber')" prop="idNumber">
             <el-input v-model="state.form.idNumber" :placeholder="$t('tip.pleaseEnter')" />
@@ -70,7 +79,7 @@
         </el-col>
 
         <el-col :span="12">
-          <el-form-item :label="$t('state.cellphoneNumber')" prop="phone">
+          <el-form-item :label="$t('state.phoneNumber')" prop="phone">
             <el-input v-model="state.form.phone" :placeholder="$t('tip.pleaseEnter')" />
           </el-form-item>
         </el-col>
@@ -104,14 +113,15 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-  import { ElMessage } from 'element-plus'
   import { ref, computed, reactive } from 'vue'
+  import { ElMessage } from 'element-plus'
   import { useVModel } from '@vueuse/core'
   import { useI18n } from '/@/hooks/useI18n'
   import useUser from '/@/hooks/useUser'
   import useCommon from '/@/hooks/useCommon'
   import { getUsersDetail, PostUser, postUsers, putUsersId } from '/@/api/user'
   import useDepartment from '/@/hooks/useDepartment'
+  import useCanteens from '/@/hooks/useCanteens'
 
   const { t } = useI18n()
 
@@ -130,6 +140,10 @@
   }>()
   const dialogVisible = useVModel(props, 'modelValue', emit)
   const getTitle = computed(() => (!props.id ? t('buttons.hsAdd') : t('buttons.edit')))
+
+  const getCanteen = computed(() =>
+    state.form.roleIds?.includes(roleAllList.value.find((v) => v.builtinRole === 'CASHIER')?.id),
+  )
   const hasTeacherRole = ref(false)
   const { genderList } = useCommon()
 
@@ -213,6 +227,20 @@
           trigger: 'change',
         },
       ],
+      canteenId: [
+        {
+          required: true,
+          message: t('tip.pleaseChoose'),
+          trigger: 'blur',
+        },
+      ],
+      departmentId: [
+        {
+          required: true,
+          message: t('tip.pleaseChoose'),
+          trigger: 'blur',
+        },
+      ],
       phone: [
         {
           required: false,
@@ -266,14 +294,20 @@
     })
   }
 
+  const { canteensList, getCanteensList } = useCanteens()
+
   const open = () => {
     rolesForm.builtinRoleNI = 'STUDENT'
     rolesForm.order = 'asc'
     getRolesList()
     getDepartmentList()
+    getCanteensList()
     state.form.roleIds = [props.roleInfo.roleId]
     if (props.id) {
       getUsersDetail(props.id).then((res) => {
+        res.data.roleIds = res.data.roles.map((v) => v.id)
+        res.data.canteenId = res.data?.canteen?.id
+        res.data.departmentId = res.data?.department?.id
         state.form = res.data
       })
     }
