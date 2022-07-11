@@ -12,7 +12,6 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
     icon: 'information-line',
     title: 'menus.error',
     rank: 9,
-    hideMenu: true,
   },
   children: [
     {
