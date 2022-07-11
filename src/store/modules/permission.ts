@@ -54,10 +54,10 @@ export const usePermissionStore = defineStore({
 
       const routeFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route
-        const { roles } = meta || {}
-        if (!roles) return true
+        const { auths } = meta || {}
+        if (!auths) return true
         // @ts-ignore
-        return roleList.some((role) => roles.includes(role))
+        return roleList.some((role) => auths.includes(role))
       }
 
       const routeRemoveIgnoreFilter = (route: AppRouteRecordRaw) => {

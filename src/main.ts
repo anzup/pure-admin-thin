@@ -18,6 +18,8 @@ import './style/index.scss'
 import 'element-plus/dist/index.css'
 import '@pureadmin/components/dist/index.css'
 import '@pureadmin/components/dist/theme.css'
+
+import 'vue-datepicker-next/index.css'
 // 导入字体图标
 import './assets/iconfont/iconfont.js'
 import './assets/iconfont/iconfont.css'

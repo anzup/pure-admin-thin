@@ -156,6 +156,8 @@ declare interface UserInfo {
     name: string
   }[]
   subsystems: ['ACC', 'OPM', 'FTM', 'DMM', 'CPM', 'CTM', 'CSM']
+  department: DefaultAllListItem
+  canteen: DefaultAllListItem
 }
 
 declare type AccountType = 'UNKNOWN' | 'STUDENT' | 'EMPLOYEE' | 'ADMIN'

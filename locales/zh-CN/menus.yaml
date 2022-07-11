@@ -14,3 +14,11 @@ accountManagement: 账号管理
 positionManagement: 职位管理
 departmentManagement: 部门管理
 staffManagement: 职员管理
+mealManagement: 餐食管理
+diningStaff: 用餐人员
+mealStatistics: 用餐统计
+mealSettings: 餐食设置
+list: 列表
+cashierManagement: 收银管理
+systemSettings: 系统设置
+basicSettings: 基础设置

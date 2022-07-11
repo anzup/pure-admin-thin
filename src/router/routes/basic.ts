@@ -8,13 +8,15 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
   name: 'Error',
   redirect: '/error/403',
   meta: {
+    hideMenu: true,
+    icon: 'information-line',
     title: 'menus.error',
     rank: 9,
     hideMenu: true,
   },
   children: [
     {
-      path: '/error/403',
+      path: '403',
       name: '403',
       component: () => import('/@/views/error/403.vue'),
       meta: {
@@ -22,7 +24,7 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
       },
     },
     {
-      path: '/error/404',
+      path: '404',
       name: '404',
       component: () => import('/@/views/error/404.vue'),
       meta: {
@@ -30,7 +32,7 @@ export const ERROR_ROUTE: AppRouteRecordRaw = {
       },
     },
     {
-      path: '/error/500',
+      path: '500',
       name: '500',
       component: () => import('/@/views/error/500.vue'),
       meta: {
@@ -84,20 +86,21 @@ export const LOGIN_ROUTE: AppRouteRecordRaw = {
 }
 export const HOME_ROUTE: AppRouteRecordRaw = {
   path: '/welcome',
-  name: 'welcome',
+  name: 'Welcome',
   component: LAYOUT,
   redirect: '/welcome/index',
   meta: {
     title: 'menus.homePage',
+    icon: 'information-line',
   },
   children: [
     {
       path: 'index',
-      name: 'welcomeIndex',
+      name: 'WelcomeIndex',
       component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: 'menus.homePage',
-        showLink: false,
+        // hideMenu: true,
         rank: 101,
       },
     },

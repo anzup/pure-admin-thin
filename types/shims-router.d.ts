@@ -26,8 +26,16 @@ declare module 'vue-router' {
      */
     hideMenu?: boolean
     /**
-     * currentRoutePath 选中的菜单栏，用于页面隐藏时的显示
+     * currentActiveMenu 选中的菜单栏，用于页面隐藏时的显示
      */
-    currentRoutePath?: string
+    currentActiveMenu?: string
+    /**忽略路由。用于生成对应的菜单而忽略路由。*/
+    ignoreRoute?: boolean
+    /** 动态路由的实际Path, 即去除路由的动态部分;*/
+    realPath?: string
+    /** auths 路由的权限 */
+    auths?: string[]
+    /**是否忽略权限*/
+    ignoreAuth?: boolean
   }
 }
