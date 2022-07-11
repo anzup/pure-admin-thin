@@ -15,6 +15,7 @@
   import { getCurrentInstance, nextTick, onMounted, ref, watch } from 'vue'
   import { getMenus } from '/@/router/menus'
   import { Menu } from '/@/router/types'
+  import ScreenFull from '../screenfull/index.vue'
 
   const route = useRoute()
   const { locale, t } = useI18n()
@@ -138,7 +139,7 @@
       <!-- 通知 -->
       <Notice id="header-notice" />
       <!-- 全屏 -->
-      <Globalization v-show="!deviceDetection()" id="header-screenfull" />
+      <ScreenFull v-show="!deviceDetection()" id="header-screenfull" />
       <!-- 国际化 -->
       <el-dropdown id="header-translation" trigger="click">
         <Globalization />

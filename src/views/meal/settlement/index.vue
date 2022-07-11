@@ -15,7 +15,7 @@
             :label="$t('tip.pleaseEnter')"
             :min="0"
             :precision="2"
-            class="!w-16"
+            class="!w-20"
             @blur="inputFocus"
             @change="inputFocus"
             @clear="inputFocus"
