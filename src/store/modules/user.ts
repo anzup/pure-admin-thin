@@ -73,6 +73,12 @@ export const useUserStore = defineStore({
       storageSession.clear()
       router.push('/login')
     },
+    resetState() {
+      this.token = ''
+      this.userInfo = undefined
+      this.userId = undefined
+      this.lastUpdateTime = 0
+    },
     // 获取当前用户信息(用于在右上角显示用户信息)
     async getUserInfo(): Promise<CurrentUserInfo> {
       const [err, res] = await to(getCurrentUserInfo())

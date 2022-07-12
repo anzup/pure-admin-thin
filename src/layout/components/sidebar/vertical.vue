@@ -68,6 +68,8 @@
     }
   }
 
+  genMenus()
+
   async function getSubMenuData(path) {
     // path的上级路由组成的数组
     const parentPathArr = getAllParentPath(usePermissionStoreHook().wholeMenus, path)
@@ -102,7 +104,6 @@
     () => {
       getSubMenuData(route.path)
       menuSelect(route.path, routers)
-      genMenus()
     },
   )
 </script>
