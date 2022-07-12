@@ -32,8 +32,13 @@ export default function useUser() {
    */
   const getUsersList = async () => {
     const [err, res] = await to(getUsers(userForm))
-    if (err) return
+    if (err) {
+      userForm.total = 0
+      userList.value = []
+      return
+    }
     userList.value = res.data.content
+    userForm.total = res.data.totalElements
   }
   /**
    *

@@ -8,6 +8,8 @@ import { transformI18n } from '/@/plugins/i18n'
 import { storageSession } from '/@/utils/storage'
 import { useAppStoreHook } from '/@/store/modules/app'
 import { useEpThemeStoreHook } from '/@/store/modules/epTheme'
+import { useUserStoreHook } from '/@/store/modules/user'
+import { usePermissionStoreHook } from '/@/store/modules/permission'
 
 const errorInfo = '当前路由配置不正确，请检查配置'
 
@@ -43,7 +45,10 @@ export function useNav() {
 
   // 退出登录
   function logout() {
-    storageSession.removeItem('info')
+    storageSession.removeItem('-userInfo')
+    sessionStorage.removeItem('access_token')
+    useUserStoreHook().resetState()
+    usePermissionStoreHook().resetState()
     router.push('/login')
   }
 
@@ -106,6 +111,7 @@ export function useNav() {
   }
 
   // 判断路径是否参与菜单
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
   function isRemaining(path: string): boolean {
     return false //remainingPaths.includes(path)
   }

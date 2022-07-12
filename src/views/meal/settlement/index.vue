@@ -22,7 +22,12 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-input ref="inputRef" v-model="barcode" @change="postConsumeCodes" />
+          <el-input
+            ref="inputRef"
+            v-model="barcode"
+            :disabled="loading"
+            @change="postConsumeCodes"
+          />
         </el-form-item>
         <div class="flex">
           <el-form-item class="mr-4" prop="searchKey">
@@ -187,8 +192,9 @@
     getList()
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
+  const loading = ref(false)
   const postConsumeCodes = () => {
+    loading.value = true
     postConsumeCodesUse({
       canteenId: userStore.userInfo?.user?.canteen?.id,
       amount: payMethod.value === payMethodEnum.COUNT ? 1 : amount.value,
@@ -199,6 +205,7 @@
         getList()
       })
       .finally(() => {
+        loading.value = false
         barcode.value = undefined
       })
   }
@@ -208,6 +215,7 @@
   const payMethodList = ref<string[]>([])
 
   onMounted(() => {
+    console.log(userStore.userInfo)
     if (userStore.userInfo?.user?.canteen?.id) {
       getCanteensDetail(userStore.userInfo?.user?.canteen?.id).then((res) => {
         payMethodList.value = res.data.types

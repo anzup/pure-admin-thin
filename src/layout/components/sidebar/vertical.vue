@@ -27,15 +27,16 @@
   import Logo from './logo.vue'
   import { emitter } from '/@/utils/mitt'
   import { useNav } from '../../hooks/nav'
-  // import SidebarItem from './sidebarItem.vue'
+  import SidebarItem from './sidebarItem.vue'
   import { storageLocal } from '/@/utils/storage'
   import { useRoute, useRouter } from 'vue-router'
   import { computed, onBeforeMount, ref, unref, watch } from 'vue'
-  import { findRouteByPath, getParentPaths } from '/@/router/utils'
+  import { findRouteByPath } from '/@/router/utils'
   import { usePermissionStoreHook } from '/@/store/modules/permission'
   import { getMenus, getShallowMenus } from '/@/router/menus'
   import { Menu } from '/@/router/types'
   import { useMenuSetting } from '/@/hooks/settings/useMenuSetting'
+  import { getAllParentPath } from '/@/router/helper/menuHelper'
 
   const route = useRoute()
   const routers = useRouter().options.routes
@@ -67,18 +68,15 @@
     }
   }
 
-  function getSubMenuData(path) {
+  genMenus()
+
+  async function getSubMenuData(path) {
     // path的上级路由组成的数组
-    const parentPathArr = getParentPaths(path, usePermissionStoreHook().wholeMenus)
-    console.log(path, 'path')
-
-    console.log(parentPathArr, 'pPath')
-
+    const parentPathArr = getAllParentPath(usePermissionStoreHook().wholeMenus, path)
+    console.log(parentPathArr)
     // 当前路由的父级路由信息
-    const parentRoute = findRouteByPath(
-      parentPathArr[0] || path,
-      usePermissionStoreHook().wholeMenus,
-    )
+    const parentRoute = //await getCurrentParentPath(path)
+      findRouteByPath(parentPathArr[0] || path, usePermissionStoreHook().wholeMenus)
     if (!parentRoute?.children) return
     subMenuData.value = parentRoute?.children
   }
@@ -106,7 +104,6 @@
     () => {
       getSubMenuData(route.path)
       menuSelect(route.path, routers)
-      genMenus()
     },
   )
 </script>

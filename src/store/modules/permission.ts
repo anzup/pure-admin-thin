@@ -115,6 +115,11 @@ export const usePermissionStore = defineStore({
       patchHomeAffix(routes)
       return routes
     },
+    resetSate() {
+      this.wholeMenus = []
+      this.isDynamicAddedRoute = false
+      this.lastBuildMenuTime = 0
+    },
   },
 })
 

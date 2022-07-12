@@ -10,12 +10,13 @@
   import { deviceDetection } from '/@/utils/deviceDetection'
   import { useRenderIcon } from '/@/components/ReIcon/src/hooks'
   import { useEpThemeStoreHook } from '/@/store/modules/epTheme'
-  import { findRouteByPath, getParentPaths } from '/@/router/utils'
+  import { findRouteByPath } from '/@/router/utils'
   import Globalization from '/@/assets/svg/globalization.svg?component'
   import { getCurrentInstance, nextTick, onMounted, ref, watch } from 'vue'
   import { getMenus } from '/@/router/menus'
   import { Menu } from '/@/router/types'
   import ScreenFull from '../screenfull/index.vue'
+  import { getAllParentPath } from '/@/router/helper/menuHelper'
 
   const route = useRoute()
   const { locale, t } = useI18n()
@@ -43,7 +44,7 @@
   async function getDefaultActive(routePath) {
     wholeMenus.value = await getMenus()
     // 当前路由的父级路径
-    const parentRoutes = getParentPaths(routePath, wholeMenus.value as unknown as any[])[0]
+    const parentRoutes = getAllParentPath(wholeMenus.value as unknown as any[], routePath)[0]
     defaultActive.value = findRouteByPath(
       parentRoutes,
       wholeMenus.value as unknown as any[],
@@ -105,6 +106,7 @@
       </svg>
     </div>
     <el-menu
+      v-if="wholeMenus.length > 0"
       ref="menu"
       :default-active="defaultActive"
       class="horizontal-header-menu"
