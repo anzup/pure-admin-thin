@@ -1,5 +1,5 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 
 /**
  *
@@ -8,11 +8,11 @@ const url = import.meta.env.VITE_BASE_API_OPM;
  * }
  */
 export const getSimulatorList = (params: any) =>
-    request({
-        url: url + "/simulator",
-        method: "get",
-        params
-    });
+  request({
+    url: url + '/simulator',
+    method: 'get',
+    params,
+  })
 /**
  *
  * @param {
@@ -20,10 +20,10 @@ export const getSimulatorList = (params: any) =>
  * }
  */
 export const getSimulatorDeviceType = () =>
-    request({
-        url: url + "/simulator​/deviceType",
-        method: "get"
-    });
+  request({
+    url: url + '/simulator​/deviceType',
+    method: 'get',
+  })
 /**
  *
  * @param {
@@ -31,10 +31,10 @@ export const getSimulatorDeviceType = () =>
  * }
  */
 export const getSimutatorDetail = (params: any) =>
-    request({
-        url: url + `/simulator/${params}`,
-        method: "get"
-    });
+  request({
+    url: url + `/simulator/${params}`,
+    method: 'get',
+  })
 /**
  *
  * @param {
@@ -42,12 +42,12 @@ export const getSimutatorDetail = (params: any) =>
  * }
  */
 
-export const getCertificationInvalid = function (params) {
-    return request({
-        url: url + `/quality/certification/invalid`,
-        method: "get"
-    });
-};
+export const getCertificationInvalid = function () {
+  return request({
+    url: url + `/quality/certification/invalid`,
+    method: 'get',
+  })
+}
 
 /**
  *
@@ -57,11 +57,11 @@ export const getCertificationInvalid = function (params) {
  */
 
 export const getTrainingabilityAll = function () {
-    return request({
-        url: url + `/quality/trainingability/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/quality/trainingability/all`,
+    method: 'get',
+  })
+}
 
 /**
  *
@@ -71,11 +71,11 @@ export const getTrainingabilityAll = function () {
  */
 
 export const getCustomizedAirportAll = function () {
-    return request({
-        url: url + `/quality/customizedAirport/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/quality/customizedAirport/all`,
+    method: 'get',
+  })
+}
 
 /**
  *
@@ -85,12 +85,12 @@ export const getCustomizedAirportAll = function () {
  */
 
 export const getFacilitiesList = function (params) {
-    return request({
-        url: url + `/facilities`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/facilities`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -99,11 +99,11 @@ export const getFacilitiesList = function (params) {
  */
 
 export const getFacilitiesDetail = function (params) {
-    return request({
-        url: url + `/facilities/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/facilities/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -112,12 +112,12 @@ export const getFacilitiesDetail = function (params) {
  */
 
 export const postFacilities = function (data) {
-    return request({
-        url: url + `/facilities`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/facilities`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -126,12 +126,12 @@ export const postFacilities = function (data) {
  */
 
 export const putFacilitiesId = function (data) {
-    return request({
-        url: url + `/facilities/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/facilities/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -140,11 +140,11 @@ export const putFacilitiesId = function (data) {
  */
 
 export const deleteFacilitiesId = function (data) {
-    return request({
-        url: url + `/facilities/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/facilities/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -152,12 +152,12 @@ export const deleteFacilitiesId = function (data) {
  * }
  */
 
-export const postFacilitiesBatchDelete = function (data) {
-    return request({
-        url: url + `/facilities/batchDelete`,
-        method: "post"
-    });
-};
+export const postFacilitiesBatchDelete = function () {
+  return request({
+    url: url + `/facilities/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  * @param {
@@ -166,12 +166,12 @@ export const postFacilitiesBatchDelete = function (data) {
  */
 
 export const getFacilitiesAll = function (params: { resourceId?: number }) {
-    return request({
-        url: url + `/facilities/all`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/facilities/all`,
+    method: 'get',
+    params,
+  })
+}
 
 /************ 机型 ***************/
 /**
@@ -182,12 +182,12 @@ export const getFacilitiesAll = function (params: { resourceId?: number }) {
  */
 
 export const getAirplaneTypesList = function (params) {
-    return request({
-        url: url + `/airplaneTypes`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/airplaneTypes`,
+    method: 'get',
+    params,
+  })
+}
 /**
  *
  * @param {
@@ -196,11 +196,11 @@ export const getAirplaneTypesList = function (params) {
  */
 
 export const getAirplaneTypesAll = function () {
-    return request({
-        url: url + `/airplaneTypes/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/airplaneTypes/all`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -209,8 +209,9 @@ export const getAirplaneTypesAll = function () {
  */
 
 export const getresourcesFacilities = function () {
-    return request({
-        url: url + `/resources​/facilities`,
-        method: "get"
-    });
-};
+  return request({
+    // eslint-disable-next-line no-irregular-whitespace
+    url: url + `/resources​/facilities`,
+    method: 'get',
+  })
+}

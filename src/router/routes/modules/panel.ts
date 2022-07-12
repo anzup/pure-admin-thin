@@ -17,90 +17,42 @@ const Personal: AppRouteRecordRaw = {
     // 信息配置
     {
       path: 'config',
-      name: 'PanelPersonalConfig',
-      redirect: 'index',
-      component: getParentLayout('PanelPersonalConfig'),
+      name: 'PanelPersonalConfigIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '信息配置',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PanelPersonalConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '信息配置',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 个人消息
     {
       path: 'message',
-      name: 'PanelPersonalMessage',
-      redirect: 'index',
-      component: getParentLayout('PanelPersonalMessage'),
+      name: 'PanelPersonalMessageIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '个人消息',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PanelPersonalMessageIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '个人消息',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 个人资质
     {
       path: 'qualification',
-      name: 'PanelPersonalQualification',
-      redirect: 'index',
-      component: getParentLayout('PanelPersonalQualification'),
+      name: 'PanelPersonalQualificationIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '个人资质',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PanelPersonalQualificationIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '个人资质',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训进度
     {
       path: 'progress',
-      name: 'PanelPersonalProgress',
-      redirect: 'index',
-      component: getParentLayout('PanelPersonalProgress'),
+      name: 'PanelPersonalProgressIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训进度',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PanelPersonalProgressIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训进度',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -120,24 +72,12 @@ const System: AppRouteRecordRaw = {
     // 导航栏设置
     {
       path: 'config',
-      name: 'PanelSystemConfig',
-      redirect: 'index',
-      component: getParentLayout('PanelSystemConfig'),
+      name: 'PanelSystemConfigIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '导航栏设置',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'PanelSystemConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '导航栏设置',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }

@@ -1,10 +1,10 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 export default interface IFrom {
-    page: number;
-    size: number;
-    searchKey?: string;
-    [propName: string]: any;
+  page: number
+  size: number
+  searchKey?: string
+  [propName: string]: any
 }
 
 /**
@@ -15,12 +15,12 @@ export default interface IFrom {
  */
 
 export const getEmployeeQualificationsList = function (params) {
-    return request({
-        url: url + `/employeeQualifications`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/employeeQualifications`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  *
@@ -30,12 +30,12 @@ export const getEmployeeQualificationsList = function (params) {
  */
 
 export const getEmployeeQualificationsLicense = function (params: IFrom) {
-    return request<DefaultReturn>({
-        url: url + `/employeeQualifications/license`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/employeeQualifications/license`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -44,11 +44,11 @@ export const getEmployeeQualificationsLicense = function (params: IFrom) {
  */
 
 export const getEmployeeQualificationsDetail = function (params) {
-    return request({
-        url: url + `/employeeQualifications/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/employeeQualifications/${params}`,
+    method: 'get',
+  })
+}
 
 /* ******************* 课程类型 *********************** */
 
@@ -60,12 +60,12 @@ export const getEmployeeQualificationsDetail = function (params) {
  */
 
 export const getCoursesList = function (params: IFrom) {
-    return request({
-        url: url + `/courses`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/courses`,
+    method: 'get',
+    params,
+  })
+}
 /**
  *
  * @param {
@@ -74,11 +74,11 @@ export const getCoursesList = function (params: IFrom) {
  */
 
 export const getCourseClassifies = function () {
-    return request({
-        url: url + `/courseClassifies/all`,
-        method: "get",
-    });
-};
+  return request({
+    url: url + `/courseClassifies/all`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -87,11 +87,11 @@ export const getCourseClassifies = function () {
  */
 
 export const getCoursesDetail = function (params) {
-    return request({
-        url: url + `/courses/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/courses/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -100,12 +100,12 @@ export const getCoursesDetail = function (params) {
  */
 
 export const postCourses = function (data) {
-    return request({
-        url: url + `/courses`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/courses`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -114,12 +114,12 @@ export const postCourses = function (data) {
  */
 
 export const putCoursesId = function (data) {
-    return request({
-        url: url + `/courses/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/courses/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -128,11 +128,11 @@ export const putCoursesId = function (data) {
  */
 
 export const deleteCoursesId = function (data) {
-    return request({
-        url: url + `/courses/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/courses/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -140,12 +140,12 @@ export const deleteCoursesId = function (data) {
  * }
  */
 
-export const postCoursesBatchDelete = function (data) {
-    return request({
-        url: url + `/courses/batchDelete`,
-        method: "post"
-    });
-};
+export const postCoursesBatchDelete = function () {
+  return request({
+    url: url + `/courses/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  * @param {
@@ -154,11 +154,11 @@ export const postCoursesBatchDelete = function (data) {
  */
 
 export const getCoursesAll = function () {
-    return request({
-        url: url + `/courses/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/courses/all`,
+    method: 'get',
+  })
+}
 /**
  * @param {
  * 机型拆分下拉列表
@@ -166,11 +166,11 @@ export const getCoursesAll = function () {
  */
 
 export const getCoursesAirplaneTypeAll = function () {
-    return request({
-        url: url + `/courses/all/airplaneType`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/courses/all/airplaneType`,
+    method: 'get',
+  })
+}
 
 /* ******************* 大纲 *********************** */
 
@@ -182,12 +182,12 @@ export const getCoursesAirplaneTypeAll = function () {
  */
 
 export const getSyllabusesList = function (params: IFrom) {
-    return request({
-        url: url + `/syllabuses`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/syllabuses`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -196,11 +196,11 @@ export const getSyllabusesList = function (params: IFrom) {
  */
 
 export const getSyllabusesDetail = function (params) {
-    return request({
-        url: url + `/syllabuses/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/syllabuses/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -209,12 +209,12 @@ export const getSyllabusesDetail = function (params) {
  */
 
 export const postSyllabuses = function (data) {
-    return request({
-        url: url + `/syllabuses`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabuses`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -223,12 +223,12 @@ export const postSyllabuses = function (data) {
  */
 
 export const putSyllabusesId = function (data) {
-    return request({
-        url: url + `/syllabuses/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabuses/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 /**
  * @param {
  * 强制刷新排课
@@ -236,11 +236,11 @@ export const putSyllabusesId = function (data) {
  */
 
 export const putSyllabusesRefresh = function (id) {
-    return request({
-        url: url + `/syllabuses/${id}/refresh`,
-        method: "put"
-    });
-};
+  return request({
+    url: url + `/syllabuses/${id}/refresh`,
+    method: 'put',
+  })
+}
 
 /**
  * @param {
@@ -248,16 +248,13 @@ export const putSyllabusesRefresh = function (id) {
  * }
  */
 
-export const putSyllabusesCopy = function (data: {
-    id: number;
-    value: number;
-}) {
-    return request({
-        url: url + `/syllabuses/${data.id}/copy`,
-        method: "put",
-        data: { value: data.value }
-    });
-};
+export const putSyllabusesCopy = function (data: { id: number; value: number }) {
+  return request({
+    url: url + `/syllabuses/${data.id}/copy`,
+    method: 'put',
+    data: { value: data.value },
+  })
+}
 
 /**
  * @param {
@@ -266,11 +263,11 @@ export const putSyllabusesCopy = function (data: {
  */
 
 export const deleteSyllabusesId = function (data) {
-    return request({
-        url: url + `/syllabuses/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/syllabuses/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -279,12 +276,12 @@ export const deleteSyllabusesId = function (data) {
  */
 
 export const postSyllabusesBatchDelete = function (data: number[]) {
-    return request({
-        url: url + `/syllabuses/batchDelete`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabuses/batchDelete`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -292,16 +289,13 @@ export const postSyllabusesBatchDelete = function (data: number[]) {
  * }
  */
 
-export const getSyllabusesAll = function (params: {
-    courseType: string;
-    courseId?: number;
-}) {
-    return request({
-        url: url + `/syllabuses/all`,
-        method: "get",
-        params
-    });
-};
+export const getSyllabusesAll = function (params: { courseType: string; courseId?: number }) {
+  return request({
+    url: url + `/syllabuses/all`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -310,19 +304,19 @@ export const getSyllabusesAll = function (params: {
  */
 
 export const putSyllabusesSortItem = function (data?: {
-    level: number;
-    desSyllabusItemId: number;
-    syllabusId: number;
-    syllabusItemId: number;
-    type: string;
-    [propsName: string]: any;
+  level: number
+  desSyllabusItemId: number
+  syllabusId: number
+  syllabusItemId: number
+  type: string
+  [propsName: string]: any
 }) {
-    return request({
-        url: url + `/syllabusItems/sortItem`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabusItems/sortItem`,
+    method: 'put',
+    data,
+  })
+}
 
 /******************* 大纲管理 ************************** */
 /**
@@ -333,12 +327,12 @@ export const putSyllabusesSortItem = function (data?: {
  */
 
 export const getSyllabusItemsList = function (params: TemplatesSyllabus) {
-    return request<DefaultReturn>({
-        url: url + `/syllabusItems`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/syllabusItems`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -347,11 +341,11 @@ export const getSyllabusItemsList = function (params: TemplatesSyllabus) {
  */
 
 export const getSyllabusItemsDetail = function (params) {
-    return request({
-        url: url + `/syllabusItems/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/syllabusItems/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -360,12 +354,12 @@ export const getSyllabusItemsDetail = function (params) {
  */
 
 export const postSyllabusItems = function (data) {
-    return request({
-        url: url + `/syllabusItems`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabusItems`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -374,12 +368,12 @@ export const postSyllabusItems = function (data) {
  */
 
 export const putSyllabusItemsId = function (data) {
-    return request({
-        url: url + `/syllabusItems/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabusItems/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -388,11 +382,11 @@ export const putSyllabusItemsId = function (data) {
  */
 
 export const deleteSyllabusItemsId = function (data) {
-    return request({
-        url: url + `/syllabusItems/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/syllabusItems/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -401,12 +395,12 @@ export const deleteSyllabusItemsId = function (data) {
  */
 
 export const postSyllabusItemsBatchDelete = function (data) {
-    return request({
-        url: url + `/syllabusItems/batchDelete`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabusItems/batchDelete`,
+    method: 'post',
+    data,
+  })
+}
 /**
  * @param {
  * 获取剩余课时信息
@@ -414,11 +408,11 @@ export const postSyllabusItemsBatchDelete = function (data) {
  */
 
 export const getResourcesCoursewareType = function (data) {
-    return request({
-        url: url + `/syllabusItems/coursewareType/${data.id}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/syllabusItems/coursewareType/${data.id}`,
+    method: 'get',
+  })
+}
 /**
  * @param {
  * 大纲项目批量复制
@@ -426,18 +420,18 @@ export const getResourcesCoursewareType = function (data) {
  */
 
 export const putSyllabusItemsCopy = function (
-    data: {
-        ids: number[];
-        number: number;
-    },
-    syllabusId: number
+  data: {
+    ids: number[]
+    number: number
+  },
+  syllabusId: number,
 ) {
-    return request({
-        url: url + `/syllabusItems/copys/${syllabusId}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabusItems/copys/${syllabusId}`,
+    method: 'put',
+    data,
+  })
+}
 /**
  * @param {
  * 大纲项目批量删除
@@ -445,12 +439,12 @@ export const putSyllabusItemsCopy = function (
  */
 
 export const postSyllabusesItemsBatchDelete = function (data: number[]) {
-    return request({
-        url: url + `/syllabusItems/batchDelete`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/syllabusItems/batchDelete`,
+    method: 'post',
+    data,
+  })
+}
 
 /* ************** 训练机型 ******************* */
 /**
@@ -461,12 +455,12 @@ export const postSyllabusesItemsBatchDelete = function (data: number[]) {
  */
 
 export const getAirplaneTypesList = function (params: IFrom) {
-    return request({
-        url: url + `/airplaneTypes`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/airplaneTypes`,
+    method: 'get',
+    params,
+  })
+}
 /**
  *
  * @param {
@@ -474,128 +468,124 @@ export const getAirplaneTypesList = function (params: IFrom) {
  * }
  */
 export interface TemplatesSyllabus extends PageBase {
-    courseId?: number;
-    courseType?: courseType;
-    customerId?: number;
-    [_: string]: any;
+  courseId?: number
+  courseType?: courseType
+  customerId?: number
+  [_: string]: any
 }
 export const getTemplatesSyllabus = function (params: TemplatesSyllabus) {
-    return request<DefaultReturn>({
-        url: url + `/templates/syllabuses`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/templates/syllabuses`,
+    method: 'get',
+    params,
+  })
+}
 /**
  *
  * @param 新增模板
  * @returns
  */
 export const postTemplates = function (data: Syllabus.SyllabusTemplate) {
-    return request<DefaultReturn>({
-        url: url + `/templates`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/templates`,
+    method: 'post',
+    data,
+  })
+}
 /**
  *
  * @param 修改模板
  * @returns
  */
 export const putTemplates = function (params: Syllabus.SyllabusTemplate) {
-    const { id, ...data } = params;
-    return request<DefaultReturn>({
-        url: url + `/templates/${id}`,
-        method: "put",
-        data
-    });
-};
+  const { id, ...data } = params
+  return request({
+    url: url + `/templates/${id}`,
+    method: 'put',
+    data,
+  })
+}
 /**
  *
  * @param 模板排序
  * @returns
  */
-export const putTemplatesSort = function (data: {
-    ids: number[]
-}) {
-    return request({
-        url: url + `/templates/sort`,
-        method: "put",
-        data
-    });
-};
+export const putTemplatesSort = function (data: { ids: number[] }) {
+  return request({
+    url: url + `/templates/sort`,
+    method: 'put',
+    data,
+  })
+}
 /**
  *
  * @param 删除模板
  * @returns
  */
 export const deleteTemplates = function (id: number) {
-    return request<DefaultReturn>({
-        url: url + `/templates/${id}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/templates/${id}`,
+    method: 'delete',
+  })
+}
 /**
  *
  * @param 大纲下的模板列表
  * @returns
  */
 export const getTemplatesSyllabusId = function (syllabusId: number) {
-    return request<DefaultReturn<Array<Syllabus.SyllabusTemplate>>>({
-        url: url + `/templates/${syllabusId}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/templates/${syllabusId}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param 面板上的班级的模板
  * @returns
  */
 export const getTemplatesClazz = function (clazzId: number) {
-    return request<DefaultReturn<Array<Syllabus.SyllabusTemplate>>>({
-        url: url + `/templates/clazz/${clazzId}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/templates/clazz/${clazzId}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param 面板上的模板排课
  * @returns
  */
 export const putScheduleTemplate = function (params: {
-    clazzId: number;
-    templateId: number;
-    resourceId: number;
-    resourceTypeId: number;
-    start: string;
-    groupName: string;
+  clazzId: number
+  templateId: number
+  resourceId: number
+  resourceTypeId: number
+  start: string
+  groupName: string
 }) {
-    const { clazzId, templateId, groupName, ...data } = params;
-    return request<DefaultReturn>({
-        url:
-            url +
-            `/templates/scheduleTemplate/${clazzId}/${templateId}/${groupName}`,
-        method: "put",
-        data
-    });
-};
+  const { clazzId, templateId, groupName, ...data } = params
+  return request({
+    url: url + `/templates/scheduleTemplate/${clazzId}/${templateId}/${groupName}`,
+    method: 'put',
+    data,
+  })
+}
 /**
  *
  * @param 面板上的模板撤销
  * @returns
  */
 export const putScheduleTemplateCancel = function (params: {
-    clazzId: number;
-    templateId: number;
-    groupName: string;
-    clearTeacher: boolean
+  clazzId: number
+  templateId: number
+  groupName: string
+  clearTeacher: boolean
 }) {
-    const { clazzId, templateId, groupName, clearTeacher } = params;
-    return request<DefaultReturn>({
-        url:
-            url +
-            `/templates/scheduleTemplate/cancel/${clazzId}/${templateId}/${groupName}/${clearTeacher}`,
-        method: "put"
-    });
-};
+  const { clazzId, templateId, groupName, clearTeacher } = params
+  return request({
+    url:
+      url +
+      `/templates/scheduleTemplate/cancel/${clazzId}/${templateId}/${groupName}/${clearTeacher}`,
+    method: 'put',
+  })
+}

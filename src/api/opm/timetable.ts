@@ -1,17 +1,17 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 
 export interface IScheduleBuild {
-    month: string;
-    order?: string;
-    page?: number;
-    size?: number;
-    searchKey: string;
-    sort?: string;
-    total?: number;
-    resourceId?: number;
-    builtinResource?: string;
-    courseType?: string;
+  month: string
+  order?: string
+  page?: number
+  size?: number
+  searchKey: string
+  sort?: string
+  total?: number
+  resourceId?: number
+  builtinResource?: string
+  courseType?: string
 }
 
 /**
@@ -22,17 +22,17 @@ export interface IScheduleBuild {
  */
 
 export interface IClazzSchedules extends IScheduleBuild {
-    workType?: string;
-    builtinRole?: string;
+  workType?: string
+  builtinRole?: string
 }
 
 export const getScheduleBuildEmployee = function (params: IClazzSchedules) {
-    return request({
-        url: url + `/scheduleBuild/employee`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/scheduleBuild/employee`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  *
@@ -42,12 +42,12 @@ export const getScheduleBuildEmployee = function (params: IClazzSchedules) {
  */
 
 export const getScheduleBuildStudent = function (params: IClazzSchedules) {
-    return request({
-        url: url + `/scheduleBuild/student`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/scheduleBuild/student`,
+    method: 'get',
+    params,
+  })
+}
 /**
  *
  * @param {
@@ -55,12 +55,12 @@ export const getScheduleBuildStudent = function (params: IClazzSchedules) {
  * }
  */
 export const getScheduleBuildClazz = function (params: IScheduleBuild) {
-    return request({
-        url: url + `/scheduleBuild/clazz`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/scheduleBuild/clazz`,
+    method: 'get',
+    params,
+  })
+}
 /**
  *
  * @param {
@@ -68,9 +68,10 @@ export const getScheduleBuildClazz = function (params: IScheduleBuild) {
  * }
  */
 export const getScheduleBuildFacilitie = function (params: IScheduleBuild) {
-    return request({
-        url: url + `/scheduleBuild​/facilitie`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    // eslint-disable-next-line no-irregular-whitespace
+    url: url + `/scheduleBuild​/facilitie`,
+    method: 'get',
+    params,
+  })
+}

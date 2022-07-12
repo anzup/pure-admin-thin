@@ -1,5 +1,5 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 
 /**
  *
@@ -9,11 +9,11 @@ const url = import.meta.env.VITE_BASE_API_OPM;
  */
 
 export const getFtmRolesAll = function () {
-    return request({
-        url: url + `/employees/ftm/roles`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/employees/ftm/roles`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -21,20 +21,20 @@ export const getFtmRolesAll = function () {
  * }
  */
 export interface IEmployees extends PageBase {
-    builtinRole?: BuiltinRole;
-    isShowSignature?: boolean;
-    prohibited?: boolean;
-    workType?: WorkType;
-    excludeIds?:string;
-    enabled?:boolean
+  builtinRole?: BuiltinRole
+  isShowSignature?: boolean
+  prohibited?: boolean
+  workType?: WorkType
+  excludeIds?: string
+  enabled?: boolean
 }
 export const getEmployeesList = function (params: IEmployees) {
-    return request<DefaultReturn>({
-        url: url + `/employees`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/employees`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -43,11 +43,11 @@ export const getEmployeesList = function (params: IEmployees) {
  */
 
 export const getEmployeesDetail = function (params) {
-    return request({
-        url: url + `/employees/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/employees/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -56,12 +56,12 @@ export const getEmployeesDetail = function (params) {
  */
 
 export const postEmployees = function (data) {
-    return request({
-        url: url + `/employees`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/employees`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -70,12 +70,12 @@ export const postEmployees = function (data) {
  */
 
 export const putEmployeesId = function (data) {
-    return request({
-        url: url + `/employees/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/employees/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -84,43 +84,37 @@ export const putEmployeesId = function (data) {
  */
 
 export const deleteEmployeesId = function (data) {
-    return request({
-        url: url + `/employees/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/employees/${data}`,
+    method: 'delete',
+  })
+}
 /**
  * @param {
  * 教员启用/禁用
  * }
  */
 
-export const postEmployeesProhibit = function (data:{
-    ids:number[],
-    prohibited:boolean
-}) {
-    return request({
-        url: url + `/employees/prohibit`,
-        method: "post",
-        data
-    });
-};
+export const postEmployeesProhibit = function (data: { ids: number[]; prohibited: boolean }) {
+  return request({
+    url: url + `/employees/prohibit`,
+    method: 'post',
+    data,
+  })
+}
 /**
  * @param {
  * 教员删除
  * }
  */
 
-export const postUsersProhibit = function (data: {
-    ids: number[];
-    prohibited: boolean;
-}) {
-    return request({
-        url: url + `/users/prohibit`,
-        method: "post",
-        data
-    });
-};
+export const postUsersProhibit = function (data: { ids: number[]; prohibited: boolean }) {
+  return request({
+    url: url + `/users/prohibit`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -128,12 +122,12 @@ export const postUsersProhibit = function (data: {
  * }
  */
 
-export const postEmployeesBatchDelete = function (data) {
-    return request({
-        url: url + `/employees/batchDelete`,
-        method: "post"
-    });
-};
+export const postEmployeesBatchDelete = function () {
+  return request({
+    url: url + `/employees/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  *
@@ -142,21 +136,21 @@ export const postEmployeesBatchDelete = function (data) {
  * }
  */
 export interface IStudentList {
-    page: number;
-    size: number;
-    clazzId?: number | string;
-    customerIds?: number[] | string;
-    searchKey?: string;
-    excludeIds?: number[] | string;
-    contracts?: string;
+  page: number
+  size: number
+  clazzId?: number | string
+  customerIds?: number[] | string
+  searchKey?: string
+  excludeIds?: number[] | string
+  contracts?: string
 }
 export const getStudentsList = function (params: IStudentList) {
-    return request({
-        url: url + `/students`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/students`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -165,11 +159,11 @@ export const getStudentsList = function (params: IStudentList) {
  */
 
 export const getStudentsDetail = function (params) {
-    return request({
-        url: url + `/students/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/students/${params}`,
+    method: 'get',
+  })
+}
 /**
  * @param {
  * 参训人员训练历史
@@ -177,11 +171,11 @@ export const getStudentsDetail = function (params) {
  */
 
 export const getStudentScheduleHis = function (id: number) {
-    return request({
-        url: url + `/schedules/${id}/studentScheduleHis`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/schedules/${id}/studentScheduleHis`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -190,12 +184,12 @@ export const getStudentScheduleHis = function (id: number) {
  */
 
 export const postStudents = function (data) {
-    return request({
-        url: url + `/students`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/students`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -204,12 +198,12 @@ export const postStudents = function (data) {
  */
 
 export const putStudentsId = function (data) {
-    return request({
-        url: url + `/students/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/students/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -218,11 +212,11 @@ export const putStudentsId = function (data) {
  */
 
 export const deleteStudentsId = function (data) {
-    return request({
-        url: url + `/students/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/students/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -230,12 +224,12 @@ export const deleteStudentsId = function (data) {
  * }
  */
 
-export const postStudentsBatchDelete = function (data) {
-    return request({
-        url: url + `/students/batchDelete`,
-        method: "post"
-    });
-};
+export const postStudentsBatchDelete = function () {
+  return request({
+    url: url + `/students/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  * @param {
@@ -244,19 +238,19 @@ export const postStudentsBatchDelete = function (data) {
  */
 
 export const postStudentsGraduate = function (data: {
-    clazzId: number | string;
-    graduate: boolean;
-    ids: number[];
-    ignoreNotFinished?: boolean;
-    graduateType?:'ABNORMAL',
-    graduateRemark?:"ABNORMAL"
+  clazzId: number | string
+  graduate: boolean
+  ids: number[]
+  ignoreNotFinished?: boolean
+  graduateType?: 'ABNORMAL'
+  graduateRemark?: 'ABNORMAL'
 }) {
-    return request({
-        url: url + `/students/graduate`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/students/graduate`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -265,11 +259,11 @@ export const postStudentsGraduate = function (data: {
  */
 
 export const getStudentsAll = function () {
-    return request({
-        url: url + `/students/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/students/all`,
+    method: 'get',
+  })
+}
 /**
  * @param {
  * 学员类型
@@ -277,11 +271,11 @@ export const getStudentsAll = function () {
  */
 
 export const getStudentTypeAll = function () {
-    return request({
-        url: url + `/students/studentType`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/students/studentType`,
+    method: 'get',
+  })
+}
 /**
  * @param {
  * 下载模板
@@ -289,17 +283,18 @@ export const getStudentTypeAll = function () {
  */
 
 export const getStudentsTemplate = function () {
-    return request({
-        url: url + `​/students​/import​/template`,
-        method: "get",
-        responseType: "blob"
-        // headers: {
-        //   Accept: 'application/json',
-        //   'Content-Type': 'application/json; charset=utf-8',
-        //   withCredentials: true,
-        // },
-    });
-};
+  return request({
+    // eslint-disable-next-line no-irregular-whitespace
+    url: url + `​/students​/import​/template`,
+    method: 'get',
+    responseType: 'blob',
+    // headers: {
+    //   Accept: 'application/json',
+    //   'Content-Type': 'application/json; charset=utf-8',
+    //   withCredentials: true,
+    // },
+  })
+}
 /**
  * @param {
  * 导入
@@ -307,15 +302,15 @@ export const getStudentsTemplate = function () {
  */
 
 export const postStudentsImport = function (data) {
-    return request({
-        url: url + `/students/import`,
-        method: "post",
-        data,
-        headers:{
-            'Content-Type': 'multipart/form-data'
-        }
-    });
-};
+  return request({
+    url: url + `/students/import`,
+    method: 'post',
+    data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}
 
 /**
  *
@@ -325,12 +320,12 @@ export const postStudentsImport = function (data) {
  */
 
 export const getRolesList = function (params) {
-    return request({
-        url: url + `/roles`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/roles`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -339,11 +334,11 @@ export const getRolesList = function (params) {
  */
 
 export const getRolesDetail = function (params) {
-    return request({
-        url: url + `/roles/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/roles/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -352,12 +347,12 @@ export const getRolesDetail = function (params) {
  */
 
 export const postRoles = function (data) {
-    return request({
-        url: url + `/roles`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/roles`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -366,12 +361,12 @@ export const postRoles = function (data) {
  */
 
 export const putRolesId = function (data) {
-    return request({
-        url: url + `/roles/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/roles/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -380,11 +375,11 @@ export const putRolesId = function (data) {
  */
 
 export const deleteRolesId = function (data) {
-    return request({
-        url: url + `/roles/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/roles/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -392,12 +387,12 @@ export const deleteRolesId = function (data) {
  * }
  */
 
-export const postRolesBatchDelete = function (data) {
-    return request({
-        url: url + `/roles/batchDelete`,
-        method: "post"
-    });
-};
+export const postRolesBatchDelete = function () {
+  return request({
+    url: url + `/roles/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  * @param {
@@ -406,11 +401,11 @@ export const postRolesBatchDelete = function (data) {
  */
 
 export const getRolesAll = function () {
-    return request({
-        url: url + `/roles/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/roles/all`,
+    method: 'get',
+  })
+}
 /**
  * @param {
  * 职位属性下拉列表
@@ -418,11 +413,12 @@ export const getRolesAll = function () {
  */
 
 export const getRolesPropertyAll = function () {
-    return request({
-        url: url + `/roles​/property`,
-        method: "get"
-    });
-};
+  return request({
+    // eslint-disable-next-line no-irregular-whitespace
+    url: url + `/roles​/property`,
+    method: 'get',
+  })
+}
 
 /**
  *
@@ -432,12 +428,12 @@ export const getRolesPropertyAll = function () {
  */
 
 export const getStaffsList = function (params) {
-    return request({
-        url: url + `/staffs`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/staffs`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -446,11 +442,11 @@ export const getStaffsList = function (params) {
  */
 
 export const getStaffsDetail = function (params) {
-    return request({
-        url: url + `/staffs/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/staffs/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -459,12 +455,12 @@ export const getStaffsDetail = function (params) {
  */
 
 export const postStaffs = function (data) {
-    return request({
-        url: url + `/staffs`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/staffs`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -473,12 +469,12 @@ export const postStaffs = function (data) {
  */
 
 export const putStaffsId = function (data) {
-    return request({
-        url: url + `/staffs/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/staffs/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -487,11 +483,11 @@ export const putStaffsId = function (data) {
  */
 
 export const deleteStaffsId = function (data) {
-    return request({
-        url: url + `/staffs/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/staffs/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -499,12 +495,12 @@ export const deleteStaffsId = function (data) {
  * }
  */
 
-export const postStaffsBatchDelete = function (data) {
-    return request({
-        url: url + `/staffs/batchDelete`,
-        method: "post"
-    });
-};
+export const postStaffsBatchDelete = function () {
+  return request({
+    url: url + `/staffs/batchDelete`,
+    method: 'post',
+  })
+}
 /**
  * @param {
  * 职员禁用启用
@@ -512,12 +508,12 @@ export const postStaffsBatchDelete = function (data) {
  */
 
 export const postStaffsProhibit = function (data) {
-    return request({
-        url: url + `/staffs/prohibit`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/staffs/prohibit`,
+    method: 'post',
+    data,
+  })
+}
 /**
  * @param {
  * 职员修改密码
@@ -525,17 +521,17 @@ export const postStaffsProhibit = function (data) {
  */
 
 export const postStaffsPassword = function (data: {
-    oldPassword?: string;
-    password: string;
-    smsCode?: string;
-    id: number;
+  oldPassword?: string
+  password: string
+  smsCode?: string
+  id: number
 }) {
-    return request({
-        url: url + `/staffs/${data.id}/password`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/staffs/${data.id}/password`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -544,8 +540,8 @@ export const postStaffsPassword = function (data: {
  */
 
 export const getStaffsAll = function () {
-    return request({
-        url: url + `/staffs/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/staffs/all`,
+    method: 'get',
+  })
+}

@@ -27,7 +27,7 @@
   import Logo from './logo.vue'
   import { emitter } from '/@/utils/mitt'
   import { useNav } from '../../hooks/nav'
-  import SidebarItem from './sidebarItem.vue'
+  // import SidebarItem from './sidebarItem.vue'
   import { storageLocal } from '/@/utils/storage'
   import { useRoute, useRouter } from 'vue-router'
   import { computed, onBeforeMount, ref, unref, watch } from 'vue'
@@ -70,6 +70,10 @@
   function getSubMenuData(path) {
     // path的上级路由组成的数组
     const parentPathArr = getParentPaths(path, usePermissionStoreHook().wholeMenus)
+    console.log(path, 'path')
+
+    console.log(parentPathArr, 'pPath')
+
     // 当前路由的父级路由信息
     const parentRoute = findRouteByPath(
       parentPathArr[0] || path,

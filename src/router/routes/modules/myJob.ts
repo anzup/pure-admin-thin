@@ -17,178 +17,82 @@ const Teaching: AppRouteRecordRaw = {
     // 我的学员
     {
       path: 'myStudents',
-      name: 'MyJobTeachingMyStudents',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingMyStudents'),
+      name: 'MyJobTeachingMyStudentsIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '我的学员',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingMyStudentsIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '我的学员',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 考勤管理
     {
       path: 'attendance',
-      name: 'MyJobAttendance',
-      redirect: 'index',
-      component: getParentLayout('MyJobAttendance'),
+      name: 'MyJobAttendanceIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '考勤管理',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobAttendanceIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '考勤管理',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 飞行评价
     {
       path: 'flight',
-      name: 'MyJobTeachingFlight',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingFlight'),
+      name: 'MyJobTeachingFlightIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '飞行评价',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingFlightIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '飞行评价',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 地面理论
     {
       path: 'theory',
-      name: 'MyJobTeachingTheory',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingTheory'),
+      name: 'MyJobTeachingTheoryIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '地面理论',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingTheoryIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '地面理论',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 教学任务
     {
       path: 'task',
-      name: 'MyJobTeachingTask',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingTask'),
+      name: 'MyJobTeachingTaskIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '教学任务',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingTaskIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '教学任务',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 在线教学
     {
       path: 'live',
-      name: 'MyJobTeachingLive',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingLive'),
+      name: 'MyJobTeachingLiveIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '在线教学',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingLiveIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '在线教学',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 教学课表
     {
       path: 'schedule',
-      name: 'MyJobTeachingSchedule',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingSchedule'),
+      name: 'MyJobTeachingScheduleIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '教学课表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingScheduleIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '教学课表',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 不及格记录
     {
       path: 'failRecord',
-      name: 'MyJobTeachingFailRecord',
-      redirect: 'index',
-      component: getParentLayout('MyJobTeachingFailRecord'),
+      name: 'MyJobTeachingFailRecordIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '不及格记录',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobTeachingFailRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '不及格记录',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -208,90 +112,42 @@ const Courseware: AppRouteRecordRaw = {
     // 课件指派
     {
       path: 'assigned',
-      name: 'MyJobCoursewareAssigned',
-      redirect: 'index',
-      component: getParentLayout('MyJobCoursewareAssigned'),
+      name: 'MyJobCoursewareAssignedIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '课件指派',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCoursewareAssignedIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '课件指派',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 评审列表
     {
       path: 'review',
-      name: 'MyJobCMyJobCoursewareReview',
-      redirect: 'index',
-      component: getParentLayout('MyJobCMyJobCoursewareReview'),
+      name: 'MyJobCMyJobCoursewareReviewIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '评审列表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCMyJobCoursewareReviewIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '评审列表',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 指派记录
     {
       path: 'assignedRecord',
-      name: 'MyJobCoursewareAssignedRecord',
-      redirect: 'index',
-      component: getParentLayout('MyJobCoursewareAssignedRecord'),
+      name: 'MyJobCoursewareAssignedRecordIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '指派记录',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCoursewareAssignedRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '指派记录',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 阅读记录
     {
       path: 'readRecord',
-      name: 'MyJobCoursewareReadRecord',
-      redirect: 'index',
-      component: getParentLayout('MyJobCoursewareReadRecord'),
+      name: 'MyJobCoursewareReadRecordIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '阅读记录',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCoursewareReadRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '阅读记录',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -311,68 +167,32 @@ const Exam: AppRouteRecordRaw = {
     // 发布考试
     {
       path: 'release',
-      name: 'MyJobExamRelease',
-      redirect: 'index',
-      component: getParentLayout('MyJobExamRelease'),
+      name: 'MyJobExamReleaseIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '发布考试',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobExamReleaseIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '发布考试',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 模拟考试
     {
       path: 'mock',
-      name: 'MyJobExamMock',
-      redirect: 'index',
-      component: getParentLayout('MyJobExamMock'),
+      name: 'MyJobExamMockIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '模拟考试',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobExamMockIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '模拟考试',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 考试统计
     {
       path: 'statistical',
-      name: 'MyJobExamStatistical',
-      redirect: 'index',
-      component: getParentLayout('MyJobExamStatistical'),
+      name: 'MyJobExamStatisticalIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '考试统计',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobExamStatisticalIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '考试统计',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -392,46 +212,22 @@ const FileCenter: AppRouteRecordRaw = {
     // 阅读文件
     {
       path: 'view',
-      name: 'FileView',
-      redirect: 'index',
-      component: getParentLayout('MyJobFileView'),
+      name: 'MyJobFileViewIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '阅读文件',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobFileViewIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '阅读文件',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 下载文件
     {
       path: 'download',
-      name: 'FileDownload',
-      redirect: 'index',
-      component: getParentLayout('MyJobFileDownload'),
+      name: 'MyJobFileDownloadIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '下载文件',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobFileDownloadIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '下载文件',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -451,134 +247,62 @@ const Learning: AppRouteRecordRaw = {
     // 培训课表
     {
       path: 'schedule',
-      name: 'MyJobLearningSchedule',
-      redirect: 'index',
-      component: getParentLayout('MyJobLearningSchedule'),
+      name: 'MyJobLearningScheduleIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训课表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobLearningScheduleIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训课表',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 飞行签字
     {
       path: 'flightSign',
-      name: 'MyJobLearningFlightSign',
-      redirect: 'index',
-      component: getParentLayout('MyJobLearningFlightSign'),
+      name: 'MyJobLearningFlightSignIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '飞行签字',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobLearningFlightSignIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '飞行签字',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 理论签字
     {
       path: 'theorySign',
-      name: 'MyJobLearningTheorySign',
-      redirect: 'index',
-      component: getParentLayout('MyJobLearningTheorySign'),
+      name: 'MyJobLearningTheorySignIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '理论签字',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobLearningTheorySignIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '理论签字',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 在线学习
     {
       path: 'online',
-      name: 'MyJobLearningOnline',
-      redirect: 'index',
-      component: getParentLayout('MyJobLearningOnline'),
+      name: 'MyJobLearningOnlineIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '在线学习',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobLearningOnlineIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '在线学习',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 学习任务
     {
       path: 'task',
-      name: 'MyJobLearningTask',
-      redirect: 'index',
-      component: getParentLayout('MyJobLearningTask'),
+      name: 'MyJobLearningTaskIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '学习任务',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobLearningTaskIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '学习任务',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 问卷填写
     {
       path: 'questionnaire',
-      name: 'MyJobLearningQuestionnaire',
-      redirect: 'index',
-      component: getParentLayout('MyJobLearningQuestionnaire'),
+      name: 'MyJobLearningQuestionnaireIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '问卷填写',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobLearningQuestionnaireIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '问卷填写',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -598,68 +322,32 @@ const MyCourseware: AppRouteRecordRaw = {
     // 课件列表
     {
       path: 'list',
-      name: 'MyJobMyJobMyCoursewareList',
-      redirect: 'index',
-      component: getParentLayout('MyJobMyJobMyCoursewareList'),
+      name: 'MyJobMyJobMyCoursewareListIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '课件列表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobMyJobMyCoursewareListIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '课件列表',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 阅读任务
     {
       path: 'task',
-      name: 'MyJobMyJobMyCoursewareTask',
-      redirect: 'index',
-      component: getParentLayout('MyJobMyJobMyCoursewareTask'),
+      name: 'MyJobMyJobMyCoursewareTaskIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '阅读任务',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobMyJobMyCoursewareTaskIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '阅读任务',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 阅读记录
     {
       path: 'record',
-      name: 'MyJobMyJobMyCoursewareRecord',
-      redirect: 'index',
-      component: getParentLayout('MyJobMyJobMyCoursewareRecord'),
+      name: 'MyJobMyJobMyCoursewareRecordIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '阅读记录',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobMyJobMyCoursewareRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '阅读记录',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -679,24 +367,12 @@ const MyExam: AppRouteRecordRaw = {
     // 教学考试
     {
       path: 'teaching',
-      name: 'MyJobMyJobMyExamTeaching',
-      redirect: 'index',
-      component: getParentLayout('MyJobMyJobMyExamTeaching'),
+      name: 'MyJobMyJobMyExamTeachingIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '教学考试',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobMyJobMyExamTeachingIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '教学考试',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -716,68 +392,32 @@ const Customer: AppRouteRecordRaw = {
     // 参训人员
     {
       path: 'personnal',
-      name: 'MyJobCustomerPersonnal',
-      redirect: 'index',
-      component: getParentLayout('MyJobCustomerPersonnal'),
+      name: 'MyJobCustomerPersonnalIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '参训人员',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCustomerPersonnalIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '参训人员',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训进度
     {
       path: 'progress',
-      name: 'MyJobCustomerProgress',
-      redirect: 'index',
-      component: getParentLayout('MyJobCustomerProgress'),
+      name: 'MyJobCustomerProgressIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训进度',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCustomerProgressIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训进度',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训记录
     {
       path: 'record',
-      name: 'MyJobCustomerRecord',
-      redirect: 'index',
-      component: getParentLayout('MyJobCustomerRecord'),
+      name: 'MyJobCustomerRecordIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训记录',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobCustomerRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训记录',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -797,24 +437,12 @@ const Contract: AppRouteRecordRaw = {
     // 培训合同
     {
       path: 'train',
-      name: 'MyJobContractTrain',
-      redirect: 'index',
-      component: getParentLayout('MyJobContractTrain'),
+      name: 'MyJobContractTrainIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训合同',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'MyJobContractTrainIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训合同',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }

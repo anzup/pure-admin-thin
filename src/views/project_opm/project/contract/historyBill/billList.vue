@@ -16,8 +16,8 @@
     <VxeTable
       v-bind="state.gridOptions"
       v-model:form="state.form"
+      :height="null"
       @action="btnClick"
-      :height="tableHeight"
       @checkbox="checkbox"
       @handle-page-change="handlePageChange"
     >
@@ -60,7 +60,7 @@
 
 <script lang="ts" setup>
   import { VxeGridProps } from 'vxe-table'
-  import VxeTable from '/@/components/table/index.vue'
+  import VxeTable from '/@/components/Table/index.vue'
   import { ref, reactive, onMounted, computed, useAttrs } from 'vue'
   import FormBtn from '/@/components/headerFormBtn/index.vue'
   import { getBillsList, putBillsRemark } from '/@/api/opm/contract'
@@ -73,6 +73,7 @@
   import dayjs from 'dayjs'
   import Print from './components/print.vue'
   import { useI18n } from 'vue-i18n'
+  import to from 'await-to-js'
 
   const props = defineProps({
     courseType: String,
@@ -182,16 +183,17 @@
     code: undefined,
   })
 
-  const getList = () => {
+  const getList = async () => {
     state.gridOptions.loading = true
-    getBillsList(state.form).then((res) => {
+    const [err, res] = await to(getBillsList(state.form))
+    state.gridOptions.loading = false
+    if (!err && res.status === 200) {
       const {
         data: { content, totalElements },
       } = res
       state.gridOptions.data = content
       state.form.total = totalElements
-      state.gridOptions.loading = false
-    })
+    }
   }
 
   const submit = (val: string) => {

@@ -1,10 +1,10 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 export interface StatiStics {
-    year: string | number;
-    resourceId?: number;
-    builtinRole?: string;
-    month?: number | string
+  year: string | number
+  resourceId?: number
+  builtinRole?: string
+  month?: number | string
 }
 /**
  *
@@ -14,12 +14,11 @@ export interface StatiStics {
  */
 
 export const getStatisticsIncome = function (year: string) {
-
-    return request({
-        url: url + `/statistics/income/${year}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/statistics/income/${year}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -28,12 +27,12 @@ export const getStatisticsIncome = function (year: string) {
  */
 
 export const getStatisticsTeacherHours = function (params: StatiStics) {
-    const { year, builtinRole } = params;
-    return request({
-        url: url + `/statistics/statTeacherHours/${year}/${builtinRole}`,
-        method: "get"
-    });
-};
+  const { year, builtinRole } = params
+  return request({
+    url: url + `/statistics/statTeacherHours/${year}/${builtinRole}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -42,12 +41,12 @@ export const getStatisticsTeacherHours = function (params: StatiStics) {
  */
 
 export const getStatisticsTeacherSections = function (params: StatiStics) {
-    const { year, builtinRole } = params;
-    return request({
-        url: url + `/statistics/statTeacherSections/${year}/${builtinRole}`,
-        method: "get"
-    });
-};
+  const { year, builtinRole } = params
+  return request({
+    url: url + `/statistics/statTeacherSections/${year}/${builtinRole}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -56,12 +55,12 @@ export const getStatisticsTeacherSections = function (params: StatiStics) {
  */
 
 export const getTeacherPeriodDetailList = function (params: StatiStics) {
-    const { year, builtinRole, month } = params;
-    return request({
-        url: url + `/statistics/teacherPeriodDetailList/${year}/${month}/${builtinRole}`,
-        method: "get"
-    });
-};
+  const { year, builtinRole, month } = params
+  return request({
+    url: url + `/statistics/teacherPeriodDetailList/${year}/${month}/${builtinRole}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -70,12 +69,12 @@ export const getTeacherPeriodDetailList = function (params: StatiStics) {
  */
 
 export const getTeacherNightSessionList = function (params: StatiStics) {
-    const { year, builtinRole, month } = params;
-    return request({
-        url: url + `/statistics/teacherNightSessionList/${year}/${month}/${builtinRole}`,
-        method: "get"
-    });
-};
+  const { year, builtinRole, month } = params
+  return request({
+    url: url + `/statistics/teacherNightSessionList/${year}/${month}/${builtinRole}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -84,12 +83,12 @@ export const getTeacherNightSessionList = function (params: StatiStics) {
  */
 
 export const getStatisticsMalfunction = function (params: StatiStics) {
-    const { year, resourceId } = params;
-    return request({
-        url: url + `/statistics/malfunction/${year}/${!resourceId ? 0 : resourceId}`,
-        method: "get"
-    });
-};
+  const { year, resourceId } = params
+  return request({
+    url: url + `/statistics/malfunction/${year}/${!resourceId ? 0 : resourceId}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -98,12 +97,12 @@ export const getStatisticsMalfunction = function (params: StatiStics) {
  */
 
 export const getStatisticsUseRatio = function (params: StatiStics) {
-    const { year, resourceId } = params;
-    return request({
-        url: url + `/statistics/useRatio/${year}/${!resourceId ? 0 : resourceId}`,
-        method: "get"
-    });
-};
+  const { year, resourceId } = params
+  return request({
+    url: url + `/statistics/useRatio/${year}/${!resourceId ? 0 : resourceId}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -112,12 +111,12 @@ export const getStatisticsUseRatio = function (params: StatiStics) {
  */
 
 export const getStatFacilitySalePercent = function (params: StatiStics) {
-    const { year, resourceId } = params;
-    return request({
-        url: url + `/statistics/statFacilitySalePercent/${year}/${resourceId || 0}`,
-        method: "get"
-    });
-};
+  const { year, resourceId } = params
+  return request({
+    url: url + `/statistics/statFacilitySalePercent/${year}/${resourceId || 0}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -126,12 +125,12 @@ export const getStatFacilitySalePercent = function (params: StatiStics) {
  */
 
 export const getStatisticsFacilityHours = function (params: StatiStics) {
-    const { year, resourceId } = params;
-    return request({
-        url: url + `/statistics/statFacilityHours/${year}/${!resourceId ? 0 : resourceId}`,
-        method: "get"
-    });
-};
+  const { year, resourceId } = params
+  return request({
+    url: url + `/statistics/statFacilityHours/${year}/${!resourceId ? 0 : resourceId}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -140,12 +139,12 @@ export const getStatisticsFacilityHours = function (params: StatiStics) {
  */
 
 export const getStatisticsFacilitySections = function (params: StatiStics) {
-    const { year, resourceId } = params;
-    return request({
-        url: url + `/statistics/statFacilitySections/${year}/${!resourceId ? 0 : resourceId}`,
-        method: "get"
-    });
-};
+  const { year, resourceId } = params
+  return request({
+    url: url + `/statistics/statFacilitySections/${year}/${!resourceId ? 0 : resourceId}`,
+    method: 'get',
+  })
+}
 /**
  *
  * @param {
@@ -154,34 +153,31 @@ export const getStatisticsFacilitySections = function (params: StatiStics) {
  */
 
 export interface TextraTraining {
-    clazzId: number;
-    customerId: number;
-    end: string;
-    start: string
+  clazzId: number
+  customerId: number
+  end: string
+  start: string
 }
 
 export const getEextraTraining = function (params: TextraTraining) {
-
-    return request({
-        url: url + `/statistics/extraTraining`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/statistics/extraTraining`,
+    method: 'get',
+    params,
+  })
+}
 // 补训
 export const getExtraExam = function (params: TextraTraining) {
-
-    return request({
-        url: url + `/statistics/extraExam`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/statistics/extraExam`,
+    method: 'get',
+    params,
+  })
+}
 // 补训补考
 export const getExtraBills = function (year: number) {
-
-    return request({
-        url: url + `/statistics/extraBills/${year}`,
-        method: "get",
-    });
-};
+  return request({
+    url: url + `/statistics/extraBills/${year}`,
+    method: 'get',
+  })
+}

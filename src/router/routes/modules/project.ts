@@ -7,7 +7,7 @@ import { getParentLayout, LAYOUT } from '/@/router/constant'
 const Manage: AppRouteRecordRaw = {
   path: 'manage',
   name: 'ProjectManage',
-  redirect: '',
+  redirect: '/project/manage/history',
   component: getParentLayout('ProjectManage'),
   meta: {
     title: '计划管理',
@@ -256,45 +256,34 @@ const Contract: AppRouteRecordRaw = {
       },
     },
     // 历史账单
-    // {
-    //   path: 'historyBill',
-    //   name: 'ProjectContractHistoryBill',
-    //   redirect: 'index',
-    //   component: getParentLayout('ProjectContractHistoryBill'),
-    //   meta: {
-    //     title: 'message.HistoricalBills',
-    //   },
-    //   children: [
-    //     {
-    //       path: 'index',
-    //       name: 'ProjectContractHistoryBillIndex',
-    //       component: () => import('/@/views/project_opm/project/contract/historyBill/index.vue'),
-    //       meta: {
-    //         title: 'message.HistoricalBills',
-    //       },
-    //     },
-    //     {
-    //       path: 'billList/:id(\\d+)',
-    //       name: 'ProjectContractHistoryBillList',
-    //       component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
-    //       meta: {
-    //         hideMenu: true,
-    //         title: 'message.billsList',
-    //         currentActiveMenu: '/project/contract/historyBill/index',
-    //       },
-    //     },
-    //     {
-    //       path: 'detail/:id(\\d+)',
-    //       name: 'ProjectContractHistoryBillDetail',
-    //       component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
-    //       meta: {
-    //         hideMenu: true,
-    //         title: 'message.hsDetail',
-    //         currentActiveMenu: '/project/contract/historyBill/index',
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      path: 'historyBill',
+      name: 'ProjectContractHistoryBillIndex',
+      component: () => import('/@/views/project_opm/project/contract/historyBill/index.vue'),
+      meta: {
+        title: 'message.HistoricalBills',
+      },
+    },
+    {
+      path: 'historyBill/billList/:id(\\d+)',
+      name: 'ProjectContractHistoryBillList',
+      component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.billsList',
+        currentActiveMenu: '/project/contract/historyBill',
+      },
+    },
+    {
+      path: 'historyBill/detail/:id(\\d+)',
+      name: 'ProjectContractHistoryBillDetail',
+      component: () => import('/@/views/project_opm/project/contract/historyBill/billList.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/contract/historyBill',
+      },
+    },
   ],
 }
 /**
@@ -313,46 +302,31 @@ const Customer: AppRouteRecordRaw = {
     // 客户列表
     {
       path: 'list',
-      name: 'ProjectCustomerList',
-      redirect: 'index',
-      component: getParentLayout('ProjectCustomerList'),
+      name: 'ProjectCustomerListIndex',
+      component: () => import('/@/views/project_opm/project/customer/list/index.vue'),
       meta: {
         title: '客户列表',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectCustomerListIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '客户列表',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      path: 'list/:id(\\d+)',
+      name: 'ProjectCustomerListDetail',
+      component: () => import('/@/views/project_opm/project/customer/list/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/customer/list',
+      },
     },
     // 客户联络员
     {
       path: 'linkman',
-      name: 'ProjectCustomerLinkman',
-      redirect: 'index',
-      component: getParentLayout('ProjectCustomerLinkman'),
+      name: 'ProjectCustomerLinkmanIndex',
+      component: () => import('/@/views/project_opm/project/customer/linkman/index.vue'),
       meta: {
         title: '客户联络员',
-        i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectCustomerLinkmanIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '客户联络员',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -372,68 +346,40 @@ const Facilities: AppRouteRecordRaw = {
     // 模拟机管理
     {
       path: 'simulator',
-      name: 'ProjectFacilitiesSimulator',
-      redirect: 'index',
-      component: getParentLayout('ProjectFacilitiesSimulator'),
+      name: 'ProjectFacilitiesSimulatorIndex',
+      component: () => import('/@/views/project_opm/project/facilities/simulator/index.vue'),
       meta: {
         title: '模拟机管理',
-        i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectFacilitiesSimulatorIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '模拟机管理',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      path: 'simulator/:id(\\d+)',
+      name: 'ProjectFacilitiesSimulatorDetail',
+      component: () => import('/@/views/project_opm/project/facilities/simulator/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'message.hsDetail',
+        currentActiveMenu: '/project/facilities/simulator',
+      },
     },
     // 其他设备
     {
       path: 'other',
-      name: 'ProjectFacilitiesOther',
-      redirect: 'index',
-      component: getParentLayout('ProjectFacilitiesOther'),
+      name: 'ProjectFacilitiesOtherIndex',
+      component: () => import('/@/views/project_opm/project/facilities/other/index.vue'),
       meta: {
         title: '其他设备',
-        i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectFacilitiesOtherIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '其他设备',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训资源
     {
       path: 'resources',
-      name: 'ProjectFacilitiesResources',
-      redirect: 'index',
-      component: getParentLayout('ProjectFacilitiesResources'),
+      name: 'ProjectFacilitiesResourcesIndex',
+      component: () => import('/@/views/project_opm/project/facilities/resources/index.vue'),
       meta: {
         title: '培训资源',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'ProjectFacilitiesResourcesIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训资源',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -442,7 +388,7 @@ const Route: AppRouteRecordRaw = {
   path: '/project',
   name: 'Project',
   component: LAYOUT,
-  redirect: '',
+  redirect: '/project/manage/history',
   meta: {
     icon: '',
     title: '培训计划',

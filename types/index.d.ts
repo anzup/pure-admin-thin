@@ -181,3 +181,15 @@ declare interface CurrentUserInfo {
   user: UserInfo
   homePath?: string
 }
+declare interface DefaultReturn<T = DefaultPagingData> {
+    data?: T;
+    code?: string;
+    msg?: string;
+    infos?: string;
+}
+// 大纲类型|课程累心|训练类型|模板类型
+declare type courseType = "DRY_LEASE" | "WET_LEASE" | "INTERNAL_TRAINING";
+// 教员类型
+declare type BuiltinRole = "THEORY_TEACHER" | "FLIGHT_TEACHER";
+// 工作性质
+declare type WorkType = "FULL_TIME" | "PART_TIME";

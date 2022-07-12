@@ -17,68 +17,32 @@ const Qualification: AppRouteRecordRaw = {
     // 教学资质
     {
       path: 'teaching',
-      name: 'StandardQualificationTeaching',
-      redirect: 'index',
-      component: getParentLayout('StandardQualificationTeaching'),
+      name: 'StandardQualificationTeachingIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '教学资质',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StandardQualificationTeachingIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '教学资质',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 资质审核
     {
       path: 'audit',
-      name: 'StandardQualificationAudit',
-      redirect: 'index',
-      component: getParentLayout('StandardQualificationAudit'),
+      name: 'StandardQualificationAuditIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '资质审核',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StandardQualificationAuditIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '资质审核',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 资质配置
     {
       path: 'config',
-      name: 'StandardQualificationConfig',
-      redirect: 'index',
-      component: getParentLayout('StandardQualificationConfig'),
+      name: 'StandardQualificationConfigIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '资质配置',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StandardQualificationConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '资质配置',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -98,68 +62,32 @@ const Course: AppRouteRecordRaw = {
     // 培训项目
     {
       path: 'project',
-      name: 'StandardCourseProject',
-      redirect: 'index',
-      component: getParentLayout('StandardCourseProject'),
+      name: 'StandardCourseProjectIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训项目',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StandardCourseProjectIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训项目',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训大纲
     {
       path: 'outline',
-      name: 'StandardCourseOutline',
-      redirect: 'index',
-      component: getParentLayout('StandardCourseOutline'),
+      name: 'StandardCourseOutlineIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训大纲',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StandardCourseOutlineIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训大纲',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 培训配置
     {
       path: 'config',
-      name: 'StandardCourseConfig',
-      redirect: 'index',
-      component: getParentLayout('StandardCourseConfig'),
+      name: 'StandardCourseConfigIndex',
+      component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '培训配置',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'StandardCourseConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训配置',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }

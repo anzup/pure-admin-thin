@@ -1,5 +1,5 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 
 /**
  *
@@ -9,8 +9,8 @@ const url = import.meta.env.VITE_BASE_API_OPM;
  */
 
 export const getDepartmentsAll = function () {
-    return request({
-        url: url + `/departments/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/departments/all`,
+    method: 'get',
+  })
+}

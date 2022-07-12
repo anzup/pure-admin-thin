@@ -1,6 +1,7 @@
 import type { AppRouteRecordRaw } from '../types'
 import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME } from '/@/router/constant'
 import { PageEnum } from '/@/enums/pageEnum'
+import { h, resolveComponent } from 'vue'
 
 export const ERROR_ROUTE: AppRouteRecordRaw = {
   path: '/error',
@@ -76,13 +77,37 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
 export const LOGIN_ROUTE: AppRouteRecordRaw = {
   path: '/login',
   name: 'Login',
-  component: () => import('/@/views/login/index.vue'),
+  redirect: '/login/index',
+  component: {
+    render() {
+      return h(resolveComponent('router-view'))
+    },
+  },
   meta: {
     title: 'menus.login',
     showLink: false,
     rank: 101,
   },
+  children: [
+    {
+      path: 'index',
+      name: 'LoginIndex',
+      component: () => import('/@/views/login/index.vue'),
+      meta: {
+        title: 'menus.login',
+      },
+    },
+    {
+      path: 'opm',
+      name: 'LoginOpm',
+      component: () => import('/@/views/project_opm/login.vue'),
+      meta: {
+        title: 'menus.login',
+      },
+    },
+  ],
 }
+
 export const HOME_ROUTE: AppRouteRecordRaw = {
   path: '/welcome',
   name: 'Welcome',
