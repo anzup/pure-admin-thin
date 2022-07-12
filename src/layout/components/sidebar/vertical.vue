@@ -69,11 +69,16 @@
   }
 
   genMenus()
-
+  const { currentRoute } = useRouter()
   async function getSubMenuData(path) {
+    const { meta } = unref(currentRoute)
+    const currentActiveMenu = meta.currentActiveMenu as string
     // path的上级路由组成的数组
-    const parentPathArr = getAllParentPath(usePermissionStoreHook().wholeMenus, path)
-    console.log(parentPathArr)
+    // console.log(currentActiveMenu, path)
+    const parentPathArr = getAllParentPath(
+      usePermissionStoreHook().wholeMenus,
+      currentActiveMenu || path,
+    )
     // 当前路由的父级路由信息
     const parentRoute = //await getCurrentParentPath(path)
       findRouteByPath(parentPathArr[0] || path, usePermissionStoreHook().wholeMenus)
