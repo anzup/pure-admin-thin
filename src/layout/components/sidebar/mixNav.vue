@@ -105,6 +105,7 @@
       </svg>
     </div>
     <el-menu
+      v-if="wholeMenus.length > 0"
       ref="menu"
       :default-active="defaultActive"
       class="horizontal-header-menu"
