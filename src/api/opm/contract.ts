@@ -1,12 +1,12 @@
-import request from '/@/utils/request'
+import request from '/@/utils/request/opm'
 const url = import.meta.env.VITE_BASE_API_OPM
-interface IBase {
-  page: number
-  size: number
-  sort?: string
-  searchKey?: string
-  order?: string
-}
+// interface IBase {
+//   page: number
+//   size: number
+//   sort?: string
+//   searchKey?: string
+//   order?: string
+// }
 /**
  *
  * @param {
@@ -90,7 +90,7 @@ export const deleteResourcesId = function (data) {
  * }
  */
 
-export const postResourcesBatchDelete = function (data) {
+export const postResourcesBatchDelete = function () {
   return request({
     url: url + `/resources/batchDelete`,
     method: 'post',
@@ -104,7 +104,7 @@ export const postResourcesBatchDelete = function (data) {
  */
 
 export const getResourcesAll = function () {
-  return request<DefaultReturn<Array<DefaultAllListItem>>>({
+  return request({
     url: url + `/resources/all`,
     method: 'get',
   })
@@ -116,7 +116,7 @@ export const getResourcesAll = function () {
  */
 
 export const getResourcesNormal = function () {
-  return request<DefaultReturn<Array<DefaultAllListItem>>>({
+  return request({
     url: url + `/resources/normal`,
     method: 'get',
   })
@@ -130,7 +130,7 @@ export const getResourcesNormal = function () {
 export const getResourcesoSchedule = function (params?: {
   resourceType: 'FACILITIES' | 'TEACHER'
 }) {
-  return request<DefaultReturn<Array<any>>>({
+  return request({
     url: url + `/resources/schedule`,
     method: 'get',
     params,
@@ -253,7 +253,7 @@ export const deleteContractsId = function (data) {
  * }
  */
 
-export const postContractsBatchDelete = function (data) {
+export const postContractsBatchDelete = function () {
   return request({
     url: url + `/contracts/batchDelete`,
     method: 'post',
@@ -404,7 +404,8 @@ export const postBillItemsBatchDelete = function () {
 
 export const putBillItemsRemove = function (id: number) {
   return request({
-    url: url + `/billItems​/${id}​/remove`,
+    // eslint-disable-next-line no-irregular-whitespace
+    url: url + `/billItems/` + id + `​/remove`,
     method: 'put',
   })
 }
@@ -419,6 +420,7 @@ export const putBillItemsRemove = function (id: number) {
 export const getBillcheck = function (data: { value: string; customerId: number }) {
   const { customerId, ...params } = data
   return request({
+    // eslint-disable-next-line no-irregular-whitespace
     url: url + `/bills​/check/${customerId}`,
     method: 'get',
     params,
@@ -561,6 +563,7 @@ export const postBillsBatchDelete = function () {
 
 export const putBillsSettle = function (id: number) {
   return request({
+    // eslint-disable-next-line no-irregular-whitespace
     url: url + `​/bills​/${id}​/settle`,
     method: 'put',
   })

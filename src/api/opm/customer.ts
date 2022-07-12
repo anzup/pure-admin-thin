@@ -1,5 +1,5 @@
-import request from "/@/utils/request";
-const url = import.meta.env.VITE_BASE_API_OPM;
+import request from '/@/utils/request/opm'
+const url = import.meta.env.VITE_BASE_API_OPM
 
 /**
  *
@@ -9,12 +9,12 @@ const url = import.meta.env.VITE_BASE_API_OPM;
  */
 
 export const getCustomersList = function (params) {
-    return request({
-        url: url + `/customers`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/customers`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -23,11 +23,11 @@ export const getCustomersList = function (params) {
  */
 
 export const getCustomersDetail = function (params) {
-    return request({
-        url: url + `/customers/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/customers/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -36,12 +36,12 @@ export const getCustomersDetail = function (params) {
  */
 
 export const postCustomers = function (data) {
-    return request({
-        url: url + `/customers`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/customers`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -50,12 +50,12 @@ export const postCustomers = function (data) {
  */
 
 export const putCustomersId = function (data) {
-    return request({
-        url: url + `/customers/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/customers/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -64,11 +64,11 @@ export const putCustomersId = function (data) {
  */
 
 export const deleteCustomersId = function (data) {
-    return request({
-        url: url + `/customers/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/customers/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -76,12 +76,12 @@ export const deleteCustomersId = function (data) {
  * }
  */
 
-export const postCustomersBatchDelete = function (data) {
-    return request({
-        url: url + `/customers/batchDelete`,
-        method: "post"
-    });
-};
+export const postCustomersBatchDelete = function () {
+  return request({
+    url: url + `/customers/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  * @param {
@@ -90,11 +90,11 @@ export const postCustomersBatchDelete = function (data) {
  */
 
 export const getCustomersAll = function () {
-    return request({
-        url: url + `/customers/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/customers/all`,
+    method: 'get',
+  })
+}
 
 /**
  *
@@ -104,12 +104,12 @@ export const getCustomersAll = function () {
  */
 
 export const getCustomersTypesList = function (params) {
-    return request({
-        url: url + `/customerTypes`,
-        method: "get",
-        params
-    });
-};
+  return request({
+    url: url + `/customerTypes`,
+    method: 'get',
+    params,
+  })
+}
 
 /**
  * @param {
@@ -118,11 +118,11 @@ export const getCustomersTypesList = function (params) {
  */
 
 export const getCustomersTypesDetail = function (params) {
-    return request({
-        url: url + `/customerTypes/${params}`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/customerTypes/${params}`,
+    method: 'get',
+  })
+}
 
 /**
  * @param {
@@ -131,12 +131,12 @@ export const getCustomersTypesDetail = function (params) {
  */
 
 export const postCustomersTypes = function (data) {
-    return request({
-        url: url + `/customerTypes`,
-        method: "post",
-        data
-    });
-};
+  return request({
+    url: url + `/customerTypes`,
+    method: 'post',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -145,12 +145,12 @@ export const postCustomersTypes = function (data) {
  */
 
 export const putCustomersTypesId = function (data) {
-    return request({
-        url: url + `/customerTypes/${data.id}`,
-        method: "put",
-        data
-    });
-};
+  return request({
+    url: url + `/customerTypes/${data.id}`,
+    method: 'put',
+    data,
+  })
+}
 
 /**
  * @param {
@@ -159,11 +159,11 @@ export const putCustomersTypesId = function (data) {
  */
 
 export const deleteCustomersTypesId = function (data) {
-    return request({
-        url: url + `/customerTypes/${data}`,
-        method: "delete"
-    });
-};
+  return request({
+    url: url + `/customerTypes/${data}`,
+    method: 'delete',
+  })
+}
 
 /**
  * @param {
@@ -171,12 +171,12 @@ export const deleteCustomersTypesId = function (data) {
  * }
  */
 
-export const postCustomersTypesBatchDelete = function (data) {
-    return request({
-        url: url + `/customerTypes/batchDelete`,
-        method: "post"
-    });
-};
+export const postCustomersTypesBatchDelete = function () {
+  return request({
+    url: url + `/customerTypes/batchDelete`,
+    method: 'post',
+  })
+}
 
 /**
  * @param {
@@ -185,8 +185,8 @@ export const postCustomersTypesBatchDelete = function (data) {
  */
 
 export const getCustomersTypesAll = function () {
-    return request({
-        url: url + `/customerTypes/all`,
-        method: "get"
-    });
-};
+  return request({
+    url: url + `/customerTypes/all`,
+    method: 'get',
+  })
+}
