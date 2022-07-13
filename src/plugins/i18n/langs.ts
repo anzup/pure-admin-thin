@@ -22,12 +22,13 @@ export const localesConfigs = {
     ...zhVxeTable,
   },
   'zh-TW': {
+    ...genMessage(import.meta.globEager('../../../locales/zh-TW/*.y(a)?ml')),
     ...siphonI18n(twModules, 'zh-TW'),
     ...twVxeTable,
     ...twLocale,
   },
   en: {
-    ...genMessage(import.meta.globEager('../../../locales/*.y(a)?ml')),
+    ...genMessage(import.meta.globEager('../../../locales/en/*.y(a)?ml')),
     ...siphonI18n(enModules, 'en-US'),
     ...enLocale,
     ...enVxeTable,

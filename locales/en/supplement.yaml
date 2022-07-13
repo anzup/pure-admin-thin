@@ -1,0 +1,32 @@
+AccountInformation: Account information
+LoginUser: Login User
+LastLogin: Last Login
+ChangePassword: Change Password
+Logout: Logout
+live: Live
+teach: Teach
+plan: Plan
+qualification: Qualification
+record: Records
+exam: Exam
+recordList: Record List
+video: Video
+TRAIN_QUALIFICATION_INVEST_SHEET: Train Qualification Invest Sheet
+STUDENT_REGISTER_SHEET: Registration Infomation For Pilot
+THEORY_PROGRESS_SHEET: Ground Progress Sheet
+FLIGHT_EVALUATION: Simulator Evaluation
+FLIGHT_EXAM_RECORD: Check
+THEORY_EXAM_RECORD: Ground Exam Record
+ATTENDANCE_SHEET: Attendance Sheet
+CLASS_SCHEDULE: Class Schedule
+FINAL_EVALUATION: Position Capability Evaluation
+CERTS: Certificate
+OTHERS: Others
+QuestionNumber: NO.{num}
+score: ''
+maxScore: Total Score
+ReadFinishOf: (Finish reading in {num} days)
+ReadFinishOfToday: (Finish reading in today)
+Expired: (Expired)
+leaveTrainFormTips: 1. In order to better grasp the training situation of flight cadets, the cadet team of the Flight Department has formulated the "Fallacious Table of Cadet Departure Training", and the training instructor will evaluate the flight cadets after the training.\n2. Operational ability assessment from 1 to 5 levels:\n5- The manipulation ability is very strong;\n4- the manipulation ability is better;\n3- The ability to manipulate is average;\n2- Weak maneuvering ability;\n1- Extremely poor maneuverability.\n3. Theoretical knowledge assessment is divided into A to C grades:\nA - Theoretical knowledge is very solid;\nB- Theoretical knowledge is at a normal level;\nC- Poor theoretical knowledge.\n4. The training style is evaluated from A to C:\nA - Excellent style during training;\nB - Style needs to be improved during training;\nC - Style is poor during training.\n5. If the instructor has other special instructions or opinions, he can fill in the "Remarks" column.\n6. If the theoretical knowledge does not reach the B level and the training style does not reach the A level, the flying instructor needs to briefly describe the reason for the rating in the "Remarks" column.
+pageNumber: Page {num}

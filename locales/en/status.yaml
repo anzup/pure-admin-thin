@@ -1,0 +1,110 @@
+flightPractice: Flight Practice
+groundTheory: Ground Theory
+finished: Finished
+training: Training
+publicQuestionBank: Public Question Bank
+confidentialQuestionBank: Confidential Question Bank
+judgmentQuestions: Judgment
+singleChoiceQuestions: Single Choice
+multipleChoiceQuestions: Multiple Choices
+questionAndAnswer: Q&A
+singleChoice: Single Choice
+multipleChoice: Multiple Choices
+Q&A: Q&A
+completion: Fill Blank
+uncertainOptions: Uncertain Choices
+important: Important
+lessImportant: Less Important
+mostImportant: Very Important
+normal: General
+unimportant: Unimportant
+simple: Easy
+veryEasy: Very Easy
+hard: More difficult
+hardest: Difficult
+success: Correct
+error: Error
+open: Public
+confidential: Confidential
+systemCandidates: System Examinees
+temporaryCandidates: Temporary Examinees
+notStarted: Not Started
+inProgress: In Progress
+noMarking: Not Scored
+checked: Scored
+failed: Failed
+pass: Pass
+examFinished: Ended
+inTheExam: In the exam
+absentFromTheExam: Missed Exam
+assignedReading: Assigned Reading
+selfReading: self-reading
+finishedDelayed: Delayed completion
+finishedInTime: Finish on schedule
+finishedStatus: Graduated
+unfinishedStatus: Not Graduated
+studentTypeAssign: Assigned
+studentTypeSelf: Initiative
+theoryExam: Theory Exam
+practiceExam: Practice Exam
+abort: Abort
+addOne: Add One
+addTwo: Add Two
+noCheck: No review required
+addOneForExam: Training for another exam
+addTwoForExam: Two additional training sessions to take the exam again
+notEvaluated: Not Evaluated
+evaluated: Evaluated
+additionalTraining: Additional Training
+normalTraining: Normal Training
+fillOver: Filled in
+noFill: Not filled in
+normalTest: Normal Test
+makeUpTest: SUP Exam
+permanent: Permanent
+notSign: Not Signed
+noSelect: Not selected
+train: Training
+examination: Examination
+abortTrain: Abort Training
+filled: Failed
+missed: Missed
+qualified: Qualified
+unqualified: Unqualified
+recommendTest: Recommend Test
+deleted: Deleted
+normalGraduatrType: Normal GraduatrType
+abnormalGraduatrType: Abnormal GraduatrType
+unsigned: Unsigned
+signed: Signed
+notGenerate: Not Generated
+generated: generated
+reviewing: Reviewing
+broadcasting: Broadcasting
+pending: Not Started
+over: Finished
+downloading: Downloading
+downloadFailed: Download Failed
+uploading: Uploading
+NotPublish: Not Publish
+liveEnd: The live broadcast is over.
+DeviceError: Device unknown error
+NotFoundAudioDevice: Audio device not found
+NotFoundVideoDevice: No video device found
+DisabledAudioDevice: Browser disables audio devices
+DisabledVideoDevice: The browser disables the video device
+SystemDisabledAudioDevice: The audio device is disabled
+SystemDisabledVideoDevice: The video device is disabled
+ScreenSharingError: Unknown screen sharing error
+DisabledScreenSharing: Screen sharing is disabled
+CanceledScreenSharing: Screen sharing has been canceled
+AutoPlayFailed: Auto play failed
+loading: loading...
+loadingFinished: All data loaded
+adviceAbort: Suggest Abort
+adviceAddOne: Suggest Add One
+adviceAddTwo: Suggest Add Two
+supplementing: Supplemental Training
+Attendance: Attendance
+noAttendance: No Attendance
+uploaded: Uploaded

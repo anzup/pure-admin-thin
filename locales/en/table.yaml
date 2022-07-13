@@ -1,0 +1,695 @@
+questionsNum: Question Number
+passLine: Pass Score
+timeLeftToAnswerQuestions: Remaining Time
+customerBelongs: Belongs to the customer
+questionBankMold: Type
+examMock: Mock Exam
+formalExam: Formal Exam
+customerName: Name
+customerCompellation: Name
+customerType: Type
+loginName: Username
+cellPhoneNumber: Phone
+role: Owning role
+mailbox: E-Mail
+remarks: Remarks
+accountStatus: Account Status
+teacherName: Name
+loginAccount: Login Account
+seatNumber: Landline Number
+idCard: ID/Passport/MTP
+idCardOrPassport: ID/Passport
+belongToDepartment: Department
+airlines: Airlines
+trainingModel: Airplane Model
+Name: Name
+name: Name
+gender: Gender
+contactMobilePhone: Phone
+department: Department
+teachingModel: Airplane
+addTime: Added Time
+lastLoginTime: Last Login Time
+trainingDate: Training Date
+jobTitle: Name
+jobNum: Person Number
+jobType: Type
+customerCodeAbbr: Abbr
+code: Code
+contacts: Contact
+trainingRecordAuthority: Training Record Authorized
+contactsNum: Contacts Number
+courseName: Name
+courseNumber: Number
+updateTime: Update Time
+abbreviation: Abbreviation
+customerCode: Code
+contactsName: Contact person name
+contactAddress: Contact Address
+Position: Position
+job: Position
+schoolYear: Year
+className: Class Name
+trainingStatus: Training Status
+trainingFinishNumToTotalNum: Training completed / total
+classNumber: Class Number
+theoryTeacher: GSI
+simulatorTeacher: Training Instructor
+trainingTime: Training Time
+estimatedCompletionTimeOfTraining: Estimated Complete Time
+studentsNumber: Students Number
+trainingState: Status
+codeOfTrainingCourses: Code
+outlineName: Name
+versionNumber: Version
+modelNumber: Airplane Model
+courseSection: Course Count
+theoryTrainHours: Ground Hours
+simulatorTrainHours: Simulator Hours
+simulatorTrain: Simulator Training
+simulatorTrainCourse: simulator Train Course
+year: year
+courseCode: Course Code
+version: Version
+courseTaskName: Course Task Name
+taskName: Task Name
+outline: Syllabus
+checkItems: Check Items
+assessmentItems: Evaluation Items
+assessmentItemDetail: Evaluation Item Detail
+assessmentItemMaintain: Evaluation Item Maintain
+competencyAssessmentItems: Capability Evaluation Items
+courseType: Course Type
+classHours: Hours
+testOrNot: Whether to test or not
+commentOnline: Whether to comment online
+flightEvaluationContent: Content
+evaluationContent: Evaluation Content
+group: Group
+flightTeacher: TRI
+groupName: Group Name
+primaryClassification: Primary Classification
+secondaryClassification: Secondary Classification
+subcategory: Subcategory
+questionBankName: Name
+creator: Creator
+questionBankProperties: Type
+numberOfTestQuestions: Question Count
+testPaperGenerationTimes: Used Count
+itemBankProperties: Type
+publicQuestionBank: Public Bank
+teacherQuestionBank: Teacher Bank
+questionBankInformation: Question Bank Info
+questionManagement: Question Mgmt.
+creatorTime: Created Time
+examYear: Year
+examCategory: Category
+examName: Name
+examCourseNum: Course Number
+examPeriod: Period
+examDurationMinutes: Duration (min.)
+examDuration: Duration
+sponsor: Creator
+referenceNum: Persons
+examStatus: Status
+firstExam: First Exam
+makeUpRxam: SUP Exam
+passScore: Pass Score
+examPaperToTalScore: Total Score
+examRules: Rules
+examPponsor: Creator
+passRate: Pass Rate
+candidatesNum: Candidate Number
+examActualNum: Tested Number
+examTypeName: Type Name
+examType: Type
+examStartTime: Start Time
+multipleChoiceQuestionBank: Selected Banks
+questionTypeSelection: Question TypeSelection
+difficultyOfQuestionType: Difficulty
+importance: Importance
+examIdentity: Identity
+topicClassification: Classification
+questionType: Type
+questionStemInformation: Title
+options: Options
+option: Option
+answer: Answer
+addOptions: Add Option
+examContent: Test paper content
+sameExamQuestion: All participants have the same topic
+differentExamQuestion: All participants have different topics
+autoRetestTimes: Automatic retest times
+testPaperGenerationMethod: Compose Type
+questionBankCount: By Type
+difficultyPercent: By Difficulty
+importancePercent: By Importance
+questionBankType: Question Type
+totalScore: Total Score
+singleQuestionScore: Score per Question
+numberOfOptionalQuestions: Available Number
+numberOfMultipleChoiceQuestions: Set Question Number
+trainingDepartment: Training Department
+trainingProject: Training Item
+trainingProjectCode: Training Item Code
+isBySystem: System Generated
+archivesName: File Name
+trainingNum: Trained Times
+trainingStatusName: Training Status
+trainingStartTime: Training Start Time
+trainingEndTime: Training End Time
+idNumber: ID/Passport
+choiceOfTestQuestions: Questions Selection
+submissionStatus: Status
+totalAchievement: Total Score
+markingStatus: Status
+makeUpExamination: SUP Exam
+limitDuration: Max Duration
+limitedTime: Limited Time
+nameOfCandidates: Examinee Name
+examinationTime: Exam Time
+setQuestionsTeachers: Teacher
+examScores: Scores
+examResults: Result
+openCourseware: Public Courseware
+thirdPartyCourseware: Third Party Courseware
+ownCourseware: Faculty Cloud Disk
+attribute: Attribute
+system: System
+title: Title
+publisher: Publisher
+releaseTime: Created Time
+readingsTotalNumber: Reading Number
+commentTotalNumber: Comments Number
+content: Content
+secondaryDepartment: Secondary Department
+coursewareType: Type
+coursewareLook: View By Courseware
+coursewarePersonLook: View By Person
+designator: Designator
+assignedTime: Assigned Time
+assigneesCount: AssigneesCount
+finishedCount: Readed Count
+coursewareAssignmentCount: Assignment Quantity
+coursewareAssignmentFinishedCount: Readed Count
+coursewareName: Name
+coursewareSelect: Courseware Select
+learningState: Learning State
+readDuration: Total Readed Duration
+lastReadTime: Last Read Time
+needReadCourseware: Need Read Courseware
+isSetReadingRecord: Set Read Record
+applicationList: Application List
+reviewList: Review List
+discussCourseware: Courseware
+coursewareAuthor: Author
+applicationTime: Application Time
+applicationStatus: Status
+reviewersNumber: Number
+endTime: End Time
+startTime: Start Time
+reviewAndAudit: review and audit
+reTrainingAudit: Training Audit
+auditResults: audit results
+reasonsForRejection: reasons for rejection
+reviewDeadline: review Deadline
+membersOfTheReviewTeam: Members of the Review Team
+remainingLearningTime: Remaining Learning Time
+readingTime: Reading Duration
+howToRead: Learning Type
+readingStatus: Status
+readingNum: Reading Times
+startReadingTime: Start Reading Time
+reviewComments: review comments
+reviewDate: Audit Duration
+reviewResults: Results
+coursewareReview: Reviews
+addTemporaryCandidates: Add Temporary Examinee
+valueDistribution: Point value distribution
+numberOfTopics: Number of Topics
+singleTopicScore: Single TopicScore
+setPercentage: Set Percentage (%)
+residualDistributionValue: Remaining Scores
+remainingPercentage: Remaining Percentage
+downloadTemplate: Download Template
+addSystemCandidates: Add System Examinee
+itemAttributes: Question Attributes
+candidates: Examinees
+examinationQuestions: Exam Questions
+examineeManagement: Examinee Mgmt.
+examinee: Examinee
+score: Score
+stem: Title
+rightKey: Correct Answer
+examineeKey: Submitted
+examineeScore: Examinee Score
+previousQuestion: Previous Question
+nextQuestion: Next Question
+candidatesAnswers: Examinee Answers
+itemBankTitle: Name
+studentDetails: Student Details
+studentsToBeGrouped: Students to be grouped
+facultyToBeSelected: faculty to be selected
+addGroup: Add Group
+newCustomers: New Customer
+customerContact: Customer Contact
+customersDetails: Customer Details
+examineSelect: Audit Status
+type: Type
+flightTrainingMission: Flight Training Mission
+filghtTeacher: TRI
+trainDate: Training Time
+disposalResults: Disposal Results
+disposalSuggest: Disposal Suggest
+disposalAdvice: Disposal Advice
+tableEdit: Operations
+student: Student
+inspector: TRE
+filghtTime: Flight Date
+sourse: Course
+courseDate: Course Date
+evaluationProject: Evaluation Project
+evaluationCoreCompetence: Core Capability Evaluation
+evaluationCoreCompetenceProj: Core Capability Evaluation Item
+behavioralIndicators: Behavior Ind.
+behavioralIndicatorsStatic: Behavior Ind. Stat.
+selectBehavioralIndicators: Select Behavior Indicators
+behavioralIndicatorsNoPass: Behavior Ind. are not satisfied
+noPassBehavioralIndicators: Unsatisfactory Items
+indicatorsCode: Indicators Code
+appearTimes: Counts
+appearCourse: Course
+coreCompetence: Core Capability
+trainingStyleCompetence: Style Capability
+psychologyCompetence: Psychological Capability
+programExecution: Program Execution
+aircraftTrajectoryManagement: Aircraft TrajectoryManagement
+knowledge: Knowledge
+trainingResults: Training Results
+plannerAuditOptions: Planner reviews options
+comment: Comment
+teacherSigning: Teacher Signing
+nowTimeSign: Current Sign
+hisSign: History Signature
+studentSign: Student Sign
+team: Team
+evaluate: Evaluation
+evaluateState: Evaluate State
+evaluateDate: Evaluation Date
+sign: Signature
+signSetTrain: Process
+examSignSetTrain: Exam Signing
+pinCode: pinCode
+filghtTeam: Flight Team
+writeStatus: Fill in Status
+trainingYear: Training Year
+flightInstructor: Training Instructor
+assessmentScore: Evaluation Score
+assessmentResults: Evaluation Results
+assessmentEvaluation: Evaluation
+trainingEvaluation: Training Evaluation
+trainingStyle: Training Style
+trainingAbility: Core Capability Evaluation
+overallQuality: Overall Quality
+graduationStatus: Graduation Status
+birthday: Date of Birth
+birthplace: Birthplace
+issueplace: issueplace
+idValid: Validity Period of ID Card
+courseStartDate: course start date
+hotel: Hotel
+contactPhone: Contact Phone
+Englishlevel: English level
+graduateSchool: Graduation School
+cultureMode: Cultivation Mode
+graduationMajor: Major before graduation
+licenseType: License Type
+issuingAuthority: Issuing Authority
+coursewareTitle: Title
+coursewarePublisher: Publisher
+AssignCoursewareTask: Assign Courseware Task
+studentType: Learning Type
+teacher: teacher
+teacherLastName: Name
+unknown: Unknown
+subsystemAdmin: Subsystem Administrator
+trainingCenter: Training Center
+otherRemark: Other Remark
+flightCourse: Flight Course
+clickSign: Sign
+clickSelect: select
+setSignature: Set Signature
+date: Date
+coreCapabilitiesRadar: Core Capability Map
+coreCapabilitiesLine: Training Core Capabilities Change Graph
+jobCompetencyAssessment: Position Capability Evaluation
+jobCompetencyAssessmentTable: Position Capability Evaluation Table
+jobCompetencyAssessmentChart: Position Capability Evaluation Chart
+practiceExam: Practice Exam
+practiceTrain: Practical Training
+signSet: Signature Set
+signPincodSet: Signature pin code password modification
+displayNavigationEffect: Navigation Bar Preview
+logoSettings: Logo Settings
+navigationBarStyle: Navigation Bar Style
+navigationBarSet: Nav bar Settings
+navigationBarExanLogo: RC LOGO upload
+systemName: System Name
+fontColor: Font Color
+navigationBarBackgroundColor: Navi. Bar Bg. Color
+accountType: Account Type
+loginPeriod: Login Time
+startDate: Start Date
+endDate: End Date
+loginTime: Login Time
+loginIP: Login IP
+loginAddress: Login Address
+academicAdministrator: Admin
+planner: Planner
+messageType: Type
+messageTitle: Title
+sendingTime: Sending Time
+publicInformation: Public Information
+LearningNotice: Learning Notice
+teachingTask: teaching task
+licenseManagement: License Management
+qualificationManagement: Qualification Management
+teacherType: Teacher Type
+certificateDetails: Certificate Details
+newLicense: New License
+editLicense: Edit License
+nameOfLicense: License Name
+validityOfLicense: Valid Date
+reminderTimeInAdvance: Reminder Days
+descriptiveText: DescriptiveText
+uploadLicense: Upload License
+readItAll: All Read
+contentDetails: Content Details
+messageContent: Content
+identityType: Identity Type
+messageAttachment: Attachment
+uploadAttachment: Upload Attachment
+sendTo: Send To
+commonSystems: common systems
+tasks: Work Tasks
+tasksPoint: Right click to hide tasks
+messageNotification: Message Notification
+more: More
+seeMore: See More
+customerOffice: Customer Liaison Officer
+questionnaireType: Questionnaire Type
+privateQuestionnaire: Internal Questionnaire
+publicQuestionnaire: Public Questionnaire
+questionnaireValidity: Questionnaire Validity
+fillNumber: Fill in the number of people
+templateName: template name
+templateInfo: Template Information
+questionnaireAddTime: Questionnaire AddTime
+questionnaireName: Questionnaire Name
+questionnaireContent: Questionnaire Content
+useTime: Use Times
+questionNum: Question Number
+addQuestion: Add Question
+delClassify: Delete Classification
+questionnaireObject: Questionnaire Object
+selectTime: Select Time
+multipleSelect: Multiple-choice question
+fillInTheQuestion: Question and answer
+fillStudy: File Study
+firstLevelPermission: First Level Function
+secondLevelPermission: Second Level Function
+thirdLevelPermission: Third Level Function
+permissionAuth: Function Permission
+handleAuth: Operation Permission
+personalInformation: Personal Information
+trainingLeader: Filler Signature
+other: Other
+reviewTime: Review Time
+noticeMessage: Notice Message
+continueTraining: Continue Training
+groundTheoryCourse: Ground Theory Course
+taskForShort: Task Short Name
+courseTaskForShort: course task abbreviation
+flightTraining: Flight Training
+recommendedTestOrNot: Recommend
+classHour: ClassHour
+isRecommendExam: Whether to recommend the exam
+flightTest: Flight Test
+auditor: Auditor
+RecommendExamTeacher: Inspector
+systemNotice: System Message
+studyTask: study task
+teamNumber: Team Number
+teacherSign: Examiner Signature
+isSignature: Signed
+normalScore: Standard Value
+readingLimitTime: Reading Limit
+onlyMySelf: Only oneself
+sort: Sort
+reading: Reading
+finishonTime: Finish on time
+overdueCompletion: Overdue Completion
+examClassification: Classification
+notificationInformation: Notification
+learningDocumentNotification: Doc Learning Notification
+messageTag: Message Tag
+noMoreThanWords: (not more than 4 words)
+disposalOpinions: Disposal Opinions
+checkPaperReview: Exam Audit
+trainingSubjects: Training Subjects
+trainingType: Type
+trainingContent: Training Content
+contentAbbreviation: Content Abbr
+teachingFacilities: Facilities
+instructor: Teacher
+theoreticalTrainingSubjects: Theoretical Training Subjects
+contentTheoreticalTraining: Theoretical Training Content
+
+fuel: fuel
+electronic: Electrical
+pneumaticAndAir: Pneumatic Source
+hydraulic: Hydraulic
+powerPlant: Engine
+flightControl: Flying
+autoFlight: Automatic Flight
+landingGear: Landing Gear
+coursewareReviewResult: courseware review result
+trainingInAdvance: Training in advance
+trainingInAdvanceMark: TrainingInAdvanceMark in advance
+abnormalTrainingInAdvanceMark: Abnormal training instructions
+fileGenerationProgress: File Generation Progress
+studentName: Name
+LiveName: Name
+CouseCode: Course Number
+LiveTeacher: Teacher
+Airtime: Start Time
+LiveNumber: Number
+WhetherRecorded: Record
+LiveStatus: Status
+VideoStartTime: Start Time
+VideoEndTime: End Time
+Duration: Duration
+CourseNumber: Course Number
+filePath: Path
+exportFile: Export File
+fileExplorer: File Explorer
+ModificationDate: Modified Date
+size: Size
+CreationDate: Created Date
+primaryDepartment: Primary Department
+CourseAssignment: Assign Course
+currentResult: Result
+liveName: Name
+liveImage: Cover
+liveCouseNumber: Course Number
+liveTime: Time
+liveRecord: Record
+liveStudent: Students
+historySign: History Signatures
+Anwser: Anwser
+fileName: File Name
+hideTask: Hide Task
+theQuestionnaire: the questionnaire
+additionalTraining: Additional Training
+abnormalGraduate: Abnormal Graduate
+companyName: Exam Result Prefix
+chinese: Chinese(Simplified)
+Traditional: Chinese(Traditional)
+english: English
+nameSetting: Personalized Setting
+customCompany: ''
+userName: Username
+useBank: Question Bank
+totalScores: Total Score
+passScores: Passing Score
+totalQuestions: Questions Total Num.
+objectiveItems: Objective Items Num.
+subjectiveItems: Subjective Items Num.
+subjectiveAverageRate: Average score rate of subjective questions
+averagePassRate: Average accuracy
+objectiveQuestion: Objective Items
+subjectiveQuestion: Subjective Items
+objectiveQuestionScores: Objective Items Scores
+subjectiveQuestionScores: Subjective Items Scores
+questionBank: Question Bank
+difficulty: Difficulty
+shortName: Short Name
+customerStatistics: The customer statistics
+classStatistics: The class statistics
+flyExamPaper: Flight Instruction Report Card
+averageScoresNum: The average
+totalScoresNum: The total
+coreCompetenceAverageStatistics: Average score statistics of core competence
+quesDifficulty: Difficulty of test questions
+minimumTimesNum: Count the minimum number of times
+objectiveAccuracy: Accuracy of objective questions
+subjectiveScorRate: Score rate of subjective questions
+scorRate: Scoring rate
+answerQuestionsNum: Number of respondents
+rightPeopleNum: Correct number
+rightRate: Correct rate
+belongToChapter: Chapter
+examTimes: Number of examinations
+passPeopleNum: Number of pass
+chapterCount: Form papers according to chapters
+averageScore: Average score
+selectChapter: Select chapter
+chapter: chapter
+practiceProgress: Practicing progress
+trainingProgress: Training progress
+statisticsDetail: Statistical details
+total: Total
+taskType: Task type
+respPersonType: Type of responsible person
+taskRespPerson: Task owner
+createClass: Create class
+finishInfo: Perfect information
+classGroup: Class grouping
+releaseClassSchedule: Publish timetable
+studentEvaluationForm: Student general evaluation form
+trainingMaterial: Training materials
+graduateTraining: End training
+specifyPerson: Designated responsible person
+teacherAdmin: Teaching instructor
+finishStudent: Perfect students
+classStudent: Class students
+people: people
+isReleaseClassSchedule: The timetable has been published
+isNotReleaseClassSchedule: Curriculum not released
+responsiblePerson: person liable
+trainingSessions: Training sessions
+finishSessions: Completed sessions
+examTotalCount: Number of examinees
+passCount: Number of people passing
+totalCount: Total number
+completeCount: Number of people completed
+endTrainingCount: Number of trainees
+totalCourse: Total class times
+haveCourse: Number of lectures
+progressSign: Schedule signature
+handInTime: Time hand in
+createType: Creation method
+templateSelect: Template selection
+createManual: Create manually
+applyTypes: Application type
+signerSign: Auditor Sign
+signer: Auditor
+username: Username
+simulator: Simulator
+examDate: Exam Date
+schoolTime: School Time
+schoolDate: School Date
+tutor: Teacher
+attendanceStatus: Status
+attendanceTime: Time
+attendance: Attendance
+courseContent: Course Content
+teachingPeriod: Teaching Period
+attendanceContent: Attendance Content
+connectedAccount: Connected Account
+connectedDate: Connected Date
+password: Password
+class: Class
+
+evaluateTo: Evaluate
+project: Project
+aviationCopilotcourse: Preparatory Course for Co-Pilots in Transport
+IRC_SimulatorTraining: Initial/Re-Qualifying/Transfer Simulator Training
+thisTraining: Training his Time
+operationAbility: Operational Capability
+theoreticalKnowledge: Theoretical knowledge
+teacherLicenseNumber: Faculty License Number
+signedDate: Signed Date
+fillRemark: Fill Instructions
+teachingHours: Teaching Hours
+teacherSignStatus: Teacher Signed
+studentSignStatus: Student Signed
+trainEquipment: Train Equipment
+observer: Observer
+inGeneralEvaluationCalc: PART GEN Eval Calc
+
+qualificationContent: Content
+approvalDate: Approval Date
+approvalPerson: Approval Person
+qualificationFile: Files
+expirationTime: Expiration Time
+itsCouse: Courses Affiliated
+qualificationType: Qualification Type
+courseClassify: Course Classify
+courseware: Courseware
+question: Question
+qualificationName: Name
+belongOfProject: Project
+auditTime: Audit Time
+distanceExpirationDate: Expiration Date
+acquisitionTime: Get Date
+qualificationCertificateName: Name
+managementBasis: Management Basis
+permanentlyEffective: LifeLong
+advanceRemindDay: Advance Warning(Day)
+applyProject: Apply Project
+teacherSource: Teacher Source
+expireList: Expire List
+teacherClassify: Teacher Classify
+teacherLevel: Teacher Level
+operateCompany: Company
+teacherArchives: Teacher Archives
+archives: Archives
+qualificationConfigs: Qualification Configs
+attachment: Attachment
+experience: Experience
+license: License
+train: Train
+examiners: Examiners
+technicalTitle: Technical Title
+politicalStatus: Political Status
+worktime: Work Time
+flightMedal: Medal
+phoneNumber: Phone Number
+educationBackground: Education Background
+graduateInstitutions: Graduate Institutions
+major: Major
+permanentAddress: Permanent Address
+archivesNumber: Archives Number
+level: Level
+experienceCriterion: Experience Criterion
+experienceLevel: Experience Level
+experienceValidPeriod: Experience Valid Period
+ICAOLevel: ICAO Level
+ICAOPeriod: ICAO Valid Period
+flightExperience: Flight Experience
+airplaneCaptainTime: Airplane Captain Time
+teacherTime: Teacher Time
+nowAircraftType: Now Aircraft Type
+airplaneTypeExperience: Airplane Type Experience
+airlinesJob: Airlines Job
+airlinesWorkTime: Airlines Work Time
+licenseValidPeriod: License Valid Period
+teacherLevelValidPeriod: Teacher Level Valid Period
+121PC-PICValidPeriod: 121PC-PIC Valid Period
+142PC-PICValidPeriod: 142PC-PIC Valid Period
+recentExperience: Recent Experience
+Safety/Rewards/Punishments(recent3years): Safety/Rewards/Punishments(recent3years)
+theStartTime: Start Time
+institutions: Institutions
+place: Adress

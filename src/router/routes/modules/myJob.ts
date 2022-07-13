@@ -18,7 +18,7 @@ const Teaching: AppRouteRecordRaw = {
     {
       path: 'myStudents',
       name: 'MyJobTeachingMyStudentsIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/myJob/teaching/myStudents/index.vue'),
       meta: {
         title: '我的学员',
         i18n: false,

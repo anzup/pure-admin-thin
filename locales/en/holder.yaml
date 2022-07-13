@@ -1,0 +1,111 @@
+pleaseSelectCourseDate: Please select the course date first
+teacherNameOrTeachingModelForInquiry: Please enter the teacher name or teaching model
+pleaseEnterTeacherName: Please enter the name of the instructor
+pleaseEnterCustomerName: Please enter customer name
+pleaseEnterLoginAccount: Please enter your login account
+pleaseSelectDepart: Please select department
+pleaseSelectCustomer: Please select customer
+selectGender: Please select gender
+passwordResetSuccessful: Password Reset Successful
+pleaseSelect: Please Select
+pleaseEnterName: Please enter your name
+pleaseEnterDepartmentName: Please enter the department name
+pleaseEnter: Please enter
+pleaseEnterThenumber: Please enter the number number
+pleaseSelectDate: Please select a date
+areYouSureToPassTheAudit: Are you sure you pass the audit?
+areYouSureToRejectTheAudit: Are you sure to reject the audit?
+pleaseInputClassNumberOrClassName: Please enter the class number or class name
+pleaseEnterTheNameOfTheStudentOrInstructor: Please enter the name of the student or instructor
+pleaseEnterTheCourseName: Please enter the course name
+pleaseEnterAName: Please enter a name
+pleaseEndOfTraining: Confirm whether the training is complete. After the training students in this class will not be able to log in to the system
+pleaseStartOfTraining: Confirm whether to start training
+pleaseEndOfTrainingTip: Confirm whether the training is complete
+pleaseEnterBankNameOrCreator: Please enter the question bank name or creator
+pleaseEnterTheNameOfTheTest: Please enter the name of the test
+pleaseEnterTheNameOfTheStudent: Please enter the student's name
+pleaseEnterTheNameOfTheCandidate: Please enter the candidate's name
+mustBeANumber: Must be a number
+theScoreCannotBeGreaterThanTheTotalScore: The score cannot be greater than the full score
+pleaseEnterTheTitle: Please enter the title
+pleaseInputCoursewareName: Please enter the courseware name
+fileFormat: The courseware format supports pdf MP4 WMV WORD EXCEL PPT ZIP H5 SCORM1.2/2004
+importFormat: Please download the import template before importing
+positiveInteger: Must be greater than 0 and a positive integer
+endTimeMustBeGreaterThanCurrentTime: The end time must be greater than the current time!
+endTimeMustBeGreaterThanStartTime: The end time must be greater than the start time!
+thePassScoreMustBeLessThanTheTotalScoreOfTheTestPaper: The passing score must be less than the total score of the test paper
+pleaseInputTheAnswer: Please enter the answer
+errorFlag: Click to mark the error (in doubt) title
+cancelErrorFlag: Click to cancel the error (in doubt) topic flag
+dragStudentsOrTeachersToGroupUp: Drag students or teachers to group
+teachersWithRedBackgroundAreThoseWhoAreAlreadyInFlight: The red background trainers are those who are already taking flight
+pleaseEnterContentName: Please enter the content name
+pleaseEnterStudentName: Enter student keyword query
+pleaseEnterTeachersNameAndQueryKey: Enter a teacher's keyword query
+pleaseEnterSignPinCode: Please enter your signature pin code
+pleaseEnterComment: Please enter student comment
+noSetSignature: Signature is not set
+noSetPincode: The pin code is not set
+pleaseReEnter: Please repeat input
+pleaseEnterTheSystemName: Please enter the system name
+pleaseSelectFontColor: Please select font color
+pleaseSelectTheBackgroundColor: Please select the background color
+pleaseEnterKeywordForQuery: Please enter a keyword for query
+enterNotificationMessage: Enter the keyword query of the notification
+pleaseEnterTaskTitle: Please enter the task title
+pleaseSelectMessageType: Please select the message type
+pleaseEnterTheMessageTitle: Please enter the message title
+pleaseEnterTheMessageContent: Please enter the message content
+pleaseEnterQuestionnaire: Enter the questionnaire keyword to query
+pleaseEnterQuestionnaireTemplate: Enter the questionnaire template keywords for query
+pleaseSelectCourseNumber: Please select the course code
+pleaseFillForm: Please fill in the form
+pleaseInputExamName: Please enter the exam name
+ThisCoursewareHasBeenDeleted: This courseware has been deleted
+pleaseEnterGraduateMark: Please enter the graduation remarks
+PleaseEnterYourSearchKeyword: Please enter your search keyword
+SelectMonth: Select month
+pleaseEnterFileName: please enter file name
+TheFIleNameContainsInvalidCharacters: The file name contains invalid characters
+pleaseSelectToModifyFileOrFolder: The file or folder to modify is not selected
+pleaseDownloadPreview: This file does not support online preview. Please download the file and view it
+pleaseSelectDownloadFiles: The file you want to download is not selected
+pleaseEnterFilePath: please enter file path
+pleaseEnterKeywordOfSearch: please enter keyword of search
+pleaseSelectFolders: please select folders
+pleaseSelectDeleteFileOrFolder: please select file or folder to delete
+pleaseSelectMoveFileOrFolder: Please select the file or folder you want to move
+pleaseSelectDownloadFileOrFolder: Please select the file or folder to download
+pleaseSelectYear: select year
+pleaseEnterLiveName: Please enter live name
+pleaseEnterLiveCoureNumber: Please select the live class number
+pleaseSelectLiveTime: Please select live time
+pleaseSelectLiveStudent: Please select who to broadcast to
+pleaseEnterContent: Please enter the conversation content...
+pleaseSelectFilePath: Select a file path
+pleaseContent: Please enter the content
+pleaseEnterReadingPeriod: Please enter the specified reading period
+CannotPreview&DoubleClickDownload: This file does not support preview please double-click to download and view
+studentReviewDefaultRemark: The core competency level indicated in this table is the average of the core competency level of all training sessions in this course and the training evaluation is the overall assessment of the quality of the trainees by the flying instructors which is only used as a reference for the subsequent courses with the flight instructors and has nothing to do with whether the course recommends the exam.
+pleaseSelectAriModel: Please select Airplane model
+pleaseSelectTheoryTeacher: Please select the theory teacher
+pleaseSelectSyllabus: Please select the syllabus
+pleaseSelectDateAndCourse: Please select the date and course name
+pleaseEnterFilterKey: Please enter keyword filtering
+searchKeyOfTeacherAndCouseNumber: Teacher/CourseNumber
+pleaseSelectPeroid: Please select a time period
+pleaseEnterQualificationContent: Please fill in the content of the qualification
+pleaseEnterVersion: Please fill in the version number
+pleaseSelectCourseClassify: Please select a course category
+pleaseSelectQualificationType: Please select a qualification type
+pleaseEnterTeacherNameQuery: Enter the faculty name keyword query
+pleaseSelectAuditResult: Please select the audit result
+pleaseEnterRejectReason: Please fill in the grounds for refusal
+pleaseSelectRole: Please select a position
+pleaseSelectApplyProject: Please select the applicable item
+pleaseSelectLifelong: Please select whether it is valid for life
+pleaseSelectUploadFile: Please select Upload File
+pleaseSelectStudentYearOrClass: Please select year or class
+pleaseEnterExamCourseNum: Please enter the exam course number

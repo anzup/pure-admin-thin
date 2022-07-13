@@ -1,0 +1,129 @@
+detail: Detail
+trainExam: Exam
+index: Homepage
+accountPermission: Account Permission
+departmentManagement: Department Management
+staffMaintenance: Staff Management
+studentManagement: Student Management
+staffMemberManagement: Position Management
+customerManagement: Customer Management
+customerSet: Customer Type Configuration
+trainingPlan: Training Plan
+courseConfig: Course Configuration
+teachingPlan: Teaching Plan
+classManagement: Class Management
+studentReview: Student Audit
+syllabus: Course Syllabus
+trainingResultConf: Training Result Configuration
+coreCompetenceStatistics: Statistical table of core competency evaluation score
+abilityStatistics: Core competence statistics
+examCenter: Exam Center
+itemBankCon: Question Bank
+examManage: Exam Management
+eaxmStatistics: Exam Statistics
+examConfiguration: Exam Configuration
+itemBankConfiguration: Question Bank Configuration
+examMock: Mock Exam
+coursewareManagement: Courseware Management
+coursewareClassification: Classification
+coursewareDirectory: Courseware Library
+// coursewareDirectory: Chuanpei Library
+coursewareReview: Courseware Audit
+coursewareAssignment: Courseware Assignment
+coursewareRecord: Assignment Record
+readingTask: Reading Task
+coursewareReadingTaskTeach: Reading Task
+readingHistory: Reading History
+readingRecord: Reading Record
+reTraining: Failure Notification
+reTrainingDetails: Training Details
+reTrainingExamine: ReTrainingExamine
+teachingCenter: Teaching Center
+flightTrainingEvaluation: Flight Training Evaluation Sheet
+flightTest: Flight Test Comment Sheet
+flightTestDetails: Exam Details
+examWorkingReport: Exam Worksheet
+flightEvaluation: Flight Evaluation
+flightEvaluationStudentReview: Student Training Evaluation
+positionCompetenceEvaluation: Position Capability Evaluation Table
+EditStudentReview: Edit General Review
+AddStudentReview: Add General Review
+flightEvaluationTable: Evaluation List
+flightEvaluationDetails: Flight Evaluation Details
+trainingArchives: Training Files
+trainingRecords: Training Records
+studentRecords: Student Training Records
+teacherRecords: Teacher Training Records
+reportsPrint: Comment sheet printing
+courseStudentRecords: Course Study Records
+coursewareLearningRecord: Courseware Learning Records
+examRecord: Exam Records
+failRecord: Failed Records
+recordOrder: General Evaluation Form
+abilityRecord: Core Capability Chart
+CBTAdetails: CBTAdetails
+examRecords: Exam Records
+examRecordsPaper: Exam Records (Examination Papers)
+examRecordsReport: Exam Records (Report Report)
+personCenter: Personal Center
+personCenterConfig: Info Config
+personConfigSign: Personal Signature
+flightCBTA: Flight Evaluationt
+theorySchedule: Theory Schedule
+educationalAdministration: Educational Administration
+signManage: Signature Management
+progressSet: Progress settings
+notificationMessage: Notification Message
+qualificationManagement: Qualification Management
+questionnaireManagement: Questionnaire Management
+questionnaireTemplate: Questionnaire Template
+systemSettings: System Settings
+navigationBarSettings: Navigation Bar Settings
+log: Login Log
+messageCenter: Message Center
+newsDetails: News Details
+noticeNotice: Notice Notice
+checkTestPaper: Exam Result
+addQuestionnaire: Add Questionnaire
+infoQuestionnaire: Modify Questionnaire
+addTemplate: Add Template
+infoTemplate: Modify Template
+templateDetails: Template Details
+staffReview: Staff Reg. Audit
+fileCenter: File Center
+downloadFiles: Download Files
+readTheDocument: Reading Documents
+additionalRecords: Failed Exam Records
+evaluateProjectSettings: Evaluation Settings
+otherExamSearch: Other Exam
+questionnaireFillin: Fillin the questionnaire
+personQualification: Personal Qualification
+classSchedule: Class Schedule
+classAdd: Class Add
+MyStudent: My Students
+TeachingTask: Teaching Task
+OnlineTeaching: Online Teaching
+createLive: Create Live
+Living: Living
+customCD: Courseware Library
+TheoryExamRecord: Theory Exam Record
+examTemplate: Exam Template
+questionDetails: Test question details
+quesDifficultySet: Difficulty Setting
+questionChapter: Chapter of test questions
+chapter: chapter
+attendanceManagement: Attendance Management
+accountRelating: Account Relating
+leaveTrainEvaluation: Cadet Departure Training Evaluation Form
+classScheduleQuery: Class Schedule
+classScheduleDetail: Schedule Details
+centerQualification: Center Qualification
+courseQualification: Course Qualification
+initConfig: Init Config
+applicationList: Application List
+qualificationAudit: Qualification Audit
+operationRuleAudit: Operation Rule Audit
+qualificationList: Qualification List
+qualificationInfoConfig: Qualification Info Config
+standardManage: Standard Manage
+teacherQualification: Teacher Qualification

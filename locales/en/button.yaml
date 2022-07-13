@@ -1,0 +1,169 @@
+set: Set
+applyForExam: Request Review
+enterTheExam: Enter Exam
+reset: Reset
+confirm: Confirm
+cancel: Cancel
+add: Add
+upData: Update
+edit: Edit
+details: Details
+batchDeletion: Batch Delete
+wechatBinding: Wechat Binding
+delete: Delete
+modify: Modify
+query: Query
+resetPassword: Reset Pwd.
+viewCertificate: View Certificate
+bulkDownload: Bulk Download
+batchPrinting: Batch Print
+batchSignature: Batch Sign
+download: Download
+print: Print
+batchImport: Batch Import
+examine: Audit
+batchcancellation: Batch Cancellation
+pass: Pass
+noPass: No Pass
+fillIn: Fill in
+save: Save
+upload: Upload
+reUpload: Re-Upload
+clickUpload: Upload
+certificate: Certificate
+qrCode: QR Code
+downloadQrcode: Download QR code
+addTo: Add
+reason: Reason
+cancle: Cancel
+goBack: Back
+comfirm: Confirm
+inputInner: Input
+cancelAll: Batch Cancel
+notFillIn: Not Filled In
+filledIn: FilledIn
+notReviewed: Not Reviewed
+reject: Reject
+view: View
+complete: Complete
+notComplete: Not Completed
+completed: Completed
+failed: Failed
+newlyBuild: Newly Build
+exportData: Export Data
+markRead: Mark has been read
+warehouseOut: WarehouseOut
+select: Select
+status: Status
+leadingIn: Import
+leadingOut: Export
+allLeadingOut: Export All
+allLeadingSee: Preview All
+warehousing: Warehousing
+sendRepair: Send for Repair
+normal: Normal
+apply: Apply
+importTemplate: Import Template
+importFile: Spare Parts Import
+selectFile: Select File
+downloadFile: Download Template
+uploadFolder: Upload File
+disable: Disable
+editAuth: Edit Permission
+batchDisable: Batch Disable
+enable: Enable
+endOfTraining: Graduate
+batchEndOfTraining: Batch EndOfTraining
+management: Mgmt.
+maintain: Maintain
+batchPass: Batch Pass
+batchReject: Batch Reject
+addStudent: Add Student
+newStudent: New Student
+editStudent: Edit Student
+grouping: Group Mgmt.
+practiceQrCode: practiceQrCode
+testQrCode: Exam QR Code
+startOfTraining: Start Training
+modifyExamQuestionNature: Modify the nature of the question
+addTestQuestions: Add Question
+importTestQuestions: Import Questions
+lastStep: Previous
+nexeStep: Next
+examDetails: Exam Details
+generateExamPaper: Generate Paper
+viewExamPaper: View Paper
+addSystemExam: Add System Examinee
+addTemporaryExam: Add Temporary Examinee
+importTemporaryCandidates: Import Temporary Examinees
+listPrinting: Printing List
+remove: Remove
+markingPapers: Score
+examPaper: Paper
+reportCard: Result
+printTranscripts: Print Transcripts
+coursewareAssignment: Assign
+play: Play
+confirmAssignment: Assign
+readMore: Details
+revoke: Revoke
+applicationReview: Request Review
+reviewDetails: Details
+uploadProgressBar: Upload progress bar
+downloadProgressBar: Download progress bar
+submit: Submit
+evaluate: Evaluation
+basicInfo: Basic Information
+addSign: Sign
+removeSign: Remove Signature
+comment: Comment
+classify: Classification
+prev: Previous page
+next: Next Page
+selectImg: Select Picture
+preview: Preview
+reply: Reply
+newFolder: New Folder
+rename: Rename
+create: Generate
+resultsView: View Results
+downloadAttachment: Download Attachment
+changeProperties: Change Properties
+reGenerate: Regenerate
+bulkTop: Bulk Top
+top: Top
+batchExport: Batch Export
+addLive: Add
+enterLive: Enter
+examineRecord: View Record
+saveSign: Save
+saveModify: Save
+addFile: Add File
+send: Send
+cancelMute: Cancel Mute
+Mute: Mute
+cancelAllMute: Cancel Mute All
+AllMute: Mute All
+cancelScreenSharing: Cancel Share Screen
+ScreenSharing: Share Screen
+finishCourse: Finish
+SubmitExam: Submit
+folderRename: Folder Rename
+addFolder: Add Folder
+studentQR: Student QR Code
+bulkPrintQR: Bulk Print QR
+changeType: Change Type
+submitReview: Review
+templateSelect: Select Template
+ExportQuestions: Export
+statistics: The chart
+tableData: The data table
+CreateRelating: Create Relating
+ConnectAccount: Connect Account
+verify: Verify
+all: All
+allThisPage: All This Page
+versionHistory: Version History
+cancelBinding: Cancel Binding
+cancelEdit: Cancel Edit
+markPrompt: Mark Prompt

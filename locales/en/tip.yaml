@@ -1,0 +1,108 @@
+tip: Tip
+handInTheTestPaperEarly: You have unfinished exam questions are you sure whether to hand in the paper?
+handInTheTestPaperTip: Are you sure you want to hand in the paper?
+uploadSuccessTip: Uploaded successfully
+subSuccessTip: Submitted successfully
+editSuccessTip: Modification successful
+saveSuccessTip: Save successfully
+delsuccessTip: Delete successfully
+addsuccessTip: Add success
+setsuccessTip: Set successfully
+exportFail: Export Failed
+modifySuccessTop: Modify successfully
+addUserName: Add Account
+modifyUserName: Modify Account
+auditSuccessTip: audit successful
+testGeneratedSuccessfully: Test Paper Generated Successfully
+choiceExamQuestionsTip: After generating the test paper click Generate Test Paper again to regenerate the test paper
+pleaseSelectFileImport: Please select file to import
+theFormatDoesNotMeetTheRequirements: The format does not meet the requirements
+commentsSuccessTip: CommentsSuccessTip
+assignmentAddsuccessTip: Assignment was successful
+chinese: 中文
+chinesePinyin: Chinese Pinyin
+uploadImgFail: Only upload jpg/png files and no more than 500kb
+uploadImgPDF: Only images and PDFs can be uploaded!
+repincodeFail: Repeated password error
+updateSucceeded: Update Successful
+pleaseUploadThePicture: Please upload a picture
+thisOperationWillPermanentlyDeleteTheData: This operation will permanently delete the data do you want to continue?
+thisOperationWillChangeProperties: This operation will change the properties of the question bank do you want to continue?
+areYouSureYouWantToDelete: Are you sure you want to delete?
+areYouSureYouWantToDeleteTheSelected: Are you sure you want to delete the selected item?
+uploadFail: Import failed
+uploadSuccess: Import successful
+leastChooseTwo: Choose at least two
+unfilledCategoryName: UnfilledCategoryName
+unfilledQuestions: UnfilledQuestions
+unfilledOptions: Unfilled Options
+unfilledAllOptions: Unfilled contents
+pleaseFillFormTip: Please fill in the form
+AauditSuccessful: AauditSuccessful
+pleaseSaveBeforeSigning: Please save and enter the pin code to sign
+formNotAllFill: The form is not completely filled out and cannot be saved
+thisOperationWillResetData: This operation will initialize the data do you want to continue?
+deleteSelectedData: This operation will delete the selected data do you want to continue?
+classHourMust: Class hour must be greater than 0
+pleaseWaitOfGeneratingPDF: A pdf file is being generated please do not close the page
+uploadedFileFormatError: upload file format is error
+uploadFileIsNotSelected: upload file is not selected
+pleaseEnterFolderName: please enter folder name
+visitorAuth: Visitor permissions (All visible if unchecked)
+cancelledDelete: The deletion operation has been cancelled
+fileManagerCantFind: Cant find it in file manager
+checkSpellingTryAgain: Please check your spelling and try again.
+drapOrClickUpload: Drag the file here or click Upload
+maximumNumberTip: The maximum number of uploaded files is
+browserVersionLow: Your browser version is too early to support audio playback. Upgrade or replace the browser
+examRules: 1.Students must follow the instructions of the invigilator follow the examination rules and complete the examination independently. Discussion is not allowed.<br>2.You can consult the manual for the exam.<br>3.During the examination process the system will automatically count down and then the system will hand in the paper automatically. Please pay attention to the time.<br>4.It is not allowed to take photos or record questions on screen during the exam.<br>5.The anti-cheat mechanism added to the system exam if you open other web pages more than 2 times during the exam period each time more than 10 seconds the system will automatically end the exam.<br>6.If an advertisement pop-up pop-up pops up during the exam please close the pop-up window in time (or click on the system page to confirm the focus) to prevent the anti-cheat mechanism from being triggered
+AssignedReadingPeriod: Reading Period
+batchCousewareTip: This operation will batch top courseware
+cancelledInput: Cancelled Input
+cannotPlayVideo: This video cannot be played please try again later
+uploadImageSizeTip: The recommended size for uploading images is 4:3
+uploadImageFormatError: The uploaded image format is incorrect
+uploadImageSizeLimit: The uploaded image is within 2M
+liveCompatibleError: No Output device or browser is incompatible and live broadcast cannot be enabled
+StudioConnecting: The studio is connected
+LoginConflict: The same user ID is used to log in to the other end
+publishFailedTip: The live stream failed to pull please pull again
+examFinishTip: The test is over please click ok to exit
+lastQuestionTip: This is the last question and you can hand it in when youre done.
+onlyUploadImage: You can only upload images
+selectSendPerson: Select the object to send
+loginFailedTip: The login information is invalid. Please log in again
+onlyImportExcel: You can only import Excel
+multipleChoiceLeastAnswer: Multiple choice at least two answers
+keepLeastTwoItems: Keep at least two items
+keepLeastThreeItems: Keep at least three items
+keepLeastOneItem: Keep at least one item
+pleaseEnterRang: The value must be an integer ranging from 1 to 5
+examineeNotRecommended: There is no exam in the syllabus for this class
+areYouSureChangeType: Are you sure you want to change properties?
+licenseLackUploadAttchment: The license has not been attached
+chooseNumLessTotalNum: The number of topics cannot be greater than the number of possible topics
+tipExamViolation: You have left the page {count} for the third timeMore than three times will be submitted!
+tipSubExamViolation: Due to excessive violationssubmitted exam
+tiplimit: Group * limits the number of faculty to 1
+tipChapterOne: The last level should be selected in the test question section
+autoRetestTip: Notes:The unqualified automatic make-up test only supports the objective test paper
+pleaseSelectCourseNumber: Please select the course number
+pleaseEnterDate: Please enter a date
+pleaseEnterStartDate: Please enter a start date
+pleaseEnterEndDate: Please enter an end date
+group_limits_the_number: Group {name} limits the number of people to {num}
+customers_with_the_same_group: Customers in the same group of learners must be the same
+connectSuccessTip: Association successful
+cancelConncected: This operation will be disassociated will it continue?
+noConnectedAccount: Unaffiliated Account
+accountSwitchingTip: Switching accounts
+examLeaveTip: 'You have triggered the anti-cheat mechanism please re-click on any area of the exam page as soon as possible countdown: {s}'
+nohasUpload: The upload list is empty
+timeoutTip: Timed out check your network connection
+offlineTip: The network is disconnected
+emptyQualificationFile: No qualification documents
+noSelectedCourse: Unselected courses!
+noSelectedAirplane: Unselected model!
+noSelectToDeleteFileOrFolder: Files or folders to delete are not selected!
+currentAccountSignedStatus: Self Signed

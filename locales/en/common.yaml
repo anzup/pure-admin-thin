@@ -1,0 +1,113 @@
+selected: Selected
+sum: Item
+clear: clear
+deleteData: This operation will delete the selected data do you want to continue?
+female: Female
+male: Male
+systemPosition: Builtin
+addPosition: Added
+editPosition: Edit Position
+infoPosition: Position Details
+yes: Yes
+no: No
+all: All
+normal: Normal
+disable: Disable
+serialNumber: Seq.
+deleteGroup: This operation will delete the current group do you want to continue?
+deleteComment: Are you sure you want to delete this comment?
+cancelData: Are you sure to cancel this data?
+confirmWhetherToApplyForReview: Confirm whether to apply for review?
+confirmLogout: Confirm to logout?
+reviewed: reviewed
+unreviewed: Not Audited
+rejected: Rejected
+approved: Approved
+approve: Approve
+assessmentCriteria: Evaluation Standard
+originPass: Original Password
+newPass: New Password
+confirmPassword: Confirm Password
+read: Read
+unread: Unread
+to: to
+question: Question
+ticket: Ticket
+answer: Answer Sheet
+divider: Dividing Line
+show: Show
+hide: Hide
+changePassword: Change Password
+verificationCode: Verification Code
+changePinCode: Change Pin Code
+oldPinCode: Original Pin Code
+pleaseInputLetters: Please enter a password of 8 to 16 characters including numbers and letters
+pleaseInputPassword: Please enter a password
+pleaseEnterThePasswordAgain: Please enter the password again
+theTwoPasswordsAreInconsistent: The two passwords entered are inconsistent
+noMobilePhoneNumberIsSet: The mobile phone number has not been set please contact the administrator for processing
+verificationCodeSentSuccessfully: Verification Code SentSuccessfully
+failedToSendVerificationCode: Failed to send verification code please try again later
+getVerificationCode: Get Code
+forgetThePassword: Forgot Password
+existingPassword: Have password
+forgetPinCode: Forgot PinCode
+existingPinCode: Existing PinCode
+incorrectFormatOfVerificationCode: The verification code format is incorrect
+pleaseEnterPinCode: Please enter a 6-digit pin code
+newPinCode: New PIN Code
+confirmPinCode: Confirm New PIN Code
+uploadImg: Upload image
+admin: Administrator
+isReviewed: Reviewed
+notApplied: Not Applied
+isRejected: Rejected
+applying: Applying
+agree: Agree
+disagree: Disagree
+turnDown: Rejected
+advice: Advice
+day: Day
+hour: Hour
+minutes: Minutes
+instructions: instructions
+year: year
+month: month
+Sun: Sun
+Mon: Mon
+Tue: Tue
+Wed: Wed
+Thu: Thu
+Fri: Fri
+Sat: Sat
+progress: Progress
+folderName: Folder Name
+visitorAuth: Visitor Auth
+file: File
+folder: Folder
+moveFile: Move File
+NumberAndAnswer: (Seq./Submitted/Correct Answer)
+NumberAndStudentAnswer: (Seq./Submitted)
+ExamResult: Exam Result
+notAudit: Not Audit
+Audit: Audit
+camera: Camera
+liveTeacher: Teacher
+onlineList: Online List
+chatRoom: Chat Room
+today: Today
+hundred: hundred
+second: Second
+Submitted: Submitted
+CorrectAnswer: Correct Answer
+fileGenerateProgress: Progress
+noClassStudent: Training Without Student
+every: Everything
+disposal: disposed
+late: Late
+early: early departure
+absence: absenteeism
+leave: Leave
+noClasses: No Lessons
+failSuccess: Upload failed
+custom: Customization
