@@ -1,6 +1,5 @@
-import { AppRouteRecordRaw } from './../../types'
+import { AppRouteRecordRaw, SubsystemName } from './../../types'
 import { getParentLayout, LAYOUT } from '/@/router/constant'
-
 /**
  * 人员管理
  */
@@ -30,6 +29,7 @@ const Personnel: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/basic/participants/index.vue'),
       meta: {
         title: 'message.managementTrainees',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -40,6 +40,7 @@ const Personnel: AppRouteRecordRaw = {
         title: 'message.hsDetail',
         hideMenu: true,
         currentActiveMenu: '/basic/personnel/participants',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 权限管理

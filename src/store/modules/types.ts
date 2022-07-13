@@ -44,4 +44,5 @@ export type userType = {
   userId: number
   currentPage?: number
   lastUpdateTime: number
+  subsystems?: string[]
 }

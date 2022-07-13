@@ -56,6 +56,8 @@ interface RouteMeta {
   ignoreAuth?: boolean
   hideChildrenInMenu?: boolean
   hideBreadcrumb?: boolean
+  /**@param 路由显示所属的系统 */
+  system?: string
 }
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta' | 'children'> {
   name: string
@@ -95,3 +97,22 @@ export interface MenuModule {
 
 // export type AppRouteModule = RouteModule | AppRouteRecordRaw;
 export type AppRouteModule = AppRouteRecordRaw
+
+export enum SubsystemName {
+  /**@param 账号管理 */
+  account_management = 'ACC',
+  /**@param 运行计划管理 */
+  operation_plan_management = 'OPM',
+  /**@param 飞行教学培训管理 */
+  flight_training_management = 'FTM',
+  /**@param 设备维护管理 */
+  device_maintenance_management = 'DMM',
+  /**@param 乘务培训教学管理 */
+  crew_training_management = 'CTM',
+  /**@param 乘务标准管理 */
+  crew_standard_management = 'CSM',
+  /**@param 后勤管理 */
+  logistics_management = 'LOG',
+  /**@param 讲评系统 */
+  debrief_system = 'DBS',
+}

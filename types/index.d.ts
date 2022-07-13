@@ -163,23 +163,40 @@ declare interface UserInfo {
 declare type AccountType = 'UNKNOWN' | 'STUDENT' | 'EMPLOYEE' | 'ADMIN'
 
 declare interface CurrentUserInfo {
-  accountType: AccountType
-  builtinRole: string
-  filiale: DefaultAllListItem
+  /**@param 创建人id */
+  createdBy: number
+  /**@param 创建时间 */
+  createdDate: string
+  /**@param 数据所有者,可用值:ACC,OPM,FTM,DMM,CPM,CTM,CSM,PUB,SETTING,JOINT,LOG,DBS */
+  dataOwner: string
+  /**@param 数据是否有效(删除) */
+  enabled: boolean
+  /**@param 分公司id */
+  filialeId: number
+  /**@param 分公司名称 */
+  filialeName: string
+  /**@param id */
   id: number
+  /**@param 身份证/护照/台胞证 */
+  idNumber: string
+  /**@param 最后登录时间 */
+  lastLoginTime: string
+  /**@param 修改时间 */
+  lastModifiedDate: string
+  /**@param 姓名 */
   name: string
-  roleAuthorities: string[]
-  selfAuthorities: string[]
-  totalAuthorities: string[]
+  /**@param 可操作类型 */
+  operationTypes: string[]
+  /**@param 	手机号 */
+  phone: string
+  /**@param  签名文件uuid */
   signatureFileUuid: string
-  student: boolean
-  teacher: boolean
-  teacherAdmin: boolean
-  tempStudent: boolean
-  userId: number
+  /**@param 子系统管理员 */
+  subsystemAdmin: boolean
+  /**@param 子系统权限,可用值:ACC,OPM,FTM,DMM,CPM,CTM,CSM,LOG,DBS */
+  subsystems: string[]
+  /**@param 用户名/登录名 */
   username: string
-  user: UserInfo
-  homePath?: string
 }
 declare interface DefaultReturn<T = DefaultPagingData> {
     data?: T;

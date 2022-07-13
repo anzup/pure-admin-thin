@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode'
 import { userType } from './types'
 import { router } from '/@/router'
 import { storageSession } from '/@/utils/storage'
-import { getCurrentUserInfo, login } from '/@/api/user'
+import { login, getAuthorizedSubsystem, getUserInfo } from '/@/api/user'
 
 export const useUserStore = defineStore({
   id: 'pure-user',
@@ -19,6 +19,8 @@ export const useUserStore = defineStore({
     lastUpdateTime: 0,
     // 登陆显示组件判断 0：登陆 1：手机登陆 2：二维码登陆 3：注册 4：忘记密码，默认0：登陆
     currentPage: 0,
+    // 授权的系统
+    subsystems: [],
   }),
   getters: {
     getToken(): string {
@@ -81,10 +83,17 @@ export const useUserStore = defineStore({
     },
     // 获取当前用户信息(用于在右上角显示用户信息)
     async getUserInfo(): Promise<CurrentUserInfo> {
-      const [err, res] = await to(getCurrentUserInfo())
+      const [err, res] = await to(getUserInfo(this.userId))
       if (!err) {
         this.setUserInfo(res.data)
         return Promise.resolve<CurrentUserInfo>(res.data)
+      }
+    },
+    // 获取当前用户子系统
+    async getUserSubsystem() {
+      const [err, res] = await to(getAuthorizedSubsystem(this.userInfo.filialeId))
+      if (!err && res.status === 200) {
+        this.subsystems = res.data
       }
     },
     // 刷新token

@@ -7,19 +7,19 @@ const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT
 // const opmUrl = import.meta.env.VITE_BASE_API_OPM
 const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
-export const getCurrentUserInfo = (): AxiosPromise<CurrentUserInfo> =>
-  request<CurrentUserInfo>({
+/**
+ * @api#getCurrentUserInfo 获取用户信息（后勤系统）
+ */
+export const getCurrentUserInfo = (): AxiosPromise =>
+  request({
     url: url + '/users/current/userInfo',
     method: 'get',
   })
-export const getSubsystemRoles = (params: {
-  subsystem: string
-}): AxiosPromise<DefaultAllListItem[]> =>
-  request({
-    url: url + '/users/current/subsystemRoles',
-    method: 'get',
-    params,
-  })
+
+/**
+ * @api#getUserInfo 获取用户信息（account系统）
+ * @param userId
+ */
 export const getUserInfo = (userId: number) =>
   request({
     url: accountUrl + `/public/userInfo/${userId}`,
@@ -28,6 +28,16 @@ export const getUserInfo = (userId: number) =>
     headers: {
       Authorization: 'Basic aHVheXVleGluZzpodWF5dWV4aW5n',
     },
+  })
+
+/**
+ * @api#getAuthorizedSubsystem 获取已授权的子系统
+ * - filialeId 子公司id
+ */
+export const getAuthorizedSubsystem = (filialeId: number): AxiosPromise =>
+  request({
+    url: accountUrl + `/public/authorizedSubsystems/${filialeId}`,
+    method: 'get',
   })
 
 export interface UserForm {

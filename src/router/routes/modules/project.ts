@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw } from './../../types'
+import { AppRouteRecordRaw, SubsystemName } from './../../types'
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 
 /**
@@ -22,6 +22,7 @@ const Manage: AppRouteRecordRaw = {
       meta: {
         title: '班级管理',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -32,6 +33,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsadd',
         currentActiveMenu: '/project/manage/class',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -42,6 +44,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.administration',
         currentActiveMenu: '/project/manage/class',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -52,6 +55,7 @@ const Manage: AppRouteRecordRaw = {
         title: 'message.modify',
         hideMenu: true,
         currentActiveMenu: '/project/manage/class',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -62,6 +66,7 @@ const Manage: AppRouteRecordRaw = {
         title: 'message.hsDetail',
         hideMenu: true,
         currentActiveMenu: '/project/manage/class',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 排课模板
@@ -71,6 +76,7 @@ const Manage: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/manage/template/index.vue'),
       meta: {
         title: 'message.scheduling_template',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -81,6 +87,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'text.set_up',
         currentActiveMenu: '/project/manage/template',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 补训管理
@@ -90,6 +97,7 @@ const Manage: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/manage/supplementaryTrain/index.vue'),
       meta: {
         title: 'message.make_up_training_management',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -100,6 +108,7 @@ const Manage: AppRouteRecordRaw = {
         title: 'message.hsDetail',
         hideMenu: true,
         currentActiveMenu: '/project/manage/supplementaryTrain',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 补考管理
@@ -110,6 +119,7 @@ const Manage: AppRouteRecordRaw = {
       meta: {
         title: '补考管理',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -120,6 +130,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/manage/makeupExam',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 完训确认
@@ -140,6 +151,7 @@ const Manage: AppRouteRecordRaw = {
       meta: {
         title: '培训课表',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -150,6 +162,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/manage/schedule',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -160,6 +173,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/manage/schedule',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 训练历史
@@ -169,6 +183,7 @@ const Manage: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/manage/history/index.vue'),
       meta: {
         title: 'message.trainingHistory',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -179,6 +194,7 @@ const Manage: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/manage/history',
+        system: SubsystemName.operation_plan_management,
       },
     },
   ],
@@ -203,6 +219,7 @@ const Contract: AppRouteRecordRaw = {
       meta: {
         title: '合同列表',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -213,6 +230,7 @@ const Contract: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.addContract',
         currentActiveMenu: '/project/contract/list',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -223,6 +241,7 @@ const Contract: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/contract/list',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 账单管理
@@ -233,6 +252,7 @@ const Contract: AppRouteRecordRaw = {
       meta: {
         title: 'message.billManagement',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -243,6 +263,7 @@ const Contract: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/contract/bill',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -253,6 +274,7 @@ const Contract: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/contract/bill',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 历史账单
@@ -262,6 +284,7 @@ const Contract: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/contract/historyBill/index.vue'),
       meta: {
         title: 'message.HistoricalBills',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -272,6 +295,7 @@ const Contract: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.billsList',
         currentActiveMenu: '/project/contract/historyBill',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -282,6 +306,7 @@ const Contract: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/contract/historyBill',
+        system: SubsystemName.operation_plan_management,
       },
     },
   ],
@@ -307,6 +332,7 @@ const Customer: AppRouteRecordRaw = {
       meta: {
         title: '客户列表',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -317,6 +343,7 @@ const Customer: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/customer/list',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 客户联络员
@@ -326,6 +353,7 @@ const Customer: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/customer/linkman/index.vue'),
       meta: {
         title: '客户联络员',
+        system: SubsystemName.operation_plan_management,
       },
     },
   ],
@@ -350,6 +378,7 @@ const Facilities: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/facilities/simulator/index.vue'),
       meta: {
         title: '模拟机管理',
+        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -360,6 +389,7 @@ const Facilities: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'message.hsDetail',
         currentActiveMenu: '/project/facilities/simulator',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 其他设备
@@ -369,6 +399,7 @@ const Facilities: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/facilities/other/index.vue'),
       meta: {
         title: '其他设备',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 培训资源
@@ -378,7 +409,7 @@ const Facilities: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/project/facilities/resources/index.vue'),
       meta: {
         title: '培训资源',
-        i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
     },
   ],

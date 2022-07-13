@@ -1,6 +1,5 @@
-import { AppRouteRecordRaw } from './../../types'
+import { AppRouteRecordRaw, SubsystemName } from './../../types'
 import { getParentLayout, LAYOUT } from '/@/router/constant'
-
 /**
  * 数据统计
  */
@@ -17,51 +16,50 @@ const Data: AppRouteRecordRaw = {
     // 教员课时统计
     {
       path: 'teaching',
-      name: 'TeachingEducationTeachingIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      name: 'StatisticalDataTeachingIndex',
+      component: () => import('/@/views/project_opm/statistics/data/teacher/index.vue'),
       meta: {
-        title: '教员课时统计',
-        i18n: false,
+        title: 'message.teacher_class_hour_statistics',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 设施运行统计
     {
       path: 'facility',
-      name: 'TeachingEducationFacilityIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      name: 'StatisticalDataFacilityIndex',
+      component: () => import('/@/views/project_opm/statistics/data/facilities/index.vue'),
       meta: {
-        title: '设施运行统计',
-        i18n: false,
+        title: 'message.facility_operation_statistics',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 销售数据统计
     {
       path: 'sales',
-      name: 'TeachingEducationSalesIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      name: 'StatisticalDataSalesIndex',
+      component: () => import('/@/views/project_opm/statistics/data/sales/index.vue'),
       meta: {
-        title: '销售数据统计',
-        i18n: false,
+        title: 'message.sales_data_statistics',
+        system: SubsystemName.operation_plan_management,
       },
     },
     // 核心能力统计
     {
       path: 'competence',
-      name: 'TeachingEducationCompetenceIndex',
+      name: 'StatisticalDataCompetenceIndex',
       component: () => import('/@/views/dashboard/index.vue'),
       meta: {
         title: '核心能力统计',
-        i18n: false,
       },
     },
     // 统计设置
     {
       path: 'config',
-      name: 'TeachingEducationConfigIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      name: 'StatisticalDataConfigIndex',
+      component: () => import('/@/views/project_opm/statistics/data/config/index.vue'),
       meta: {
-        title: '统计设置',
-        i18n: false,
+        title: 'text.statistical_settings',
+        system: SubsystemName.operation_plan_management,
       },
     },
   ],
