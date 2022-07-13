@@ -1,9 +1,8 @@
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
-import request from '@/utils/request'
-
-export function logout() {
-  return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+export const logout = () =>
+  request({
+    url: url + '/vue-admin-template/user/logout',
+    method: 'post',
   })
-}

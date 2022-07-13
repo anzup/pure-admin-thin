@@ -1,77 +1,70 @@
-import http from '@/utils/http'
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
-export function login(data) {
-  return request({
-    url: '/vue-admin-template/user/login',
+export const login = (data) =>
+  request({
+    url: url + '/vue-admin-template/user/login',
     method: 'post',
-    data
+    data,
   })
-}
 
-export function getInfo(token) {
-  return request({
-    url: '/vue-admin-template/user/info',
+export const getInfo = (token) =>
+  request({
+    url: url + '/vue-admin-template/user/info',
     method: 'get',
-    params: { token }
+    params: { token },
   })
-}
 
-export function logout() {
-  return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+export const logout = () =>
+  request({
+    url: url + '/vue-admin-template/user/logout',
+    method: 'post',
   })
-}
 
-export const postUsersRefreshToken = function (params) {
-  const url= '/users/refreshToken';
-  return http(url, params, "post");
-};
-/**
- * 
- * @param {修改密码} params 
- * @returns 
- */
-export const postChangePassword = function (params) {
-  const url= '/users/changePassword';
-  return http(url, params, "post");
-};
-/**
- * 
- * @param {修改pin码} params 
- * @returns 
- */
-export const postChangePinCode = function (params) {
-  const url= '/users/pinCode';
-  return http(url, params, "put");
-};
-export const getUsersInfo = function (params) {
-  const url= `/users/${params.id}`;
-  return http(url, params, "get", );
-};
+export const postUsersRefreshToken = (data) =>
+  request({
+    url: url + '/users/refreshToken',
+    method: 'post',
+    data,
+  })
 
-export function getTasks(){
-  return http('/users/tasks',false,'get')
-}
+export const postChangePassword = (data) =>
+  request({
+    url: url + '/users/changePassword',
+    method: 'post',
+    data,
+  })
 
-export function ignoreTasks(params){
-  return http('/ignoreTasks', params, 'post')
-}
+export const postChangePinCode = (data) =>
+  request({
+    url: url + '/users/pinCode',
+    method: 'put',
+    data,
+  })
 
-/**
- * 
- * @param {
- *   order: 排序方向(asc/desc),默认为asc
- *   page: 当前页,默认为1
- *   searchKey: 模糊匹配搜索
- *   size: 每页数量,默认为10
- *   sort: 排序参数,默认为id
- *   sourceId: 源id
- *   sourceSubType: 源类子类型
- *   sourceType: 源类型:0.公告
- *   userId: 用户id
- * } 
- */
-export function getMessage(params){
-  return http('/messages', params, 'get')
-}
+export const getUsersInfo = (params) =>
+  request({
+    url: url + `/users/${params.id}`,
+    method: 'get',
+    params,
+  })
+
+export const getTasks = () =>
+  request({
+    url: url + '/users/tasks',
+    method: 'get',
+  })
+
+export const ignoreTasks = (data) =>
+  request({
+    url: url + '/ignoreTasks',
+    method: 'post',
+    data,
+  })
+
+export const getMessage = (params) =>
+  request({
+    url: url + '/messages',
+    method: 'get',
+    params,
+  })

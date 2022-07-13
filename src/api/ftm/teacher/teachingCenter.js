@@ -1,181 +1,293 @@
-import http from '@/utils/http'
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
 /**
  * 直播列表
  */
-export function getLives(params){
-    return http('/lives', params, 'get')
-}
+export const getLives = (params) =>
+  request({
+    url: url + '/lives',
+    method: 'get',
+    params,
+  })
 
 /**
  * 新增直播
  */
-export function postLives(params){
-    return http('/lives', params, 'post')
-}
+export const postLives = (data) =>
+  request({
+    url: url + '/lives',
+    method: 'post',
+    data,
+  })
 
 /**
  * 直播详情
  */
-export function getpLives(params){
-    return http('/lives/{id}', params, 'get_p')
-}
+export const getpLives = (params) =>
+  request({
+    url: url + '/lives/' + params.id,
+    method: 'get',
+    params,
+  })
 
 /**
  * 修改直播
  */
-export function putLives(params){
-    return http('/lives/{id}', params, 'put')
-}
+export const putLives = (data) =>
+  request({
+    url: url + '/lives/' + data.id,
+    method: 'put',
+    data,
+  })
 
 /**
  * 删除直播
  */
-export function delLives(params){
-    return http('/lives/{id}', params, 'delete')
-}
+export const delLives = (data) =>
+  request({
+    url: url + '/lives/' + data.id,
+    method: 'delete',
+    data,
+  })
 
 /**
  * 批量删除
  */
- export function delAllLives(params){
-    return http('/lives/batchDelete', params, 'post')
-}
+export const delAllLives = (data) =>
+  request({
+    url: url + '/lives/batchDelete',
+    method: 'post',
+    data,
+  })
 
 /**
  * 发送聊天
  */
-export function postLivesChat(params){
-    return http('/lives/{id}/chat', params, 'post')
-}
+export const postLivesChat = (data) =>
+  request({
+    url: url + `/lives/${data.id}/chat`,
+    method: 'post',
+    data,
+  })
 
 /**
  * 直播踢人
  */
-export function postLivesOut(params){
-    return http('/lives/{id}/kickOutUser', params, 'post')
-}
+export const postLivesOut = (data) =>
+  request({
+    url: url + `/lives/${data.id}/kickOutUser`,
+    method: 'post',
+    data,
+  })
 
 /**
  * 强制静音
  */
-export function postLivesMute(params){
-    return http('/lives/{id}/mute', params, 'post')
-}
+export const postLivesMute = (data) =>
+  request({
+    url: url + `/lives/${data.id}/mute`,
+    method: 'post',
+    data,
+  })
 
 /**
  * 开始录像
  */
-export function postLivesStartRecord(params){
-    return http('/lives/{id}/startRecord', params, 'post')
-}
+export const postLivesStartRecord = (data) =>
+  request({
+    url: url + `/lives/${data.id}/startRecord`,
+    method: 'post',
+    data,
+  })
 
 /**
  * 结束录像
  */
-export function postLivesEndRecord(params){
-    return http('/lives/{id}/stopRecord', params, 'post')
-}
+export const postLivesEndRecord = (data) =>
+  request({
+    url: url + `/lives/${data.id}/stopRecord`,
+    method: 'post',
+    data,
+  })
 
 /**
  * 获取直播token
  */
-export function getLivesToken(params){
-    return http('/lives/{id}/token', params, 'get_p')
-}
+export const getLivesToken = (params) =>
+  request({
+    url: url + `/lives/${params.id}/token`,
+    method: 'get',
+    params,
+  })
 
 /**
  * 获取直播用户信息
  */
-export function getLivesUserInfo(params){
-    return http('/lives/{id}/userInfos', params, 'get_p')
-}
+export const getLivesUserInfo = (params) =>
+  request({
+    url: url + `/lives/${params.id}/userInfos`,
+    method: 'get',
+    params,
+  })
 
 /**
  * 老数据课表
  */
-export function getOldScheduleClazz(params){
-    return http('/oldSchedule/clazz', params, 'get')
-}
-export function getOldScheduleEmployee(params){
-    return http('/oldSchedule/employee', params, 'get')
-}
-export function getOldScheduleStudent(params){
-    return http('/oldSchedule/student', params, 'get')
-}
-export function getOldScheduleFacilitie(params){
-    return http('/oldSchedule/facilitie', params, 'get')
-}
+export const getOldScheduleClazz = (params) =>
+  request({
+    url: url + '/oldSchedule/clazz',
+    method: 'get',
+    params,
+  })
+
+export const getOldScheduleEmployee = (params) =>
+  request({
+    url: url + '/oldSchedule/employee',
+    method: 'get',
+    params,
+  })
+export const getOldScheduleStudent = (params) =>
+  request({
+    url: url + '/oldSchedule/student',
+    method: 'get',
+    params,
+  })
+export const getOldScheduleFacilitie = (params) =>
+  request({
+    url: url + '/oldSchedule/facilitie',
+    method: 'get',
+    params,
+  })
 /**
  * 训练结果配置
  */
 
-export function trainingResults(params){
-    return http('/trainingResults', params, 'get')
-}
-export function trainingResultsPost(params){
-    return http('/trainingResults', params, 'post')
-}
-export function trainingResultsGetP(params){
-    return http('/trainingResults/{id}', params, 'get_p')
-}
-export function trainingResultsPut(params){
-    return http('/trainingResults/{id}', params, 'put')
-}
-export function trainingResultsDel(params){
-    return http('/trainingResults/{id}', params, 'delete')
-}
+export const trainingResults = (params) =>
+  request({
+    url: url + '/trainingResults',
+    method: 'get',
+    params,
+  })
+export const trainingResultsPost = (data) =>
+  request({
+    url: url + '/trainingResults',
+    method: 'post',
+    data,
+  })
+export const trainingResultsGetP = (params) =>
+  request({
+    url: url + '/trainingResults/' + params.id,
+    method: 'get',
+    params,
+  })
+export const trainingResultsPut = (data) =>
+  request({
+    url: url + '/trainingResults/' + data.id,
+    method: 'put',
+    data,
+  })
+export const trainingResultsDel = (data) =>
+  request({
+    url: url + '/trainingResults/' + data.id,
+    method: 'delete',
+    data,
+  })
 
 /**
  * 考勤管理
  */
-export function getAttendances(params) {
-    return http('/attendances', params, 'get');
-}
-export function getAttendancesId(params) {
-    return http('/attendances/{id}', params, 'get_p');
-}
-export function postAttendancesId(params) {
-    return http('/attendances/{id}/sign', params, 'post');
-}
-export function getAttendanceRecords(params) {
-    return http('/attendances/attendanceRecords', params, 'get');
-}
+export const getAttendances = (params) =>
+  request({
+    url: url + '/attendances',
+    method: 'get',
+    params,
+  })
+export const getAttendancesId = (params) =>
+  request({
+    url: url + '/attendances/' + params.id,
+    method: 'get',
+    params,
+  })
+export const postAttendancesId = (data) =>
+  request({
+    url: url + `/attendances/${data.id}/sign`,
+    method: 'post',
+    data,
+  })
+export const getAttendanceRecords = (params) =>
+  request({
+    url: url + '/attendances/attendanceRecords',
+    method: 'get',
+    params,
+  })
 
 /**
  * 学员离队训练
  */
-export function getStudentOutTrainRecords(params) {
-    return http('/studentOutTrainingRecords', params, 'get')
-}
-export function getStudentOutTrainRecordsDetail(params) {
-    return http('/studentOutTrainingRecords/{id}', params, 'get_p')
-}
-export function putStudentOutTrainRecords(params) {
-    return http('/studentOutTrainingRecords/{id}', params, 'put')
-}
-export function postStudentOutTrainRecordsSign(params) {
-    return http('/studentOutTrainingRecords/{id}/sign', params, 'post')
-}
-export function downloadStudentOutTrainRecords(params) {
-    return http('/studentOutTrainingRecords/genPdfByRecords', params, "post", "json", params.download ? 1 : 'pdf' );
-}
+export const getStudentOutTrainRecords = (params) =>
+  request({
+    url: url + '/studentOutTrainingRecords',
+    method: 'get',
+    params,
+  })
+export const getStudentOutTrainRecordsDetail = (params) =>
+  request({
+    url: url + '/studentOutTrainingRecords/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putStudentOutTrainRecords = (data) =>
+  request({
+    url: url + '/studentOutTrainingRecords/' + data.id,
+    method: 'put',
+    data,
+  })
+export const postStudentOutTrainRecordsSign = (data) =>
+  request({
+    url: url + `/studentOutTrainingRecords/${data.id}/sign`,
+    method: 'post',
+    data,
+  })
+
+// TODO: data.download调用此接口的判断调用toPdf下载
+export const downloadStudentOutTrainRecords = (data) =>
+  request({
+    url: url + '/studentOutTrainingRecords/genPdfByRecords',
+    method: 'post',
+    data,
+  })
 
 /**
  * 班级课程进度表
  */
-export function getSchedulesStudents(params) {
-    return http('/clazzTeachingSchedules/students/{id}', params, 'get_p');
-}
-export function postSchedulesStudentSign(params) {
-    return http('/clazzTeachingSchedules/{id}/sign', params, 'post');
-}
-export function postSchedulesStudentsSign(params) {
-    return http('/clazzTeachingSchedules/batchSign', params, 'post');
-}
-export function putSchedulesStudentSign(params) {
-    return http('/clazzTeachingSchedules/{id}', params, 'put');
-}
-export function getStudentSchedules(params) {
-    return http('/clazzTeachingSchedules/students', params, 'get')
-}
+export const getSchedulesStudents = (params) =>
+  request({
+    url: url + '/clazzTeachingSchedules/students/' + params.id,
+    method: 'get',
+    params,
+  })
+export const postSchedulesStudentSign = (data) =>
+  request({
+    url: url + `/clazzTeachingSchedules/${data.id}/sign`,
+    method: 'post',
+    data,
+  })
+export const postSchedulesStudentsSign = (data) =>
+  request({
+    url: url + '/clazzTeachingSchedules/batchSign',
+    method: 'post',
+    data,
+  })
+export const putSchedulesStudentSign = (data) =>
+  request({
+    url: url + '/clazzTeachingSchedules/' + data.id,
+    method: 'put',
+    data,
+  })
+export const getStudentSchedules = (params) =>
+  request({
+    url: url + '/clazzTeachingSchedules/students',
+    method: 'get',
+    params,
+  })

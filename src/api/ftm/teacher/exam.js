@@ -1,29 +1,41 @@
-import http from '@/utils/http'
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
-
-export const getExamRecords = function (params) {
-  const url= '/examRecords';
-  return http(url, params, "get", );
-};
-export const getExamRecordsId = function (params) {
-  const url= '/examRecords/{id}';
-  return http(url, params, "get_p", );
-};
-export const putExamRecordsId = function (params) {
-  const url= '/examRecords/{id}';
-  return http(url, params, "put", );
-};
-export const getExamRecordsIdQuestions = function (params) {
-  const url= '/examRecords/{id}/questions';
-  return http(url, params, "get_p", );
-};
-export const putExamRecordQuestionsId = function (params) {
-  const url= '/examRecordQuestions/{id}';
-  return http(url, params, "put", 'json', null, null, 5000);
-};
+export const getExamRecords = (params) =>
+  request({
+    url: url + '/examRecords',
+    method: 'get',
+    params,
+  })
+export const getExamRecordsId = (params) =>
+  request({
+    url: url + '/examRecords/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putExamRecordsId = (data) =>
+  request({
+    url: url + '/examRecords/' + data.id,
+    method: 'put',
+    data,
+  })
+export const getExamRecordsIdQuestions = (params) =>
+  request({
+    url: url + `/examRecords/${params.id}/questions`,
+    method: 'get',
+    params,
+  })
+export const putExamRecordQuestionsId = (data) =>
+  request({
+    url: url + '/examRecordQuestions/' + data.id,
+    method: 'put',
+    data,
+  })
 
 // public
-export const getPublicCurrentTime = function (params) {
-  const url= '/public/currentTime';
-  return http(url, params, "get", );
-};
+export const getPublicCurrentTime = (params) =>
+  request({
+    url: url + '/public/currentTime',
+    method: 'get',
+    params,
+  })

@@ -1,42 +1,69 @@
-import http from '@/utils/http'
-export const putSettings = function (params) {
-    const url= '/settings';
-    return http(url, params, "put", );
-  };
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
+
+export const putSettings = (data) =>
+  request({
+    url: url + '/settings',
+    method: 'put',
+    data,
+  })
 // 获取登陆日志
-export const getJournals = function (params) {
-  const url= '/journals';
-  return http(url, params, "get", );
-};
+export const getJournals = (params) =>
+  request({
+    url: url + '/journals',
+    method: 'get',
+    params,
+  })
 // 生成登录日志
-export const postJournals = function(params) {
-  return http('/journals', params, 'post');
-}
+export const postJournals = (data) =>
+  request({
+    url: url + '/journals',
+    method: 'post',
+    data,
+  })
 
 /**
  * 功能设置
  */
 // 分页列表
-export function getConfigs(params){
-  return http('/configs', params, 'get')
-}
+export const getConfigs = (params) =>
+  request({
+    url: url + '/configs',
+    method: 'get',
+    params,
+  })
 // 新增
-export function postConfigs(params){
-  return http('/configs', params, 'post')
-}
+export const postConfigs = (data) =>
+  request({
+    url: url + '/configs',
+    method: 'post',
+    data,
+  })
 // 批量删除
-export function batchDeleteConfigs(params){
-  return http('/configs/batchDelete', params, 'post')
-}
+export const batchDeleteConfigs = (data) =>
+  request({
+    url: url + '/configs/batchDelete',
+    method: 'post',
+    data,
+  })
 // 详情
-export function getConfigsDetail(params){
-  return http('/configs/{id}', params, 'get_p')
-}
+export const getConfigsDetail = (params) =>
+  request({
+    url: url + '/configs/' + params.id,
+    method: 'get',
+    params,
+  })
 // 修改
-export function putConfigs(params){
-  return http('/configs/{id}', params, 'put')
-}
+export const putConfigs = (data) =>
+  request({
+    url: url + '/configs/' + data.id,
+    method: 'put',
+    data,
+  })
 // 删除
-export function deleteConfigs(params){
-  return http('/configs/{id}', params, 'delete')
-}
+export const deleteConfigs = (data) =>
+  request({
+    url: url + '/configs/' + data.id,
+    method: 'delete',
+    data,
+  })

@@ -1,144 +1,226 @@
-/**
- * 课程资质
- */
-import http from "@/utils/http";
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
 // 分页列表
-export function getCourseQualifications(params){
-    return http('/courseQualifications', params, 'get')
-}
+export const getCourseQualifications = (params) =>
+  request({
+    url: url + '/courseQualifications',
+    method: 'get',
+    params,
+  })
 // 新增
-export function postCourseQualification(params){
-    return http('/courseQualifications', params, 'post')
-}
+export const postCourseQualification = (data) =>
+  request({
+    url: url + '/courseQualifications',
+    method: 'post',
+    data,
+  })
 // 批量删除
-export function batchDeleteCourseQualifications(params){
-    return http('/courseQualifications/batchDelete', params, 'post')
-}
+export const batchDeleteCourseQualifications = (data) =>
+  request({
+    url: url + '/courseQualifications/batchDelete',
+    method: 'post',
+    data,
+  })
 // 详情
-export function getCourseQualificationDetail(params){
-    return http('/courseQualifications/{id}', params, 'get_p')
-}
+export const getCourseQualificationDetail = (params) =>
+  request({
+    url: url + '/courseQualifications/' + params.id,
+    method: 'get',
+    params,
+  })
 // 修改
-export function putCourseQualification(params){
-    return http('/courseQualifications/{id}', params, 'put')
-}
+export const putCourseQualification = (data) =>
+  request({
+    url: url + '/courseQualifications/' + data.id,
+    method: 'put',
+    data,
+  })
 // 删除
-export function deleteCourseQualification(params){
-    return http('/courseQualifications/{id}', params, 'delete')
-}
+export const deleteCourseQualification = (data) =>
+  request({
+    url: url + '/courseQualifications/' + data.id,
+    method: 'delete',
+    data,
+  })
 // 绑定题库
-export function putCourseQualificationBinding(params){
-    return http('/courseQualifications/{id}/binding', params, 'put')
-}
+export const putCourseQualificationBinding = (data) =>
+  request({
+    url: url + `/courseQualifications/${data.id}/binding`,
+    method: 'put',
+    data,
+  })
 // 取消绑定题库
-export function putCourseQualificationCancelBinding(params){
-    return http('/courseQualifications/{id}/cancelBinding', params, 'put')
-}
+export const putCourseQualificationCancelBinding = (data) =>
+  request({
+    url: url + `/courseQualifications/${data.id}/cancelBinding`,
+    method: 'put',
+    data,
+  })
 
 /**
  * 资质配置
  */
 // 资质配置分页列表
-export function getQualificationConfigurations(params){
-    return http('/employeeQualificationConfigurations', params, 'get');
-}
+export const getQualificationConfigurations = (params) =>
+  request({
+    url: url + '/employeeQualificationConfigurations',
+    method: 'get',
+    params,
+  })
 // 新增配置
-export function postQualificationConfigurations(params){
-    return http('/employeeQualificationConfigurations', params, 'post');
-}
+export const postQualificationConfigurations = (data) =>
+  request({
+    url: url + '/employeeQualificationConfigurations',
+    method: 'post',
+    data,
+  })
 // 批量删除配置
-export function batchDeleteQualificationConfigurations(params){
-    return http('/employeeQualificationConfigurations/batchDelete', params, 'post');
-}
+export const batchDeleteQualificationConfigurations = (data) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/batchDelete',
+    method: 'post',
+    data,
+  })
 // 配置详情
-export function getQualificationConfigurationsDetail(params){
-    return http('/employeeQualificationConfigurations/{id}', params, 'get_p');
-}
+export const getQualificationConfigurationsDetail = (params) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/' + params.id,
+    method: 'get',
+    params,
+  })
 // 配置修改
-export function putQualificationConfigurations(params){
-    return http('/employeeQualificationConfigurations/{id}', params, 'put');
-}
+export const putQualificationConfigurations = (data) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/' + data.id,
+    method: 'put',
+    data,
+  })
 // 删除配置
-export function deleteQualificationConfigurations(params){
-    return http('/employeeQualificationConfigurations/{id}', params, 'delete');
-}
+export const deleteQualificationConfigurations = (data) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/' + data.id,
+    method: 'delete',
+    data,
+  })
 
 // 资质列表
-export function getQualificationList(params){
-    return http('/employeeQualificationConfigurations/qualification', params, 'get');
-}
+export const getQualificationList = (params) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/qualification',
+    method: 'get',
+    params,
+  })
 // 职位列表
-export function getQualificationRoles(params){
-    return http('/employeeQualificationConfigurations/roles', params, 'get');
-}
+export const getQualificationRoles = (params) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/roles',
+    method: 'get',
+    params,
+  })
 // 删除资质
-export function deleteQualificationConList(params){
-    return http('/employeeQualificationConfigurations/single/{id}', params, 'delete')
-}
+export const deleteQualificationConList = (data) =>
+  request({
+    url: url + '/employeeQualificationConfigurations/single/' + data.id,
+    method: 'delete',
+    data,
+  })
 
 /**
  * 个人资质
  */
 // 查询申请列表
-export function getQualificationRequest(params){
-    return http('/qualificationRequests/request', params, 'get')
-}
+export const getQualificationRequest = (params) =>
+  request({
+    url: url + '/qualificationRequests/request',
+    method: 'get',
+    params,
+  })
 // 通过userId查询个人资质管理表
-export function getQualificationUser(params){
-    return http('/qualifications/user', params, 'get_p')
-}
+export const getQualificationUser = (params) =>
+  request({
+    url: url + '/qualifications/user',
+    method: 'get',
+    params,
+  })
 // 申請新增
-export function postQualifications(params){
-    return http('/qualificationRequests', params, 'post')
-}
+export const postQualifications = (data) =>
+  request({
+    url: url + '/qualificationRequests',
+    method: 'post',
+    data,
+  })
 // 资质审核
-export function postQualificationsApprove(params){
-    return http('/qualificationRequests/approve', params, 'post')
-}
+export const postQualificationsApprove = (data) =>
+  request({
+    url: url + '/qualificationRequests/approve',
+    method: 'post',
+    data,
+  })
 
 /**
  * 运规资质审核
  */
 // 分页列表
-export function getQualificationProvide(params){
-    return http('/qualificationProvideRequests', params, 'get')
-}
+export const getQualificationProvide = (params) =>
+  request({
+    url: url + '/qualificationProvideRequests',
+    method: 'get',
+    params,
+  })
 // 资质审核
-export function postQualificationProvide(params){
-    return http('/qualificationProvideRequests/approve', params, 'post')
-}
+export const postQualificationProvide = (data) =>
+  request({
+    url: url + '/qualificationProvideRequests/approve',
+    method: 'post',
+    data,
+  })
 // 详情
-export function getQualificationProvideDetail(params){
-    return http('/qualificationProvideRequests/{id}', params, 'get_p')
-}
+export const getQualificationProvideDetail = (params) =>
+  request({
+    url: url + '/qualificationProvideRequests/' + params.id,
+    method: 'get',
+    params,
+  })
 // 单机型新增
-export function postQualificationProvideSingle(params){
-    return http('/qualificationProvideRequests/singleAirProvide', params, 'post')
-}
+export const postQualificationProvideSingle = (data) =>
+  request({
+    url: url + '/qualificationProvideRequests/singleAirProvide',
+    method: 'post',
+    data,
+  })
 
 /**
  * @description: 修改审核查看状态
  * @param {*} data id: 记录id; userLookUp: 用户是否查看;
  */
-export function putQualificationProvideRequest(data){
-    return http('/qualificationProvideRequests/{id}', data, 'put')
-}
+export const putQualificationProvideRequest = (data) =>
+  request({
+    url: url + '/qualificationProvideRequests/' + data.id,
+    method: 'put',
+    data,
+  })
 
 /**
  * @description: 修改资质申请查看状态
  * @param {*} data id: 记录id; userLookUp: 用户是否查看;
  * @return {*}
  */
-export function putQualificationRequest(data){
-    return http('/qualificationRequests/{id}', data, 'put')
-}
+export const putQualificationRequest = (data) =>
+  request({
+    url: url + '/qualificationRequests/' + data.id,
+    method: 'put',
+    data,
+  })
 
 /**
  * @description: 问卷分类下拉列表
  * @param {*} params builtIn: 是否内置
  * @return {*}
  */
-export function getQualificationClassificationAll(params){
-    return http('/questionnaireClassifications/all', params, 'get')
-}
+export const getQualificationClassificationAll = (params) =>
+  request({
+    url: url + '/questionnaireClassifications/all',
+    method: 'get',
+    params,
+  })

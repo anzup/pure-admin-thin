@@ -1,30 +1,37 @@
-import http from "@/utils/http"
-
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
 /**
  * @description: 政治面貌下拉列表
  * @return {Promise} Promise
  */
-export function getPilotLicensesAll(){
-    return http('/pilotLicenses/politically', null, 'get')
-}
+export const getPilotLicensesAll = (params) =>
+  request({
+    url: url + '/pilotLicenses/politically',
+    method: 'get',
+    params,
+  })
 
 /**
  * @description: 学历下拉列表
  * @return {Promise} Promise
  */
-export function getPilotLicensesDegreesAll(){
-    return http('/pilotLicenses/degrees', null, 'get')
-}
+export const getPilotLicensesDegreesAll = (params) =>
+  request({
+    url: url + '/pilotLicenses/degrees',
+    method: 'get',
+    params,
+  })
 
 /**
  * @description: 分页列表
- * @param {*} params 
- * @return {*} Promise
  */
-export function getPilotLicenses(params){
-    return http('/pilotLicenses', params, 'get')
-}
+export const getPilotLicenses = (params) =>
+  request({
+    url: url + '/pilotLicenses',
+    method: 'get',
+    params,
+  })
 
 /**
  * @description: 详情
@@ -32,18 +39,24 @@ export function getPilotLicenses(params){
  * - id
  * @return {Promise} Promise
  */
-export function getPilotLicensesDetail(params){
-    return http('/pilotLicenses/{id}', params, 'get_p')
-}
+export const getPilotLicensesDetail = (params) =>
+  request({
+    url: url + '/pilotLicenses/' + params.id,
+    method: 'get',
+    params,
+  })
 
 /**
  * @description: 飞行执照-新增
  * @param {*} data 参数
  * @return {*} Promise
  */
-export function postPilotLicenses(data){
-    return http('/pilotLicenses', data, 'post')
-}
+export const postPilotLicenses = (data) =>
+  request({
+    url: url + '/pilotLicenses',
+    method: 'post',
+    data,
+  })
 
 /**
  * @description: 修改
@@ -52,18 +65,24 @@ export function postPilotLicenses(data){
  * - pilotLicenseUpdateBO
  * @return {*} Promise
  */
-export function putPilotLicenses(data){
-    return http('/pilotLicenses/{id}', data, 'put')
-}
+export const putPilotLicenses = (data) =>
+  request({
+    url: url + '/pilotLicenses/' + data.id,
+    method: 'put',
+    data,
+  })
 
 /**
  * @description: 个人培训记录-分页列表
  * @param {*} params 分页参数
  * @return {*} Promise
  */
-export function getPilotTrainingRecord(params){
-    return http('/pilotTrainingRecords', params, 'get')
-}
+export const getPilotTrainingRecord = (params) =>
+  request({
+    url: url + '/pilotTrainingRecords',
+    method: 'get',
+    params,
+  })
 
 /**
  * @description: 飞行执照-根据userId查询详情
@@ -71,15 +90,21 @@ export function getPilotTrainingRecord(params){
  * - id
  * @return {*} Promise
  */
-export function getPilotcensesUserInfo(params){
-    return http('/pilotLicenses/userInfo/{id}', params, 'get_p')
-}
+export const getPilotcensesUserInfo = (params) =>
+  request({
+    url: url + '/pilotLicenses/userInfo/' + params.id,
+    method: 'get',
+    params,
+  })
 
 /**
  * @description: 个人培训记录-新增-修改
  * @param {*} data 参数
  * @return {*} Promist
  */
-export function postPilotTrainingRecordsAddUpdate(data){
-    return http('/pilotTrainingRecords/addAndUpdate', data, 'post')
-}
+export const postPilotTrainingRecordsAddUpdate = (data) =>
+  request({
+    url: url + '/pilotTrainingRecords/addAndUpdate',
+    method: 'post',
+    data,
+  })

@@ -1,286 +1,435 @@
-import http from '@/utils/http'
+import request from '/@/utils/request/index'
+const url = import.meta.env.VITE_BASE_API_FTM
 
 // 题库配置
-export const getQuestionBankProperties = function (params) {
-  const url= '/questionBankProperties';
-  return http(url, params, "get", );
-};
-export const postQuestionBankProperties = function (params) {
-  const url= '/questionBankProperties';
-  return http(url, params, "post", );
-};
-export const getQuestionBankPropertiesId = function (params) {
-  const url= '/questionBankProperties/{id}';
-  return http(url, params, "get_p", );
-};
-export const putQuestionBankPropertiesId = function (params) {
-  const url= '/questionBankProperties/{id}';
-  return http(url, params, "put", );
-};
-export const deleteQuestionBankPropertiesId = function (params) {
-  const url= '/questionBankProperties/{id}';
-  return http(url, params, "delete", );
-};
-export const getQuestionBankPropertiesAll = function (params) {
-  const url= '/questionBankProperties/all';
-  return http(url, params, "get", );
-};
+export const getQuestionBankProperties = (params) =>
+  request({
+    url: url + '/questionBankProperties',
+    method: 'get',
+    params,
+  })
+export const postQuestionBankProperties = (data) =>
+  request({
+    url: url + '/questionBankProperties',
+    method: 'post',
+    data,
+  })
+export const getQuestionBankPropertiesId = (params) =>
+  request({
+    url: url + '/questionBankProperties/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putQuestionBankPropertiesId = (data) =>
+  request({
+    url: url + '/questionBankProperties/' + data.id,
+    method: 'put',
+    data,
+  })
+export const deleteQuestionBankPropertiesId = (data) =>
+  request({
+    url: url + '/questionBankProperties/' + data.id,
+    method: 'delete',
+    data,
+  })
+export const getQuestionBankPropertiesAll = (params) =>
+  request({
+    url: url + '/questionBankProperties/all',
+    method: 'get',
+    params,
+  })
 
 // 题库目录
-export const getQuestionBanks = function (params) {
-  const url= '/questionBanks';
-  return http(url, params, "get", );
-};
-export const postQuestionBanks = function (params) {
-  const url= '/questionBanks';
-  return http(url, params, "post", );
-};
-export const getQuestionBanksId = function (params) {
-  const url= '/questionBanks/{id}';
-  return http(url, params, "get_p", );
-};
-export const putQuestionBanksId = function (params) {
-  const url= '/questionBanks/{id}';
-  return http(url, params, "put", );
-};
-export const deleteQuestionBanksId = function (params) {
-  const url= '/questionBanks/{id}';
-  return http(url, params, "delete", );
-};
-export const getQuestionBanksAll = function (params) {
-  const url= '/questionBanks/all';
-  return http(url, params, "get", );
-};
-export const postQuestionBanksBatchDelete = function (params) {
-  const url= '/questionBanks/batchDelete';
-  return http(url, params, "post", );
-};
-export const getQuestionBanksBatchDeleteImport = function (params) {
-  const url= '/questionBanks/questionImport';
-  return http(url, params, "get", 'json', 1);
-};
-export function getQuestionBanksMove(params){
-  return http('/questionBanks/moveTeacherQuestion', params, 'post')
-}
-export function exportQuestionBanks(params){
-  return http('/questionBanks/{id}/questionExport', params, 'post', 'json', 1)
-}
+export const getQuestionBanks = (params) =>
+  request({
+    url: url + '/questionBanks',
+    method: 'get',
+    params,
+  })
+export const postQuestionBanks = (data) =>
+  request({
+    url: url + '/questionBanks',
+    method: 'post',
+    data,
+  })
+export const getQuestionBanksId = (params) =>
+  request({
+    url: url + '/questionBanks/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putQuestionBanksId = (data) =>
+  request({
+    url: url + '/questionBanks/' + data.id,
+    method: 'put',
+    data,
+  })
+export const deleteQuestionBanksId = (data) =>
+  request({
+    url: url + '/questionBanks/' + data.id,
+    method: 'delete',
+    data,
+  })
+export const getQuestionBanksAll = (params) =>
+  request({
+    url: url + '/questionBanks/all',
+    method: 'get',
+    params,
+  })
+export const postQuestionBanksBatchDelete = (data) =>
+  request({
+    url: url + '/questionBanks/batchDelete',
+    method: 'post',
+    data,
+  })
+export const getQuestionBanksBatchDeleteImport = (params) =>
+  request({
+    url: url + '/questionBanks/questionImport',
+    method: 'get',
+    params,
+  })
+export const getQuestionBanksMove = (data) =>
+  request({
+    url: url + '/questionBanks/moveTeacherQuestion',
+    method: 'post',
+    data,
+  })
+export const exportQuestionBanks = (data) =>
+  request({
+    url: url + `/questionBanks/${data.id}/questionExport`,
+    method: 'post',
+    data,
+  })
 // 获取题库题目统计信息
-export const getQuestionBanksStats = function (params) {
-  const url= '/questionBanks/stats';
-  return http(url, params, "get", );
-};
+export const getQuestionBanksStats = (params) =>
+  request({
+    url: url + '/questionBanks/stats',
+    method: 'get',
+    params,
+  })
 
 // 获取章节信息
-export const getQuestionBanksChapters = function (params) {
-  const url= '/questionBanks/chapters';
-  return http(url, params, "get", );
-};
+export const getQuestionBanksChapters = (params) =>
+  request({
+    url: url + '/questionBanks/chapters',
+    method: 'get',
+    params,
+  })
 
 // 试题
-export const getQuestions = function (params) {
-  const url= '/questions';
-  return http(url, params, "get", );
-};
-export const postQuestions = function (params) {
-  const url= '/questions';
-  return http(url, params, "post", );
-};
-export const getQuestionsId = function (params) {
-  const url= '/questions/{id}';
-  return http(url, params, "get_p", );
-};
-export const putQuestionsId = function (params) {
-  const url= '/questions/{id}';
-  return http(url, params, "put", );
-};
-export const deleteQuestionsId = function (params) {
-  const url= '/questions/{id}';
-  return http(url, params, "delete", );
-};
-export const postQuestionsBatchDelete = function (params) {
-  const url= '/questions/batchDelete';
-  return http(url, params, "post", );
-};
+export const getQuestions = (params) =>
+  request({
+    url: url + '/questions',
+    method: 'get',
+    params,
+  })
+export const postQuestions = (data) =>
+  request({
+    url: url + '/questions',
+    method: 'post',
+    data,
+  })
+export const getQuestionsId = (params) =>
+  request({
+    url: url + '/questions/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putQuestionsId = (data) =>
+  request({
+    url: url + '/questions/' + data.id,
+    method: 'put',
+    data,
+  })
+export const deleteQuestionsId = (data) =>
+  request({
+    url: url + '/questions/' + data.id,
+    method: 'delete',
+    data,
+  })
+export const postQuestionsBatchDelete = (data) =>
+  request({
+    url: url + '/questions/batchDelete',
+    method: 'post',
+    data,
+  })
 
 // 考试配置
-export const getExamTypes = function (params) {
-  const url= '/examTypes';
-  return http(url, params, "get", );
-};
-export const postExamTypes = function (params) {
-  const url= '/examTypes';
-  return http(url, params, "post", );
-};
-export const getExamTypesId = function (params) {
-  const url= '/examTypes/{id}';
-  return http(url, params, "get_p", );
-};
-export const putExamTypesId = function (params) {
-  const url= '/examTypes/{id}';
-  return http(url, params, "put", );
-};
-export const deleteExamTypesId = function (params) {
-  const url= '/examTypes/{id}';
-  return http(url, params, "delete", );
-};
-export const getExamTypesAll = function (params) {
-  const url= '/examTypes/all';
-  return http(url, params, "get", );
-};
-export const postExamTypesBatchDelete = function (params) {
-  const url= '/examTypes/batchDelete';
-  return http(url, params, "post", );
-};
+export const getExamTypes = (params) =>
+  request({
+    url: url + '/examTypes',
+    method: 'get',
+    params,
+  })
+export const postExamTypes = (data) =>
+  request({
+    url: url + '/examTypes',
+    method: 'post',
+    data,
+  })
+export const getExamTypesId = (params) =>
+  request({
+    url: url + '/examTypes/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putExamTypesId = (data) =>
+  request({
+    url: url + '/examTypes/' + data.id,
+    method: 'put',
+    data,
+  })
+export const deleteExamTypesId = (data) =>
+  request({
+    url: url + '/examTypes/' + data.id,
+    method: 'delete',
+    data,
+  })
+export const getExamTypesAll = (params) =>
+  request({
+    url: url + '/examTypes/all',
+    method: 'get',
+    params,
+  })
+export const postExamTypesBatchDelete = (data) =>
+  request({
+    url: url + '/examTypes/batchDelete',
+    method: 'post',
+    data,
+  })
 
 // 考试管理
-export const getExams = function (params) {
-  const url= '/exams';
-  return http(url, params, "get", );
-};
-export const postExams = function (params) {
-  const url= '/exams';
-  return http(url, params, "post", );
-};
-export const getExamsId = function (params) {
-  const url= '/exams/{id}';
-  return http(url, params, "get_p", );
-};
-export const putExamsId = function (params) {
-  const url= '/exams/{id}';
-  return http(url, params, "put", );
-};
-export const deleteExamsId = function (params) {
-  const url= '/exams/{id}';
-  return http(url, params, "delete", );
-};
-export const getExamsIdQuestions = function (params) {
-  const url= '/exams/{id}/questions';
-  return http(url, params, "get_p", );
-};
-export const getExamsAll = function (params) {
-  const url= '/exams/all';
-  return http(url, params, "get", );
-};
-export const postExamsBatchDelete = function (params) {
-  const url= '/exams/batchDelete';
-  return http(url, params, "post", );
-};
-export const getExamsStudentImport = function (params) {
-  const url= '/exams/studentImport';
-  return http(url, params, "get", 'json', 1);
-};
-export const postExamsStudentImport = function (params) {
-  const url= '/exams/studentImport';
-  return http(url, params, "post", );
-};
-export const getExamsIdStudentExportInline= function (params) {
-  const url= '/exams/{id}/studentExport/inline';
-  return http(url, params, "get_p", 'json', 1);
-};
-export const postExamsExport = function (params) {
-  const url= '/exams/export';
-  return http(url, params, "post", "json", 1);
-};
+export const getExams = (params) =>
+  request({
+    url: url + '/exams',
+    method: 'get',
+    params,
+  })
+export const postExams = (data) =>
+  request({
+    url: url + '/exams',
+    method: 'post',
+    data,
+  })
+export const getExamsId = (params) =>
+  request({
+    url: url + '/exams/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putExamsId = (data) =>
+  request({
+    url: url + '/exams/' + data.id,
+    method: 'put',
+    data,
+  })
+export const deleteExamsId = (data) =>
+  request({
+    url: url + '/exams/' + data.id,
+    method: 'delete',
+    data,
+  })
+export const getExamsIdQuestions = (params) =>
+  request({
+    url: url + `/exams/${params.id}/questions`,
+    method: 'get',
+    params,
+  })
+export const getExamsAll = (params) =>
+  request({
+    url: url + '/exams/all',
+    method: 'get',
+    params,
+  })
+export const postExamsBatchDelete = (data) =>
+  request({
+    url: url + '/exams/batchDelete',
+    method: 'post',
+    data,
+  })
+export const getExamsStudentImport = (params) =>
+  request({
+    url: url + '/exams/studentImport',
+    method: 'get',
+    params,
+  })
+export const postExamsStudentImport = (data) =>
+  request({
+    url: url + '/exams/studentImport',
+    method: 'post',
+    data,
+  })
+export const getExamsIdStudentExportInline = (params) =>
+  request({
+    url: url + `/exams/${params.id}/studentExport/inline`,
+    method: 'get',
+    params,
+  })
+export const postExamsExport = (data) =>
+  request({
+    url: url + '/exams/export',
+    method: 'post',
+    data,
+  })
 
-export const getListByexamType = function (params) {
-  const url= '/exams/stats/examType';
-  return http(url, params, "get", );
-};
-export const getExamsExam = function (params) {
-  const url= 'exams/stats/exam';
-  return http(url, params, "get", );
-};
-
+export const getListByexamType = (params) =>
+  request({
+    url: url + '/exams/stats/examType',
+    method: 'get',
+    params,
+  })
+export const getExamsExam = (params) =>
+  request({
+    url: url + 'exams/stats/exam',
+    method: 'get',
+    params,
+  })
 
 // 考试记录
-export const getExamRecords = function (params) {
-  const url= '/examRecords';
-  return http(url, params, "get", );
-};
-export const getExamRecordsId = function (params) {
-  const url= '/examRecords/{id}';
-  return http(url, params, "get_p", );
-};
-export const putExamRecordsId = function (params) {
-  const url= '/examRecords/{id}';
-  return http(url, params, "put", );
-};
-export const getExamRecordsIdQuestions = function (params) {
-  const url= '/examRecords/{id}/questions';
-  return http(url, params, "get_p", );
-};
+export const getExamRecords = (params) =>
+  request({
+    url: url + '/examRecords',
+    method: 'get',
+    params,
+  })
+export const getExamRecordsId = (params) =>
+  request({
+    url: url + '/examRecords/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putExamRecordsId = (data) =>
+  request({
+    url: url + '/examRecords/' + data.id,
+    method: 'put',
+    data,
+  })
+export const getExamRecordsIdQuestions = (params) =>
+  request({
+    url: url + `/examRecords/${params.id}/questions`,
+    method: 'get',
+    params,
+  })
 
-export function postExamRecordsSign(params){
-  return http('/examRecords/signature', params, 'post')
-}
-export const exportExamRecords = function (params) {
-  const url= '/examRecords/export';
-  return http(url, params, "get", "json", 1 );
-};
-
+export const postExamRecordsSign = (data) =>
+  request({
+    url: url + '/examRecords/signature',
+    method: 'post',
+    data,
+  })
+export const exportExamRecords = (params) =>
+  request({
+    url: url + '/examRecords/export',
+    method: 'get',
+    params,
+  })
 
 // 考试记录试题
-export const getExamRecordQuestions = function (params) {
-  const url= '/examRecordQuestions';
-  return http(url, params, "get", );
-};
-export const getExamRecordQuestionsId = function (params) {
-  const url= '/examRecordQuestions/{id}';
-  return http(url, params, "get_p", );
-};
-export const putExamRecordQuestionsId = function (params) {
-  const url= '/examRecordQuestions/{id}';
-  return http(url, params, "put", );
-};
-export const getExamRecordQuestionsStats = function (params) {
-  const url= '/examRecordQuestions/stats';
-  return http(url, params, "get", );
-};
+export const getExamRecordQuestions = (params) =>
+  request({
+    url: url + '/examRecordQuestions',
+    method: 'get',
+    params,
+  })
+export const getExamRecordQuestionsId = (params) =>
+  request({
+    url: url + '/examRecordQuestions/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putExamRecordQuestionsId = (data) =>
+  request({
+    url: url + '/examRecordQuestions/' + data.id,
+    method: 'put',
+    data,
+  })
+export const getExamRecordQuestionsStats = (params) =>
+  request({
+    url: url + '/examRecordQuestions/stats',
+    method: 'get',
+    params,
+  })
 // 题目章节
-export const questionChapters = function (params) {
-  const url= '/questionChapters';
-  return http(url, params, "get", );
-};
-export const questionChaptersPost = function (params) {
-  const url= '/questionChapters';
-  return http(url, params, "post", );
-};
-export function questionChaptersGet(params){
-  return http('/questionChapters/{id}', params, 'get_p')
-}
-export function questionChaptersPut(params){
-  return http('/questionChapters/{id}', params, 'put')
-}
-export function questionChaptersDel(params){
-  return http('/questionChapters/{id}', params, 'delete')
-}
+export const questionChapters = (params) =>
+  request({
+    url: url + '/questionChapters',
+    method: 'get',
+    params,
+  })
+export const questionChaptersPost = (data) =>
+  request({
+    url: url + '/questionChapters',
+    method: 'post',
+    data,
+  })
+export const questionChaptersGet = (params) =>
+  request({
+    url: url + '/questionChapters/' + params.id,
+    method: 'get',
+    params,
+  })
+export const questionChaptersPut = (data) =>
+  request({
+    url: url + '/questionChapters/' + data.id,
+    method: 'put',
+    data,
+  })
+export const questionChaptersDel = (data) =>
+  request({
+    url: url + '/questionChapters/' + data.id,
+    method: 'delete',
+    data,
+  })
 
 // 试题难度
-export const questionDifficultiesGet = function (params) {
-  const url= '/questionDifficulties/';
-  return http(url, params, "get", );
-};
-export function questionDifficultiesPut(params){
-  return http('/questionDifficulties/', params, 'put')
-}
+export const questionDifficultiesGet = (params) =>
+  request({
+    url: url + '/questionDifficulties/',
+    method: 'get',
+    params,
+  })
+
+export const questionDifficultiesPut = (data) =>
+  request({
+    url: url + '/questionDifficulties/',
+    method: 'put',
+    data,
+  })
 
 // 考试模板
-export function getExamTemplate(params){
-  return http('/examTemplates', params, 'get')
-}
-export function postExamTemplate(params){
-  return http('/examTemplates', params, 'post')
-}
-export function getpExamTemplate(params){
-  return http('/examTemplates/{id}', params, 'get_p')
-}
-export function putExamTemplate(params){
-  return http('/examTemplates/{id}', params, 'put')
-}
-export function delExamTemplate(params){
-  return http('/examTemplates/{id}', params, 'delete')
-}
-export function postDelExamTemplate(params){
-  return http('/examTemplates/batchDelete', params, 'post')
-}
+export const getExamTemplate = (params) =>
+  request({
+    url: url + '/examTemplates',
+    method: 'get',
+    params,
+  })
+export const postExamTemplate = (data) =>
+  request({
+    url: url + '/examTemplates',
+    method: 'post',
+    data,
+  })
+export const getpExamTemplate = (params) =>
+  request({
+    url: url + '/examTemplates/' + params.id,
+    method: 'get',
+    params,
+  })
+export const putExamTemplate = (data) =>
+  request({
+    url: url + '/examTemplates/' + data.id,
+    method: 'put',
+    data,
+  })
+export const delExamTemplate = (data) =>
+  request({
+    url: url + '/examTemplates/' + data.id,
+    method: 'delete',
+    data,
+  })
+export const postDelExamTemplate = (data) =>
+  request({
+    url: url + '/examTemplates/batchDelete',
+    method: 'post',
+    data,
+  })
