@@ -78,11 +78,11 @@ export function configureDynamicParamsMenu(menu: Menu, params: RouteParams) {
   const { path, paramPath } = toRaw(menu)
   let realPath = paramPath ? paramPath : path
   const matchArr = realPath.match(menuParamRegex)
+  // console.log(matchArr)
   matchArr?.forEach((it) => {
     const realIt = it.substr(1)
     if (params[realIt]) {
       realPath = realPath.replace(`:${realIt}`, params[realIt] as string)
-      console.log(realPath)
     }
   })
   // save original param path.

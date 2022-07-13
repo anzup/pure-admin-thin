@@ -107,6 +107,7 @@ export const usePermissionStore = defineStore({
         // @ts-ignore
         return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0)
       })
+      console.log(menuList)
       this.setMenuList(menuList)
       // Convert multi-level routing to level 2 routing
       routes = flatMultiLevelRoutes(routes)
@@ -114,11 +115,6 @@ export const usePermissionStore = defineStore({
       // routes.push(ERROR_LOG_ROUTE)
       patchHomeAffix(routes)
       return routes
-    },
-    resetSate() {
-      this.wholeMenus = []
-      this.isDynamicAddedRoute = false
-      this.lastBuildMenuTime = 0
     },
   },
 })
