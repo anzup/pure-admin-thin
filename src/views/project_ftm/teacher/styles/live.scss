@@ -1,0 +1,363 @@
+.live{
+  $headHeight: 65px;
+  $border: 1px solid #f4f4f4;
+  $borderRadius: 5px;
+  &-notice{
+    margin-bottom: 20px;
+  }
+  &-main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &-header{
+    width: 100%;
+    height: $headHeight;
+    display: flex;
+    align-items: center;
+    .nav{
+      padding-left: 20px;
+    }
+    .nav-right{
+      display: flex;
+      padding-right: 20px;
+      line-height: 26px;
+      .switch{
+        margin-right: 20px;
+        span{
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  &-title{
+    flex: 1;
+    text-align: center;
+    h2{
+      font-size: 20px;
+    }
+    .time{
+      margin-left: 20px;
+      font-size: 15px;
+      font-weight: normal;
+    }
+  }
+  &-wrapper{
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  &-box{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  &-video-wrapper{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    // min-width: 739px;
+    // min-height: 504px;
+    background: #333;
+    .live-video{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .hint-img{
+      position: absolute;
+      max-width: 100%;
+      max-height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+  &-preview{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    min-height: 200px;
+    margin-top: 18px;
+    // border-radius: $borderRadius;
+    // border: $border;
+    .comment-textarea{
+      width: 30%;
+      max-width: 348px;
+      margin-left: 20px;
+      border: $border;
+      border-radius: $borderRadius;
+      .comment-nav{
+        height: 36px;
+        padding: 0 10px;
+        text-align: right;
+        line-height: 36px;
+        border-top: $border;
+        border-bottom: $border;
+        span{
+          margin-right: 10px;
+        }
+      }
+      textarea{
+        width: 100%;
+        height: calc(100% - 44px);
+        padding: 10px;
+        box-sizing: border-box;
+        font-size: 15px;
+        line-height: 1.5;
+        resize: none;
+        border: 0;
+        outline: none;
+      }
+      .comment-textarea-footer{
+        padding: 0 16px 16px 0;
+        text-align: right;
+      }
+    }
+  }
+  &-all-list{
+    flex: 1;
+    padding-left: 16px;
+    overflow-y: hidden;
+  }
+  &-thumbnail-item{
+    width: 100%;
+    overflow-x: auto;
+    .thumbnail-list{
+      display: flex;
+      height: 208px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li{
+        position: relative;
+        flex: 0 0 344px;
+        width: 344px;
+        height: 206px;
+        overflow: hidden;
+        margin-right: 18px;
+        border: $border;
+        background: #333;
+        border-radius: $borderRadius;
+        &:hover .thumbnail-name{
+          opacity: 1;
+        }
+      }
+      video{
+        width: 100%;
+        height: 100%;
+      }
+      .thumbnail-name{
+        position: absolute;
+        height: 36px;
+        padding: 0 24px;
+        top: 14px;
+        left: 50%;
+        font-size: 15px;
+        line-height: 36px;
+        color: #fff;
+        transform: translateX(-50%);
+        border-radius: $borderRadius;
+        background: rgba($color: #000, $alpha: .7);
+        opacity: 0;
+        transition: opacity .2s;
+      }
+      img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+  &-comment{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    max-width: 348px;
+    margin-left: 20px;
+    border: $border;
+    border-bottom-left-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+    .comment{
+      &-tabs{
+        display: flex;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      &-tab{
+        flex: 1;
+        line-height: 40px;
+        text-align: center;
+        cursor: default;
+        background: #eaeff6;
+        &.active{
+          color: #497ac8;
+          background: #dce5f1;
+          border-bottom: 2px solid #497ac8;
+        }
+      }
+      &-box{
+        flex: 1;
+        border-top: 0;
+        .comment-chat-list{
+          height: 60vh;
+          max-height: 650px;
+          margin: 0;
+          padding: 0;
+          overflow-y: auto;
+          list-style: none;
+          li{
+            padding: 5px 12px 0;
+            overflow: hidden;
+            zoom: 1;
+            margin: 12px 0;
+            &:hover{
+              background: #f7f7f7;
+            }
+          }
+          .comment-avatar{
+            float: left;
+            width: 48px;
+            height: 48px;
+            img{
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .comment-wrap{
+            margin-left: 56px;
+            border-bottom: $border;
+          }
+          .comment-info{
+            display: flex;
+            width: 100%;
+            margin: 0;
+            justify-content: space-between;
+            font-size: 14px;
+            line-height: 24px;
+            color: #666;
+            .time{
+              font-size: 12px;
+              color: #ccc;
+            }
+          }
+          .comment-content{
+            display: inline-block;
+            padding: 5px 0;
+            font-size: 12px;
+            line-height: 20px;
+            color: #ccc;
+            word-break: break-all;
+          }
+          // .myself .comment-content{
+          //     float: right;
+          //     color: #fff;
+          //     background: rgba($color: #409EFF, $alpha: 0.7);
+          // }
+        }
+      }
+      &-students{
+        flex: 1;
+      }
+      &-students-list{
+        width: 100%;
+        height: 60vh;
+        max-height: 650px;
+        margin: 0;
+        margin-right: -20px;
+        padding: 6px;
+        overflow-y: auto;
+        list-style: none;
+        & > li{
+          $itemHeight: calc(50% - 12px);
+          display: inline-block;
+          vertical-align: top;
+          position: relative;
+          width: $itemHeight;
+          margin: 6px;
+          border-radius: 4px;
+          background-color: #eaeff6;
+          background-image: url('/@/assets/live_imgs/user_online.png');
+          background-position: center;
+          background-size: 49px 63px;
+          background-repeat: no-repeat;
+          &::after{
+            content: '';
+            display: inline-block;
+            width: 0;
+            padding-bottom: 100%;
+          }
+          .comment-students-item{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+          }
+          .student-name{
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            padding: 0 15px;
+            max-width: calc(6em + 30px);
+            height: 20px;
+            overflow: hidden;
+            font-size: 12px;
+            color:#215EBE;
+            line-height: 20px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            background: #DCE5F1;
+            border-radius: 4px;
+          }
+
+          video{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .OFFLINE{
+          background-color: #fafafa;
+          background-image: url('/@/assets/live_imgs/user_offline.png');
+          .student-name{
+            color: #fff;
+            background: #DCDCDC;
+          }
+        }
+        .self .student-name{
+          color: #333;
+          background: #f1d83f;
+        }
+        .onLine{
+          .student-name{
+            color: #fff;
+            background: rgba($color: #000000, $alpha: 0.56);
+          }
+        }
+      }
+    }
+  }
+  &-footer{
+    padding: 40px 0 34px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .live-comment .comment-students-list{
+    height: 450px;
+    li {
+      width: calc(100% - 12px);
+    }
+  }
+  .live-comment .comment-box .comment-chat-list{
+    height: 450px;
+  }
+}
+video{
+  object-fit: cover;
+}

@@ -48,7 +48,6 @@
         </span>
       </span>
     </template>
-
     <template v-for="(_, name) in $slots" v-slot:[name]="scpename">
       <slot :name="name" v-bind="scpename" />
     </template>

@@ -46,3 +46,5 @@ export type userType = {
   lastUpdateTime: number
   subsystems?: string[]
 }
+
+export type accountType = 'UNKNOWN' | 'STUDENT' | 'EMPLOYEE' | 'ADMIN'

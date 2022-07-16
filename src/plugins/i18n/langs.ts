@@ -14,25 +14,38 @@ const zhModules = import.meta.globEager('./zh-CN/**/*.ts')
 const twModules = import.meta.globEager('./zh-TW/**/*.ts')
 const enModules = import.meta.globEager('./en-US/**/*.ts')
 
+const CN = {},
+  TW = {},
+  EN = {}
+const AssignConfig = (configs, locale) => {
+  for (let key of Object.keys(locale)) {
+    configs.hasOwnProperty(key)
+      ? (configs[key] = { ...configs[key], ...locale[key] })
+      : (configs[key] = locale[key])
+  }
+}
+
+AssignConfig(CN, genMessage(import.meta.globEager('../../../locales/zh-CN/*.y(a)?ml')))
+AssignConfig(CN, siphonI18n(zhModules, 'zh-CN'))
+AssignConfig(CN, zhLocale)
+AssignConfig(CN, zhVxeTable)
+
+AssignConfig(TW, genMessage(import.meta.globEager('../../../locales/zh-TW/*.y(a)?ml')))
+AssignConfig(TW, siphonI18n(twModules, 'zh-TW'))
+AssignConfig(TW, twVxeTable)
+AssignConfig(TW, twLocale)
+
+AssignConfig(EN, genMessage(import.meta.globEager('../../../locales/en/*.y(a)?ml')))
+AssignConfig(EN, siphonI18n(enModules, 'en-US'))
+AssignConfig(EN, enLocale)
+AssignConfig(EN, enVxeTable)
+
+console.log(CN);
+
 export const localesConfigs = {
-  'zh-CN': {
-    ...genMessage(import.meta.globEager('../../../locales/zh-CN/*.y(a)?ml')),
-    ...siphonI18n(zhModules, 'zh-CN'),
-    ...zhLocale,
-    ...zhVxeTable,
-  },
-  'zh-TW': {
-    ...genMessage(import.meta.globEager('../../../locales/zh-TW/*.y(a)?ml')),
-    ...siphonI18n(twModules, 'zh-TW'),
-    ...twVxeTable,
-    ...twLocale,
-  },
-  en: {
-    ...genMessage(import.meta.globEager('../../../locales/en/*.y(a)?ml')),
-    ...siphonI18n(enModules, 'en-US'),
-    ...enLocale,
-    ...enVxeTable,
-  },
+  'zh-CN': CN,
+  'zh-TW': TW,
+  en: EN,
   buttons: {
     confirm: '',
   },

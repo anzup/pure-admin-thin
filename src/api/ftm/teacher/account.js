@@ -258,3 +258,12 @@ export const postEmployeeRegistriesApprove = (data) =>
     method: 'post',
     data,
   })
+
+export const getUserInfo = (params) =>
+  request({
+    url: url + '/public/userInfo/' + params?.id,
+    method: 'get',
+    headers: {
+      Authorization: 'Basic aHVheXVleGluZzpodWF5dWV4aW5n',
+    },
+  })

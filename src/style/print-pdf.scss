@@ -1,0 +1,27 @@
+.print-box{
+  :deep(table){
+    border-collapse: collapse;
+  }
+  :deep(tr){
+    border: 0;
+  }
+  :deep(td),:deep(th){
+    margin-top: -1px;
+    margin-left: -1px;
+    border-top-width: 0;
+    border-left-width: 0;
+  }
+  :deep(tbody tr:first-child td){
+    border-top-width: 1px;
+  }
+  :deep(tr:last-child td),:deep(tr:last-child th){
+    border-bottom-width: 0;
+  }
+  :deep(tr td:last-child),:deep(tr th:last-child){
+    border-right-width: 0;
+  }
+  :deep(table table){
+    margin-top: -1px;
+    margin-left: -1px;
+  }
+}
