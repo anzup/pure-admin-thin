@@ -100,7 +100,7 @@
                       :colors="['#FF9900', '#FF9900', '#FF9900']"
                       disabled-void-icon-class="vm-rate-icon-custome"
                       disabled-void-color="#99A9BF"
-                    ></rate>
+                    />
                   </td>
                   <td class="center">
                     <!-- <span v-if="item.score <= 3" class="">{{ $t('table.clickSelect') }}</span> -->
@@ -174,7 +174,7 @@
                         :placeholder="$t('holder.pleaseEnter') + $t('table.evaluate')"
                         v-model="data.evaluation"
                         style="width: 100%; height: 100%"
-                      ></el-input>
+                      />
                     </template>
                     <template v-else>{{ data.evaluation }}</template>
                   </td>
@@ -273,10 +273,10 @@
             type="password"
             v-model="form.pinCode"
             :placeholder="$t('holder.pleaseEnterSignPinCode')"
-          ></el-input>
+          />
         </el-form-item>
       </el-form>
-      <div slot="footer">
+      <template #footer>
         <el-button @click="handleDialogCancel" type="primary" plain size="medium">{{
           $t('button.cancel')
         }}</el-button>
@@ -287,7 +287,7 @@
           :loading="loadingDialog"
           >{{ $t('button.confirm') }}</el-button
         >
-      </div>
+      </template>
     </el-dialog>
     <!-- 行为指标 -->
     <el-dialog
@@ -310,7 +310,7 @@
           >
         </el-checkbox-group>
       </div>
-      <div slot="footer">
+      <template #footer>
         <el-button @click="behaviorDialogCancel" size="medium">{{ $t('button.cancel') }}</el-button>
         <el-button
           type="primary"
@@ -319,7 +319,7 @@
           :loading="loadingDialog"
           >{{ $t('button.confirm') }}</el-button
         >
-      </div>
+      </template>
     </el-dialog>
 
     <fix-footer v-if="orderType > 1" @confirm="Save" :loading="loading" />

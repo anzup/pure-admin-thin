@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <!--<el-scrollbar class="fixed-scroll-x">-->
-      <slot></slot>
-      <OrderTable ref="order" :type="type" :data="orderData" @sign="handleOrderSign" />
+    <slot />
+    <OrderTable ref="order" :type="type" :data="orderData" @sign="handleOrderSign" />
     <!--</el-scrollbar>-->
 
     <SignDialog :loadingDialog="loadingSign" v-model="showSign" @handleConfirm="submitSign" />
 
     <fix-footer v-if="type == OrderStatus.modify" :loading="loadingSubmit" @confirm="handleConfirm">
-      <el-button slot="left" @click="handleCancel" type="primary" plain>{{
-        $t('button.cancel')
-      }}</el-button>
+      <template #left>
+        <el-button @click="handleCancel" type="primary" plain>{{ $t('button.cancel') }}</el-button>
+      </template>
     </fix-footer>
   </div>
 </template>
@@ -25,7 +25,7 @@
     putStudentOutTrainRecords,
   } from '/@/api/ftm/teacher/teachingCenter'
   import FixFooter from '/@/views/project_ftm/teacher/components/FixFooter/index.vue'
-  import { ElMessage } from "element-plus";
+  import { ElMessage } from 'element-plus'
   import to from 'await-to-js'
   export default {
     data() {

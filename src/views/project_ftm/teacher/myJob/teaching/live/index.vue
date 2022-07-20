@@ -214,12 +214,7 @@
           {
             field: 'duration',
             title: this.$t('table.Duration'),
-            formatter: ({ cellValue }) =>
-              formatTime(cellValue, {
-                dayName: this.$t('common.day'),
-                hourName: this.$t('common.hour'),
-                minutsName: this.$t('common.minutsName'),
-              }),
+            formatter: ({ cellValue }) => formatTime.call(this, cellValue),
             minWidth: 90,
           },
           { title: this.$t('table.tableEdit'), slots: { default: 'operate' }, width: 180 },

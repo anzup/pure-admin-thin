@@ -15,9 +15,9 @@
       />
 
       <fix-footer v-if="type == 'edit'" :loading="loadingSubmit" @confirm="handleConfirm">
-        <el-button slot="left" @click="handleCancel" type="primary" plain>{{
-          t('button.cancel')
-        }}</el-button>
+        <template #left>
+          <el-button @click="handleCancel" type="primary" plain>{{ t('button.cancel') }}</el-button>
+        </template>
       </fix-footer>
     </div>
 

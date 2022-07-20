@@ -128,11 +128,7 @@
         return this.getDuration(cellValue)
       },
       getDuration(second) {
-        return formatTime(second, {
-          dayName: this.$t('common.day'),
-          hourName: this.$t('common.hour'),
-          minutesName: this.$t('common.minutes'),
-        })
+        return formatTime.call(this, second)
       },
       seqMethod(row) {
         return (this.form.page - 1) * this.form.size + row.seq

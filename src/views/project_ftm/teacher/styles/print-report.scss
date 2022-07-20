@@ -1,0 +1,362 @@
+@mixin largeItem() {
+  width: 22%;
+  margin-bottom: 10px !important;
+  margin-left: 0;
+  margin-right: 3%;
+}
+
+@mixin mediumItem {
+  width: 18%;
+  margin-bottom: 5px !important;
+  margin-left: 0;
+  margin-right: 2%;
+}
+
+@mixin smallItem {
+  width: 12%;
+  margin-bottom: 5px !important;
+  margin-left: 0;
+  margin-right: 0.5%;
+  overflow: hidden;
+  .serialNumber {
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 0;
+    overflow: hidden;
+    line-height: 36px;
+    span {
+      display: inline-block;
+      font-size: 16px !important;
+      margin-left: 50%;
+      transform: scale(0.5) translateX(-50%);
+      transform-origin: left top;
+    }
+  }
+  .submitAnswers,
+  .successAnswers {
+    display: inline-block;
+    font-size: 0 !important;
+    overflow: hidden;
+    line-height: 36px;
+    p {
+      font-size: 16px !important;
+      transform: scale(0.5);
+      transform-origin: top center;
+      white-space: nowrap;
+    }
+  }
+}
+
+@mixin miniItem {
+  width: 9.5%;
+  margin-bottom: 2px !important;
+  margin-left: 0;
+  margin-right: 0.5% !important;
+  overflow: hidden;
+  .serialNumber {
+    display: inline-block;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 0;
+    overflow: hidden;
+    span {
+      display: inline-block;
+      font-size: 12px !important;
+      margin-left: 50%;
+      transform: scale(0.5) translateX(-50%);
+      transform-origin: left top;
+    }
+  }
+  .submitAnswers,
+  .successAnswers {
+    display: inline-block;
+    font-size: 0 !important;
+    // white-space: nowrap;
+    overflow: hidden;
+    p {
+      font-size: 12px !important;
+      transform: scale(0.5);
+      transform-origin: top center;
+      white-space: nowrap;
+    }
+  }
+}
+
+@mixin printReport() {
+  @page {
+    margin: 5mm;
+    padding: 5mm;
+  }
+
+  @media print {
+    .warp-content-table {
+      page-break-inside: avoid;
+    }
+    .fillBlankAnswers {
+      page-break-before: avoid;
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+
+    .container {
+      height: unset !important;
+      margin: 0 !important;
+      padding: 0 20px 0 10px !important;
+    }
+
+    .no-print {
+      display: none;
+    }
+  }
+
+  .container {
+    -webkit-text-size-adjust: none;
+
+    .schoolReport-wrap {
+      margin: 0;
+      padding: 0;
+      page-break-after: always;
+      position: relative;
+      .schoolReport-logo {
+        display: block;
+        img {
+          width: auto;
+          height: 40px;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+      .headerTitle {
+        height: 40px;
+        line-height: 0;
+        margin-bottom: 10px;
+        span {
+          font-size: 20px;
+          line-height: 20px;
+          vertical-align: bottom;
+        }
+      }
+      .info-table-box {
+        td {
+          font-size: 12px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          white-space: nowrap;
+        }
+      }
+      .schoolReportBox {
+        .schoolReportInfo {
+          display: inline-block;
+          width: 50%;
+          font-size: 16px;
+          margin-top: 18px;
+          vertical-align: top;
+          .content {
+            line-height: 1.5;
+          }
+        }
+      }
+      .choiceQuestionBox {
+        margin-top: 5px;
+        .type {
+          height: 20px;
+          font-size: 12px;
+          line-height: 20px;
+          background: none;
+          .typeName {
+            vertical-align: middle;
+            .el-divider--vertical {
+              height: 12px;
+            }
+          }
+        }
+        .choiceQuestionInfo {
+          width: 100% !important;
+          margin-top: 8px;
+
+          &::after {
+            content: '';
+            display: block;
+            clear: both;
+          }
+
+          .choiceQuestionCon {
+            margin-bottom: 5px;
+          }
+          .choiceQuestion {
+            height: 24px;
+            line-height: 22px;
+            font-size: 10px;
+
+            .serialNumber {
+              display: inline-block;
+              width: 22px;
+              height: 100%;
+            }
+          }
+          .fillBlankAnswers {
+            font-size: 12px !important;
+            line-height: 0;
+            .serialNumber {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 22px;
+              font-size: 12px;
+            }
+            .studentAnswer {
+              min-height: 15px;
+              padding: 1px 2px;
+              line-height: 14px;
+              word-break: break-all;
+              :deep(.p) {
+                display: inline;
+                font-size: 12px;
+                word-break: break-all;
+              }
+            }
+          }
+        }
+      }
+      .teacherSign {
+        .info-table-box {
+          td:first-child {
+            padding-left: 20px;
+          }
+          td:nth-of-type(2n) {
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+        }
+        img {
+          height: 100px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  /*
+  * 50试题
+  */
+  .schoolReport-wrap.large {
+    .choiceQuestionInfo {
+      padding-left: 2%;
+      margin-top: 10px;
+      .choiceQuestionCon {
+        @include largeItem;
+        &:nth-of-type(4n) {
+          margin-right: 0;
+        }
+      }
+      .fillBlankAnswers {
+        margin: 7px 0;
+        line-height: 22px;
+      }
+    }
+  }
+  /*
+  * 100试题
+  */
+  .schoolReport-wrap.medium {
+    .choiceQuestionInfo {
+      padding-left: 2%;
+      margin-top: 5px;
+      .choiceQuestionCon {
+        @include mediumItem;
+        &:nth-of-type(5n) {
+          margin-right: 0;
+        }
+      }
+      .choiceQuestion {
+        height: 28px !important;
+        line-height: 26px !important;
+      }
+      .fillBlankAnswers {
+        margin: 5px 0;
+        line-height: 22px;
+        .studentAnswer {
+          padding: 3px 4px !important;
+          line-height: 15px;
+          :deep(.p) {
+            font-size: 12px !important;
+            // line-height: 1.5 !important;
+          }
+        }
+      }
+    }
+  }
+  /*
+  * 200试题
+  */
+  .schoolReport-wrap.small {
+    .choiceQuestionInfo {
+      padding-left: 2%;
+      margin-top: 5px;
+      .choiceQuestionCon {
+        @include smallItem;
+        .choiceQuestion {
+          height: 20px;
+          border-radius: 2px;
+        }
+      }
+      .fillBlankAnswers {
+        margin: 5px 0;
+        line-height: 6px !important;
+        .serialNumber span {
+          font-size: 16px !important;
+          transform: scale(0.5);
+          transform-origin: center;
+        }
+        .studentAnswer {
+          padding: 2px 4px !important;
+          line-height: 15px;
+          span,
+          :deep(span) {
+            font-size: 12px !important;
+            color: #000 !important;
+          }
+        }
+      }
+    }
+  }
+  /*
+  * 400试题
+  */
+  .schoolReport-wrap.mini {
+    .choiceQuestionInfo {
+      padding-left: 2%;
+      margin-top: 2px;
+      .choiceQuestionCon {
+        @include miniItem;
+        .choiceQuestion {
+          height: 14px;
+          border-radius: 2px;
+        }
+      }
+      .fillBlankAnswers {
+        margin: 2px 0;
+        line-height: 0px !important;
+        .serialNumber {
+          width: 12px !important;
+          span {
+            font-size: 12px !important;
+            transform: scale(0.5);
+            transform-origin: center;
+          }
+        }
+        .studentAnswer {
+          padding: 2px !important;
+          box-sizing: border-box;
+          line-height: 15px;
+          span,
+          :deep(span) {
+            font-size: 12px !important;
+            color: #000 !important;
+          }
+        }
+      }
+    }
+  }
+}

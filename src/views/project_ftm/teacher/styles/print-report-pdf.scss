@@ -1,0 +1,16 @@
+@mixin printPdf {
+  .container{
+    height: unset!important;
+    margin: 0!important;
+    padding: 0 20px 0 10px!important;
+  }
+  .no-print{
+    display: none;
+  }
+
+  .container .schoolReport-wrap .choiceQuestionBox .choiceQuestionInfo .fillBlankAnswers .studentAnswer .p{
+    font-size: 12px !important;
+    zoom: unset !important;
+    line-height: 1.2;
+  }
+}

@@ -7,6 +7,7 @@ import { router } from '/@/router'
 import { storageSession } from '/@/utils/storage'
 import { login, getAuthorizedSubsystem, getUserInfo } from '/@/api/user'
 import { useFtmUserStore } from '/@/store/modules/ftmUser'
+import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
 
 export const useUserStore = defineStore({
   id: 'pure-user',
@@ -90,7 +91,9 @@ export const useUserStore = defineStore({
         // TODO: 增加判断条件获取ftm用户信息
         if (res.data.subsystems[0] === 'FTM') {
           const ftmUserStore = useFtmUserStore()
+          const ftmSettingsStore = useFtmSettingsStore()
           await ftmUserStore.getUserInfo({ id: res.data.id })
+          await ftmSettingsStore.getUserSettings()
         }
         return Promise.resolve<CurrentUserInfo>(res.data)
       } else {

@@ -44,14 +44,22 @@ export function openWindow(
 /**
  * 格式化时间 传入单位：秒
  */
-export function formatTime(time, { dayName = '', hourName = '', minutsName = '' }) {
+export function formatTime(time) {
   const second = time
   const days = Math.floor(second / 86400)
   const hours = Math.floor((second % 86400) / 3600)
   const minutes = Math.ceil(((second % 86400) % 3600) / 60)
-  if (days > 0) return days + dayName + hours + hourName + minutes + minutsName
-  else if (hours > 0) return hours + hourName + minutes + minutsName
-  else if (minutes > 0) return minutes + minutsName
+  if (days > 0)
+    return (
+      days +
+      this.$t('common.day') +
+      hours +
+      this.$t('common.hour') +
+      minutes +
+      this.$t('common.minutes')
+    )
+  else if (hours > 0) return hours + this.$t('common.hour') + minutes + this.$t('common.minutes')
+  else if (minutes > 0) return minutes + this.$t('common.minutes')
 }
 
 /**
@@ -169,6 +177,37 @@ export function toISODateTime(dateTime) {
   }
 }
 
+/**
+ * scorm 时间转化 PT12H10M00.00S
+ */
+export const convertTotalSeconds = function (str) {
+  let H = 0,
+    M = 0,
+    S = 0
+  let total = 0
+  let mStr = ''
+  const tmsp = str.split(/[\:T-]/)
+  const tmsp1 = tmsp[1].split('H')
+
+  if (tmsp1.length == 1) {
+    mStr = tmsp1[0]
+    H = 0
+  } else {
+    H = tmsp1[0]
+    mStr = tmsp1[1]
+  }
+  const tmsp2 = mStr.split('M')
+  if (tmsp2.length > 1) {
+    M = tmsp2[0]
+    S = tmsp2[1]
+  } else {
+    S = tmsp2[0]
+    M = 0
+  }
+  total = +H * 3600 + +M * 60 + Number(S.substring(0, S.length - 1))
+  return Number(total)
+}
+
 // 获取dom内联样式
 export function getStyle(obj, attr) {
   try {
@@ -203,4 +242,74 @@ export async function mergePDF(pdfsToMerges, type) {
   const mergedPdfFile = await mergedPdf.save()
   const mergePdfBaseuri = await mergedPdf.saveAsBase64({ dataUri: true })
   return type == 'base64string' ? mergePdfBaseuri : mergedPdfFile
+}
+
+/**
+ * 文件print 转化
+ * @param {arraybuffer}
+ */
+export function downLoadBlob(fileData) {
+  if (!fileData) {
+    return
+  }
+
+  const blob = new Blob([fileData], { type: 'application/pdf' })
+  const date = new Date().getTime()
+  const ifr = document.createElement('iframe')
+  ifr.style.frameborder = 'no'
+  ifr.style.display = 'none'
+  ifr.style.pageBreakBefore = 'always'
+  ifr.setAttribute('id', 'printPdf' + date)
+  ifr.setAttribute('name', 'printPdf' + date)
+  ifr.src = window.URL.createObjectURL(blob)
+  document.body.appendChild(ifr)
+  doPrint('printPdf' + date)
+  window.URL.revokeObjectURL(ifr.src)
+  // ifr.parentNode.removeChild(ifr)
+}
+
+/**
+ * 文件下载读取文件流
+ */
+export function toExport(fileData) {
+  if (!fileData.data) {
+    return
+  }
+  // 处理返回的文件流
+  const date =
+    new Date().getFullYear() +
+    '' +
+    (new Date().getMonth() + 1) +
+    '' +
+    new Date().getDate() +
+    '' +
+    new Date().getHours() +
+    '' +
+    new Date().getMinutes() +
+    '' +
+    new Date().getSeconds() +
+    '' +
+    new Date().getMilliseconds()
+  const contentDisposition = fileData.headers['content-disposition']
+  let fileName = ''
+  if (contentDisposition) {
+    fileName = decodeURIComponent(contentDisposition).split('=')
+  }
+  if (window.navigator?.msSaveOrOpenBlob) {
+    const blob = new Blob([fileData.data])
+    window.navigator?.msSaveOrOpenBlob(
+      blob,
+      contentDisposition ? fileName[fileName.length - 1] : `${date}.xlsx`,
+    )
+  } else {
+    const blob = new Blob([fileData.data])
+    const downloadElement = document.createElement('a')
+    const href = window.URL.createObjectURL(blob)
+    downloadElement.href = href
+    downloadElement.download = contentDisposition ? fileName[fileName.length - 1] : `${date}.xlsx`
+    document.body.appendChild(downloadElement)
+    downloadElement.click()
+    document.body.removeChild(downloadElement)
+    window.URL.revokeObjectURL(href)
+  }
 }

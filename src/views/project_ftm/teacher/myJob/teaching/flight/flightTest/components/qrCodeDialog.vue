@@ -7,7 +7,7 @@
     center
   >
     <div class="qr_container">
-      <vue-qr :text="url" :size="200" colorDark="#000" ref="Qrcode"></vue-qr>
+      <vue-qr :text="url" :size="200" colorDark="#000" ref="Qrcode" />
       <div class="qr-dialog-content">
         <p class="qr-dialog-item">
           <span class="label">{{ $t('table.name') }}：</span>{{ rowData.studentName || '' }}
@@ -55,7 +55,7 @@
         },
       },
       url() {
-        return process.env.NODE_ENV === 'development'
+        return import.meta.env.MODE === 'development'
           ? `http://localhost:8083/#/?id=${this.rowData.id}&t=f`
           : `${window.location.origin}/ftm/h5/#/?id=${this.rowData.id}&t=f`
       },

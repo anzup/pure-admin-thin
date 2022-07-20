@@ -92,9 +92,9 @@
     <router-view>
       <template #default="{ Component, route }">
         <el-scrollbar v-if="props.fixedHeader">
-          <el-backtop target=".app-main .el-scrollbar__wrap" title="回到顶部">
-            <BackTop />
-          </el-backtop>
+          <!--<el-backtop target=".app-main .el-scrollbar__wrap" title="回到顶部">-->
+          <!--  <BackTop />-->
+          <!--</el-backtop>-->
           <TransitionMain :route="route">
             <keep-alive v-if="keepAlive" :include="usePermissionStoreHook().cachePageList">
               <component

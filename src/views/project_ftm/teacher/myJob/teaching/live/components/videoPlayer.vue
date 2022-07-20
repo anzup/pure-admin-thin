@@ -14,11 +14,11 @@
       <span style="color: red">{{ videoTitle }}</span>
     </template>
     <template #default>
-      <video-player
+      <vue3-video-play
         class="video-player vjs-custom-skin"
         ref="videoPlayer"
         :playsinline="true"
-        :options="playerOptions"
+        v-bind="playerOptions"
         style="width: 100%; height: 100%"
       />
     </template>

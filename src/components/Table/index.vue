@@ -101,8 +101,9 @@
     }
   })
 
-  const selectChangeEvent = ({ records }) => {
+  const selectChangeEvent = ({ records, checked }) => {
     let obj = {
+      checked,
       records,
       ids: records.length > 0 ? records.map((v) => v.id) : [],
     }

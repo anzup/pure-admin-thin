@@ -283,7 +283,7 @@
           >
         </el-checkbox-group>
       </div>
-      <div slot="footer">
+      <tempalte #footer>
         <el-button @click="behaviorDialogCancel" size="medium" type="primary" plain>{{
           $t('message.hscancel')
         }}</el-button>
@@ -294,7 +294,7 @@
           :loading="state.loadingDialog"
           >{{ $t('message.hsdefine') }}</el-button
         >
-      </div>
+      </tempalte>
     </el-dialog>
   </table>
 </template>

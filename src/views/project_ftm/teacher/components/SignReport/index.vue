@@ -288,7 +288,7 @@
           }}</el-checkbox>
         </el-checkbox-group>
       </div>
-      <div slot="footer">
+      <template #footer>
         <el-button @click="behaviorDialogCancel" size="medium" type="primary" plain>{{
           t('button.cancel')
         }}</el-button>
@@ -299,7 +299,7 @@
           :loading="loadingDialog"
           >{{ t('button.confirm') }}</el-button
         >
-      </div>
+      </template>
     </el-dialog>
   </table>
 </template>
