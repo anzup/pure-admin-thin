@@ -169,6 +169,7 @@
   import XEUtils from 'xe-utils'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
+  import { htmlToPdf } from '/@/utils/htmlToPdf'
   const userStore = useFtmUserStore()
   export default {
     name: 'ExamDetails',
@@ -592,8 +593,8 @@
       async genPdf() {
         //Gen pdf
         let examId = this.recordIds[this.uploadComplate]
-        this.$nextTick(() => {
-          this.$getPdf(document.getElementById('PrintBox'), '', 'datauristring', async (url) => {
+        this.$nextTick(async () => {
+          await htmlToPdf(document.getElementById('PrintBox'), '', 'datauristring', async (url) => {
             let form = new FormData()
             form.append('file', dataURLtoFile(url, 'generated.pdf'))
             let [upErr, upRes] = await to(postUpload(form))

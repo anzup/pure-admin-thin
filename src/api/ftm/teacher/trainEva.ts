@@ -122,7 +122,7 @@ const Api = {
     }),
   evaluationStatistics: (params) =>
     request({
-      url: url + `/flightTrainingEvaluationRecords/${params.id}/readTask`,
+      url: url + `/flightTrainingEvaluationRecords/evaluationStatistics`,
       method: 'get',
       params: _params(params),
     }),

@@ -135,12 +135,25 @@ const Manage: AppRouteRecordRaw = {
     },
     // 完训确认
     {
-      path: 'complateTrain',
+      // TODO 原路由名examWorkingReport
+      path: 'finish',
       name: 'ProjectManageComplateTrainIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/project/manage/finish/index.vue'),
       meta: {
-        title: '完训确认',
-        i18n: false,
+        title: 'router.examWorkingReport',
+        system: SubsystemName.operation_plan_management,
+      },
+    },
+    {
+      // 详情
+      path: 'finish/detail',
+      name: 'ProjectManageComplateTrainDetail',
+      component: () => import('/@/views/project_ftm/teacher/project/manage/finish/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.detail',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/project/manage/finish',
       },
     },
     // 培训课表

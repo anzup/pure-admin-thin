@@ -2,7 +2,6 @@
   <div
     :class="{ 'z-10': isActive }"
     class="relative items-center h-8 px-11 cursor-pointer -ml-9 text-center"
-    style="min-width: 150px"
     @mouseenter="setTrue"
     @mouseleave="setFalse"
   >
@@ -16,7 +15,7 @@
       />
     </div>
     <span
-      :style="{ color: getColor }"
+      :style="{ color: getColor, display: 'block', minWidth: '60px' }"
       class="relative whitespace-nowrap z-2 leading-8 transition-all duration-300 ease-in-out"
     >
       <slot />

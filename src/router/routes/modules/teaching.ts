@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw } from './../../types'
+import { AppRouteRecordRaw, SubsystemName } from './../../types'
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 
 /**
@@ -10,31 +10,20 @@ const Education: AppRouteRecordRaw = {
   redirect: '',
   component: getParentLayout('TeachingEducation'),
   meta: {
-    title: '教务管理',
-    i18n: false,
+    title: 'router.educationalAdministration',
+    system: SubsystemName.operation_plan_management,
   },
   children: [
     // 签名管理
     {
       path: 'signature',
-      name: 'TeachingEducationSignature',
-      redirect: 'index',
-      component: getParentLayout('TeachingEducationSignature'),
+      name: 'TeachingEducationSignatureIndex',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/education/signature/index.vue'),
       meta: {
-        title: '签名管理',
-        i18n: false,
+        title: 'router.signManage',
+        system: SubsystemName.operation_plan_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingEducationSignatureIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '签名管理',
-            i18n: false,
-          },
-        },
-      ],
     },
     // 教学进度
     {
@@ -62,45 +51,181 @@ const Education: AppRouteRecordRaw = {
     {
       path: 'record',
       name: 'TeachingEducationRecord',
-      redirect: 'index',
-      component: getParentLayout('TeachingEducationRecord'),
+      component: () => import('/@/views/project_ftm/teacher/teaching/education/record/index.vue'),
       meta: {
-        title: '培训记录',
-        i18n: false,
+        title: 'router.trainingRecords',
+        system: SubsystemName.operation_plan_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingEducationRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '培训记录',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      // 学员课程学习记录
+      path: 'record/student/:studentId',
+      name: 'TeachingEducationRecordStudentDetail',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/education/record/studentRecords/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.courseStudentRecords',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 学员详情tab页
+      path: 'record/student/:studentId/tabs/:recordId',
+      name: 'TeachingEducationRecordStudentDetails',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/education/record/studentRecords/tabs.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.detail',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 不及格考试记录
+      path: 'record/student/:studentId/tabs/:recordId/examRecordsDetails',
+      name: 'TeachingEducationRecordExamDetails',
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/failRecords/details.vue'
+        ),
+      meta: {
+        hideMenu: true,
+        title: 'router.examRecords',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 考试记录（试卷）
+      path: 'record/student/:studentId/tabs/:recordId/examRecordsPaper',
+      name: 'TeachingEducationRecordExamRecordPaper',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examPaperView.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.examRecordsPaper',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 考试记录（成绩单）
+      path: 'record/student/:studentId/tabs/:recordId/examRecordsReport',
+      name: 'TeachingEducationRecordExamRecordsReport',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/schoolReport.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.examRecordsReport',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // CBTA详情
+      path: 'record/student/:studentId/tabs/:recordId/CBTAdetails',
+      name: 'TeachingEducationRecordCBTA',
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/CBTARecords/details.vue'
+        ),
+      meta: {
+        hideMenu: true,
+        title: 'router.CBTAdetails',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 培训档案（预览）
+      path: 'record/student/:studentId/tabs/:recordId/triningRecords',
+      name: 'TeachingEducationRecordTrainingReview',
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/trainingArchives/preview.vue'
+        ),
+      meta: {
+        hideMenu: true,
+        title: '预览',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 教员详情tab页
+      path: 'record/teacher/tabs',
+      name: 'TeachingEducationRecordTeacherDetails',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/education/record/teacherRecords/tabs.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.detail',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 考试记录（试卷）
+      path: 'record/teacher/examRecordsPaper',
+      name: 'TeachingEducationRecordTeacherExamRecordPaper',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examPaperView.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.examRecordsPaper',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 考试记录（成绩单）
+      path: 'record/teacher/examRecordsReport',
+      name: 'TeachingEducationRecordTeacherExamRecordsReport',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/schoolReport.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.examRecordsReport',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 讲评单详情
+      path: 'record/reports/details',
+      name: 'TeachingEducationRecordReportsDetails',
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/reportsPrint/detailsList.vue'
+        ),
+      meta: {
+        hideMenu: true,
+        title: 'router.detail',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
+    },
+    {
+      // 讲评训练单
+      path: 'record/reports/detail',
+      name: 'TeachingEducationRecordReportsDetail',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/education/record/reportsPrint/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.detail',
+        system: SubsystemName.operation_plan_management,
+        currentActiveMenu: '/teaching/education/record',
+      },
     },
     // 训练配置
     {
       path: 'config',
-      name: 'TeachingEducationConfig',
-      redirect: 'index',
-      component: getParentLayout('TeachingEducationConfig'),
+      name: 'TeachingEducationConfigIndex',
+      component: () => import('/@/views/project_ftm/teacher/teaching/education/config/index.vue'),
       meta: {
         title: '训练配置',
-        i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingEducationConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '训练配置',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -186,24 +311,13 @@ const Courseware: AppRouteRecordRaw = {
     // 课件配置
     {
       path: 'config',
-      name: 'TeachingCoursewareConfig',
-      redirect: 'index',
-      component: getParentLayout('TeachingCoursewareConfig'),
+      name: 'TeachingCoursewareConfigIndex',
+      component: () => import('/@/views/project_ftm/teacher/teaching/courseware/config/index.vue'),
       meta: {
         title: '课件配置',
         i18n: false,
+        system: SubsystemName.operation_plan_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingCoursewareConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '课件配置',
-            i18n: false,
-          },
-        },
-      ],
     },
   ],
 }
@@ -216,8 +330,7 @@ const Exam: AppRouteRecordRaw = {
   redirect: '',
   component: getParentLayout('TeachingExam'),
   meta: {
-    title: '考试管理',
-    i18n: false,
+    title: 'router.examManage',
   },
   children: [
     // 题库管理

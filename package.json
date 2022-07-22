@@ -85,7 +85,9 @@
     "wangeditor": "^4.7.15",
     "xe-utils": "^3.5.4",
     "xgplayer": "^2.31.6",
-    "xgplayer-music": "^2.3.2"
+    "xgplayer-music": "^2.3.2",
+    "html2canvas": "^1.0.0-rc.4",
+    "jspdf": "^2.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "13.1.0",

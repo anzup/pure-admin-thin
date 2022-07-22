@@ -38,23 +38,23 @@
       <tr>
         <!-- 操作能力 -->
         <td class="high-light">{{ $t('table.operationAbility') }}</td>
-        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id].maneuverability }}</td>
+        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id]?.maneuverability }}</td>
       </tr>
       <tr>
         <!-- 理论知识 -->
         <td class="high-light">{{ $t('table.theoreticalKnowledge') }}</td>
-        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id].theory }}</td>
+        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id]?.theory }}</td>
       </tr>
       <tr>
         <!-- 训练作风 -->
         <td class="high-light">{{ $t('table.trainingStyle') }}</td>
-        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id].trainingStyle }}</td>
+        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id]?.trainingStyle }}</td>
       </tr>
       <tr>
         <!-- 备注 -->
         <td class="high-light">{{ $t('table.remarks') }}</td>
         <td class="vertical-top" v-for="(item, index) in ItemList" :key="index">
-          <div class="text t-left" v-html="form[item.id].remark"></div>
+          <div class="text t-left" v-if="form[item.id]" v-html="form[item.id].remark" />
         </td>
       </tr>
       <tr>
@@ -62,23 +62,23 @@
         <td class="high-light">{{ $t('table.teacherSigning') }}</td>
         <td v-for="(item, index) in ItemList" :key="index" class="sign-area">
           <img
-            :src="previewImg(form[item.id].signature)"
+            :src="previewImg(form[item.id]?.signature)"
             alt=""
             class="sign-img"
-            v-if="form[item.id].signature"
+            v-if="form[item.id]?.signature"
           />
         </td>
       </tr>
       <tr>
         <!-- 教员执照号 -->
         <td class="high-light">{{ $t('table.teacherLicenseNumber') }}</td>
-        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id].teacherNumber }}</td>
+        <td v-for="(item, index) in ItemList" :key="index">{{ form[item.id]?.teacherNumber }}</td>
       </tr>
       <tr>
         <!-- 签名日期 -->
         <td class="high-light">{{ $t('table.signedDate') }}</td>
         <td v-for="(item, index) in ItemList" :key="index">
-          {{ formatDate(form[item.id].signTime) }}
+          {{ formatDate(form[item.id]?.signTime) }}
         </td>
       </tr>
       <tr>
@@ -117,49 +117,50 @@
       </tr>
       <tr>
         <!-- 操作能力 -->
-        <td class="high-light">{{ $t('table.operationAbility') }} <i class="el-icon-edit"></i></td>
+        <td class="high-light">{{ $t('table.operationAbility') }} <i class="el-icon-edit" /></td>
         <td v-for="(item, index) in ItemList" :key="index">
-          <el-input size="mini" v-model="form[item.id].maneuverability"></el-input>
+          <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].maneuverability" />
         </td>
       </tr>
       <tr>
         <!-- 理论知识 -->
         <td class="high-light">
-          {{ $t('table.theoreticalKnowledge') }} <i class="el-icon-edit"></i>
+          {{ $t('table.theoreticalKnowledge') }} <i class="el-icon-edit" />
         </td>
         <td v-for="(item, index) in ItemList" :key="index">
-          <el-input size="mini" v-model="form[item.id].theory"></el-input>
+          <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].theory" />
         </td>
       </tr>
       <tr>
         <!-- 训练作风 -->
-        <td class="high-light">{{ $t('table.trainingStyle') }} <i class="el-icon-edit"></i></td>
+        <td class="high-light">{{ $t('table.trainingStyle') }} <i class="el-icon-edit" /></td>
         <td v-for="(item, index) in ItemList" :key="index">
-          <el-input size="mini" v-model="form[item.id].trainingStyle"></el-input>
+          <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].trainingStyle" />
         </td>
       </tr>
       <tr>
         <!-- 备注 -->
-        <td class="high-light">{{ $t('table.remarks') }} <i class="el-icon-edit"></i></td>
+        <td class="high-light">{{ $t('table.remarks') }} <i class="el-icon-edit" /></td>
         <td class="vertical-top" v-for="(item, index) in ItemList" :key="index">
           <el-input
             size="mini"
             type="textarea"
             resize="none"
             :autosize="{ minRows: 3 }"
+            v-if="form[item.id]"
             v-model="form[item.id].remark"
-          ></el-input>
+          />
         </td>
       </tr>
       <tr>
         <!-- 签名 -->
-        <td class="high-light">{{ $t('table.teacherSigning') }} <i class="el-icon-edit"></i></td>
+        <td class="high-light">{{ $t('table.teacherSigning') }} <i class="el-icon-edit" /></td>
         <td v-for="(item, index) in ItemList" :key="index" class="sign-area">
           <img
-            :src="previewImg(form[item.id].signature)"
+            :src="previewImg(form[item.id]?.signature)"
             alt=""
             class="sign-img"
-            v-if="form[item.id].signature"
+            v-if="form[item.id]?.signature"
           />
           <span
             class="link-normal"
@@ -172,17 +173,17 @@
       <tr>
         <!-- 教员执照号 -->
         <td class="high-light">
-          {{ $t('table.teacherLicenseNumber') }} <i class="el-icon-edit"></i>
+          {{ $t('table.teacherLicenseNumber') }} <i class="el-icon-edit" />
         </td>
         <td v-for="(item, index) in ItemList" :key="index">
-          <el-input size="mini" v-model="form[item.id].teacherNumber"></el-input>
+          <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].teacherNumber" />
         </td>
       </tr>
       <tr>
         <!-- 签名日期 -->
         <td class="high-light">{{ $t('table.signedDate') }}</td>
         <td v-for="(item, index) in ItemList" :key="index">
-          {{ formatDate(form[item.id].signTime) }}
+          {{ formatDate(form[item.id]?.signTime) }}
         </td>
       </tr>
       <tr>

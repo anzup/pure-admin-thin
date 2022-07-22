@@ -1,10 +1,5 @@
 <template>
-  <div class="record-container" id="PrintDOM" ref="print" v-loading="loading">
-    <div style="text-align: right" v-if="ids.length > 1">
-      <el-button type="primary" class="no-print" @click="printEvent">{{
-        $t('button.batchPrinting')
-      }}</el-button>
-    </div>
+  <div class="schoolReport-main container" ref="print">
     <div
       class="schoolReport-wrap"
       v-for="(questionsInfo, qIndex) in questions"
@@ -21,11 +16,6 @@
       </div>
       <div class="headerTitle">
         <span>{{ $t('table.customCompany') }}{{ $t('common.ExamResult') }}</span>
-        <div class="headerBtn" v-if="ids.length < 2" data-print="no">
-          <el-button size="mini" type="primary" class="no-print" @click="printEvent">{{
-            $t('button.print')
-          }}</el-button>
-        </div>
       </div>
       <div class="schoolReportBox">
         <div class="personInfo warp-content-table">
@@ -128,11 +118,6 @@
       }}</el-divider
       ><!-- 分割线 -->
     </div>
-
-    <!-- <fix-footer :showCancel="false" :showConfirm="false" v-if="ids.length > 1">
-      <el-button class="no-print" icon="el-icon-d-arrow-left" :disabled="ids.indexOf(id) == 0" @click="getExamRecordsPagination(-1)">{{ $t('button.prev') }}</el-button>
-      <el-button class="no-print rightBtn" icon="el-icon-d-arrow-right" :disabled="ids.indexOf(id) == (ids.length - 1)" @click="getExamRecordsPagination(1)">{{ $t('button.next') }}</el-button>
-    </fix-footer> -->
   </div>
 </template>
 
@@ -142,6 +127,7 @@
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
+  import { htmlToPdf } from '/@/utils/htmlToPdf'
   const settingsStore = useFtmSettingsStore()
   export default {
     name: 'SchoolReport',
@@ -173,10 +159,10 @@
       imgSrc() {
         try {
           let json = JSON.parse(this.others) || {}
-          if (!json.examfileUUID) {
-            throw ''
-          } else {
+          if (json.examfileUUID) {
             return json.hasOwnProperty('examfileUUID') ? previewURL(json.examfileUUID) : ''
+          } else {
+            throw ''
           }
         } catch (e) {
           return ''
@@ -184,21 +170,13 @@
       },
     },
     created() {
-      let id = this.pid || this.$route.query.id
-      id = (id && id.toString() && id.toString().split(',')) || ''
-      this.ids = id instanceof Array ? id : [id]
+      this.getExamRecordsId(this.pid)
       this.loading = true
-      Promise.all(this.ids.map((id) => this.getExamRecordsId(id)))
-        .then(() => {
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
     },
     methods: {
       previewURL,
       printEvent() {
+        // this.$print(this.$refs.print)
         new this.Print({
           ids: '#PrintDOM',
           beforeOpenCallback() {},
@@ -241,7 +219,15 @@
           item.answer = res2.data
         }
         this.loading = false
-        this.$emit('complateDrawing')
+        this.$nextTick(async () => {
+          await htmlToPdf(this.$refs.print, '', 'arraybuffer', async (pdf) => {
+            this.$emit('finish', pdf)
+          })
+          // this.$htmlToPdf().set(opt).from(this.$refs.print).to('pdf').get('pdf').then(async (pdfObj) => {
+          //     const pdf = pdfObj.output("arraybuffer");
+          //     this.$emit('finish', pdf)
+          // })
+        })
       },
       formatType(cellValue) {
         if (cellValue == 'SINGLE_CHOICE') {
@@ -279,7 +265,7 @@
         if (Number.isNaN(val)) {
           return ''
         } else {
-          var minutes = Math.floor(val / 60000) || 1
+          var minutes = Math.ceil(val / 60000)
           return minutes + this.$t('common.minutes')
         }
       },
@@ -287,7 +273,7 @@
         if (this.loading) return
         let index = this.ids.indexOf(this.id)
         let targetIndex = index + step
-        console.log(this.ids, this.id)
+        // console.log(this.ids,this.id)
         if (targetIndex < 0 || targetIndex >= this.ids.length) return
         this.id = this.ids[targetIndex]
         this.getExamRecordsId()
@@ -421,7 +407,6 @@
     max-width: 1600px;
     min-width: 592px;
     padding-bottom: 40px;
-    padding-right: 18px !important;
     .schoolReport-logo {
       display: none;
     }
@@ -608,13 +593,12 @@
     }
   }
   @include printReport;
-
   @media print {
     body {
       background: #fff !important;
     }
     .app-main,
-    .record-container {
+    .container {
       // height: 100%;
       height: auto !important;
       padding: 0 !important;
