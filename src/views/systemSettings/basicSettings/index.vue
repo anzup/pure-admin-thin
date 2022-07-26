@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
   import VxeTable from '/@/components/Table/index.vue'
-  import { onMounted, reactive, ref } from 'vue'
+  import { getCurrentInstance, onMounted, reactive, ref } from 'vue'
   import { getConfigs, GetConfigs, putConfigsId } from '/@/api/configs'
   // import DiaLog from './components/Dialog.vue'
   import { setPage } from '/@/utils/utils'
@@ -14,6 +14,8 @@
   import { useI18n } from 'vue-i18n'
 
   const { t } = useI18n()
+  const instabce = getCurrentInstance()
+  console.log(instabce)
 
   const gridOptions = reactive<VxeTableAllProps>({
     height: 'auto',
