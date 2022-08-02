@@ -4,6 +4,7 @@
     :loading="loading"
     :data="tableData"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     :toolbarConfig="tableTools"
     @handlePageChange="handleCurrentChange"
@@ -14,7 +15,7 @@
           <el-date-picker
             v-model="form.year"
             type="year"
-            value-format="yyyy"
+            value-format="YYYY"
             :placeholder="$t('holder.pleaseSelect') + $t('table.examYear')"
           />
         </el-form-item>
@@ -54,12 +55,6 @@
         >{{ formatDate(row.startDate) }} - {{ formatDate(row.endDate) }}</span
       >
     </template>
-
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="detail(row)">{{ $t('router.questionDetails') }}</span>
-      </div>
-    </template>
   </VxeTable>
 </template>
 
@@ -71,6 +66,8 @@
   import { deleteEmptyParams } from '/@/utils/index'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
   export default {
@@ -160,12 +157,19 @@
       },
     },
     created() {
-      // this.getExamTypeAll()
+      this.getExamTypeAll()
     },
     mounted() {
-      // this.getClazzsAll()
-      // this.form.createdBy = this.userInfo.userId
-      // this.getExams()
+      this.getClazzsAll()
+      this.form.createdBy = this.userInfo.userId
+      this.getExams()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       getClazzsAll() {
@@ -230,14 +234,21 @@
         this.getExams()
       },
       detail(row) {
-        this.$router.push({
-          path: '/examCenter/eaxmStatistics/testDetails',
-          query: {
-            examId: row.id,
-            startDate: this.$route.query.startDate,
-            endDate: this.$route.query.endDate,
+        const startDate = this.$route.query.startDate || ''
+        const endDate = this.$route.query.endDate || ''
+        this.routerGo(
+          `testDetails?examId=${row.id || ''}&startDate=${startDate}&endDate=${endDate}`,
+        )
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('router.questionDetails'),
+            event: () => {
+              this.detail(row)
+            },
           },
-        })
+        ]
       },
     },
   }

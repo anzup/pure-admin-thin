@@ -1,6 +1,7 @@
 <template>
   <el-dialog
     v-if="type == typeEnum.add"
+    width="700px"
     center
     key="add"
     :title="title"
@@ -11,7 +12,7 @@
     <el-form :model="form" :rules="rules" label-width="120px" ref="form">
       <!-- 授课时段 -->
       <el-form-item :label="$t('table.teachingPeriod')" prop="dateTimeRang">
-        <date-picker :editable="false" value-format="yyyy-MM-dd" v-model="form.dateTimeRang" />
+        <date-picker :editable="false" value-format="YYYY-MM-DD" v-model="form.dateTimeRang" />
       </el-form-item>
       <!-- 评语 -->
       <el-form-item :label="$t('table.comment')" prop="remark">
@@ -65,7 +66,7 @@
       </el-form-item>
     </el-form>
 
-    <template class="dialog-footer" #footer>
+    <template #footer>
       <el-button class="btn" type="primary" plain @click="show = false">{{
         $t('button.cancel')
       }}</el-button>

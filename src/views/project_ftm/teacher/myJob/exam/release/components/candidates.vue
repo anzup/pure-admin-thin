@@ -1,52 +1,63 @@
 <template>
-  <VxeTable :data="tableData" :columns="tableColumns" :toolbarConfig="tableTools">
-    <template #form>
-      <el-form ref="form" :model="form" :inline="true" size="medium">
-        <el-form-item>
-          <el-input
-            :placeholder="$t('holder.pleaseEnterTheNameOfTheStudent')"
-            suffix-icon="el-icon-search"
-            v-model="form.searchKey"
-            clearable
-            style="width: 200px"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="query">{{ $t('button.query') }}</el-button>
-        </el-form-item>
-      </el-form>
-    </template>
-    <template #right_tools>
-      <el-button size="mini" @click="addSystemExam" type="primary" :disabled="disabled">{{
-        $t('button.addSystemExam')
+  <div class="flex-container">
+    <div class="flex-content">
+      <VxeTable
+        ref="xTable"
+        :data="tableData"
+        :columns="tableColumns"
+        :toolbarConfig="tableTools"
+        :buttons="tableButtons"
+      >
+        <template #form>
+          <el-form ref="form" :model="form" :inline="true" size="medium">
+            <el-form-item>
+              <el-input
+                :placeholder="$t('holder.pleaseEnterTheNameOfTheStudent')"
+                v-model="form.searchKey"
+                clearable
+                style="width: 200px"
+              >
+                <template #suffix>
+                  <el-icon>
+                    <Search />
+                  </el-icon>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="query">{{ $t('button.query') }}</el-button>
+            </el-form-item>
+          </el-form>
+        </template>
+        <template #right_tools>
+          <el-button size="mini" @click="addSystemExam" type="primary" :disabled="disabled">{{
+            $t('button.addSystemExam')
+          }}</el-button>
+          <el-button size="mini" @click="addTemporaryExam" type="primary">{{
+            $t('button.addTemporaryExam')
+          }}</el-button>
+          <el-button size="mini" @click="importTemporaryCandidates" type="primary">{{
+            $t('button.importTemporaryCandidates')
+          }}</el-button>
+          <el-button size="mini" @click="listPrinting" type="primary">{{
+            $t('button.listPrinting')
+          }}</el-button>
+        </template>
+        <template #pager />
+      </VxeTable>
+    </div>
+    <div class="footerBtn">
+      <el-button @click="goBack" type="primary" plain>{{ $t('button.cancel') }}</el-button>
+      <el-button
+        v-if="examsInfo && examsInfo.status !== 'EXAMING'"
+        type="primary"
+        @click="lastStep"
+        >{{ $t('button.lastStep') }}</el-button
+      >
+      <el-button type="primary" @click="handleSave" class="rightBtn" :loading="loading">{{
+        $t('button.save')
       }}</el-button>
-      <el-button size="mini" @click="addTemporaryExam" type="primary">{{
-        $t('button.addTemporaryExam')
-      }}</el-button>
-      <el-button size="mini" @click="importTemporaryCandidates" type="primary">{{
-        $t('button.importTemporaryCandidates')
-      }}</el-button>
-      <el-button size="mini" @click="listPrinting" type="primary">{{
-        $t('button.listPrinting')
-      }}</el-button>
-    </template>
-    <template #edit="{ row, rowIndex }">
-      <span class="buttonEdit" @click="remove(row.id, rowIndex)">{{ $t('button.remove') }}</span>
-    </template>
-    <template #pager />
-  </VxeTable>
-
-  <div class="footerBtn">
-    <el-button @click="goBack" type="primary" plain>{{ $t('button.cancel') }}</el-button>
-    <el-button
-      v-if="examsInfo && examsInfo.status !== 'EXAMING'"
-      type="primary"
-      @click="lastStep"
-      >{{ $t('button.lastStep') }}</el-button
-    >
-    <el-button type="primary" @click="handleSave" class="rightBtn" :loading="loading">{{
-      $t('button.save')
-    }}</el-button>
+    </div>
   </div>
 
   <!-- 新增系统考生 -->
@@ -66,24 +77,28 @@
   />
 
   <!-- 导入临时考生 -->
-  <!--<import-tmporary-candidates-->
-  <!--  :importTemporaryDialogVisible="importTemporaryDialogVisible"-->
-  <!--  @handleCancel="handleCancel"-->
-  <!--  @getImportData="getImportData"-->
-  <!--/>-->
+  <import-tmporary-candidates
+    v-model:importTemporaryDialogVisible="importTemporaryDialogVisible"
+    @handleCancel="handleCancel"
+    @getImportData="getImportData"
+  />
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import axios from 'axios'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import systemStudentsDialog from './systemStudentsDialog.vue'
   import addTmporaryCandidates from './addTmporaryCandidates.vue'
-  // import importTmporaryCandidates from './importTmporaryCandidates.vue'
+  import importTmporaryCandidates from './importTmporaryCandidates.vue'
   import { putExamsId } from '/@/api/ftm/teacher/examCenter'
   import { debounce, downLoadBlob } from '/@/utils/index'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useUserStore } from '/@/store/modules/user'
+  import { useI18n } from 'vue-i18n'
+  const accountStore = useUserStore()
   const userStore = useFtmUserStore()
   export default {
     props: ['examsInfo', 'type'],
@@ -141,13 +156,17 @@
       userInfo() {
         return userStore.$state
       },
+      xTable() {
+        return this.$refs.xTable.$refs.xTable
+      },
     },
     components: {
       selectedView,
       systemStudentsDialog,
       addTmporaryCandidates,
-      // importTmporaryCandidates,
+      importTmporaryCandidates,
       VxeTable,
+      Search,
     },
     created() {
       if (sessionStorage.getItem('makeUpInfo')) {
@@ -164,6 +183,10 @@
     mounted() {
       this.debouncedClickFn = debounce(this.handleSave, 0.5 * 1000)
     },
+    setup() {
+      const { locale } = useI18n()
+      return { locale }
+    },
     methods: {
       debouncedClickFn() {}, // 防抖
       addSystemExam() {
@@ -178,6 +201,7 @@
       },
       remove(id, index) {
         this.tableData.splice(index, 1)
+        this.xTable.reloadData(this.tableData)
       },
       lastStep() {
         this.$emit('getActive', 2)
@@ -264,8 +288,8 @@
                 method: 'get',
                 responseType: 'arraybuffer',
                 headers: {
-                  // TODO 传递语言环境
-                  // 'Accept-Language': getLanguage(),
+                  'Accept-Language': this.locale,
+                  Authorization: 'Bearer ' + accountStore.token,
                 },
               }).then((res) => {
                 downLoadBlob(res.data)
@@ -273,16 +297,16 @@
             } else {
               window.sessionStorage.removeItem('examId')
               this.$message.success(this.$t('tip.saveSuccessTip'))
-              if (this.type == 'FORMAL' || (this.examsInfo && this.examsInfo.type == 'FORMAL')) {
-                // TODO 更改考试管理路由
-                this.$router.push({
-                  path: '/myJob/exam/examManage',
-                })
-              } else {
-                this.$router.push({
-                  path: '/myJob/exam/mock',
-                })
-              }
+              this.$router.back()
+              // if (this.type == 'FORMAL' || (this.examsInfo && this.examsInfo.type == 'FORMAL')) {
+              //   this.$router.push({
+              //     path: '/exam/release',
+              //   })
+              // } else {
+              //   this.$router.push({
+              //     path: 'exam/mock',
+              //   })
+              // }
             }
           }
         })
@@ -325,8 +349,31 @@
           return ''
         }
       },
+      tableButtons({ row, rowIndex }) {
+        return [
+          {
+            name: this.$t('button.remove'),
+            event: () => {
+              this.remove(row.id, rowIndex)
+            },
+          },
+        ]
+      },
     },
   }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .flex-container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+  .flex-content {
+    flex: 1;
+  }
+  .footerBtn {
+    text-align: right;
+    margin-top: 12px;
+  }
+</style>

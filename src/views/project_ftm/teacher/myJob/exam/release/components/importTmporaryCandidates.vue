@@ -1,61 +1,69 @@
 <template>
-  <div class="importTmporaryCandidates">
-    <el-dialog
-      width="500px"
-      center
-      :title="$t('button.importTemporaryCandidates')"
-      v-model:visible="isShow"
-      :before-close="handleCancel"
-      @closed="closed"
-    >
-      <span class="dialogBox">
-        <div class="importInfo">
-          <div class="import">
-            <span style="display: inline-block; margin-right: 20px">
-              {{ $t('holder.importFormat') }}
-            </span>
-            <el-button type="primary" @click="getExamsStudentImportEvent">{{
-              $t('table.downloadTemplate')
-            }}</el-button>
-          </div>
-          <el-upload
-            id="quill-upload"
-            ref="upload"
-            accept=".xlc,.xls,.xlsx"
-            :auto-upload="false"
-            :action="uploadAddress"
-            name="file"
-            :limit="1"
-            :headers="uploadHeader"
-            :multiple="false"
-            :file-list="fileList"
-            :on-change="handleChange"
-            :on-remove="handleRemove"
-            :on-success="handleSuccess"
-            :on-error="handleError"
-            :on-progress="handleProgress"
-            :before-upload="beforeUpload"
-          >
-            <el-button size="small" type="primary">{{ $t('button.selectFile') }}</el-button>
-          </el-upload>
+  <el-dialog
+    width="500px"
+    center
+    :title="$t('button.importTemporaryCandidates')"
+    v-model="visible"
+    :before-close="handleCancel"
+    @closed="closed"
+  >
+    <span class="dialogBox">
+      <div class="importInfo">
+        <div class="import">
+          <span style="display: inline-block; margin-right: 20px">
+            {{ $t('holder.importFormat') }}
+          </span>
+          <el-button type="primary" @click="getExamsStudentImportEvent">{{
+            $t('table.downloadTemplate')
+          }}</el-button>
         </div>
-      </span>
-      <template #footer>
-        <el-button @click="handleCancel" type="primary" plain size="medium">{{
-          $t('button.cancel')
-        }}</el-button>
-        <el-button type="primary" size="medium" :loading="loading" @click="handleSave">{{
-          $t('button.leadingIn')
-        }}</el-button>
-      </template>
-    </el-dialog>
-  </div>
+        <el-upload
+          id="quill-upload"
+          ref="upload"
+          accept=".xlc,.xls,.xlsx"
+          :auto-upload="false"
+          :action="uploadAddress"
+          name="file"
+          :limit="1"
+          :headers="uploadHeader"
+          :multiple="false"
+          :file-list="fileList"
+          :on-change="handleChange"
+          :on-remove="handleRemove"
+          :on-success="handleSuccess"
+          :on-error="handleError"
+          :on-progress="handleProgress"
+          :before-upload="beforeUpload"
+        >
+          <el-button size="small" type="primary">{{ $t('button.selectFile') }}</el-button>
+        </el-upload>
+      </div>
+    </span>
+    <template #footer>
+      <el-button @click="handleCancel" type="primary" plain size="medium">{{
+        $t('button.cancel')
+      }}</el-button>
+      <el-button type="primary" size="medium" :loading="loading" @click="handleSave">{{
+        $t('button.leadingIn')
+      }}</el-button>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
   import { getExamsStudentImport } from '/@/api/ftm/teacher/examCenter'
   export default {
     props: ['importTemporaryDialogVisible'],
+    computed: {
+      visible: {
+        get() {
+          return this.importTemporaryDialogVisible
+        },
+        set(val) {
+          this.$emit('update:importTemporaryDialogVisible', val)
+        },
+      },
+    },
     data() {
       return {
         isShow: false,

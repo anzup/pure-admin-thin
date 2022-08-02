@@ -34,7 +34,7 @@
         },
       },
       officeUrl() {
-        let url = `${process.env.VUE_APP_BASE_API_PUB}/open/${this.uuid}/inline`
+        let url = `${import.meta.env.VITE_BASE_API_PUB}/open/${this.uuid}/inline`
         return `pdf/web/viewer.html?file=${encodeURIComponent(url)}`
       },
       computeHeight() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <el-scrollbar>
     <!--<el-scrollbar class="fixed-scroll-x">-->
     <slot />
     <OrderTable ref="order" :type="type" :data="orderData" @sign="handleOrderSign" />
@@ -12,7 +12,7 @@
         <el-button @click="handleCancel" type="primary" plain>{{ $t('button.cancel') }}</el-button>
       </template>
     </fix-footer>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script>

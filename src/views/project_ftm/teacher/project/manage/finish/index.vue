@@ -5,6 +5,7 @@
       :data="tableData"
       :loading="loading"
       :columns="tableColumns"
+      :buttons="tableButtons"
       v-model:form="pagination"
       :toolbarConfig="tableTools"
       @handlePageChange="handleCurrentChange"
@@ -36,31 +37,21 @@
           <el-form-item>
             <el-input
               :placeholder="$t('holder.pleaseEnterStudentName')"
-              suffix-icon="el-icon-search"
               v-model.trim="form.searchKey"
               style="width: 280px"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button
             ><!-- 查询 -->
           </el-form-item>
         </el-form>
-      </template>
-      <template #edit="{ row }">
-        <div class="button-line">
-          <span class="buttonEdit" @click="setflyTrainAudit(row)" v-if="row.result == 'PASS'">{{
-            $t('button.endOfTraining')
-          }}</span>
-          <span class="buttonEdit" @click="setTrainEvent(row)" v-if="row.result != 'PASS'">{{
-            $t('table.signSetTrain')
-          }}</span>
-          <span
-            class="buttonEdit"
-            @click="toPage('examWorkingReportDetails', { id: row.id, status: row.status })"
-            >{{ $t('button.details') }}</span
-          >
-        </div>
       </template>
     </VxeTable>
 
@@ -79,9 +70,13 @@
   import VxeTable from '/@/components/Table/index.vue'
   import qrDialog from './components/qrCodeDialog.vue'
   import signTrainDialog from './components/signTrainDialog.vue'
+  import { Search } from '@element-plus/icons-vue'
   import Api from '/@/api/ftm/teacher/trainEva'
   import { groupAll, noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
   import XEUtils from 'xe-utils'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  import { deleteEmptyParams } from '../../../../../../utils'
   export default {
     data() {
       return {
@@ -164,7 +159,14 @@
         dialogVisible: false,
       }
     },
-    components: { qrDialog, signTrainDialog, VxeTable },
+    components: { qrDialog, signTrainDialog, VxeTable, Search },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     created() {
       noFinishedClazzs().then((res) => {
         this.form.classList = res.data.content
@@ -255,11 +257,14 @@
       cancelDialog() {
         this.dialogVisible = false
       },
-      toPage(name, query) {
-        this.$router.push({
-          name,
-          query,
-        })
+      toPage(uri, params) {
+        let url = uri + '?'
+        let query = deleteEmptyParams(params)
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${value}&`
+        }
+        url = url.substring(0, url.length - 1)
+        this.routerGo(url)
       },
       // 格式化性别
       genderFormat({ cellValue }) {
@@ -349,6 +354,30 @@
       setTrainEvent(row) {
         this.dialogVisible = true
         this.rowData = row
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.endOfTraining'),
+            visible: row.result == 'PASS',
+            event: () => {
+              this.setflyTrainAudit(row)
+            },
+          },
+          {
+            name: this.$t('table.signSetTrain'),
+            visible: row.result != 'PASS',
+            event: () => {
+              this.setTrainEvent(row)
+            },
+          },
+          {
+            name: this.$t('button.details'),
+            event: () => {
+              this.toPage('finish/detail', { id: row.id, status: row.status })
+            },
+          },
+        ]
       },
     },
   }

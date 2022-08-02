@@ -28,6 +28,8 @@
   import Api from '/@/api/ftm/teacher/trainEva'
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   export default {
     components: { VxeTable },
     data() {
@@ -63,7 +65,7 @@
           },
           // { field: "processResult", title: this.$t('table.disposalResults'), width: 140, formatter: this.resultFormat },
           // { field: "auditStatus", title: this.$t('table.examineSelect'), width: 100, formatter: this.auditFormat },
-          { title: this.$t('table.tableEdit'), minWidth: 130, slots: { default: 'edit' } },
+          { title: this.$t('table.tableEdit'), minWidth: 130, slots: { default: 'operate' } },
         ],
         loading: false,
         loadingExport: false,
@@ -81,10 +83,15 @@
     created() {
       this.getData()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return { routerGo }
+    },
     methods: {
       toPage(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/examRecordsDetails`,
           query: {
             records_id: row.id,
@@ -95,7 +102,7 @@
       // 跳转到试卷页
       toExam(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/examRecordsPaper`,
           query: {
             id: row.id,
@@ -108,7 +115,7 @@
       // 跳转到成绩单
       toExamReport(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/examRecordsReport`,
           query: {
             records_id: this.id,
@@ -190,16 +197,6 @@
           default:
             return ''
         }
-      },
-      // 跳转到考试详情
-      toExamDetails(row) {
-        let id = this.$route.query.id
-        this.$router.push({
-          path: 'TrainingRecordsExamDetails',
-          query: {
-            records_id: id,
-          },
-        })
       },
       // 格式化日期
       dateFormat({ cellValue }) {

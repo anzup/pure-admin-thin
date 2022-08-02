@@ -49,6 +49,8 @@
   import Api from '/@/api/ftm/teacher/trainEva'
   import XEUtils from 'xe-utils'
   import { genPdfByRecords } from '/@/api/ftm/teacher/studentTraining'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   export default {
     components: { VxeTable },
     data() {
@@ -91,7 +93,7 @@
             width: 160,
             formatter: this.resultFormat,
           },
-          { title: this.$t('table.tableEdit'), width: 120, slots: { default: 'edit' } },
+          { title: this.$t('table.tableEdit'), width: 120, slots: { default: 'operate' } },
         ],
         loading: false,
         loadingExport: false,
@@ -127,6 +129,13 @@
     created() {
       this.getData()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       // 选择行
       selectChangeEvent({ records }) {
@@ -144,7 +153,7 @@
       },
       toPage(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/CBTAdetails`,
           params: {
             ...params,

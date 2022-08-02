@@ -4,6 +4,7 @@
       :loading="loading"
       :data="tableData"
       :columns="tableColumns"
+      :buttons="tableButtons"
       :toolbarConfig="tableTools"
       :checkbox-config="{ checkMethod: this.isCanBatchSign }"
       @action="btnClick"
@@ -38,16 +39,6 @@
           <el-tooltip class="t" effect="dark" :content="item.remark" placement="left">
             <span>{{ item.remark }}</span>
           </el-tooltip>
-        </div>
-      </template>
-      <template #edit="{ row }">
-        <div class="button-line">
-          <span class="buttonEdit" v-if="isCanSign(row)" @click="handleSignOne(row)">{{
-            formatSignBtn(row) ? $t('button.modify') : $t('table.sign')
-          }}</span>
-          <span class="buttonEdit disabled" v-else>{{
-            formatSignBtn(row) ? $t('button.modify') : $t('table.sign')
-          }}</span>
         </div>
       </template>
     </VxeTable>
@@ -284,6 +275,17 @@
         }
       },
       btnClick() {},
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.formatSignBtn(row) ? this.$t('button.modify') : this.$t('table.sign'),
+            disabled: !this.isCanSign(row),
+            event: () => {
+              this.handleSignOne(row)
+            },
+          },
+        ]
+      },
     },
   }
 </script>

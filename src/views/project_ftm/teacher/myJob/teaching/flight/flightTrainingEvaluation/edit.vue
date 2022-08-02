@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="print-wrapper" ref="printOrder">
       <!-- <div style="text-align: right; margin-bottom: 10px;" v-if="type == 'info'">
                 <el-button type="primary" class="no-print" @click="printEvent">{{ids?t('button.batchPrinting'):t('button.print')}}</el-button>
@@ -61,7 +61,6 @@
   import FixFooter from '/@/views/project_ftm/teacher/components/FixFooter/index.vue'
   import Api from '/@/api/ftm/teacher/trainEva'
   import { flightTrainingGetPdf } from '/@/api/ftm/teacher/studentTraining'
-  import XEUtils from 'xe-utils'
   import moment from 'moment'
   import { computed, nextTick, onMounted, reactive, ref } from 'vue'
   import { useI18n } from 'vue-i18n'

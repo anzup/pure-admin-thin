@@ -123,29 +123,23 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <!-- <el-col
-                        :span="11"
-                        :offset="1"
-                        v-if="$route.params.type !== 'INTERNAL_TRAINING'"
-                    >
-                        <el-form-item prop="customers" :label="$t('text.connection')">
-                            <el-select
-                                v-model="form.customers"
-                                :placeholder="$t('text.please_select')"
-                                multiple
-                                :multiple-limit="
-                                    $route.params.type == 'DRY_LEASE' ? 1 : 99
-                                "
-                            >
-                                <el-option
-                                    v-for="item in customerAllList"
-                                    :label="item.name"
-                                    :value="item.id"
-                                    :key="item.id"
-                                />
-                            </el-select>
-                        </el-form-item>
-                    </el-col>-->
+          <el-col :span="11" :offset="1" v-if="$route.params.type !== 'INTERNAL_TRAINING'">
+            <el-form-item prop="customers" :label="$t('text.connection')">
+              <el-select
+                v-model="form.customers"
+                :placeholder="$t('text.please_select')"
+                multiple
+                :multiple-limit="$route.params.type == 'DRY_LEASE' ? 1 : 99"
+              >
+                <el-option
+                  v-for="item in customerAllList"
+                  :label="item.name"
+                  :value="item.id"
+                  :key="item.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col :span="11" :offset="1" v-if="route.params.type !== 'INTERNAL_TRAINING'">
             <el-form-item prop="contracts" :label="$t('text.related_contract')">
               <el-select
@@ -155,6 +149,7 @@
                 multiple
                 :multiple-limit="form.type == 'DRY_LEASE' ? 1 : 0"
                 filterable
+                @change="changeContracts"
               >
                 <el-option
                   :disabled="canSelect(item)"
@@ -164,6 +159,32 @@
                   :key="item.id"
                 />
               </el-select>
+            </el-form-item>
+          </el-col>
+          <!--理论教员-->
+          <el-col :span="11" :offset="1" v-if="route.params.type === 'WET_LEASE'">
+            <el-form-item prop="theoryTeacherIds" :label="t('table.theoryTeacher')">
+              <el-select v-model="form.theoryTeacherIds" multiple filterable>
+                <el-option
+                  v-for="(item, index) in state.employeeList"
+                  :key="index"
+                  :value="item.id"
+                  :label="item.name"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!--部门-->
+          <el-col :span="11" :offset="1" v-if="route.params.type === 'WET_LEASE'">
+            <el-form-item prop="departmentId" :label="t('table.department')">
+              <el-cascader
+                v-model="state.form.departmentId"
+                :options="state.departmentsAll"
+                :props="state.departmentProps"
+                separator="-"
+                :show-all-levels="true"
+                clearable
+              />
             </el-form-item>
           </el-col>
 
@@ -210,10 +231,13 @@
   import { ElMessage } from 'element-plus'
   import { useRoute, useRouter } from 'vue-router'
   import dayjs from 'dayjs'
+  import XEUtils from 'xe-utils'
   import { useI18n } from 'vue-i18n'
   import useCustomer from '/@/commonTs/customer'
   import to from 'await-to-js'
   import type { ElForm } from 'element-plus'
+  import { getEmployeesList } from '/@/api/opm/roles'
+  import { getDepartments } from '/@/api/ftm/teacher/account'
 
   type ElFormInstance = InstanceType<typeof ElForm>
   const { t } = useI18n()
@@ -239,6 +263,7 @@
       addNum: 1,
       id: undefined,
       contracts: [],
+      theoryTeacherIds: [],
     },
     groupingAddBOS: [],
     rules: {
@@ -298,7 +323,7 @@
       ],
       startTime: [
         {
-          required: false,
+          required: true,
           type: 'date',
           message: t('text.please_select'),
           trigger: 'change',
@@ -306,7 +331,7 @@
       ],
       endTime: [
         {
-          required: false,
+          required: true,
           type: 'date',
           message: t('text.please_select'),
           trigger: 'change',
@@ -328,9 +353,24 @@
           trigger: 'change',
         },
       ],
+      theoryTeacherIds: [
+        {
+          required: true,
+          type: 'array',
+          message: t('text.please_select'),
+          trigger: 'change',
+        },
+      ],
     } as ElFormInstance['rules'],
     coursesList: [],
     syllabusesList: [],
+    employeeList: [],
+    departmentProps: {
+      checkStrictly: true,
+      label: 'name',
+      value: 'id',
+    },
+    departmentsAll: [],
   })
   const contractsList = ref([])
 
@@ -379,6 +419,12 @@
       ? state.groupingAddBOS.map((v) => v.num).reduce((a, b) => a + b)
       : 0,
   )
+  // 选择合同，填充客户
+  const changeContracts = () => {
+    state.form.customers = contractsList.value
+      .filter((v) => state.form.contracts.includes(v.id))
+      .map((v) => v.customerId)
+  }
 
   async function formChange() {
     if (isGetNumber.value) {
@@ -410,10 +456,20 @@
       }
     }
     state.form.syllabusId = undefined
-    // state.form.customers = [];
+    state.form.customers = []
     state.form.contracts = []
     getSyllabuses()
     getContracts()
+  }
+  async function getDepartmentsAll() {
+    let [err, res] = await to(getDepartments({ size: 1000 }))
+    if (!err && res.status == 200) {
+      let departments = res.data.content.map((v) => {
+        v.parentId = v.superior ? v.superior.id : null
+        return v
+      })
+      state.departmentsAll = XEUtils.toArrayTree(departments, { strict: true })
+    }
   }
   function getGroupings() {
     getGroupingsList({
@@ -438,13 +494,20 @@
       if (valid && (route.params.type == 'WET_LEASE' ? await groupRef.value.submitForm() : true)) {
         let api = undefined
         let form = {}
-        state.form.courseNumber = courseCode.value + state.form.number
-        state.form.customers = contractsList.value
-          .filter((v) => state.form.contracts.includes(v.id))
-          .map((v) => v.customerId)
+        let _data = XEUtils.clone(state.form, true)
+        _data.courseNumber = courseCode.value + state.form.number
+        _data.departmentId =
+          _data.departmentId instanceof Array
+            ? _data.departmentId.length > 1
+              ? _data.departmentId[1]
+              : _data.departmentId[0]
+            : _data.departmentId
+        // state.form.customers = contractsList.value
+        //   .filter((v) => state.form.contracts.includes(v.id))
+        //   .map((v) => v.customerId)
         if (!route.params.id) {
           const data = {
-            ...state.form,
+            ..._data,
             year: dayjs(state.form.year).year(),
           }
 
@@ -461,7 +524,7 @@
            */
           // form.id = route.params.id;
           form = {
-            ...state.form,
+            ..._data,
             id: route.params.id,
             year: dayjs(state.form.year).year(),
           }
@@ -524,7 +587,10 @@
     getCoursesAll().then((res) => {
       state.coursesList = res.data
     })
-
+    getEmployeesList({ size: 9999 }).then((res) => {
+      state.employeeList = res.data.content
+    })
+    getDepartmentsAll()
     if (route.params.id) {
       getClazzsDetail(route.params.id as string).then((res) => {
         const { data } = res
@@ -539,12 +605,13 @@
         state.form.startTime = data.startTime
         state.form.endTime = data.endTime
         state.form.syllabusId = data.syllabus.id
-        // state.form.departmentId = data.department.id;
-        // state.form.customers = data.customers?.map(v => v.id);
+        state.form.departmentId = data.department.id
+        state.form.customers = data.customers?.map((v) => v.id)
         state.form.contracts = data.contracts
         state.form.shortName = data.shortName
         state.form.type = res.data.type
         state.form.number = res.data.number
+        state.form.theoryTeacherIds = res.data.theoryTeachers?.map((item) => item.id) || []
         courseCode.value = state.form.courseNumber.slice(
           0,
           state.form.courseNumber.length - res.data.number.length,

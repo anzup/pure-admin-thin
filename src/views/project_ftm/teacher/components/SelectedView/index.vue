@@ -1,6 +1,8 @@
 <template>
   <div class="selectedConetent">
-    <i class="el-icon-warning warning" />
+    <el-icon class="warning">
+      <Warning />
+    </el-icon>
     <div class="selected">
       {{ $t('common.selected') }}<span class="num">{{ num }}</span
       >{{ $t('common.sum') }}
@@ -10,7 +12,9 @@
 </template>
 
 <script>
+  import { Warning } from '@element-plus/icons-vue'
   export default {
+    components: { Warning },
     props: {
       num: [Number, String],
     },

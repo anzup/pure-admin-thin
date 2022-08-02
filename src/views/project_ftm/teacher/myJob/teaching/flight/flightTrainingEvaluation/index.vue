@@ -17,7 +17,7 @@
         <el-form-item :label="t('table.schoolYear')">
           <el-date-picker
             type="year"
-            value-format="yyyy"
+            value-format="YYYY"
             v-model="gridOptions.form.year"
             @change="refreshCourseNameEvent"
           />
@@ -41,10 +41,15 @@
         <el-form-item>
           <el-input
             :placeholder="t('holder.pleaseEnterStudentName')"
-            suffix-icon="el-icon-search"
             v-model.trim="gridOptions.form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="searchTable">{{ t('button.query') }}</el-button
@@ -52,19 +57,12 @@
         </el-form-item>
       </el-form>
     </template>
-    <template #edit="{ row }">
-      <span
-        class="buttonEdit"
-        @click="toPage(row, 'TeachingEvaluationTable')"
-        v-permission="menuName + ':APPRAISE'"
-        >{{ t('table.evaluate') }}</span
-      >
-    </template>
   </VxeTable>
 </template>
 
 <script lang="ts" setup>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getStudents, noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import { computed, onMounted, reactive, ref } from 'vue'
@@ -73,9 +71,11 @@
   import to from 'await-to-js'
   import { useI18n } from 'vue-i18n'
   import { setPage } from '/@/utils/utils'
+  import { useGo } from '/@/hooks/usePage'
 
   const router = useRouter()
   const route = useRoute()
+  const routerGo = useGo(router)
   const { t } = useI18n()
   const userStore = useFtmUserStore()
   const userInfo = computed(() => userStore.$state)
@@ -127,6 +127,15 @@
         buttons: 'left_tools',
       },
     },
+    buttons: ({ row }) => [
+      {
+        name: t('table.evaluate'),
+        visible: userStore.ContainsPermissions(menuName.value + ':APPRAISE'),
+        event: () => {
+          toPage(row)
+        },
+      },
+    ],
   })
 
   // 交互/操作事件
@@ -134,13 +143,8 @@
     gridOptions.form.classNumber = ''
     getClassMethod()
   }
-  const toPage = (row, pageName) => {
-    router.push({
-      name: pageName,
-      query: {
-        id: row.id,
-      },
-    })
+  const toPage = (row) => {
+    routerGo(`flight/evaluateTable?id=${row.id}`)
   }
   const searchTable = () => {
     gridOptions.form.page = 1
@@ -152,7 +156,6 @@
     }
     getTableData()
   }
-  const btnClick = ({ type, row }) => {}
 
   //  基础列表数据获取
   const getTableData = async () => {

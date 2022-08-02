@@ -44,7 +44,6 @@
       :file-list="uploadFiles"
       :before-upload="() => false"
       :on-change="changeUpload"
-      :before-remove="removeUpload"
       :auto-upload="false"
     >
       <el-button type="primary">{{ $t('button.addFile') }}</el-button>
@@ -88,8 +87,13 @@
   import previewDialog from './components/previewDialog.vue'
   import axios from 'axios'
   import to from 'await-to-js'
-  import { mergePDF, dataURLtoFile } from '/@/utils/index'
+  import { mergePDF, dataURLtoFile, deleteEmptyParams } from '/@/utils/index'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useUserStore } from '/@/store/modules/user'
+  import { useI18n } from 'vue-i18n'
+  const accountStore = useUserStore()
   const userStore = useFtmUserStore()
   export default {
     data() {
@@ -127,7 +131,7 @@
             width: 200,
             slots: { default: 'progress' },
           },
-          { title: this.$t('table.tableEdit'), width: 210, slots: { default: 'edit' } },
+          { title: this.$t('table.tableEdit'), width: 210, slots: { default: 'operate' } },
         ],
         loading: false,
         loadingExport: false,
@@ -180,6 +184,15 @@
       this.form.studentTrainingRecordId = id
       this.getData()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      const { locale } = useI18n()
+      return {
+        routerGo,
+        locale,
+      }
+    },
     methods: {
       async getData() {
         this.loading = true
@@ -201,13 +214,15 @@
         this.showProgressDialog = true
         axios({
           url:
-            process.env.VUE_APP_BASE_API +
+            import.meta.env.VITE_BASE_API_FTM +
             '/studentTrainingFiles/download?studentTrainingRecordId=' +
             id,
           responseType: 'blob',
           timeout: 180000, // 三分钟超时
-          // TODO 传递语言环境
-          // headers: { 'Accept-Language': getLanguage() },
+          headers: {
+            Authorization: 'Bearer ' + accountStore.token,
+            'Accept-Language': this.locale,
+          },
           onDownloadProgress: function (e) {
             if (e.lengthComputable) {
               var rate = e.loaded / e.total
@@ -253,11 +268,13 @@
         this.progressList = [{ progress: 0, name: fileName }]
         this.showProgressDialog = true
         axios({
-          url: process.env.VUE_APP_BASE_API + `/studentTrainingFiles/${item.id}/download`,
+          url: import.meta.env.VITE_BASE_API_FTM + `/studentTrainingFiles/${item.id}/download`,
           responseType: 'blob',
           timeout: 180000, // 三分钟超时
-          // TODO 传递语言环境
-          // headers: { 'Accept-Language': getLanguage() },
+          headers: {
+            'Accept-Language': this.locale,
+            Authorization: 'Bearer ' + accountStore.token,
+          },
           onDownloadProgress: function (e) {
             if (e.lengthComputable) {
               var rate = e.loaded / e.total
@@ -320,17 +337,20 @@
           return this.$message.error(this.$t('tip.uploadFileIsNotSelected'))
         let that = this
         let FileFormData = new FormData()
-        let fileBase64 = await mergePDF(this.uploadFiles, 'base64string')
+        let fileBase64 = await mergePDF(
+          this.uploadFiles.map((file) => file.raw),
+          'base64string',
+        )
         let file = dataURLtoFile(fileBase64, 'megerPDF.pdf')
         FileFormData.append('file', file)
 
-        let url = process.env.VUE_APP_BASE_API_PUB + '/files/upload'
+        let url = import.meta.env.VITE_BASE_API_PUB + '/files/upload'
         let index = 0
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data',
-            // TODO 传递语言环境
-            // 'Accept-Language': getLanguage(),
+            'Accept-Language': this.locale,
+            Authorization: 'Bearer ' + accountStore.token,
           },
           onUploadProgress: function (e) {
             //属性lengthComputable主要表明总共需要完成的工作量和已经完成的工作是否可以被测量
@@ -372,29 +392,25 @@
           }
         }
       },
-      changeUpload(file, fileList) {
+      changeUpload(file) {
         let fileName = file.name
         let suffix = fileName.split('.').pop() || ''
         suffix = suffix.toLocaleLowerCase()
         if (suffix != 'pdf') {
           this.$message.error(this.$t('tip.uploadedFileFormatError'))
-          this.uploadFiles = [].concat(this.uploadFiles)
-        } else {
-          this.uploadFiles.push(file.raw)
+          this.uploadFiles.pop()
         }
-      },
-      removeUpload(file, fileList) {
-        let uid = file.uid
-        let index = this.uploadFiles.findIndex((v) => v.uid == uid)
-        this.uploadFiles.splice(index, 1)
       },
       // 文件下载
       async handleDownload() {
         let that = this
         let PromiseArray = this.progressList.map((v, i) => {
           return axios({
-            url: process.env.VUE_APP_BASE_API_PUB + `/files/${v.uuid}/download`,
+            url: import.meta.env.VITE_BASE_API_PUB + `/files/${v.uuid}/download`,
             responseType: 'blob',
+            headers: {
+              Authorization: 'Bearer ' + accountStore.token,
+            },
             onDownloadProgress: function (e) {
               if (e.lengthComputable) {
                 var rate = e.loaded / e.total
@@ -465,17 +481,20 @@
             })
         } else {
           let params = this.$route.params
-          this.$router.push({
-            path: `${params.recordId}/triningRecords`,
-            query: {
-              name: item.type,
-              clazzId: item.studentTrainingRecord.clazz.id,
-              studentId: item.studentTrainingRecord.student.id,
-              studentUserid: item.studentTrainingRecord.student.userId,
-              recordId: this.form.studentTrainingRecordId,
-              courseNumber: item.studentTrainingRecord.clazz.courseNumber,
-            },
+          let url = `${params.recordId}/triningRecords?`
+          const query = deleteEmptyParams({
+            name: item.type,
+            clazzId: item.studentTrainingRecord.clazz.id,
+            studentId: item.studentTrainingRecord.student.id,
+            studentUserid: item.studentTrainingRecord.student.userId,
+            recordId: this.form.studentTrainingRecordId,
+            courseNumber: item.studentTrainingRecord.clazz.courseNumber,
           })
+          for (let [key, value] of Object.entries(query)) {
+            url += `${key}=${value}&`
+          }
+          url = url.substring(0, url.length - 1)
+          this.routerGo(url)
         }
       },
       // 格式化结果

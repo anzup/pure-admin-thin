@@ -4,6 +4,7 @@
     :data="tableData"
     :loading="tableLoading"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     :toolbar-config="tableTools"
     @checkbox="selectChangeEvent"
@@ -14,10 +15,15 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterTheCourseName')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -25,13 +31,15 @@
       </el-form>
     </template>
     <template #right_tools>
-      <!--TODO 按钮权限-->
-      <!--v-permission="menuName + ':ADD'"-->
-      <el-button size="mini" type="primary" @click="add">{{ $t('button.add') }}</el-button>
-
-      <!--TODO 按钮权限-->
-      <!--v-permission="menuName + ':BULK_DELETION'"-->
       <el-button
+        v-if="containsPermissions(menuName + ':ADD')"
+        size="mini"
+        type="primary"
+        @click="add"
+        >{{ $t('button.add') }}</el-button
+      >
+      <el-button
+        v-if="containsPermissions(menuName + ':BULK_DELETION')"
         size="mini"
         type="danger"
         :disabled="records.length == 0"
@@ -51,22 +59,6 @@
     <template #practicePeriods="{ row }">{{
       (parseInt(row.practiceExamPeriods) || 0) + (parseInt(row.practicePeriods) || 0)
     }}</template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="management(row.id)" v-permission="menuName + ':MANAGE'">{{
-          $t('button.management')
-        }}</span>
-        <span class="buttonEdit" @click="modify(row.id)" v-permission="menuName + ':UPDATE'">{{
-          $t('button.modify')
-        }}</span>
-        <span
-          class="buttonDelete"
-          @click="deleteSyllabusesId(row.id)"
-          v-permission="menuName + ':DELETE'"
-          >{{ $t('button.delete') }}</span
-        >
-      </div>
-    </template>
   </VxeTable>
 
   <component :is="componentName" :id="activeName" />
@@ -85,6 +77,7 @@
   import VxeTable from '/@/components/Table/index.vue'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import addSyllabusesDialog from './components/addSyllabusesDialog.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
   import {
@@ -92,7 +85,11 @@
     deleteSyllabusesId,
     postSyllabusesBatchDelete,
   } from '/@/api/ftm/teacher/teachingPlan'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { deleteEmptyParams } from '/@/utils/index'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
@@ -153,6 +150,7 @@
       VxeTable,
       selectedView,
       addSyllabusesDialog,
+      Search,
     },
     computed: {
       xTable() {
@@ -163,6 +161,13 @@
     // TODO 原缓存页面执行activated
     mounted() {
       this.getSyllabuses()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       selectAllEvent({ checked, records }) {
@@ -202,12 +207,7 @@
         this.syllabusesId = id
       },
       management(id) {
-        this.$router.push({
-          path: 'syllabus/administer',
-          query: {
-            id: id,
-          },
-        })
+        this.routerGo(`outline/administer?id=${id}`)
       },
       cancelDialog() {
         this.syllabusesDialog = false
@@ -259,6 +259,35 @@
         this.form.page = 1
         this.form.total = 0
         this.getSyllabuses()
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.management'),
+            visible: userStore.ContainsPermissions(this.menuName + ':MANAGE'),
+            event: () => {
+              this.management(row.id)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            visible: userStore.ContainsPermissions(this.menuName + ':UPDATE'),
+            event: () => {
+              this.modify(row.id)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: userStore.ContainsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.deleteSyllabusesId(row.id)
+            },
+          },
+        ]
       },
     },
   }

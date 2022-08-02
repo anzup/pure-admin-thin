@@ -55,6 +55,8 @@
   import { getStudentsId } from '/@/api/ftm/teacher/account'
   import to from 'await-to-js'
   import XEUtils from 'xe-utils'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   export default {
     components: { VxeTable },
     data() {
@@ -111,6 +113,13 @@
       this.getStudents()
       this.getDetails()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       output(key) {
         try {
@@ -136,14 +145,10 @@
             return this.$t('status.training')
         }
       },
-      toPage(row, name) {
+      toPage(row) {
         let params = this.$route.params
-        this.$router.push({
-          name,
-          params: {
-            ...params,
-            recordId: row.id || this.$route.query.id,
-          },
+        this.routerGo({
+          path: `${params.studentId}/tabs/${row.id || this.$route.query.id}`,
         })
       },
       async getDetails() {
@@ -187,7 +192,7 @@
           {
             name: this.$t('button.details'),
             event: () => {
-              this.toPage(row, 'TeachingEducationRecordStudentDetail')
+              this.toPage(row)
             },
           },
         ]
@@ -196,7 +201,9 @@
   }
 </script>
 <style lang="scss" scoped>
+  @import '/@/style/table.scss';
   .warp-content-table {
+    padding-bottom: 20px;
     .info-table-box {
       width: 100%;
       border-top: 1px solid #e8eaec;

@@ -1,10 +1,11 @@
 <template>
-  <div class="container">
+  <div>
     <VxeTable
       ref="xTable"
       :data="tableData"
       :loading="loading"
       :columns="tableColumns"
+      :buttons="tableButtons"
       v-model:form="form"
       :toolbarConfig="tableTools"
       @checkbox="selectChangeEvent"
@@ -45,10 +46,15 @@
           <el-form-item>
             <el-input
               :placeholder="$t('holder.teacherNameOrTeachingModelForInquiry')"
-              suffix-icon="el-icon-search"
               v-model="form.searchKey"
               style="width: 280px"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -56,36 +62,21 @@
         </el-form>
       </template>
       <template #right_tools>
-        <!--TODO 按钮权限-->
-        <!--v-permission="menuName + ':ADD'"-->
-        <el-button size="mini" type="primary" @click="add">{{ $t('button.add') }}</el-button>
-
-        <!--TODO 按钮权限-->
-        <!--v-permission="menuName + ':BULK_DELETION'"-->
         <el-button
+          v-if="containsPermissions(menuName + ':ADD')"
+          size="mini"
+          type="primary"
+          @click="add"
+          >{{ $t('button.add') }}</el-button
+        >
+        <el-button
+          v-if="containsPermissions(menuName + ':BULK_DELETION')"
           size="mini"
           type="danger"
           @click="postCoursesBatchDelete"
           :disabled="records.length == 0"
           >{{ $t('button.batchDeletion') }}</el-button
         >
-      </template>
-
-      <template #edit="{ row }">
-        <div class="button-line">
-          <span class="buttonEdit" @click="edit(row.id)" v-permission="menuName + ':DETAIL'">{{
-            $t('button.details')
-          }}</span>
-          <span class="buttonEdit" @click="modify(row.id)" v-permission="menuName + ':UPDATE'">{{
-            $t('button.modify')
-          }}</span>
-          <span
-            class="buttonDelete"
-            @click="deleteCoursesId(row.id)"
-            v-permission="menuName + ':DELETE'"
-            >{{ $t('button.delete') }}</span
-          >
-        </div>
       </template>
     </VxeTable>
 
@@ -105,6 +96,7 @@
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import courseConfig from './components/addCourseConfigDialog.vue'
   import courseConfigDetails from './components/details.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
   import { deleteEmptyParams } from '/@/utils/index'
@@ -115,6 +107,8 @@
     getAirplaneTypesAll,
   } from '/@/api/ftm/teacher/trainingPlan'
   import { getCourseClassifies } from '/@/api/ftm/teacher/configSettings'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
@@ -166,6 +160,7 @@
       selectedView,
       courseConfig,
       courseConfigDetails,
+      Search,
     },
     computed: {
       xTable() {
@@ -279,6 +274,35 @@
       search() {
         this.form.page = 1
         this.getCourses()
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            visible: userStore.ContainsPermissions(this.menuName + ':DETAIL'),
+            event: () => {
+              this.edit(row.id)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            visible: userStore.ContainsPermissions(this.menuName + ':UPDATE'),
+            event: () => {
+              this.modify(row.id)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: userStore.ContainsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.deleteCoursesId(row.id)
+            },
+          },
+        ]
       },
     },
   }

@@ -1,139 +1,143 @@
 <template>
-  <div class="record-container" id="PrintDOM" ref="print" v-loading="loading">
-    <div style="text-align: right" v-if="ids.length > 1">
-      <el-button type="primary" class="no-print" @click="printEvent">{{
-        $t('button.batchPrinting')
-      }}</el-button>
-    </div>
-    <div
-      class="schoolReport-wrap"
-      v-for="(questionsInfo, qIndex) in questions"
-      :key="qIndex"
-      :class="{
-        mini: computCount(qIndex) > 200,
-        small: computCount(qIndex) > 100 && computCount(qIndex) <= 200,
-        medium: computCount(qIndex) > 50 && computCount(qIndex) <= 100,
-        large: computCount(qIndex) <= 50,
-      }"
-    >
-      <div class="schoolReport-logo">
-        <img :src="imgSrc" v-if="imgSrc" />
+  <el-scrollbar>
+    <div class="record-container" id="PrintDOM" ref="print" v-loading="loading">
+      <div style="text-align: right" v-if="ids.length > 1">
+        <el-button type="primary" class="no-print" @click="printEvent">{{
+          $t('button.batchPrinting')
+        }}</el-button>
       </div>
-      <div class="headerTitle">
-        <span>{{ $t('table.customCompany') }}{{ $t('common.ExamResult') }}</span>
-        <div class="headerBtn" v-if="ids.length < 2" data-print="no">
-          <el-button size="mini" type="primary" class="no-print" @click="printEvent">{{
-            $t('button.print')
-          }}</el-button>
+      <div
+        class="schoolReport-wrap"
+        v-for="(questionsInfo, qIndex) in questions"
+        :key="qIndex"
+        :class="{
+          mini: computCount(qIndex) > 200,
+          small: computCount(qIndex) > 100 && computCount(qIndex) <= 200,
+          medium: computCount(qIndex) > 50 && computCount(qIndex) <= 100,
+          large: computCount(qIndex) <= 50,
+        }"
+      >
+        <div class="schoolReport-logo">
+          <img :src="imgSrc" v-if="imgSrc" />
         </div>
-      </div>
-      <div class="schoolReportBox">
-        <div class="personInfo warp-content-table">
-          <table class="info-table-box" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-              <td>{{ $t('table.examName') }}:</td>
-              <td>{{ questionsInfo.name }}</td>
-              <td>{{ $t('table.name') }}:</td>
-              <td>{{ questionsInfo.studentName }}</td>
-              <td>{{ $t('table.examDate') }}:</td>
-              <td>{{ questionsInfo.examTime }}</td>
-            </tr>
-            <tr>
-              <td>{{ $t('table.examiners') }}:</td>
-              <td>{{ questionsInfo.teachers }}</td>
-              <td>{{ $t('table.examScores') }}:</td>
-              <td>{{ questionsInfo.totalScore }}</td>
-              <td>{{ $t('table.examResults') }}:</td>
-              <td>{{ questionsInfo.passType }}</td>
-            </tr>
-          </table>
-        </div>
-
-        <div
-          class="choiceQuestionBox"
-          v-for="(item, index) in questionsInfo.answer || []"
-          :key="index"
-        >
-          <div class="type">
-            <span class="typeName">
-              <el-divider direction="vertical" />
-              <span>{{ formatType(item.type) }}</span>
-            </span>
-            <span class="remark" v-if="item.type == 'FILL_BLANK' || item.type == 'QA'">{{
-              $t('common.NumberAndStudentAnswer')
-            }}</span>
-            <span class="remark" v-else>{{ $t('common.NumberAndAnswer') }}</span>
-            <span>{{ $t('table.examineeScore') }}: {{ computScore(item) }}</span>
+        <div class="headerTitle">
+          <span>{{ $t('table.customCompany') }}{{ $t('common.ExamResult') }}</span>
+          <div class="headerBtn" v-if="ids.length < 2" data-print="no">
+            <el-button size="mini" type="primary" class="no-print" @click="printEvent">{{
+              $t('button.print')
+            }}</el-button>
           </div>
-          <ul
-            class="choiceQuestionInfo unflex"
-            v-if="item.type == 'FILL_BLANK' || item.type == 'QA'"
+        </div>
+        <div class="schoolReportBox">
+          <div class="personInfo warp-content-table">
+            <table class="info-table-box" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td>{{ $t('table.examName') }}:</td>
+                <td>{{ questionsInfo.name }}</td>
+                <td>{{ $t('table.name') }}:</td>
+                <td>{{ questionsInfo.studentName }}</td>
+                <td>{{ $t('table.examDate') }}:</td>
+                <td>{{ questionsInfo.examTime }}</td>
+              </tr>
+              <tr>
+                <td>{{ $t('table.examiners') }}:</td>
+                <td>{{ questionsInfo.teachers }}</td>
+                <td>{{ $t('table.examScores') }}:</td>
+                <td>{{ questionsInfo.totalScore }}</td>
+                <td>{{ $t('table.examResults') }}:</td>
+                <td>{{ questionsInfo.passType }}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div
+            class="choiceQuestionBox"
+            v-for="(item, index) in questionsInfo.answer || []"
+            :key="index"
           >
-            <li class="fillBlankAnswers" v-for="(kItem, kIndex) in item.questions" :key="kIndex">
-              <!-- <span>{{kIndex}}</span> -->
-              <span class="serialNumber">
-                <span>{{ kIndex + 1 }}</span>
+            <div class="type">
+              <span class="typeName">
+                <el-divider direction="vertical" />
+                <span>{{ formatType(item.type) }}</span>
               </span>
-              <div
-                class="studentAnswer"
-                v-if="kItem.studentAnswers.length"
-                v-html="formatHTML(kItem.studentAnswers[0].name)"
-              />
-              <div class="studentAnswer" v-else />
-            </li>
-          </ul>
-          <ul class="choiceQuestionInfo" v-else>
-            <li v-for="(kItem, kIndex) in item.questions" :key="kIndex" class="choiceQuestionCon">
-              <div class="choiceQuestion">
+              <span class="remark" v-if="item.type == 'FILL_BLANK' || item.type == 'QA'">{{
+                $t('common.NumberAndStudentAnswer')
+              }}</span>
+              <span class="remark" v-else>{{ $t('common.NumberAndAnswer') }}</span>
+              <span>{{ $t('table.examineeScore') }}: {{ computScore(item) }}</span>
+            </div>
+            <ul
+              class="choiceQuestionInfo unflex"
+              v-if="item.type == 'FILL_BLANK' || item.type == 'QA'"
+            >
+              <li class="fillBlankAnswers" v-for="(kItem, kIndex) in item.questions" :key="kIndex">
+                <!-- <span>{{kIndex}}</span> -->
                 <span class="serialNumber">
                   <span>{{ kIndex + 1 }}</span>
                 </span>
-                <div class="submitAnswers">
-                  <p>
-                    <span
-                      v-for="(vItem, vIndex) in kItem.studentAnswers"
-                      :key="vIndex"
-                      :class="{
-                        right: kItem.answers.some((v) => v.name == vItem.name),
-                        wrong: !kItem.answers.some((v) => v.name == vItem.name),
-                      }"
-                      >{{ formatOption(vItem.name) }}</span
-                    >
-                  </p>
+                <div
+                  class="studentAnswer"
+                  v-if="kItem.studentAnswers.length"
+                  v-html="formatHTML(kItem.studentAnswers[0].name)"
+                />
+                <div class="studentAnswer" v-else />
+              </li>
+            </ul>
+            <ul class="choiceQuestionInfo" v-else>
+              <li v-for="(kItem, kIndex) in item.questions" :key="kIndex" class="choiceQuestionCon">
+                <div class="choiceQuestion">
+                  <span class="serialNumber">
+                    <span>{{ kIndex + 1 }}</span>
+                  </span>
+                  <div class="submitAnswers">
+                    <p>
+                      <span
+                        v-for="(vItem, vIndex) in kItem.studentAnswers"
+                        :key="vIndex"
+                        :class="{
+                          right: kItem.answers.some((v) => v.name == vItem.name),
+                          wrong: !kItem.answers.some((v) => v.name == vItem.name),
+                        }"
+                        >{{ formatOption(vItem.name) }}</span
+                      >
+                    </p>
+                  </div>
+                  <div class="successAnswers">
+                    <p>
+                      <span v-for="(jItem, jIndex) in kItem.answers" :key="jIndex">{{
+                        formatOption(jItem.name)
+                      }}</span>
+                    </p>
+                  </div>
                 </div>
-                <div class="successAnswers">
-                  <p>
-                    <span v-for="(jItem, jIndex) in kItem.answers" :key="jIndex">{{
-                      formatOption(jItem.name)
-                    }}</span>
-                  </p>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="teacherSign warp-content-table">
+            <table class="info-table-box" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td style="width: 6em; vertical-align: top">{{ $t('table.teacherSign') }}:</td>
+                <td style="width: unset">
+                  <img :src="previewURL(questionsInfo.signUuid)" alt="" />
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
 
-        <div class="teacherSign warp-content-table">
-          <table class="info-table-box" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-              <td style="width: 6em; vertical-align: top">{{ $t('table.teacherSign') }}:</td>
-              <td style="width: unset"><img :src="previewURL(questionsInfo.signUuid)" alt="" /></td>
-            </tr>
-          </table>
-        </div>
+        <el-divider class="no-print" v-if="questions.length > 1 && qIndex < questions.length - 1">{{
+          $t('common.divider')
+        }}</el-divider
+        ><!-- 分割线 -->
       </div>
 
-      <el-divider class="no-print" v-if="questions.length > 1 && qIndex < questions.length - 1">{{
-        $t('common.divider')
-      }}</el-divider
-      ><!-- 分割线 -->
-    </div>
-
-    <!-- <fix-footer :showCancel="false" :showConfirm="false" v-if="ids.length > 1">
+      <!-- <fix-footer :showCancel="false" :showConfirm="false" v-if="ids.length > 1">
       <el-button class="no-print" icon="el-icon-d-arrow-left" :disabled="ids.indexOf(id) == 0" @click="getExamRecordsPagination(-1)">{{ $t('button.prev') }}</el-button>
       <el-button class="no-print rightBtn" icon="el-icon-d-arrow-right" :disabled="ids.indexOf(id) == (ids.length - 1)" @click="getExamRecordsPagination(1)">{{ $t('button.next') }}</el-button>
     </fix-footer> -->
-  </div>
+    </div>
+  </el-scrollbar>
 </template>
 
 <script>
@@ -142,6 +146,7 @@
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
+  import Print from '/@/utils/printarea'
   const settingsStore = useFtmSettingsStore()
   export default {
     name: 'SchoolReport',
@@ -199,7 +204,7 @@
     methods: {
       previewURL,
       printEvent() {
-        new this.Print({
+        new Print({
           ids: '#PrintDOM',
           beforeOpenCallback() {},
           openCallback() {},
@@ -409,6 +414,7 @@
 <style scoped lang="scss">
   @import '/@/views/project_ftm/teacher/styles/print-report.scss';
   @import '/@/views/project_ftm/teacher/styles/variables.scss';
+  @import '/@/style/table.scss';
   ul,
   li {
     list-style: none;
@@ -421,7 +427,7 @@
     max-width: 1600px;
     min-width: 592px;
     padding-bottom: 40px;
-    padding-right: 18px !important;
+    margin: 0 auto;
     .schoolReport-logo {
       display: none;
     }

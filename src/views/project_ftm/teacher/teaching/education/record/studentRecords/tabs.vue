@@ -8,6 +8,7 @@
 
     <div class="main-table-content">
       <component
+        v-if="state.visible"
         :is="currentTab.cmp"
         :type="currentTab.id"
         :details="state.Details"
@@ -133,6 +134,7 @@
   const state = reactive({
     Details: {},
     Clazz: {},
+    visible: false,
   })
 
   const tabClick = () => {}
@@ -143,6 +145,7 @@
     if (!err && res.status === 200) {
       state.Details = res.data.student
       state.Clazz = res.data.clazz
+      state.visible = true
     }
   })
 </script>

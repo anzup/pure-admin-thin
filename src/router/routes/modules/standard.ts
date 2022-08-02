@@ -89,6 +89,7 @@ const Course: AppRouteRecordRaw = {
       },
     },
     // 培训大纲
+    // TODO 如何合并？使用opm还是ftm的大纲页面？
     {
       path: 'outline',
       name: 'StandardCourseOutlineIndex',

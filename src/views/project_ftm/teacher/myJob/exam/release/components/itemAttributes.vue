@@ -102,7 +102,7 @@
               :disabled="isDisabled('year')"
               :placeholder="$t('holder.pleaseSelectYear')"
               style="width: 100%"
-              value-format="yyyy"
+              value-format="YYYY"
             />
           </el-form-item>
         </el-col>
@@ -124,7 +124,7 @@
             <el-date-picker
               v-model="ruleForm.examPeriod[0]"
               type="datetime"
-              format="yyyy-MM-dd HH:mm"
+              format="YYYY-MM-DD HH:mm"
               :disabled="isDisabled('examPeriod')"
               :placeholder="$t('table.startDate')"
             />
@@ -132,7 +132,7 @@
             <el-date-picker
               v-model="ruleForm.examPeriod[1]"
               type="datetime"
-              format="yyyy-MM-dd HH:mm"
+              format="YYYY-MM-DD HH:mm"
               :disabled="isDisabled('examPeriod')"
               :placeholder="$t('table.endDate')"
             />
@@ -549,3 +549,10 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .footerBtn {
+    margin: 12px 0;
+    text-align: right;
+  }
+</style>

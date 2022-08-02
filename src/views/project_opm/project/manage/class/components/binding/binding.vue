@@ -1,6 +1,6 @@
 <template>
   <!-- v-loading="loading" -->
-  <div>
+  <div class="w-full h-full">
     <vxe-grid
       v-bind="gridOptions"
       @checkbox-all="selectAllChangeEvent"
@@ -157,6 +157,7 @@
   }
   const state = reactive({
     gridOptions: {
+      height: 'auto',
       columns: [
         {
           align: 'left',
@@ -240,9 +241,7 @@
           type: 'html',
         },
       ],
-
       dataList: [],
-
       toolbarConfig: {
         // custom: true,
         size: 'medium',
@@ -252,7 +251,6 @@
           buttons: 'buttons',
         },
       },
-      maxHeight: 600,
       checkboxConfig: {
         checkMethod,
         showHeader: false,
@@ -265,7 +263,6 @@
 
     isShow: false,
     loading: false,
-
     selectList: [],
     checkAll: false,
     gridRef: undefined,

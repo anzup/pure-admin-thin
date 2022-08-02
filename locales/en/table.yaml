@@ -693,3 +693,24 @@ Safety/Rewards/Punishments(recent3years): Safety/Rewards/Punishments(recent3year
 theStartTime: Start Time
 institutions: Institutions
 place: Adress
+
+operation: Operation
+courseClass: Course Class
+signatureStatus: Sign Status
+confirmTime: Confirm Time
+messageNotice: Notification
+studyNotice: Study Notice
+fileStudyNotice: File Study Notice
+announcements: Announcements
+fileNumber: File Number
+coursewareLearningRecord: courseware learning record
+examRecord: Exam Record
+failRecord: Failed Record
+recordOrder: General Evaluation Form
+abilityRecord: Core Competence Chart
+CBTAdetails: CBTAdetails
+sessionType: Session Type
+additional: Additional Training Field
+normalSession: Normal Session
+minutesTime: Minutes
+confirmSign: Sign

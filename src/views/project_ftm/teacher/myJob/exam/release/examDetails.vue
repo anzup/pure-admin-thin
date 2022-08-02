@@ -1,19 +1,14 @@
 <template>
   <div>
-    <!--TODO 没有allCheckbox, checkedRows 属性  -->
-    <!--TODO 没有checkboxAll,checkboxPage,sort-change 方法-->
     <VxeTable
       ref="xTable"
       :loading="loading"
       :data="tableData"
       :columns="tableColumns"
+      :buttons="tableButtons"
       v-model:form="pagination"
       :toolbarConfig="tableTools"
       :checkbox-config="{ checkMethod: checkedDisabled }"
-      :allCheckbox="true"
-      :checkedRows="records"
-      @checkboxAll="selectAllEvent"
-      @checkboxPage="selectAllEvent"
       @sort-change="sortChangeEvent"
       @checkbox="selectChangeEvent"
       @handlePageChange="handlePagination"
@@ -38,17 +33,21 @@
           <el-form-item>
             <el-input
               :placeholder="$t('holder.pleaseEnterTheNameOfTheCandidate')"
-              suffix-icon="el-icon-search"
               v-model="form.searchKey"
               style="width: 280px"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
           </el-form-item>
         </el-form>
       </template>
-      <template #left_tools />
       <template #right_tools>
         <el-button size="mini" type="primary" @click="exportList">{{
           $t('button.leadingOut')
@@ -59,56 +58,6 @@
         <el-button size="mini" type="primary" :disabled="records.length == 0" @click="allPrint">{{
           $t('button.batchPrinting')
         }}</el-button>
-      </template>
-
-      <template #edit="{ row }">
-        <div class="button-line">
-          <!-- 阅卷 -->
-          <span
-            class="buttonEdit"
-            v-if="origin != 'OTHER'"
-            :style="{
-              color: row.status == 'FINISHED' && row.scoreStatus == 'NOT_SCORED' ? '' : '#ccc',
-              display: 'inline-block',
-            }"
-            @click="
-              markingPapers(
-                row.id,
-                row.student.name,
-                row.exam.name,
-                row.exam.duration,
-                row.status,
-                row.scoreStatus,
-              )
-            "
-            >{{ $t('button.markingPapers') }}</span
-          >
-          <!-- 试卷 -->
-          <span
-            class="buttonEdit"
-            @click="examPaper(row.id, row.student.name, row.exam.name, row.exam.duration)"
-            >{{ $t('button.examPaper') }}</span
-          >
-          <!-- 成绩单 -->
-          <span
-            class="buttonEdit"
-            :style="{ color: row.scoreStatus == 'NOT_SCORED' ? '#ccc' : '' }"
-            @click="reportCard(row.id, row.scoreStatus)"
-            >{{ $t('button.reportCard') }}</span
-          >
-          <!-- 打印成绩单 -->
-          <!-- <span
-            class="buttonEdit"
-            :style="{color: row.scoreStatus == 'NOT_SCORED' ? '#ccc' : '' }"
-            @click="printTranscripts(row.id, row.scoreStatus)">{{$t('button.printTranscripts')}}</span> -->
-          <!-- 查卷审核 -->
-          <span
-            class="buttonEdit"
-            v-if="origin != 'OTHER' && row.auditStatus == 'WAITING_APPROVAL'"
-            @click="reviewPaper(row)"
-            >{{ $t('table.checkPaperReview') }}</span
-          >
-        </div>
       </template>
     </VxeTable>
 
@@ -166,10 +115,14 @@
   import signDialog from '/@/views/project_ftm/teacher/components/SignDialog/index.vue'
   import SchoolReport from './schoolReport.vue'
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { htmlToPdf } from '/@/utils/htmlToPdf'
+  import { deleteEmptyParams } from '/@/utils'
   const userStore = useFtmUserStore()
   export default {
     name: 'ExamDetails',
@@ -213,6 +166,7 @@
       reviewDialog,
       signDialog,
       SchoolReport,
+      Search,
     },
     created() {
       this.formInit()
@@ -288,7 +242,6 @@
           {
             field: 'passType',
             title: this.$t('table.examResults'),
-            width: 140,
             formatter: this.formatPassType,
             width: 100,
           },
@@ -317,22 +270,28 @@
         let tools = {
           perfect: true,
           slots: {
-            buttons: 'left_tools',
             tools: 'right_tools',
           },
         }
-        return this.origin != 'FORMAL' ? {} : tools
+        return this.origin != 'FORMAL' ? null : tools
       },
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       formInit() {
         this.form.examType = (() => {
           const EXAM_TYPS = ['FORMAL', 'SIMULATED']
-          const EXAM_TYPE = this.$route.query.examType || this.$route.meta.origin
+          const EXAM_TYPE = this.$route.query.examType || this.$route.meta.params?.origin
           return (EXAM_TYPS.includes(EXAM_TYPE) && EXAM_TYPE) || 'FORMAL'
         })()
         this.form.examId = this.$route.params.examId
-        this.origin = this.$route.query.origin || this.$route.meta?.origin
+        this.origin = this.$route.query.origin || this.$route.meta?.params?.origin
       },
       // 选择行
       selectChangeEvent({ records, checked }) {
@@ -408,78 +367,61 @@
       },
       markingPapers(id, name, examName, duration, status, scoreStatus) {
         if (status == 'FINISHED' && scoreStatus == 'NOT_SCORED') {
-          let path = ''
+          const params = this.$route.params
+          let url = ''
           if (this.origin == 'FORMAL') {
-            path = 'ExamManager_MarkingPaperView'
+            url = `release/examDetails/${params?.examId}/markingPaperView`
           } else {
-            path = 'ExamMockMarkingPaperView'
+            url = `mock/examDetails/${params?.examId}/markingPaperView`
           }
-          this.$router.push({
-            name: path,
-            query: {
-              id: id,
-              name: name,
-              detail_id: this.id,
-              examName: examName,
-              duration: duration,
-            },
-            params: {
-              ...this.$route.params,
-            },
-          })
+          let query = {
+            id: id,
+            name: name,
+            detail_id: this.id,
+            examName: examName,
+            duration: duration,
+          }
+          query = deleteEmptyParams(query)
+          url += '?'
+          for (let [key, value] of Object.entries(query)) {
+            url += `${key}=${value}&`
+          }
+          url = url.substring(0, url.length - 1)
+          this.routerGo(url)
         }
       },
       examPaper(id, name, examName, duration) {
-        var Name
-        if (this.origin == 'OTHER') {
-          Name = 'OtherExamPaperView'
-        } else if (this.form.examType == 'FORMAL') {
-          Name = 'ExamManageExamPaperView'
-        } else {
-          Name = 'ExamMockExamPaperView'
-        }
+        const params = this.$route.params
+        let url = `${params.examId}/examPaperView`
         // 考卷id：detail_id
-        this.$router.push({
-          name: Name,
-          query: {
-            id: id,
-            name: name,
-            examName: examName,
-            duration: duration,
-            detail_id: this.id,
-          },
-          params: {
-            ...this.$route.params,
-          },
-        })
+        let query = {
+          id: id,
+          name: name,
+          examName: examName,
+          duration: duration,
+          detail_id: this.id,
+        }
+        query = deleteEmptyParams(query)
+        url += '?'
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${value}&`
+        }
+        url = url.substring(0, url.length - 1)
+        this.routerGo(url)
       },
       reportCard(id, status) {
+        const params = this.$route.params
         if (status == 'NOT_SCORED') {
           return false
         }
         if (this.origin == 'OTHER') {
-          this.$router.push({
-            name: 'OtherSchoolReport',
-            query: { id },
-            params: { ...this.$route.params },
-          })
+          this.routerGo(`/teaching/exam/record/examDetails/${params.examId}/schoolReport?id=${id}`)
         } else if (this.origin == 'FORMAL') {
-          this.$router.push({
-            name: 'ExamManager_SchoolReport',
-            query: { id },
-            params: { ...this.$route.params },
-          })
+          this.routerGo(`/myJob/exam/release/examDetails/${params.examId}/schoolReport?id=${id}`)
         } else {
-          this.$router.push({
-            name: 'ExamMockSchoolReport',
-            query: {
-              id: id,
-              detail_id: this.id,
-            },
-            params: {
-              ...this.$route.params,
-            },
-          })
+          this.$routerGo(
+            `/myJob/exam/release/examDetails/${params.examId}/schoolReport?id=${id}&detail_id=${this.id}`,
+          )
         }
       },
       printTranscripts(id, status) {
@@ -558,16 +500,12 @@
       },
       allPrint() {
         // let prints = this.tableData.filter(v => v.scoreStatus != 'NOT_SCORED' && this.records.includes(v.id))
-        this.$router.push({
-          name: 'ExamManager_SchoolReport',
-          query: {
-            id: this.recordIds.join(','),
-            detail_id: this.id,
-          },
-          params: {
-            ...this.$route.params,
-          },
-        })
+        const params = this.$route.params
+        this.routerGo(
+          `/myJob/exam/release/examDetails/${params.examId}/schoolReport?id=${
+            this.recordIds.join(',') || ''
+          }&detail_id=${this.id || ''}`,
+        )
       },
       // 全部签名
       allSign() {
@@ -673,6 +611,52 @@
           sort: !e.order ? undefined : e.property,
         }
         this.getExamRecordsEvent()
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.markingPapers'),
+            visible: this.origin != 'OTHER',
+            disabled: !(row.status == 'FINISHED' && row.scoreStatus == 'NOT_SCORED'),
+            event: () => {
+              this.markingPapers(
+                row.id,
+                row.student.name,
+                row.exam.name,
+                row.exam.duration,
+                row.status,
+                row.scoreStatus,
+              )
+            },
+          },
+          {
+            name: this.$t('button.examPaper'),
+            event: () => {
+              this.examPaper(row.id, row.student.name, row.exam.name, row.exam.duration)
+            },
+          },
+          {
+            name: this.$t('button.reportCard'),
+            disabled: row.scoreStatus == 'NOT_SCORED',
+            event: () => {
+              this.reportCard(row.id, row.scoreStatus)
+            },
+          },
+          // {
+          //   name: this.$t('button.printTranscripts'),
+          //   disabled: row.scoreStatus == 'NOT_SCORED',
+          //   event: () => {
+          //     this.printTranscripts(row.id, row.scoreStatus)
+          //   }
+          // }
+          {
+            name: this.$t('table.checkPaperReview'),
+            visible: this.origin != 'OTHER' && row.auditStatus == 'WAITING_APPROVAL',
+            event: () => {
+              this.reviewPaper(row)
+            },
+          },
+        ]
       },
     },
   }

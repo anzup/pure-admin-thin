@@ -4,6 +4,7 @@
     :loading="loading"
     :data="tableData"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     :toolbarConfig="tableTools"
     @checkbox="selectChangeEvent"
@@ -22,10 +23,15 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnter') + $t('table.examCategory')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -38,22 +44,20 @@
         >{{ formatDate(row.startDate) }} - {{ formatDate(row.endDate) }}</span
       >
     </template>
-
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="detail(row)">{{ $t('button.details') }}</span>
-      </div>
-    </template>
   </VxeTable>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import HyxDatePicker from '/@/views/project_ftm/teacher/components/HyxDatePicker/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import { getExamTypesAll, getListByexamType } from '/@/api/ftm/teacher/examCenter'
   import { deleteEmptyParams } from '/@/utils/index'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
   export default {
@@ -102,7 +106,7 @@
         ],
       }
     },
-    components: { selectedView, VxeTable },
+    components: { selectedView, VxeTable, HyxDatePicker, Search },
     computed: {
       userInfo() {
         return userStore.$state
@@ -110,6 +114,13 @@
       xTable() {
         return this.$refs.xTable.$refs.xTable
       },
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     created() {
       this.getExamTypeAll()
@@ -184,14 +195,21 @@
         this.getExams()
       },
       detail(row) {
-        this.$router.push({
-          path: '/examCenter/eaxmStatistics/details',
-          query: {
-            id: row.id,
-            startDate: XEUtils.toDateString(this.form.dateTime[0], 'yyyy-MM-dd HH:mm:ss') || '',
-            endDate: XEUtils.toDateString(this.form.dateTime[1], 'yyyy-MM-dd HH:mm:ss') || '',
+        const startDate = XEUtils.toDateString(this.form.dateTime[0], 'yyyy-MM-dd HH:mm:ss') || ''
+        const endDate = XEUtils.toDateString(this.form.dateTime[1], 'yyyy-MM-dd HH:mm:ss') || ''
+        this.routerGo(
+          `statistical/details?id=${row.id || ''}&startDate=${startDate}&endDate=${endDate}`,
+        )
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            event: () => {
+              this.detail(row)
+            },
           },
-        })
+        ]
       },
     },
   }

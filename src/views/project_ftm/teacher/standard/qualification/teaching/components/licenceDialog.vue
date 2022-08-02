@@ -53,9 +53,11 @@
     getEmployeeQualificationsId,
     putEmployeeQualifications,
   } from '/@/api/ftm/teacher/education'
-  // import { getLanguage } from '@/utils/i18n'
+  import HyxDatePicker from '/@/views/project_ftm/teacher/components/HyxDatePicker/index.vue'
+  import { useI18n } from 'vue-i18n'
   export default {
     name: 'LicenceDialog',
+    components: { HyxDatePicker },
     props: {
       aaa: Boolean,
       rowData: Object,
@@ -101,6 +103,10 @@
         this.getEmployeeQualificationsId()
       }
     },
+    setup() {
+      const { locale } = useI18n()
+      return { locale }
+    },
     methods: {
       getFile(file) {
         let formData = new FormData()
@@ -108,8 +114,7 @@
         let config = {
           headers: {
             Authorization: 'Bearer ' + window.sessionStorage.getItem('access_token'),
-            // TODO 传递语言环境
-            // 'Accept-Language': getLanguage()
+            'Accept-Language': this.locale,
           },
         }
         var baseURL = `${import.meta.env.VITE_BASE_API_PUB}/files/upload`

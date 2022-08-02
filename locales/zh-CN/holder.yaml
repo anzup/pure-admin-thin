@@ -110,3 +110,17 @@ pleaseSelectLifelong: 请选择是否终身有效
 pleaseSelectUploadFile: 请选择上传文件
 pleaseSelectStudentYearOrClass: 请选择学年或班级
 pleaseEnterExamCourseNum: 请输入考试课号
+
+pleaseUsername: 请输入6-12位账户
+accountNumberPlaceholder: 请输入6-12位英文或英文数字结合
+pleaseName: 请输入姓名
+enterOneUserName: 请输入用户名
+pleaseInputAPassword: 请输入密码
+pleaseInputMobilePhoneNumber: 请输入手机号
+pleaseEnterTheverificationcode: 请输入验证码
+uploadedFileFormatError: 上传文件格式错误
+uploadFileIsNotSelected: 未选择上传文件
+pleaseEnterFolderName: 请输入文件夹名称
+areSureOutLive: 确定退出教学吗？
+pleaseEnterPincode: 请输入pin码
+CannotPreview: 该文件不支持预览

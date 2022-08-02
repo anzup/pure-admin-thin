@@ -25,7 +25,9 @@
         :on-progress="handleProgress"
         :http-request="uploadFile"
       >
-        <i class="el-icon-upload" />
+        <el-icon>
+          <Upload />
+        </el-icon>
         <div class="el-upload__text">
           {{ $t('tip.drapOrClickUpload') }}
         </div>
@@ -62,8 +64,9 @@
    * --------> 手动上传模式均需要在父组件调用子组件方法，在父组件引入此组件时，给此组件加ref，然后this.$refs.[""].toUpload()即可!
    * --------> 此组件请使用v-if展示。使用范例：claim-apply.vue。
    */
-
+  import { Upload } from '@element-plus/icons-vue'
   export default {
+    components: { Upload },
     data() {
       return {
         fileList: [], // 已上传文件

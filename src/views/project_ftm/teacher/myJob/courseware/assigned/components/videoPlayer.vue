@@ -2,6 +2,7 @@
   <el-dialog
     custom-class="custom_dialog"
     :title="name"
+    fullscreen
     v-model="videoDialog"
     @close="beforeHideMethod"
     @closed="handelClose"
@@ -30,8 +31,6 @@
           || fileType == 'PPTX' || fileType == 'SCORM'" -->
     <div class="iframe-container" v-else>
       <iframe
-        width="100%"
-        height="auto"
         ref="offceIframe"
         id="iframescorm"
         allowfullscreen

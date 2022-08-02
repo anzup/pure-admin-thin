@@ -3,7 +3,7 @@
     <div class="content-box">
       <el-scrollbar max-height="100%">
         <div class="content-header">
-          <el-divider direction="vertical"></el-divider>
+          <el-divider direction="vertical" />
           <span>{{ $t('table.contentDetails') }}</span>
         </div>
         <div class="content warp-content-table">
@@ -31,53 +31,51 @@
                   :key="item.id"
                   @click="readClick(item)"
                   @dblclick="getAttachmentIdDownload(item)"
-                  ><i class="el-icon-paperclip"></i>{{ item.name }}</span
+                  ><el-icon><Paperclip /></el-icon>{{ item.name }}</span
                 >
               </td>
             </tr>
           </table>
         </div>
         <div class="content-main" v-show="Details.type != 1">
-        <div class="content-header">
-          <el-divider direction="vertical"></el-divider>
-          <span>{{ $t('button.readMore') }}</span>
+          <div class="content-header">
+            <el-divider direction="vertical" />
+            <span>{{ $t('button.readMore') }}</span>
+          </div>
+          <div class="content-table">
+            <DetailTable
+              :Details="Details"
+              :loading="loading"
+              :origin="originData"
+              :pagination="pagination"
+              v-model:data="tableData"
+              @handlePagination="tablePageChange"
+            />
+          </div>
         </div>
-        <div class="content-table">
-          <DetailTable
-            :Details="Details"
-            :loading="loading"
-            :origin="originData"
-            :pagination="pagination"
-            v-model:data="tableData"
-            @handlePagination="tablePageChange"
-          />
-        </div>
-      </div>
       </el-scrollbar>
     </div>
 
-    <!--TODO: 移动文件中心后放开-->
-    <!--<PreviewFile-->
-    <!--  v-if="showFile"-->
-    <!--  v-model="showFile"-->
-    <!--  :fileType="fileType"-->
-    <!--  :fileUuid="fileUuid"-->
-    <!--  :playFilePath="playFilePath"-->
-    <!--  :name="fileTitle"-->
-    <!--&gt;</PreviewFile>-->
+    <PreviewFile
+      v-if="showFile"
+      v-model:videoDialog="showFile"
+      :fileType="fileType"
+      :fileUuid="fileUuid"
+      :playFilePath="playFilePath"
+      :name="fileTitle"
+    />
     <el-image-viewer v-if="showViewer" :on-close="closeViewer" :url-list="[previewUrl]" />
   </div>
 </template>
 
 <script>
+  import { Paperclip } from '@element-plus/icons-vue'
   import { getNoticeDetails, getNoticeReadRecord } from '/@/api/ftm/teacher/education'
   import { getFileDetail, previewFile, getFilesId, getFileDownload } from '/@/api/ftm/teacher/file'
-  // TODO 移动文件中心组件修改引入地址
-  // import PreviewFile from "@/views/fileCenter/downloadFiles/components/previewFile";
+  import PreviewFile from '/@/views/project_ftm/teacher/myJob/fileCenter/download/components/previewFile.vue'
   import DetailTable from './components/detailTable.vue'
   import { debounce } from '/@/utils/index'
   import to from 'await-to-js'
-  import XEUtils from 'xe-utils'
   export default {
     data() {
       return {
@@ -105,8 +103,8 @@
       }
     },
     components: {
-      // TODO
-      // PreviewFile,
+      PreviewFile,
+      Paperclip,
       DetailTable,
     },
     created() {
@@ -220,6 +218,7 @@
 
 <style lang="scss" scoped>
   @import '/@/views/project_ftm/teacher/styles/variables.scss';
+  @import '/@/style/table.scss';
   $borderStyle: 1px solid #ccc;
   .container {
     padding: 0;
@@ -275,7 +274,6 @@
         padding: 16px;
       }
       .content-main {
-
       }
       .content-table {
         width: 100%;

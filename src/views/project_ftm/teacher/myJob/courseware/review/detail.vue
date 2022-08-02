@@ -2,8 +2,8 @@
   <div class="coursewareDetails">
     <el-scrollbar>
       <div class="header warp-content-table">
-        <el-row style="width: 100%">
-          <div class="title">{{ coursewaresInfo.name }}</div>
+        <div class="title">{{ coursewaresInfo.name }}</div>
+        <el-row>
           <el-col :xs="18" :sm="18" :md="16" :lg="16" :xl="16">
             <table class="info-table-box" cellspacing="0" cellpadding="0" border="0">
               <tr>
@@ -78,7 +78,9 @@
             </div>
 
             <div class="review-tool" v-if="showTool">
-              <i class="el-icon-full-screen" @click="fullScreenReview" />
+              <el-icon @click="fullScreenReview">
+                <FullScreen />
+              </el-icon>
             </div>
           </el-col>
         </el-row>
@@ -102,23 +104,21 @@
             >
           </div>
           <div>
-            <!--TODO 按钮权限-->
-            <!--v-permission="menuName + ':REVIEW_RESULTS'"-->
             <el-button
               type="primary"
               size="mini"
               @click="reviewClick('approval')"
-              v-if="builtinRole == 'TRAINING_ADMIN'"
+              v-if="
+                containsPermissions(menuName + ':REVIEW_RESULTS') && builtinRole == 'TRAINING_ADMIN'
+              "
               :disabled="finished"
               >{{ $t('table.reviewResults') }}</el-button
             >
-            <!--TODO 按钮权限-->
-            <!--v-permission="menuName + ':REVIEW'"-->
             <el-button
               type="primary"
               size="mini"
               @click="reviewClick('approvalResults')"
-              v-else
+              v-else-if="containsPermissions(menuName + ':REVIEW')"
               :disabled="finished"
               >{{ $t('common.Audit') }}</el-button
             >
@@ -159,41 +159,29 @@
         </div>
       </div>
     </el-scrollbar>
-    <vxe-modal
+
+    <el-dialog
+      width="500px"
+      center
       v-model="dialogVisible"
-      show-footer
+      :title="$t('table.reviewAndAudit')"
       :before-hide-method="beforeHideMethod"
-      width="500"
-      height="300"
-      remember
+      @closed="refreshDialogEvent"
     >
-      <template #title>
-        <span>{{ $t('table.reviewAndAudit') }}</span>
-      </template>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+        <el-form-item :label="$t('table.coursewareReviewResult')" prop="auditResults">
+          <el-radio v-model="ruleForm.auditResults" label="1">{{ $t('common.agree') }}</el-radio>
+          <el-radio v-model="ruleForm.auditResults" label="2">{{ $t('common.disagree') }}</el-radio>
+        </el-form-item>
+        <el-form-item :label="$t('button.reason')" prop="reason">
+          <el-input type="textarea" v-model="ruleForm.reason" />
+        </el-form-item>
+      </el-form>
       <template #footer>
-        <vxe-button type="submit" @click="handelCancel">{{ $t('button.cancel') }}</vxe-button>
-        <vxe-button type="submit" status="primary" @click="handelSave">{{
-          $t('button.confirm')
-        }}</vxe-button>
+        <el-button type="primary" plain @click="handelCancel">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" @click="handelSave">{{ $t('button.confirm') }}</el-button>
       </template>
-      <template #default>
-        <div>
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-            <el-form-item :label="$t('table.coursewareReviewResult')">
-              <el-radio v-model="ruleForm.auditResults" label="1">{{
-                $t('common.agree')
-              }}</el-radio>
-              <el-radio v-model="ruleForm.auditResults" label="2">{{
-                $t('common.disagree')
-              }}</el-radio>
-            </el-form-item>
-            <el-form-item :label="$t('button.reason')" prop="reason">
-              <el-input type="textarea" v-model="ruleForm.reason" />
-            </el-form-item>
-          </el-form>
-        </div>
-      </template>
-    </vxe-modal>
+    </el-dialog>
 
     <video-dialog
       v-if="videoDialogVisible"
@@ -221,6 +209,7 @@
     putCoursewareApprovalResultsIdReject,
   } from '/@/api/ftm/teacher/courseware'
   import videoDialog from '/@/views/project_ftm/teacher/myJob/courseware/assigned/components/videoPlayer.vue'
+  import { FullScreen } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import { systemFormat } from './components/format'
   import { encode } from 'js-base64'
@@ -304,8 +293,11 @@
       clearInterval(this.Timer)
       this.Timer = null
     },
-    components: { videoDialog },
+    components: { videoDialog, FullScreen },
     methods: {
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
       getCoursewaresId(id) {
         // 课件详情
         return getCoursewaresId({
@@ -426,6 +418,9 @@
       beforeHideMethod() {
         this.dialogVisible = false
       },
+      refreshDialogEvent() {
+        this.$refs.ruleForm.resetFields()
+      },
       formatStatus({ cellValue }) {
         return cellValue == 'APPROVED'
           ? this.$t('common.approve')
@@ -490,9 +485,8 @@
 
 <style scoped lang="scss">
   @import '/@/views/project_ftm/teacher/styles/variables.scss';
+  @import '/@/style/table.scss';
   .coursewareDetails {
-    margin: 16px;
-    height: calc(100% - 32px);
     .header {
       // height: 252px;
       background: #fff;

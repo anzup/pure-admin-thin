@@ -87,7 +87,6 @@
       // setTimeout(() => {
       //   this.resetHeight()
       // }, 200)
-      console.log(this.WEEK_LIST, 'weeks')
     },
     beforeUpdate() {
       // this.resetHeight()
@@ -177,22 +176,21 @@
 </script>
 
 <style scoped lang="scss">
-  :deep(.schedule-table) {
-    .vxe-header--column {
+  .schedule-table {
+    :deep(.vxe-header--column) {
       padding: 2px 0 !important;
       vertical-align: middle;
     }
-    .vxe-cell--title {
+    :deep(.vxe-cell--title) {
       line-height: 1;
     }
-    .vxe-body--column,
-    .vxe-body--column .vxe-cell,
-    .vxe-body--column p {
+    :deep(.vxe-cell),
+    :deep(.vxe-body--column) {
       padding: 0 !important;
       margin: 0 !important;
     }
 
-    .header-column {
+    :deep(.header-column) {
       position: relative;
       display: inline-block;
       height: 100%;
@@ -200,11 +198,12 @@
       line-height: 1.5;
 
       &.checked {
+        margin: 5px 0;
         color: #f98233;
         border-radius: 4px;
         background: #ffefe5;
         overflow: hidden;
-
+        vertical-align: middle;
         &::before {
           content: '';
           position: absolute;
@@ -215,11 +214,11 @@
         }
       }
     }
-    .schedule-content {
+    :deep(.schedule-content) {
       color: #fff;
       white-space: initial;
     }
-    .schedule-item {
+    :deep(.schedule-item) {
       margin: 1px 0;
       padding: 6px;
     }

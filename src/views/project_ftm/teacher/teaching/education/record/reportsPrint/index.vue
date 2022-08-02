@@ -16,7 +16,7 @@
           <el-date-picker
             style="width: 150px"
             type="year"
-            value-format="yyyy"
+            value-format="YYYY"
             :placeholder="$t('holder.pleaseSelect')"
             :editable="false"
             @change="dateChange"
@@ -36,10 +36,15 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterStudentName')"
-            suffix-icon="el-icon-search"
             v-model.trim="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="searchTable">{{ $t('button.query') }}</el-button
@@ -60,12 +65,15 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { noFinishedClazzs, genPdfByClazzIdAndStudentId } from '/@/api/ftm/teacher/studentTraining'
   import { getStudents } from '/@/api/ftm/teacher/education'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
   export default {
-    components: { VxeTable },
+    components: { VxeTable, Search },
     name: 'reportsPrint',
     data() {
       return {
@@ -122,6 +130,13 @@
       }
       this.dateChange()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       dateChange() {
         this.form.classNumber = undefined
@@ -170,14 +185,9 @@
         this.pagination.size = size
         this.getTableData()
       },
-      toPage(row, pageName) {
-        this.$router.push({
-          name: pageName,
-          query: {
-            studentId: row.id,
-            clazzId: row.clazz.id,
-          },
-        })
+      toPage(row) {
+        let url = `record/reports/details?studentId=${row.id || ''}&clazzId=${row.clazz.id || ''}`
+        this.routerGo(url)
       },
       // 格式化性别
       genderFormat({ cellValue }) {
@@ -223,7 +233,7 @@
           {
             name: this.$t('button.details'),
             event: () => {
-              this.toPage(row, 'TeachingEducationRecordReportsDetail')
+              this.toPage(row)
             },
           },
         ]

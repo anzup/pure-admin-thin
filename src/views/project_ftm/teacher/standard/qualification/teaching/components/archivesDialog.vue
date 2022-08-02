@@ -17,10 +17,9 @@
 </template>
 
 <script>
-  // TODO 修改组件引用地址
-  // import archivesBasicInfo from '@/views/personCenter/configSign/components/archivesBasicInfo.vue'
-  // import archivesLicense from '@/views/personCenter/configSign/components/archivesLicense.vue'
-  // import archivesRecords from '@/views/personCenter/configSign/components/archivesRecords.vue'
+  import archivesBasicInfo from '/@/views/project_ftm/teacher/panel/personal/config/components/archivesBasicInfo.vue'
+  import archivesLicense from '/@/views/project_ftm/teacher/panel/personal/config/components/archivesLicense.vue'
+  import archivesRecords from '/@/views/project_ftm/teacher/panel/personal/config/components/archivesRecords.vue'
   export default {
     data() {
       return {
@@ -44,9 +43,9 @@
       id: [String, Number],
     },
     components: {
-      // archivesBasicInfo,
-      // archivesLicense,
-      // archivesRecords,
+      archivesBasicInfo,
+      archivesLicense,
+      archivesRecords,
     },
     computed: {
       visible: {

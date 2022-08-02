@@ -26,10 +26,11 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO:课程学习记录
+      // 课程学习记录
       path: 'myStudents/tabs/:recordId',
       name: 'MyJobTeachingMyStudentsRecord',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/education/record/studentRecords/tabs.vue'),
       meta: {
         title: 'router.courseStudentRecords',
         hideMenu: true,
@@ -38,10 +39,13 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO: 课程学习记录/CBTA详情
+      // 课程学习记录/CBTA详情
       path: 'myStudents/tabs/:recordId/CBTAdetails',
       name: 'MyJobTeachingMyStudentsRecordCBTA',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/CBTARecords/details.vue'
+        ),
       meta: {
         title: 'router.CBTAdetails',
         hideMenu: true,
@@ -50,10 +54,13 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO:课程学习记录/考试记录
+      // 课程学习记录/考试记录
       path: 'myStudents/tabs/:recordId/examRecordsDetails',
       name: 'MyJobTeachingMyStudentsRecordExam',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/failRecords/details.vue'
+        ),
       meta: {
         title: 'router.examRecords',
         hideMenu: true,
@@ -62,10 +69,10 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO:课程学习记录/考试记录（试卷）
+      // 课程学习记录/考试记录（试卷）
       path: 'myStudents/tabs/:recordId/examRecordsPaper',
       name: 'MyJobTeachingMyStudentsRecordExamPaper',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examPaperView.vue'),
       meta: {
         title: 'router.examRecordsPaper',
         hideMenu: true,
@@ -74,10 +81,10 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO:课程学习记录/考试记录（成绩单）
+      // 课程学习记录/考试记录（成绩单）
       path: 'myStudents/tabs/:recordId/examRecordsReport',
       name: 'MyJobTeachingMyStudentsRecordExamReport',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/schoolReport.vue'),
       meta: {
         title: 'router.examRecordsReport',
         hideMenu: true,
@@ -86,10 +93,13 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO:课程学习记录/培训档案（预览）
-      path: 'myStudents/tabs/:recordId/trainingRecords',
+      // 课程学习记录/培训档案（预览）
+      path: 'myStudents/tabs/:recordId/triningRecords',
       name: 'MyJobTeachingMyStudentsRecordTraningRecords',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/trainingArchives/preview.vue'
+        ),
       meta: {
         title: 'router.trainingArchives',
         hideMenu: true,
@@ -347,10 +357,13 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'failRecord/detail',
+      // 学员培训记录/不及格记录/详情
+      path: 'failRecord/examRecordsDetails',
       name: 'MyJobTeachingFailRecordDetail',
-      // TODO:学员培训记录/不及格记录/详情
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import(
+          '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/failRecords/details.vue'
+        ),
       meta: {
         hideMenu: true,
         title: 'router.examRecords',
@@ -359,7 +372,7 @@ const Teaching: AppRouteRecordRaw = {
       },
     },
     {
-      path: 'failRecord/record',
+      path: 'failRecord/examFilghtRecords',
       name: 'MyJobTeachingFailRecordRecord',
       component: () =>
         import(
@@ -471,7 +484,6 @@ const Courseware: AppRouteRecordRaw = {
       },
     },
     {
-      // TODO 替换原path coursewareReviewdetails
       // 课件详情
       path: 'review/coursewareDetail',
       name: 'MyJobCMyJobCoursewareReviewCoursewareDetail',
@@ -485,7 +497,6 @@ const Courseware: AppRouteRecordRaw = {
     },
     {
       // 详情
-      // TODO: 替换原path reviewDetails
       path: 'review/detail',
       name: 'MyJobCMyJobCoursewareReviewDetail',
       component: () => import('/@/views/project_ftm/teacher/myJob/courseware/review/detail.vue'),
@@ -506,13 +517,25 @@ const Courseware: AppRouteRecordRaw = {
         system: SubsystemName.flight_training_management,
       },
     },
+    {
+      // 详情
+      path: 'record/details',
+      name: 'MyJobCoursewareAssignedRecordDetails',
+      component: () => import('/@/views/project_ftm/teacher/myJob/courseware/record/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/courseware/record',
+      },
+    },
     // 阅读记录
     {
       path: 'readRecord',
       name: 'MyJobCoursewareReadRecordIndex',
       component: () => import('/@/views/project_ftm/teacher/myJob/courseware/readRecord/index.vue'),
       meta: {
-        title: 'router.readingTask',
+        title: 'router.readingRecord',
         system: SubsystemName.flight_training_management,
       },
     },
@@ -597,7 +620,7 @@ const Exam: AppRouteRecordRaw = {
       name: 'MyJobExamReleaseExamDetails',
       component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examDetails.vue'),
       meta: {
-        origin: 'FORMAL',
+        params: { origin: 'FORMAL' },
         hideMenu: true,
         title: 'button.details',
         system: SubsystemName.flight_training_management,
@@ -693,7 +716,7 @@ const Exam: AppRouteRecordRaw = {
       name: 'MyJobExamMockExamDetails',
       component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examDetails.vue'),
       meta: {
-        origin: 'SIMULATED',
+        params: { origin: 'SIMULATED' },
         hideMenu: true,
         title: 'button.details',
         system: SubsystemName.flight_training_management,
@@ -825,60 +848,138 @@ const Learning: AppRouteRecordRaw = {
     {
       path: 'schedule',
       name: 'MyJobLearningScheduleIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/learning/schedule/index.vue'),
       meta: {
         title: '培训课表',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
       },
     },
     // 飞行签字
     {
       path: 'flightSign',
       name: 'MyJobLearningFlightSignIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/learning/flightSign/index.vue'),
       meta: {
         title: '飞行签字',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 评价详情
+      path: 'flightSign/details',
+      name: 'MyJobLearningFlightSignDetails',
+      component: () =>
+        import(
+          '/@/views/project_ftm/student/myJob/learning/flightSign/flightTrainingEvaluation/edit.vue'
+        ),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/learning/flightSign',
+      },
+    },
+    {
+      // 考核详情
+      path: 'flightSign/testDetails',
+      name: 'MyJobLearningFlightSignTestDetails',
+      component: () =>
+        import('/@/views/project_ftm/student/myJob/learning/flightSign/flightTest/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.examDetails',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/learning/flightSign',
+      },
+    },
+    {
+      // 阅读任务
+      path: 'flightSign/coursewareReadingTask',
+      name: 'MyJobLearningFlightSignReadingTask',
+      component: () => import('/@/views/project_ftm/student/components/ReadingTask/index.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.readingTask',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/learning/flightSign',
       },
     },
     // 理论签字
     {
       path: 'theorySign',
       name: 'MyJobLearningTheorySignIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/learning/theorySign/index.vue'),
       meta: {
         title: '理论签字',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
       },
     },
     // 在线学习
     {
       path: 'online',
       name: 'MyJobLearningOnlineIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/learning/online/index.vue'),
       meta: {
         title: '在线学习',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 直播
+      path: 'online/live/:id',
+      name: 'MyJobLearningOnlineLive',
+      component: () => import('/@/views/project_ftm/student/myJob/learning/online/live.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.Living',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/learning/online',
       },
     },
     // 学习任务
     {
       path: 'task',
       name: 'MyJobLearningTaskIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/learning/task/index.vue'),
       meta: {
-        title: '学习任务',
-        i18n: false,
+        title: 'router.teachingTask',
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 详情
+      path: 'task/details',
+      name: 'MyJobLearningTaskDetails',
+      component: () => import('/@/views/project_ftm/student/myJob/learning/task/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/learning/task',
       },
     },
     // 问卷填写
     {
       path: 'questionnaire',
       name: 'MyJobLearningQuestionnaireIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import('/@/views/project_ftm/student/myJob/learning/questionnaire/index.vue'),
       meta: {
         title: '问卷填写',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 填写
+      path: 'questionnaire/fillin',
+      name: 'MyJobLearningQuestionnaireFill',
+      component: () =>
+        import('/@/views/project_ftm/student/myJob/learning/questionnaire/fillin.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.questionnaireFillin',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/learning/questionnaire',
       },
     },
   ],
@@ -893,37 +994,49 @@ const MyCourseware: AppRouteRecordRaw = {
   component: getParentLayout('MyJobMyCourseware'),
   meta: {
     title: '我的课件',
-    i18n: false,
+    system: SubsystemName.flight_training_management,
   },
   children: [
     // 课件列表
     {
       path: 'list',
       name: 'MyJobMyJobMyCoursewareListIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/myCourseware/list/index.vue'),
       meta: {
         title: '课件列表',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
       },
     },
     // 阅读任务
     {
       path: 'task',
       name: 'MyJobMyJobMyCoursewareTaskIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/myCourseware/task/index.vue'),
       meta: {
-        title: '阅读任务',
-        i18n: false,
+        title: 'router.readingTask',
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 评论
+      path: 'task/detail',
+      name: 'MyJobMyJobMyCoursewareTaskDetails',
+      component: () => import('/@/views/project_ftm/student/myJob/myCourseware/list/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/myCourseware/task',
       },
     },
     // 阅读记录
     {
       path: 'record',
       name: 'MyJobMyJobMyCoursewareRecordIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/student/myJob/myCourseware/record/index.vue'),
       meta: {
         title: '阅读记录',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
       },
     },
   ],
@@ -934,7 +1047,6 @@ const MyCourseware: AppRouteRecordRaw = {
 const MyExam: AppRouteRecordRaw = {
   path: 'myExam',
   name: 'MyJobMyExam',
-  redirect: '',
   component: getParentLayout('MyJobMyExam'),
   meta: {
     title: '我的考试',
@@ -945,10 +1057,46 @@ const MyExam: AppRouteRecordRaw = {
     {
       path: 'teaching',
       name: 'MyJobMyJobMyExamTeachingIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/myJob/myExam/teaching/index.vue'),
       meta: {
         title: '教学考试',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 规则详情
+      path: 'teaching/rule',
+      name: 'MyJobMyJobMyExamTeachingRule',
+      component: () => import('/@/views/project_ftm/teacher/myJob/myExam/teaching/rule.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/myExam/teaching',
+      },
+    },
+    {
+      // 考试页
+      path: 'teaching/exam',
+      name: 'MyJobMyJobMyExamTeachingExam',
+      component: () => import('/@/views/project_ftm/teacher/myJob/myExam/teaching/exam.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/myExam/teaching',
+      },
+    },
+    {
+      // 查看
+      path: 'teaching/view',
+      name: 'MyJobMyJobMyExamTeachingView',
+      component: () => import('/@/views/project_ftm/teacher/myJob/myExam/teaching/view.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/myJob/myExam/teaching',
       },
     },
   ],

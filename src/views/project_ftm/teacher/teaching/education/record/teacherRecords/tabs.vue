@@ -7,7 +7,12 @@
     </div>
 
     <div class="main-table-content">
-      <component :is="currentTab.cmp" :type="currentTab.id" :details="state.Details">
+      <component
+        v-if="state.Details.id"
+        :is="currentTab.cmp"
+        :type="currentTab.id"
+        :details="state.Details"
+      >
         <div style="overflow: hidden">
           <div class="header student-info-wrapper">
             <span class="student-info-nav"

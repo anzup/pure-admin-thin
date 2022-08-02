@@ -90,8 +90,7 @@
                 <td class="center">{{ index + 1 }}</td>
                 <td class="center">{{ item.name }}</td>
                 <td class="center" colspan="2">
-                  <rate
-                    :length="5"
+                  <el-rate
                     v-model="item.score"
                     :disabled="true"
                     :allow-half="true"
@@ -103,8 +102,7 @@
                 <td class="subtit center c2 point-bg">{{ $t('table.trainingStyleCompetence') }}</td>
                 <!-- 作风胜任力 -->
                 <td class="center" colspan="3">
-                  <rate
-                    :length="5"
+                  <el-rate
                     v-model="data.trainingStyleScore"
                     :disabled="orderType < 2"
                     :show-text="orderType < 2"
@@ -115,7 +113,7 @@
                 <td class="subtit center c2 point-bg">{{ $t('table.psychologyCompetence') }}</td>
                 <!-- 心理胜任力 -->
                 <td class="center" colspan="3">
-                  <rate
+                  <el-rate
                     :length="5"
                     v-model="data.psychologyCompetencyScore"
                     :disabled="orderType < 2"
@@ -127,7 +125,7 @@
               <!-- <tr>
                 <td class="subtit center c2">{{ $t('table.overallQuality') }}</td>
                 <td class="center" colspan="3">
-                    <rate :length="5" v-model="data.overallQualityScore" :disabled="orderType < 2"></rate>
+                    <el-rate v-model="data.overallQualityScore" :disabled="orderType < 2"></el-rate>
                 </td>
             </tr> -->
             </table>

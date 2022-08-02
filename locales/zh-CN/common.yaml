@@ -122,3 +122,14 @@ leave: 请假
 noClasses: 无课
 failSuccess: 上传失败
 custom: 自定义
+
+deleteSubSystem: 此操作将该子系统移出，是否继续?
+passwordResetSuccessful: 重置密码成功
+Welcome: 欢迎使用
+aviationTrainingOperationManagementSystem: 航空培训运行管理系统
+login: 登录
+rememberThePassword: 记住密码
+tasksToBeCompleted: 待完成任务
+days: 天
+seconds: 秒
+hours: 小时

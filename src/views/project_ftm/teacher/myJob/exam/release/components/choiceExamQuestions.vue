@@ -1,375 +1,363 @@
 <template>
-  <div class="questionBankContainer">
-    <el-form ref="infoForm" inline label-width="100px" :model="infoForm" :rules="infoRules">
-      <el-form-item :label="$t('table.createType')" prop="templateSelect">
-        <el-radio-group v-model="infoForm.templateSelect">
-          <el-radio :label="true">{{ $t('table.templateSelect') }}</el-radio>
-          <el-button
-            type="primary"
-            :disabled="!infoForm.templateSelect"
-            @click="templateDialogVisible = true"
-            v-if="examType != 'SIMULATED'"
-            style="margin-right: 32px"
-            >{{ $t('button.templateSelect') }}</el-button
-          >
-          <el-radio :label="false">{{ $t('table.createManual') }}</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <br />
-      <el-form-item :label="$t('table.totalScore')" prop="totalScore">
-        <el-input-number
-          :controls="false"
-          :min="0"
-          v-model="infoForm.totalScore"
-          @input="handleUpdateTable"
-          :disabled="!isEdit"
-        />
-      </el-form-item>
-      <el-form-item :label="$t('table.passScore')" prop="passScore">
-        <el-input-number
-          :controls="false"
-          :min="0"
-          v-model="infoForm.passScore"
-          :disabled="!isEdit"
-        />
-      </el-form-item>
-      <!-- <div class="right-tool" v-if="examType != 'SIMULATED'">
-          <el-button type="primary" @click="templateDialogVisible = true">{{ $t('button.templateSelect') }}</el-button>
-      </div> -->
-    </el-form>
-    <el-form
-      ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm en-sort-line"
-      :model="ruleForm"
-      :rules="rules"
-    >
-      <el-form-item :label="$t('table.multipleChoiceQuestionBank')">
-        <div class="question-flex">
-          <el-button type="primary" size="medium" class="fl" @click="selectQb">{{
-            $t('button.select')
-          }}</el-button>
-          <div class="question-scroll">
-            <span
-              class="questionBankBox"
-              v-for="(item, index) in questionBankList"
-              :key="item.index"
+  <el-scrollbar>
+    <div class="questionBankContainer">
+      <el-form ref="infoForm" inline label-width="100px" :model="infoForm" :rules="infoRules">
+        <el-form-item :label="$t('table.createType')" prop="templateSelect">
+          <el-radio-group v-model="infoForm.templateSelect">
+            <el-radio :label="true">{{ $t('table.templateSelect') }}</el-radio>
+            <el-button
+              type="primary"
+              :disabled="!infoForm.templateSelect"
+              @click="templateDialogVisible = true"
+              v-if="examType != 'SIMULATED'"
+              style="margin-right: 32px"
+              >{{ $t('button.templateSelect') }}</el-button
             >
-              <span class="questionBank">{{ item.name }}</span>
-              <el-icon @click="deleteQb(index)">
-                <IconifyIconOffline icon="close" />
-              </el-icon>
-            </span>
+            <el-radio :label="false">{{ $t('table.createManual') }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <br />
+        <el-form-item :label="$t('table.totalScore')" prop="totalScore">
+          <el-input v-model="infoForm.totalScore" :disabled="!isEdit" @input="handleUpdateTable" />
+        </el-form-item>
+        <el-form-item :label="$t('table.passScore')" prop="passScore">
+          <el-input-number
+            :controls="false"
+            :min="0"
+            v-model="infoForm.passScore"
+            :disabled="!isEdit"
+          />
+        </el-form-item>
+        <!-- <div class="right-tool" v-if="examType != 'SIMULATED'">
+            <el-button type="primary" @click="templateDialogVisible = true">{{ $t('button.templateSelect') }}</el-button>
+        </div> -->
+      </el-form>
+      <el-form
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm en-sort-line"
+        :model="ruleForm"
+        :rules="rules"
+      >
+        <el-form-item :label="$t('table.multipleChoiceQuestionBank')">
+          <div class="question-flex">
+            <el-button type="primary" size="medium" class="fl" @click="selectQb">{{
+              $t('button.select')
+            }}</el-button>
+            <div class="question-scroll">
+              <span
+                class="questionBankBox"
+                v-for="(item, index) in questionBankList"
+                :key="item.index"
+              >
+                <span class="questionBank">{{ item.name }}</span>
+                <el-icon @click="deleteQb(index)">
+                  <IconifyIconOffline icon="close" />
+                </el-icon>
+              </span>
+            </div>
           </div>
-        </div>
-      </el-form-item>
-      <el-form-item :label="$t('table.examContent')">
-        <el-radio-group v-model="ruleForm.sameQuestion" :disabled="!isEdit">
-          <el-radio :label="true">{{ $t('table.sameExamQuestion') }}</el-radio>
-          <el-radio :label="false">{{ $t('table.differentExamQuestion') }}</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item :label="$t('table.autoRetestTimes')">
-        <el-input-number
-          :controls="false"
-          style="width: 187px"
-          v-model="ruleForm.maxRetryCount"
-          step-strictly
-          controls-position="right"
-          :min="0"
-          :disabled="setDisabled || !isEdit"
-        />
-        <span style="margin-left: 10px; font-size: 12px; color: #888">{{
-          $t('tip.autoRetestTip')
-        }}</span>
-      </el-form-item>
-      <el-form-item :label="$t('table.testPaperGenerationMethod')" class="flex-column">
-        <el-radio-group
-          v-model="ruleForm.questionSelectType"
-          @change="questionSelectTypeChange"
-          :disabled="!isEdit"
-        >
-          <el-radio label="QUESTION_BANK_COUNT">{{ $t('table.questionBankCount') }}</el-radio>
-          <el-radio label="CHAPTER_PERCENT">{{ $t('table.chapterCount') }}</el-radio>
-          <el-radio label="DIFFICULTY_PERCENT">{{ $t('table.difficultyPercent') }}</el-radio>
-          <el-radio label="IMPORTANCE_PERCENT">{{ $t('table.importancePercent') }}</el-radio>
-        </el-radio-group>
-        <div class="!w-full" v-if="ruleForm.questionSelectType == 'QUESTION_BANK_COUNT'">
-          <vxe-grid
-            size="medium"
-            class="mytable-vxe-style"
-            header-cell-class-name="headerCellClassName"
-            row-class-name="rowClassName"
-            ref="xTable"
-            border
-            stripe
-            resizable
-            show-footer
-            :columns="tableColumn"
-            :data="tableData"
-            :max-height="tableHeight"
-            :edit-rules="validRules"
-            :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod }"
-            :footer-method="footerMethod"
-          >
-            <template #modify="{ column, row }">
-              <el-input-number
-                :controls="false"
-                :min="0"
-                :disabled="!isEdit"
-                v-if="typeof row[column.property] != 'undefined'"
-                :value="row[column.property]"
-                @input="handleChangeInput($event, row, column.property)"
-              />
-            </template>
-          </vxe-grid>
-        </div>
-        <div class="!w-full" v-if="ruleForm.questionSelectType == 'DIFFICULTY_PERCENT'">
-          <el-row :gutter="20">
-            <el-col :span="leftTableCol">
-              <vxe-grid
-                size="medium"
-                class="mytable-style"
-                header-cell-class-name="headerCellClassName"
-                row-class-name="rowClassName"
-                ref="xTable1"
-                border
-                stripe
-                resizable
-                show-footer
-                :columns="tableColumn1"
-                :data="tableData1"
-                :max-height="tableHeight"
-                :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod1 }"
-                :span-method="countMethod"
-                :footer-method="footerMethod"
-              >
-                <template #modify="{ column, row }">
-                  <el-input-number
-                    :controls="false"
-                    :min="0"
-                    type="number"
-                    :disabled="!isEdit"
-                    v-if="typeof row[column.property] != 'undefined'"
-                    :value="row[column.property]"
-                    @input="handleChangeInput($event, row, column.property)"
-                  />
-                </template>
-              </vxe-grid>
-            </el-col>
-            <el-col :span="rightTableCol">
-              <vxe-grid
-                size="medium"
-                class="mytable-style"
-                header-cell-class-name="headerCellClassName"
-                row-class-name="rowClassName"
-                border
-                stripe
-                resizable
-                show-footer
-                ref="xTable2"
-                :columns="tableColumn2"
-                :data="tableData2"
-                :max-height="tableHeight"
-                :edit-config="{ trigger: 'manual', mode: 'cell' }"
-                :footer-method="footerMethod2"
-              >
-                <template #modify="{ column, row }">
-                  <el-input-number
-                    :controls="false"
-                    :min="0"
-                    :disabled="!isEdit"
-                    v-if="typeof row[column.property] != 'undefined'"
-                    :value="row[column.property]"
-                    @input="handleChangeInput($event, row, column.property)"
-                  />
-                </template>
-              </vxe-grid>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="!w-full" v-if="ruleForm.questionSelectType == 'IMPORTANCE_PERCENT'">
-          <el-row :gutter="20">
-            <el-col :span="leftTableCol">
-              <vxe-grid
-                size="medium"
-                class="mytable-style"
-                header-cell-class-name="headerCellClassName"
-                row-class-name="rowClassName"
-                ref="xTable3"
-                border
-                stripe
-                resizable
-                show-footer
-                :columns="tableColumn1"
-                :data="tableData1"
-                :max-height="tableHeight"
-                :span-method="countMethod"
-                :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod1 }"
-                :footer-method="footerMethod"
-              >
-                <template #modify="{ column, row }">
-                  <el-input-number
-                    :controls="false"
-                    :min="0"
-                    type="number"
-                    :disabled="!isEdit"
-                    v-if="typeof row[column.property] != 'undefined'"
-                    :value="row[column.property]"
-                    @input="handleChangeInput($event, row, column.property)"
-                  />
-                </template>
-              </vxe-grid>
-            </el-col>
-            <el-col :span="rightTableCol">
-              <vxe-grid
-                size="medium"
-                class="mytable-style"
-                header-cell-class-name="headerCellClassName"
-                row-class-name="rowClassName"
-                border
-                stripe
-                resizable
-                show-footer
-                ref="xTable4"
-                :columns="tableColumn2"
-                :data="tableData3"
-                :max-height="tableHeight"
-                :edit-config="{ trigger: 'manual', mode: 'cell' }"
-                :footer-method="footerMethod2"
-              >
-                <template #modify="{ column, row }">
-                  <el-input-number
-                    :controls="false"
-                    :min="0"
-                    :disabled="!isEdit"
-                    v-if="typeof row[column.property] != 'undefined'"
-                    :value="row[column.property]"
-                    @input="handleChangeInput($event, row, column.property)"
-                  />
-                </template>
-              </vxe-grid>
-            </el-col>
-          </el-row>
-        </div>
-        <!-- 按章节组卷 -->
-        <div class="!w-full" v-if="ruleForm.questionSelectType == 'CHAPTER_PERCENT'">
-          <el-row :gutter="20">
-            <el-col :span="leftTableCol">
-              <vxe-grid
-                size="medium"
-                class="mytable-style"
-                header-cell-class-name="headerCellClassName"
-                row-class-name="rowClassName"
-                ref="xTable5"
-                border
-                stripe
-                resizable
-                show-footer
-                :columns="tableColumn1"
-                :data="tableData1"
-                :max-height="tableHeight"
-                :span-method="countMethod"
-                :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod1 }"
-                :footer-method="footerMethod"
-              >
-                <template #modify="{ column, row }">
-                  <el-input-number
-                    :controls="false"
-                    :min="0"
-                    type="number"
-                    :disabled="!isEdit"
-                    v-if="typeof row[column.property] != 'undefined'"
-                    :value="row[column.property]"
-                    @input="handleChangeInput($event, row, column.property)"
-                  />
-                </template>
-              </vxe-grid>
-            </el-col>
-            <el-col :span="rightTableCol">
-              <el-button
-                type="primary"
-                @click="chapterDialogVisible = true"
-                class="chapter-select"
-                :disabled="!questionBankList.map((item) => item.id).join()"
-                >{{ $t('table.selectChapter') }}</el-button
-              >
-              <vxe-grid
-                size="medium"
-                class="mytable-style"
-                header-cell-class-name="headerCellClassName"
-                row-class-name="rowClassName"
-                border
-                stripe
-                resizable
-                show-footer
-                ref="xTable6"
-                :columns="chaptersColumn"
-                :data="chapters"
-                :max-height="tableHeight"
-                :edit-config="{ trigger: 'manual', mode: 'cell' }"
-                :footer-method="footerMethod2"
-              >
-                <template #modify="{ column, row }">
-                  <el-input-number
-                    :controls="false"
-                    :min="0"
-                    :disabled="!isEdit"
-                    v-if="typeof row[column.property] != 'undefined'"
-                    :value="row[column.property]"
-                    @input="handleChangeInput($event, row, column.property)"
-                  />
-                </template>
-              </vxe-grid>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="footPoint !w-full">
-          <el-button type="primary" @click="postExamsEvent" v-if="ruleForm.sameQuestion">{{
-            $t('button.generateExamPaper')
-          }}</el-button>
-          <el-button type="primary" @click="viewExamPaper" v-if="ruleForm.sameQuestion">{{
-            $t('button.viewExamPaper')
-          }}</el-button>
-          <span type="primary" v-if="ruleForm.sameQuestion">{{
-            $t('tip.choiceExamQuestionsTip')
+        </el-form-item>
+        <el-form-item :label="$t('table.examContent')">
+          <el-radio-group v-model="ruleForm.sameQuestion" :disabled="!isEdit">
+            <el-radio :label="true">{{ $t('table.sameExamQuestion') }}</el-radio>
+            <el-radio :label="false">{{ $t('table.differentExamQuestion') }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item :label="$t('table.autoRetestTimes')">
+          <el-input-number
+            :controls="false"
+            style="width: 187px"
+            v-model="ruleForm.maxRetryCount"
+            step-strictly
+            controls-position="right"
+            :min="0"
+            :disabled="setDisabled || !isEdit"
+          />
+          <span style="margin-left: 10px; font-size: 12px; color: #888">{{
+            $t('tip.autoRetestTip')
           }}</span>
+        </el-form-item>
+        <el-form-item :label="$t('table.testPaperGenerationMethod')" class="flex-column">
+          <el-radio-group
+            v-model="ruleForm.questionSelectType"
+            @change="questionSelectTypeChange"
+            :disabled="!isEdit"
+          >
+            <el-radio label="QUESTION_BANK_COUNT">{{ $t('table.questionBankCount') }}</el-radio>
+            <el-radio label="CHAPTER_PERCENT">{{ $t('table.chapterCount') }}</el-radio>
+            <el-radio label="DIFFICULTY_PERCENT">{{ $t('table.difficultyPercent') }}</el-radio>
+            <el-radio label="IMPORTANCE_PERCENT">{{ $t('table.importancePercent') }}</el-radio>
+          </el-radio-group>
+          <div class="!w-full" v-if="ruleForm.questionSelectType == 'QUESTION_BANK_COUNT'">
+            <vxe-grid
+              size="medium"
+              class="mytable-vxe-style"
+              header-cell-class-name="headerCellClassName"
+              row-class-name="rowClassName"
+              ref="xTable"
+              border
+              stripe
+              resizable
+              show-footer
+              :columns="tableColumn"
+              :data="tableData"
+              :max-height="tableHeight"
+              :edit-rules="validRules"
+              :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod }"
+              :footer-method="footerMethod"
+            >
+              <template #modify="{ column, row }">
+                <el-input
+                  type="number"
+                  :disabled="!isEdit"
+                  v-if="typeof row[column.property] != 'undefined'"
+                  :model-value="row[column.property]"
+                  @input="(value) => handleChangeInput(value, row, column.property)"
+                />
+              </template>
+            </vxe-grid>
+          </div>
+          <div class="!w-full" v-if="ruleForm.questionSelectType == 'DIFFICULTY_PERCENT'">
+            <el-row :gutter="20">
+              <el-col :span="leftTableCol">
+                <vxe-grid
+                  size="medium"
+                  class="mytable-style"
+                  header-cell-class-name="headerCellClassName"
+                  row-class-name="rowClassName"
+                  ref="xTable1"
+                  border
+                  stripe
+                  resizable
+                  show-footer
+                  :columns="tableColumn1"
+                  :data="tableData1"
+                  :max-height="tableHeight"
+                  :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod1 }"
+                  :span-method="countMethod"
+                  :footer-method="footerMethod"
+                >
+                  <template #modify="{ column, row }">
+                    <el-input
+                      type="number"
+                      :disabled="!isEdit"
+                      v-if="typeof row[column.property] != 'undefined'"
+                      :model-value="row[column.property]"
+                      @input="(value) => handleChangeInput(value, row, column.property)"
+                    />
+                  </template>
+                </vxe-grid>
+              </el-col>
+              <el-col :span="rightTableCol">
+                <vxe-grid
+                  size="medium"
+                  class="mytable-style"
+                  header-cell-class-name="headerCellClassName"
+                  row-class-name="rowClassName"
+                  border
+                  stripe
+                  resizable
+                  show-footer
+                  ref="xTable2"
+                  :columns="tableColumn2"
+                  :data="tableData2"
+                  :max-height="tableHeight"
+                  :edit-config="{ trigger: 'manual', mode: 'cell' }"
+                  :footer-method="footerMethod2"
+                >
+                  <template #modify="{ column, row }">
+                    <el-input
+                      type="number"
+                      :disabled="!isEdit"
+                      v-if="typeof row[column.property] != 'undefined'"
+                      :model-value="row[column.property]"
+                      @input="(value) => handleChangeInput(value, row, column.property)"
+                    />
+                  </template>
+                </vxe-grid>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="!w-full" v-if="ruleForm.questionSelectType == 'IMPORTANCE_PERCENT'">
+            <el-row :gutter="20">
+              <el-col :span="leftTableCol">
+                <vxe-grid
+                  size="medium"
+                  class="mytable-style"
+                  header-cell-class-name="headerCellClassName"
+                  row-class-name="rowClassName"
+                  ref="xTable3"
+                  border
+                  stripe
+                  resizable
+                  show-footer
+                  :columns="tableColumn1"
+                  :data="tableData1"
+                  :max-height="tableHeight"
+                  :span-method="countMethod"
+                  :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod1 }"
+                  :footer-method="footerMethod"
+                >
+                  <template #modify="{ column, row }">
+                    <el-input
+                      type="number"
+                      :disabled="!isEdit"
+                      v-if="typeof row[column.property] != 'undefined'"
+                      :model-value="row[column.property]"
+                      @input="(value) => handleChangeInput(value, row, column.property)"
+                    />
+                  </template>
+                </vxe-grid>
+              </el-col>
+              <el-col :span="rightTableCol">
+                <vxe-grid
+                  size="medium"
+                  class="mytable-style"
+                  header-cell-class-name="headerCellClassName"
+                  row-class-name="rowClassName"
+                  border
+                  stripe
+                  resizable
+                  show-footer
+                  ref="xTable4"
+                  :columns="tableColumn2"
+                  :data="tableData3"
+                  :max-height="tableHeight"
+                  :edit-config="{ trigger: 'manual', mode: 'cell' }"
+                  :footer-method="footerMethod2"
+                >
+                  <template #modify="{ column, row }">
+                    <el-input
+                      type="number"
+                      :disabled="!isEdit"
+                      v-if="typeof row[column.property] != 'undefined'"
+                      :model-value="row[column.property]"
+                      @input="(value) => handleChangeInput(value, row, column.property)"
+                    />
+                  </template>
+                </vxe-grid>
+              </el-col>
+            </el-row>
+          </div>
+          <!-- 按章节组卷 -->
+          <div class="!w-full" v-if="ruleForm.questionSelectType == 'CHAPTER_PERCENT'">
+            <el-row :gutter="20">
+              <el-col :span="leftTableCol">
+                <vxe-grid
+                  size="medium"
+                  class="mytable-style"
+                  header-cell-class-name="headerCellClassName"
+                  row-class-name="rowClassName"
+                  ref="xTable5"
+                  border
+                  stripe
+                  resizable
+                  show-footer
+                  :columns="tableColumn1"
+                  :data="tableData1"
+                  :max-height="tableHeight"
+                  :span-method="countMethod"
+                  :edit-config="{ trigger: 'manual', mode: 'cell', activeMethod: activeRowMethod1 }"
+                  :footer-method="footerMethod"
+                >
+                  <template #modify="{ column, row }">
+                    <el-input
+                      type="number"
+                      :disabled="!isEdit"
+                      v-if="typeof row[column.property] != 'undefined'"
+                      :model-value="row[column.property]"
+                      @input="(value) => handleChangeInput(value, row, column.property)"
+                    />
+                  </template>
+                </vxe-grid>
+              </el-col>
+              <el-col :span="rightTableCol">
+                <el-button
+                  type="primary"
+                  @click="chapterDialogVisible = true"
+                  class="chapter-select"
+                  :disabled="!questionBankList.map((item) => item.id).join()"
+                  >{{ $t('table.selectChapter') }}</el-button
+                >
+                <vxe-grid
+                  size="medium"
+                  class="mytable-style"
+                  header-cell-class-name="headerCellClassName"
+                  row-class-name="rowClassName"
+                  border
+                  stripe
+                  resizable
+                  show-footer
+                  ref="xTable6"
+                  :columns="chaptersColumn"
+                  :data="chapters"
+                  :max-height="tableHeight"
+                  :edit-config="{ trigger: 'manual', mode: 'cell' }"
+                  :footer-method="footerMethod2"
+                >
+                  <template #modify="{ column, row }">
+                    <el-input
+                      type="number"
+                      :disabled="!isEdit"
+                      v-if="typeof row[column.property] != 'undefined'"
+                      :model-value="row[column.property]"
+                      @input="(value) => handleChangeInput(value, row, column.property)"
+                    />
+                  </template>
+                </vxe-grid>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="footPoint !w-full">
+            <el-button type="primary" @click="postExamsEvent" v-if="ruleForm.sameQuestion">{{
+              $t('button.generateExamPaper')
+            }}</el-button>
+            <el-button type="primary" @click="viewExamPaper" v-if="ruleForm.sameQuestion">{{
+              $t('button.viewExamPaper')
+            }}</el-button>
+            <span type="primary" v-if="ruleForm.sameQuestion">{{
+              $t('tip.choiceExamQuestionsTip')
+            }}</span>
+          </div>
+        </el-form-item>
+        <div class="footerBtn">
+          <el-button @click="handleCancel" type="primary" plain>{{
+            $t('button.cancel')
+          }}</el-button>
+          <el-button type="primary" @click="lastStep">{{ $t('button.lastStep') }}</el-button>
+          <el-button type="primary" class="rightBtn" @click="nexeStep">{{
+            $t('button.nexeStep')
+          }}</el-button>
         </div>
-      </el-form-item>
-      <div class="footerBtn">
-        <el-button @click="handleCancel" type="primary" plain>{{ $t('button.cancel') }}</el-button>
-        <el-button type="primary" @click="lastStep">{{ $t('button.lastStep') }}</el-button>
-        <el-button type="primary" class="rightBtn" @click="nexeStep">{{
-          $t('button.nexeStep')
-        }}</el-button>
-      </div>
-    </el-form>
+      </el-form>
 
-    <questiion-bank-dialog
-      v-model:dialogVisible="dialogVisible"
-      :defaultSelecteRows="defaultSelecteRows"
-      @questiionBankCancel="questiionBankCancel"
-    />
+      <questiion-bank-dialog
+        v-model:dialogVisible="dialogVisible"
+        :defaultSelecteRows="defaultSelecteRows"
+        @questiionBankCancel="questiionBankCancel"
+      />
 
-    <exam-details-dialog
-      v-model:examDetailsDialogVisible="examDetailsDialogVisible"
-      :questionBankId="questionBankId"
-      @examDetailsClose="examDetailsClose"
-    />
+      <exam-details-dialog
+        v-model:examDetailsDialogVisible="examDetailsDialogVisible"
+        :questionBankId="questionBankId"
+        @examDetailsClose="examDetailsClose"
+      />
 
-    <template-dialog
-      v-model:visible="templateDialogVisible"
-      :loading="templateLoading"
-      @checkbox="handleCheckbox"
-    />
+      <template-dialog
+        v-model:visible="templateDialogVisible"
+        :loading="templateLoading"
+        @checkbox="handleCheckbox"
+      />
 
-    <chapter-dialog
-      v-model:dialogVisible="chapterDialogVisible"
-      :questionBankIds="questionBankList.map((item) => item.id)"
-      @chapterList="setchapterList"
-      @close="chapterDialogVisible = false"
-    />
-  </div>
+      <chapter-dialog
+        v-model:dialogVisible="chapterDialogVisible"
+        :questionBankIds="questionBankList.map((item) => item.id)"
+        @chapterList="setchapterList"
+        @close="chapterDialogVisible = false"
+      />
+    </div>
+  </el-scrollbar>
 </template>
 
 <script>
@@ -836,6 +824,7 @@
           }
         }
         this.dialogVisible = false
+        console.log(this.tableData, 'tt')
       },
       footerMethod({ columns, data }) {
         return [
@@ -1110,7 +1099,7 @@
         return s_x
       },
       handleChangeInput(val, item, keyname) {
-        this.$set(item, keyname, val)
+        item[keyname] = val
         this.handleUpdateTable()
       },
       // 更新表格
@@ -1199,8 +1188,8 @@
     }
   }
   .questionBankContainer {
-    overflow-y: scroll;
     .question-flex {
+      flex: 1;
       .fl {
         float: left;
       }
@@ -1210,9 +1199,6 @@
     :deep(.el-scrollbar__view) {
       height: 40px;
     }
-  }
-  .questionBankContainer::-webkit-scrollbar {
-    width: 0 !important;
   }
   .table-box {
     height: 380px;
@@ -1241,5 +1227,9 @@
   }
   .el-input-number {
     width: 100%;
+  }
+  .footerBtn {
+    text-align: right;
+    margin: 12px 0;
   }
 </style>

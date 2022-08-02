@@ -3,8 +3,9 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColumns"
-    v-model:form="form"
     :toolbar-config="tableTools"
+    :buttons="tableButtons"
+    v-model:form="form"
     @handlePageChange="handleCurrentChange"
   >
     <template #form>
@@ -27,31 +28,27 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseInputCoursewareName')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
         </el-form-item>
       </el-form>
     </template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="readMore(row)" v-permission="menuName + ':READ_MORE'">{{
-          $t('button.readMore')
-        }}</span>
-        <span class="buttonEdit" @click="cancel(row.id)" v-permission="menuName + ':QUASH'">{{
-          $t('button.revoke')
-        }}</span>
-      </div>
-    </template>
   </VxeTable>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import { deleteEmptyParams } from '/@/utils/index'
   import {
@@ -59,8 +56,12 @@
     deleteCoursewareAssignmentsId,
   } from '/@/api/ftm/teacher/courseware'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
-    components: { VxeTable },
+    components: { VxeTable, Search },
     data() {
       return {
         menuName: 'COURSEWARE_ASSIGNMENT',
@@ -113,6 +114,13 @@
     mounted() {
       this.getCoursewareAssignments()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       handleCurrentChange({ page, size }) {
         this.form.page = page
@@ -130,14 +138,9 @@
         }
       },
       readMore(row) {
-        this.$router.push({
-          path: 'record/details',
-          query: {
-            id: row.id,
-            name: row.courseware.name,
-            type: row.courseware.type,
-          },
-        })
+        this.routerGo(
+          `record/details?id=${row.id}&name=${row.courseware.name}&type=${row.courseware.type}`,
+        )
       },
       cancel(id) {
         this.$confirm(this.$t('common.cancelData'), this.$t('tip.tip'), {
@@ -170,6 +173,24 @@
       search() {
         this.form.page = 1
         this.getCoursewareAssignments()
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.readMore'),
+            visible: userStore.totalAuthorities.includes(this.menuName + ':READ_MORE'),
+            event: () => {
+              this.readMore(row)
+            },
+          },
+          {
+            name: this.$t('button.revoke'),
+            visible: userStore.totalAuthorities.includes(this.menuName + ':QUASH'),
+            event: () => {
+              this.cancel(row.id)
+            },
+          },
+        ]
       },
     },
   }

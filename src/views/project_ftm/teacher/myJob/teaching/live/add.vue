@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar>
-    <div class="container">
+    <div class="live-container">
       <el-form ref="liveForm" label-width="30%" :model="form" :rules="formRules">
         <el-form-item :label="$t('table.liveName')" prop="name">
           <el-input
@@ -10,22 +10,24 @@
           />
         </el-form-item>
         <el-form-item :label="$t('table.liveImage')" prop="file" ref="fileForm">
-          <el-upload
-            action="#"
-            :show-file-list="false"
-            :auto-upload="false"
-            :multiple="false"
-            :on-change="uploadPreviewFile"
-          >
-            <div class="upload-preview" v-if="form.file">
-              <img :src="form.file_preview" alt="" />
-            </div>
-            <div class="upload-preview" v-else-if="form.coverUuid">
-              <img :src="previewURL(form.coverUuid)" alt="" />
-            </div>
-            <div class="no-upload" v-else>{{ $t('button.upload') }}</div>
-          </el-upload>
-          <p class="no-upload-point">{{ $t('tip.uploadImageSizeTip') }}</p>
+          <div>
+            <el-upload
+              action="#"
+              :show-file-list="false"
+              :auto-upload="false"
+              :multiple="false"
+              :on-change="uploadPreviewFile"
+            >
+              <div class="upload-preview" v-if="form.file">
+                <img :src="form.file_preview" alt="" />
+              </div>
+              <div class="upload-preview" v-else-if="form.coverUuid">
+                <img :src="previewURL(form.coverUuid)" alt="" />
+              </div>
+              <div class="no-upload" v-else>{{ $t('button.upload') }}</div>
+            </el-upload>
+            <p class="no-upload-point">{{ $t('tip.uploadImageSizeTip') }}</p>
+          </div>
         </el-form-item>
         <el-form-item :label="$t('table.liveCouseNumber')" prop="number">
           <el-select
@@ -42,7 +44,7 @@
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('table.liveTime')" prop="time">
-          <el-date-picker class="form-item-width" type="datetime" v-model="form.time" />
+          <el-date-picker type="datetime" v-model="form.time" />
         </el-form-item>
         <el-form-item :label="$t('table.liveRecord')">
           <el-switch v-model="form.record" />
@@ -381,7 +383,7 @@
 </script>
 
 <style scoped lang="scss">
-  .container {
+  .live-container {
     $upload-height: (400px / 4 * 3);
     .no-upload {
       width: 400px;

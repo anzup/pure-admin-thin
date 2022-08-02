@@ -50,29 +50,31 @@
                   <el-date-picker
                     class="inline-date-picker"
                     v-model="form.flyTime"
-                    value-format="yyyy-MM-dd"
+                    value-format="YYYY-MM-DD"
                     type="date"
                     :placeholder="t('holder.pleaseSelectDate')"
                     :editable="false"
                     size="mini"
                     :clearable="false"
                   />
-                  <a
-                    href="javascript:void(0)"
-                    class="el-icon-check icon-edit no-print"
+                  <el-icon
                     v-if="props.type == 'edit' && dateEdit"
+                    class="icon-edit no-print"
                     @click="dateEdit = false"
-                  />
+                  >
+                    <Check />
+                  </el-icon>
                 </template>
                 <template v-else>
                   {{ XEUtils.toDateString(form.flyTime, 'yyyy-MM-dd') }}
                 </template>
-                <a
-                  href="javascript:void(0);"
-                  class="el-icon-edit-outline icon-edit no-print"
+                <el-icon
                   v-if="props.type == 'edit' && !dateEdit"
+                  class="icon-edit no-print"
                   @click="dateEdit = true"
-                />
+                >
+                  <Edit />
+                </el-icon>
               </td>
             </tr>
           </table>
@@ -94,12 +96,11 @@
         </td>
         <td>{{ form.score[0] ? form.score[0].name : '' }}</td>
         <td colspan="2">
-          <rate
-            :length="5"
-            :disabled="props.type == 'info'"
+          <el-rate
             v-if="form.score[0]"
             v-model="form.score[0].score"
             :colors="['#FF9900', '#FF9900', '#FF9900']"
+            :disabled="props.type == 'info'"
             disabled-void-color="#99A9BF"
           />
         </td>
@@ -128,8 +129,7 @@
       >
         <td>{{ item.name }}</td>
         <td colspan="2">
-          <rate
-            :length="5"
+          <el-rate
             :disabled="props.type == 'info'"
             v-model="form.score[index + 1].score"
             :colors="['#FF9900', '#FF9900', '#FF9900']"
@@ -305,6 +305,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { Check, Edit } from '@element-plus/icons-vue'
   import { previewURL } from '/@/api/ftm/teacher/personCenter'
   import { trainingResults } from '/@/api/ftm/teacher/teachingCenter'
   import Api from '/@/api/ftm/teacher/trainEva'

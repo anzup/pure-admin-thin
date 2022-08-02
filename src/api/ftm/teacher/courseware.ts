@@ -1,4 +1,5 @@
 import request from '/@/utils/request/index'
+import { toExport } from '/@/utils'
 const url = import.meta.env.VITE_BASE_API_FTM
 // 课件属性
 export const getCoursewareProperties = (params) =>
@@ -303,8 +304,16 @@ export const coursewareExport = (data) =>
   request({
     url: url + '/coursewareAssignmentReadRecords/export',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then(async (res) => {
+      await toExport(res)
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 
 // 课件阅读记录
 export const getCoursewareReadRecords = (params) =>

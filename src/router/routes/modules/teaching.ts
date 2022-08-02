@@ -336,112 +336,287 @@ const Exam: AppRouteRecordRaw = {
     // 题库管理
     {
       path: 'questionBank',
-      name: 'TeachingExamQuestionBank',
-      redirect: 'index',
-      component: getParentLayout('TeachingExamQuestionBank'),
+      name: 'TeachingExamQuestionBankIndex',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/questionBank/index.vue'),
       meta: {
         title: '题库管理',
         i18n: false,
+        system: SubsystemName.flight_training_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingExamQuestionBankIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '题库管理',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      // 新增
+      path: 'questionBank/add',
+      name: 'TeachingExamQuestionBankAdd',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/questionBank/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.addTo',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/questionBank',
+      },
+    },
+    {
+      // 详情
+      path: 'questionBank/details',
+      name: 'TeachingExamQuestionBankDetails',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/exam/questionBank/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/questionBank',
+      },
     },
     // 发起考试
     {
       path: 'initiate',
       name: 'TeachingExamInitiate',
-      redirect: 'index',
-      component: getParentLayout('TeachingExamInitiate'),
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/index.vue'),
       meta: {
         title: '发起考试',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingExamInitiateIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '发起考试',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      // 新增
+      path: 'initiate/add',
+      name: 'TeachingExamInitiateAdd',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.addTo',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 详情
+      path: 'initiate/info',
+      name: 'TeachingExamInitiateInfo',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 试卷详情
+      path: 'initiate/details',
+      name: 'TeachingExamInitiateDetails',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 试卷修改
+      path: 'initiate/modify',
+      name: 'TeachingExamInitiateModify',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/modify.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.edit',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 考试列表
+      path: 'initiate/examDetails/:examId',
+      name: 'TeachingExamInitiateExamDetails',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examDetails.vue'),
+      meta: {
+        params: { origin: 'FORMAL' },
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 成绩单
+      path: 'initiate/examDetails/:examId/schoolReport',
+      name: 'TeachingExamInitiateSchoolReport',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/schoolReport.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.reportCard',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 阅卷
+      path: 'initiate/examDetails/:examId/markingPaperView',
+      name: 'TeachingExamInitiateMarkingPaperView',
+      component: () =>
+        import('/@/views/project_ftm/teacher/myJob/exam/release/markingPaperView.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.markingPapers',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
+    },
+    {
+      // 试卷
+      path: 'initiate/examDetails/:examId/examPaperView',
+      name: 'TeachingExamInitiateExamPaperView',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examPaperView.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.examPaper',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/initiate',
+      },
     },
     // 考试查询
     {
       path: 'record',
-      name: 'TeachingExamRecord',
-      redirect: 'index',
-      component: getParentLayout('TeachingExamRecord'),
+      name: 'TeachingExamRecordIndex',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/record/index.vue'),
       meta: {
         title: '考试查询',
         i18n: false,
+        system: SubsystemName.flight_training_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingExamRecordIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '考试查询',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      // 详情
+      path: 'record/details',
+      name: 'TeachingExamRecordDetails',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/record',
+      },
+    },
+    {
+      // 考试详情
+      path: 'record/examDetails/:examId',
+      name: 'TeachingExamRecorExamDetails',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examDetails.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/record',
+      },
+    },
+    {
+      // 考试单
+      path: 'record/examDetails/:examId/schoolReport',
+      name: 'TeachingExamRecorExamDetailsSchoolReport',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/schoolReport.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.reportCard',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/record',
+      },
+    },
+    {
+      // 试卷
+      path: 'record/examDetails/:examId/examPaperView',
+      name: 'TeachingExamRecorExamDetailsExamPaperView',
+      component: () => import('/@/views/project_ftm/teacher/myJob/exam/release/examPaperView.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.examPaper',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/record',
+      },
     },
     // 考试统计
     {
       path: 'statistical',
-      name: 'TeachingExamStatistical',
-      redirect: 'index',
-      component: getParentLayout('TeachingExamStatistical'),
+      name: 'TeachingExamStatisticalIndex',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/statistical/index.vue'),
       meta: {
-        title: '考试统计',
-        i18n: false,
+        title: 'router.eaxmStatistics',
+        system: SubsystemName.flight_training_management,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingExamStatisticalIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '考试统计',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      // 考试详情
+      path: 'statistical/details',
+      name: 'TeachingExamStatisticalDetails',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/statistical/details.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.detail',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/statistical',
+      },
+    },
+    {
+      // 试题详情
+      path: 'statistical/testDetails',
+      name: 'TeachingExamStatisticalTestDetails',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/statistical/tabs.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.questionDetails',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/statistical',
+      },
     },
     // 考试配置
     {
       path: 'config',
-      name: 'TeachingExamConfig',
-      redirect: 'index',
-      component: getParentLayout('TeachingExamConfig'),
+      name: 'TeachingExamConfigIndex',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/config/index.vue'),
       meta: {
         title: '考试配置',
         i18n: false,
       },
-      children: [
-        {
-          path: 'index',
-          name: 'TeachingExamConfigIndex',
-          component: () => import('/@/views/dashboard/index.vue'),
-          meta: {
-            title: '考试配置',
-            i18n: false,
-          },
-        },
-      ],
+    },
+    {
+      // 添加模板
+      path: 'config/template/add',
+      name: 'TeachingExamConfigTemplateAdd',
+      component: () => import('/@/views/project_ftm/teacher/teaching/exam/config/template/add.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.addTo',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/config',
+      },
+    },
+    {
+      // 修改模板
+      path: 'config/template/edit/:id',
+      name: 'TeachingExamConfigTemplateEdit',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/exam/config/template/modify.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.modify',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/config',
+      },
+    },
+    {
+      // 模板详情
+      path: 'config/template/detail/:id',
+      name: 'TeachingExamConfigTemplateDetail',
+      component: () =>
+        import('/@/views/project_ftm/teacher/teaching/exam/config/template/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/teaching/exam/config',
+      },
     },
   ],
 }

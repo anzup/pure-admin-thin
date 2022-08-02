@@ -245,6 +245,17 @@ export async function mergePDF(pdfsToMerges, type) {
 }
 
 /**
+ * 文件print 打印
+ * @param {arraybuffer}}
+ * @returns {print}
+ */
+export function doPrint(val) {
+  const ordonnance = document.getElementById(val)?.contentWindow
+  setTimeout(() => {
+    ordonnance.print()
+  }, 100)
+}
+/**
  * 文件print 转化
  * @param {arraybuffer}
  */

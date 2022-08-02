@@ -3,7 +3,8 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColumns"
-    :form="pagination"
+    :buttons="tableButtons"
+    v-model:form="pagination"
     @action="btnClick"
     @checkbox="selectChangeEvent"
     @handle-page-change="handleCurrentChange"
@@ -36,7 +37,7 @@
         <el-form-item :label="$t('table.schoolYear')">
           <el-date-picker
             type="year"
-            value-format="yyyy"
+            value-format="YYYY"
             v-model="form.year"
             @change="refreshCourseNameEvent"
           />
@@ -79,10 +80,15 @@
           <!-- 查询关键字 -->
           <el-input
             :placeholder="$t('holder.pleaseEnterStudentName')"
-            suffix-icon="el-icon-search"
             v-model.trim="form.searchKey"
             class="searchInput"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -98,45 +104,24 @@
         </el-form-item>
       </el-form>
     </template>
-
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span
-          class="buttonEdit"
-          @click="toPage(row, 'StudentReviewEdit')"
-          v-if="row.status == 'FILLED' && !row.signature"
-          v-permission="menuName + ':UPDATE'"
-          >{{ $t('button.modify') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="toPage(row, 'StudentReviewEdit', 'detail')"
-          v-else-if="row.status == 'FILLED'"
-          >{{ $t('button.details') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="toPage(row, 'StudentReviewEdit', 'add')"
-          v-else
-          v-permission="menuName + ':APPRAISE'"
-          >{{ $t('button.evaluate') }}</span
-        >
-      </div>
-    </template>
   </VxeTable>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import Api from '/@/api/ftm/teacher/trainEva'
   import { airlinesMenu, noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
   import { studentFinalGetPdf } from '/@/api/ftm/teacher/studentTraining'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { deleteEmptyParams } from '/@/utils'
   const userStore = useFtmUserStore()
   export default {
-    components: { VxeTable },
+    components: { VxeTable, Search },
     data() {
       return {
         menuName: 'STUDENT_REVIEW',
@@ -235,6 +220,13 @@
       }
       this.getData()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       // 选择行
       selectChangeEvent({ records }) {
@@ -245,17 +237,21 @@
         this.pagination.size = size
         this.getData()
       },
-      toPage(row, name, status) {
-        this.$router.push({
-          name,
-          query: {
-            ids: row.ids,
-            id: row.id,
-            status: row.status,
-            type: status,
-            recordId: row.studentTrainingRecord && row.studentTrainingRecord.id,
-          },
-        })
+      toPage(row, uri, status) {
+        let query = {
+          ids: row.ids,
+          id: row.id,
+          status: row.status,
+          type: status,
+          recordId: row.studentTrainingRecord && row.studentTrainingRecord.id,
+        }
+        let url = uri + '?'
+        query = deleteEmptyParams(query)
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${value}&`
+        }
+        url = url.substring(0, url.length - 1)
+        this.routerGo(url)
       },
       // 打印
       printEvent(row) {
@@ -342,6 +338,35 @@
         }
       },
       btnClick() {},
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.modify'),
+            visible:
+              userStore.ContainsPermissions(this.menuName + ':UPDATE') &&
+              row.status == 'FILLED' &&
+              !row.signature,
+            event: () => {
+              this.toPage(row, 'flight/studentReviewEdit')
+            },
+          },
+          {
+            name: this.$t('button.details'),
+            visible: row.status == 'FILLED' && row.signature,
+            event: () => {
+              this.toPage(row, 'flight/studentReviewEdit', 'detail')
+            },
+          },
+          {
+            name: this.$t('button.evaluate'),
+            visible:
+              userStore.ContainsPermissions(this.menuName + ':APPRAISE') && row.status != 'FILLED',
+            event: () => {
+              this.toPage(row, 'flight/studentReviewEdit', 'add')
+            },
+          },
+        ]
+      },
     },
   }
 </script>

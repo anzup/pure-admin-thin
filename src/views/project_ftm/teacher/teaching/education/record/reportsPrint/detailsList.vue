@@ -129,7 +129,7 @@
       toPage(row) {
         let params = this.$route.params
         this.$router.push({
-          name: 'reportsDetails',
+          path: 'detail',
           params: {
             ...params,
           },

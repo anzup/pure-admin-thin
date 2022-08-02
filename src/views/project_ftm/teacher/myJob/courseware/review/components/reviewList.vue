@@ -4,6 +4,7 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     @handlePageChange="handleCurrentChange"
   >
@@ -42,38 +43,27 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterTheTitle')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
         </el-form-item>
       </el-form>
     </template>
-
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span
-          class="buttonEdit"
-          @click="reviewDetails(row.id)"
-          v-permission="menuName + ':REVIEW_DETAILS'"
-          >{{ $t('button.reviewDetails') }}</span
-        >
-        <span
-          class="buttonDelete"
-          v-if="row.status == 'PENDING'"
-          @click="handleDeleteDetails(row)"
-          >{{ $t('button.delete') }}</span
-        >
-      </div>
-    </template>
   </VxeTable>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import {
     getCoursewaresAirplaneTypes,
@@ -82,6 +72,10 @@
   } from '/@/api/ftm/teacher/courseware'
   import { deleteEmptyParams } from '/@/utils/index'
   import to from 'await-to-js'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
@@ -145,7 +139,7 @@
         ],
       }
     },
-    components: { VxeTable },
+    components: { VxeTable, Search },
     created() {
       this.getCoursewaresAirplaneTypes()
       this.getCoursewareApprovals()
@@ -153,6 +147,13 @@
     activated() {
       this.getCoursewaresAirplaneTypes()
       this.getCoursewareApprovals()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       handleCurrentChange({ page, size }) {
@@ -201,12 +202,7 @@
           .catch()
       },
       reviewDetails(id) {
-        this.$router.push({
-          path: 'review/detail',
-          query: {
-            id: id,
-          },
-        })
+        this.routerGo('review/detail?id=' + id)
       },
       formatDate({ cellValue }) {
         return XEUtils.toDateString(cellValue, 'yyyy-MM-dd HH:mm:ss')
@@ -234,6 +230,25 @@
       search() {
         this.form.page = 1
         this.getCoursewareApprovals()
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.reviewDetails'),
+            visible: userStore.ContainsPermissions(this.menuName + ':REVIEW_DETAILS'),
+            event: () => {
+              this.reviewDetails(row.id)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: row.status == 'PENDING',
+            event: () => {
+              this.handleDeleteDetails(row)
+            },
+          },
+        ]
       },
     },
   }

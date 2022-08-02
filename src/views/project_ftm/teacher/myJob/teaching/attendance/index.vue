@@ -42,11 +42,6 @@
           </el-form-item>
         </el-form>
       </template>
-      <template #edit="{ row }">
-        <span class="buttonEdit" @click="handleDetail(row)">{{
-          row.status == 'FINISHED' ? $t('button.modify') : $t('table.attendance')
-        }}</span>
-      </template>
     </VxeTable>
   </div>
 </template>
@@ -61,12 +56,13 @@
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
   import { useRouter } from 'vue-router'
-  import { setPage } from '/@/utils/utils'
+  import { useGo } from '/@/hooks/usePage'
 
   const { t } = useI18n()
   const userStore = useFtmUserStore()
   const userInfo = computed(() => userStore.$state)
   const router = useRouter()
+  const routerGo = useGo(router)
 
   const hasSearch = ref(false)
   const gridOptions = reactive({
@@ -122,6 +118,14 @@
       month: moment().format('YYYY-MM'),
       status: undefined,
     },
+    buttons: ({ row }) => [
+      {
+        name: row.status == 'FINISHED' ? t('button.modify') : t('table.attendance'),
+        event: () => {
+          handleDetail(row)
+        },
+      },
+    ],
   })
   const filters = reactive({
     clazzList: [],
@@ -132,13 +136,7 @@
   })
 
   const handleDetail = (item) => {
-    router.push({
-      path: '/teachingCenter/attendanceManagement/detail',
-      query: {
-        id: item.id,
-        clazzName: item.clazz,
-      },
-    })
+    routerGo(`attendance/detail?id=${item.id}&clazzName=${item.clazz}`)
   }
 
   // 获取列表
@@ -157,7 +155,7 @@
       size: 1000,
       statusIN: 'TRAINING',
       type: 'WET_LEASE',
-      teacherUserId: userInfo.value?.teacherAdmin ? undefined : userInfo.value.id,
+      teacherUserId: userInfo.value?.teacherAdmin ? undefined : userInfo.value.userId,
     }
     let [err, res] = await to(getClazzs(params))
     if (!err && res.status == 200) {

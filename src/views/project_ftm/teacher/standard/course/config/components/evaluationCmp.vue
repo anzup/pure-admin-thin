@@ -3,28 +3,19 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColumns"
+    :buttons="tableButtons"
     :toolbar-config="tableTools"
     v-model:form="form"
     @handlePageChange="handleCurrentChange"
   >
     <template #right_tools>
-      <!--TODO 按钮权限-->
-      <!--v-permission="menuName + ':ADD'"-->
-      <el-button type="primary" size="mini" @click="add">{{ $t('button.add') }}</el-button>
-    </template>
-
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="modify(row.id)" v-permission="menuName + ':UPDATE'">{{
-          $t('button.modify')
-        }}</span>
-        <span
-          class="buttonDelete"
-          @click="deleteEvaluationsId(row.id)"
-          v-permission="menuName + ':DELETE'"
-          >{{ $t('button.delete') }}</span
-        >
-      </div>
+      <el-button
+        v-if="containsPermissions(menuName + ':ADD')"
+        type="primary"
+        size="mini"
+        @click="add"
+        >{{ $t('button.add') }}</el-button
+      >
     </template>
   </VxeTable>
 
@@ -41,6 +32,8 @@
   import VxeTable from '/@/components/Table/index.vue'
   import addDialog from './addDialog.vue'
   import { getEvaluations, deleteEvaluationsId } from '/@/api/ftm/teacher/teachingPlan'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
@@ -137,6 +130,28 @@
       cancelDialog() {
         this.evaluationsDialog = false
         this.evaluationsId = undefined
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.modify'),
+            visible: userStore.ContainsPermissions(this.menuName + ':UPDATE'),
+            event: () => {
+              this.modify(row.id)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: userStore.ContainsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.deleteEvaluationsId(row.id)
+            },
+          },
+        ]
       },
     },
   }

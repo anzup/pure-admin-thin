@@ -111,3 +111,15 @@ leave: Leave
 noClasses: No Lessons
 failSuccess: Upload failed
 custom: Customization
+
+operation: Operation
+deleteSubSystem: This operation removes the subsystem do you want to continue?
+passwordResetSuccessful: Password Reset Successful
+Welcome: Welcome
+aviationTrainingOperationManagementSystem: aviation training operation management system
+login: Login
+rememberThePassword: Remember Password
+tasksToBeCompleted: Tasks to be completed
+days: Days
+seconds: Seconds
+hours: Hours

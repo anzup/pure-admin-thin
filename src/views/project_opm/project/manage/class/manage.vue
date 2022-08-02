@@ -40,7 +40,7 @@
       </el-descriptions-item>
     </el-descriptions>
     <el-divider />
-    <el-tabs v-model="activeName" v-if="!!infoForm.type">
+    <el-tabs class="flex-content tabs-container" v-model="activeName" v-if="!!infoForm.type">
       <el-tab-pane v-for="item in tabList" :key="item.cmp" :label="item.name" :name="item.name">
         <component
           v-if="activeName == item.name"
@@ -135,4 +135,25 @@
   })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+  .detail-main-container {
+    display: flex;
+    flex-direction: column;
+    .flex-content {
+      flex: 1;
+    }
+    .tabs-container {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      :deep(.el-tabs__content) {
+        flex: 1;
+        overflow: hidden;
+      }
+      :deep(.el-tab-pane) {
+        height: 100%;
+        overflow: hidden;
+      }
+    }
+  }
+</style>

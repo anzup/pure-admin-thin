@@ -35,9 +35,14 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterTeacherNameQuery')"
-            suffix-icon="el-icon-search"
             v-model.trim="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="searchEvent">{{ $t('button.query') }}</el-button>
@@ -66,6 +71,7 @@
   import auditDialog from './auditDialog.vue'
   import remarkDialog from './remarkDialog.vue'
   import pdfViewDialog from './pdfViewDialog.vue'
+  import { Search } from '@element-plus/icons-vue'
   import {
     getQualificationProvide,
     getQualificationRoles,
@@ -144,7 +150,7 @@
         }
       },
     },
-    components: { VxeTable, viewDialog, auditDialog, remarkDialog, pdfViewDialog },
+    components: { VxeTable, viewDialog, auditDialog, remarkDialog, pdfViewDialog, Search },
     created() {
       this.getQualificationRoles()
       this.getData()

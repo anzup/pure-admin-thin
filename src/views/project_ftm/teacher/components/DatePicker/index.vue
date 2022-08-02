@@ -11,12 +11,12 @@
       :type="computeType"
       :format="format"
       :align="align"
-      :picker-options="pickerOptions"
       :default-value="startDefaultValue"
-      :default-time="defaultTime[0]"
       :value-format="valueFormat"
       :prefix-icon="prefixIcon"
       :clear-icon="clearIcon"
+      :disabled-date="pickerOptions.disabledDate"
+      :cell-class-name="pickerOptions.cellClassName"
       @change="changeStartDate"
     />
     <span class="el-range-separator">{{ rangeSeparator }}</span>
@@ -32,12 +32,12 @@
       :type="computeType"
       :format="format"
       :align="align"
-      :picker-options="endPickerOptions"
       :default-value="endDefaultValue"
-      :default-time="defaultTime[1]"
       :value-format="valueFormat"
       :prefix-icon="prefixIcon"
       :clear-icon="clearIcon"
+      :disabled-date="endPickerOptions.disabledDate"
+      :cell-class-name="endPickerOptions.cellClassName"
       @change="changeEndDate"
     />
   </div>
@@ -53,7 +53,7 @@
       }
     },
     props: {
-      value: Array,
+      modelValue: Array,
       readonly: Boolean,
       disabled: Boolean,
       // 文本框可输入
@@ -114,18 +114,18 @@
     computed: {
       startDate: {
         get() {
-          return this.value instanceof Array ? this.value[0] : ''
+          return this.modelValue instanceof Array ? this.modelValue[0] : ''
         },
         set(val) {
-          this.$emit('input', [val, this.endDate])
+          this.$emit('update:modelValue', [val, this.endDate])
         },
       },
       endDate: {
         get() {
-          return this.value instanceof Array ? this.value[1] : ''
+          return this.modelValue instanceof Array ? this.modelValue[1] : ''
         },
         set(val) {
-          this.$emit('input', [this.startDate, val])
+          this.$emit('update:modelValue', [this.startDate, val])
         },
       },
       startDefaultValue() {
@@ -192,18 +192,22 @@
     },
     methods: {
       changeStartDate(time) {
-        if (!!time && this.endDate && time.getTime() > this.endDate.getTime()) {
+        if (!!time && this.endDate && new Date(time).getTime() > new Date(this.endDate).getTime()) {
           this.startDate = ''
-          Message.error({
+          this.$message.error({
             duration: 1500,
             message: '开始时间不能大于结束时间',
           })
         }
       },
       changeEndDate(time) {
-        if (!!time && this.startDate && this.startDate.getTime() > time.getTime()) {
+        if (
+          !!time &&
+          this.startDate &&
+          new Date(this.startDate).getTime() > new Date(time).getTime()
+        ) {
           this.endDate = ''
-          Message.error({
+          this.$message.error({
             duration: 1500,
             message: '结束时间不能小于开始时间',
           })

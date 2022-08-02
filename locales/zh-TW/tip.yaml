@@ -110,3 +110,14 @@ noSelectedCourse: 未選擇課程
 noSelectedAirplane: 未選擇機型
 noSelectToDeleteFileOrFolder: 未選擇要刪除的檔案或資料夾
 currentAccountSignedStatus: 當前帳號簽名狀態
+
+pleaseEnterContent: 請輸入內容...
+pleaseFinishSelect: 請完成所有選項
+OpenAllMute: 管理員已開啟全員靜音
+CloseAllMute: 管理員已關閉全員靜音
+loginInfoFailure: 登錄資訊已失效，請重新登錄
+uploadFailedTip: 文件{name}上傳失敗，{string}
+uploadFileSizeMaxTip: 文件總大小不能超過100MB
+uploadFileSizeMinTip: 單個檔不能過10MB！
+uploadFinished: 上傳完成
+noTeacherSignedTips: 教員未簽名，無法操作

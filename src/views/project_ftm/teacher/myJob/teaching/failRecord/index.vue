@@ -1,11 +1,12 @@
 <template>
-  <div class="container" ref="main">
+  <div ref="main">
     <VxeTable
+      :loading="tableLoading"
       :data="tableData"
       :columns="tableColumns"
       :toolbarConfig="tableTools"
+      :buttons="tableButtons"
       v-model:form="pagination"
-      :loading="tableLoading"
       @action="btnClick"
       @checkbox="checkboxAll"
       @handle-page-change="handlePageChange"
@@ -38,9 +39,14 @@
             <el-input
               class="searchInput"
               :placeholder="$t('holder.pleaseEnterStudentName')"
-              suffix-icon="el-icon-search"
               v-model.trim="form.searchKey"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -57,27 +63,11 @@
         >
       </template>
       <!-- <template #pager></template> -->
-
-      <template #edit="{ row }">
-        <span
-          class="buttonEdit"
-          @click="
-            row.exam
-              ? $router.push({ name: 'failureRecordDetails', query: { records_id: row.id } })
-              : $router.push({ name: 'failureFilghtRecordDetails', query: { id: row.id } })
-          "
-          >{{ $t('button.details') }}</span
-        ><!--详情-->
-        <!-- <i class="line"></i> -->
-        <!-- <span class="buttonEdit" @click="toPage(row,'TrainingBasicRecords')">{{ $t('button.basicInfo') }}</span> -->
-        <!--基本信息-->
-      </template>
     </VxeTable>
 
     <div class="print-wrapper" v-if="records.length > 0">
       <div class="print-hide-box" v-if="exportItem != null" ref="print">
-        <!--TODO: 暂时隐藏-->
-        <!--<ExamRecord :details="exportItem" v-if="exportItem.exam" @finishDraw="handleDraw" />-->
+        <ExamRecord :details="exportItem" v-if="exportItem.exam" @finishDraw="handleDraw" />
         <TrainRecord :details="exportItem" v-if="!exportItem.exam" @finishDraw="handleDraw" />
       </div>
     </div>
@@ -86,14 +76,16 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
-  // TODO: 修改组件引用地址
-  // import ExamRecord from '@/views/trainingRecords/studentRecords/failRecords/details'
+  import { Search } from '@element-plus/icons-vue'
+  import ExamRecord from '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/failRecords/details.vue'
   import TrainRecord from '/@/views/project_ftm/teacher/myJob/teaching/flight/flightTrainingEvaluation/edit.vue'
   import { getExam } from '/@/api/ftm/teacher/studentTraining'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import XEUtils from 'xe-utils'
   import moment from 'moment'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '../../../../../../hooks/usePage'
   const userStore = useFtmUserStore()
   export default {
     data() {
@@ -153,7 +145,7 @@
             minWidth: 120,
           },
           { field: 'auditor.name', title: this.$t('table.auditor'), minWidth: 90 },
-          { title: this.$t('table.tableEdit'), width: 140, slots: { default: 'edit' } },
+          { title: this.$t('table.tableEdit'), width: 140, slots: { default: 'operate' } },
         ],
         examineList: [
           { name: this.$t('status.reviewing'), id: 'WAITING_APPROVE' },
@@ -172,19 +164,27 @@
     },
     components: {
       VxeTable,
-      // ExamRecord,
+      ExamRecord,
       TrainRecord,
+      Search,
     },
     created() {
       this.form.schoolYear = moment().format('YYYY')
       this.getClazzs()
     },
     // TODO: 原activated缓存页面初始化
-    // activated() {
-    //   this.getData()
-    // },
+    activated() {
+      this.getData()
+    },
     mounted() {
       this.getData()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       // 格式化结果
@@ -234,7 +234,6 @@
         const param = {
           clazzId: this.form.className,
           searchKey: this.form.searchKey ? this.form.searchKey : undefined,
-          flightTeacherUserId: undefined,
           auditStatus: this.form.auditStatus,
           // studentStatus: 'NOT_GRADUATED',
           flightTeacherUserId: this.userInfo.userId,
@@ -331,15 +330,22 @@
         this.getData()
       },
       btnClick() {},
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            event: () => {
+              row.exam
+                ? this.routerGo(`failRecord/examRecordsDetails?records_id=${row.id}`)
+                : this.routerGo(`failRecord/examFilghtRecords?id=${row.id}`)
+            },
+          },
+        ]
+      },
     },
   }
 </script>
 <style lang="scss" scoped>
-  .container {
-    .search-input {
-      margin: 0 10px;
-    }
-  }
   .print-wrapper {
     position: relative;
     width: 0;

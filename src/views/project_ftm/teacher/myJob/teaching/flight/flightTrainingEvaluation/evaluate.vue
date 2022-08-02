@@ -1,81 +1,48 @@
 <template>
-  <div class="container">
-    <VxeTable
-      :row-class-name="rowClassName"
-      v-bind="gridOptions"
-      @action="btnClick"
-      @checkbox="selectChangeEvent"
-    >
-      <template #form>
-        <div class="evaluate-nav-menu">
-          <span class="evaluate-nav"
-            ><!-- 姓名 --><span class="evaluate-label">{{ t('table.name') }}：</span
-            >{{ details.studentDetails.name }}</span
-          >
-          <span class="evaluate-nav"
-            ><!-- 性别 --><span class="evaluate-label">{{ t('table.gender') }}：</span
-            >{{ genderFormat(details.studentDetails.gender) }}</span
-          >
-          <span class="evaluate-nav"
-            ><!-- 班级课号 --><span class="evaluate-label">{{ t('table.classNumber') }}：</span
-            >{{ details.clazzDetails.courseNumber }}</span
-          >
-          <span class="evaluate-nav"
-            ><!-- 小组 --><span class="evaluate-label">{{ t('table.team') }}：</span
-            >{{ details.studentDetails?.grouping?.name }}</span
-          >
-          <span class="evaluate-nav"
-            ><!-- 带飞教员 --><span class="evaluate-label">{{ t('table.filghtTeacher') }}：</span
-            >{{ filterArr(details.studentDetails?.grouping?.teachers) }}</span
-          >
-          <el-button
-            type="primary"
-            :loading="btnLoading"
-            @click="printEvent({ ids: records.split(',') })"
-            :disabled="!records || !records.length"
-            >{{ t('button.batchPrinting') }}</el-button
-          ><!-- 查询 -->
-
-          <!-- <el-button type="primary" size="medium" class="absolute-right" @click="toPage({ ids: records, status: 'FILLED' }, 'TeachingEvaluationInfo')" :disabled="!records || !records.length">{{t('button.batchPrinting')}}</el-button>查询 -->
-        </div>
-      </template>
-      <template #pager />
-
-      <template #student="{ row }">
-        <span v-if="row.studentSignature">{{ t('status.signed') }}</span>
-        <span v-else>{{ t('status.notSign') }}</span>
-      </template>
-      <template #taskCount="{ row }">
-        <span
-          >{{ filterNum(row.coursewareFinishTask) }}/{{ filterNum(row.coursewareAllTask) }}</span
+  <VxeTable :row-class-name="rowClassName" v-bind="gridOptions" @checkbox="selectChangeEvent">
+    <template #form>
+      <div class="evaluate-nav-menu">
+        <span class="evaluate-nav"
+          ><!-- 姓名 --><span class="evaluate-label">{{ t('table.name') }}：</span
+          >{{ details.studentDetails.name }}</span
         >
-      </template>
-      <template #edit="{ row }">
-        <div class="button-line">
-          <span
-            class="buttonEdit"
-            v-if="row.status == 'FILLED' && !row.studentSignature"
-            @click="toPage(row, 'TeachingEvaluationEdit')"
-            >{{ t('button.modify') }}</span
-          ><!-- 修改 -->
-          <span
-            class="buttonEdit"
-            v-else-if="row.status == 'FILLED' && row.studentSignature"
-            @click="toPage(row, 'TeachingEvaluationInfo')"
-            >{{ t('button.details') }}</span
-          ><!-- 详情 -->
-          <span class="buttonEdit" v-else @click="toPage(row, 'TeachingEvaluationEdit')">{{
-            t('button.evaluate')
-          }}</span
-          ><!-- 评价 -->
-          <span class="buttonEdit" @click="toTask(row, 'coursewareReadingTask')">{{
-            t('router.readingTask')
-          }}</span
-          ><!-- 阅读任务 -->
-        </div>
-      </template> </VxeTable
-    >>
-  </div>
+        <span class="evaluate-nav"
+          ><!-- 性别 --><span class="evaluate-label">{{ t('table.gender') }}：</span
+          >{{ genderFormat(details.studentDetails.gender) }}</span
+        >
+        <span class="evaluate-nav"
+          ><!-- 班级课号 --><span class="evaluate-label">{{ t('table.classNumber') }}：</span
+          >{{ details.clazzDetails.courseNumber }}</span
+        >
+        <span class="evaluate-nav"
+          ><!-- 小组 --><span class="evaluate-label">{{ t('table.team') }}：</span
+          >{{ details.studentDetails?.grouping?.name }}</span
+        >
+        <span class="evaluate-nav"
+          ><!-- 带飞教员 --><span class="evaluate-label">{{ t('table.filghtTeacher') }}：</span
+          >{{ filterArr(details.studentDetails?.grouping?.teachers) }}</span
+        >
+        <el-button
+          type="primary"
+          :loading="btnLoading"
+          @click="printEvent({ ids: _records.split(',') })"
+          :disabled="!_records || !_records.length"
+          >{{ t('button.batchPrinting') }}</el-button
+        ><!-- 查询 -->
+
+        <!-- <el-button type="primary" size="medium" class="absolute-right" @click="toPage({ ids: records, status: 'FILLED' }, 'TeachingEvaluationInfo')" :disabled="!records || !records.length">{{t('button.batchPrinting')}}</el-button>查询 -->
+      </div>
+    </template>
+    <template #pager />
+
+    <template #student="{ row }">
+      <span v-if="row.studentSignature">{{ t('status.signed') }}</span>
+      <span v-else>{{ t('status.notSign') }}</span>
+    </template>
+    <template #taskCount="{ row }">
+      <span>{{ filterNum(row.coursewareFinishTask) }}/{{ filterNum(row.coursewareAllTask) }}</span>
+    </template>
+  </VxeTable>
 </template>
 
 <script lang="ts" setup>
@@ -88,15 +55,17 @@
   import { useRoute, useRouter } from 'vue-router'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
+  import { useGo } from '/@/hooks/usePage'
 
   const { t } = useI18n()
   const route = useRoute()
   const router = useRouter()
+  const routerGo = useGo(router)
   const userStore = useFtmUserStore()
 
   const clazzID = ref(null)
   const studentID = ref(null)
-  const records = ref('')
+  const _records = ref('')
   const btnLoading = ref(false)
   const details = reactive({
     studentDetails: {}, // 学员信息
@@ -185,21 +154,43 @@
       size: 1000,
       total: 0,
     },
+    buttons: ({ row }) => [
+      {
+        name: t('button.modify'),
+        visible: row.status == 'FILLED' && !row.studentSignature,
+        event: () => {
+          routerGo(`evaluateEdit?id=${row.id}&ids=${row.ids || ''}`)
+        },
+      },
+      {
+        name: t('button.details'),
+        visible: row.status == 'FILLED' && row.studentSignature,
+        event: () => {
+          routerGo(`evaluateInfo?id=${row.id}&ids=${row.ids || ''}`)
+        },
+      },
+      {
+        name: t('button.evaluate'),
+        visible: row.status != 'FILLED',
+        event: () => {
+          routerGo(`evaluateEdit?id=${row.id}&ids=${row.ids || ''}`)
+        },
+      },
+      {
+        name: t('router.readingTask'),
+        event: () => {
+          routerGo(
+            `coursewareReadingTask?id=${row.id}&studentId=${row.studentTrainingRecord.student.userId}`,
+          )
+        },
+      },
+    ],
   })
   const userInfo = computed(() => userStore.$state)
 
   // 选择行
   const selectChangeEvent = ({ records }) => {
-    records.value = records.map((item) => item.id).join(',')
-  }
-  const toPage = (row, pageName) => {
-    router.push({
-      name: pageName,
-      query: {
-        id: row.id,
-        ids: row.ids,
-      },
-    })
+    _records.value = records.map((item) => item.id).join(',')
   }
   // 打印
   const printEvent = (row) => {
@@ -211,15 +202,6 @@
       .catch((err) => {
         btnLoading.value = false
       })
-  }
-  const toTask = (row, name) => {
-    router.push({
-      name,
-      query: {
-        id: row.id,
-        studentId: row.studentTrainingRecord.student.userId,
-      },
-    })
   }
   const genderFormat = (str) => {
     switch (str) {
@@ -279,7 +261,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .heightlight {
+  :deep(.heightlight) {
     background: rgba($color: #e6a23c, $alpha: 0.3);
   }
   .evaluate-nav-menu {

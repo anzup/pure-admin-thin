@@ -84,7 +84,7 @@
       <tr>
         <!-- 填写说明 -->
         <td class="high-light">{{ $t('table.fillRemark') }}</td>
-        <td :colspan="itemsCount" class="text t-left">{{ $t('supplement.leaveTrainFormTips') }}</td>
+        <td :colspan="itemsCount" class="text t-left" v-html="remarkTip" />
       </tr>
     </table>
   </div>
@@ -117,7 +117,9 @@
       </tr>
       <tr>
         <!-- 操作能力 -->
-        <td class="high-light">{{ $t('table.operationAbility') }} <i class="el-icon-edit" /></td>
+        <td class="high-light">
+          {{ $t('table.operationAbility') }} <el-icon><EditPen /></el-icon>
+        </td>
         <td v-for="(item, index) in ItemList" :key="index">
           <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].maneuverability" />
         </td>
@@ -125,7 +127,7 @@
       <tr>
         <!-- 理论知识 -->
         <td class="high-light">
-          {{ $t('table.theoreticalKnowledge') }} <i class="el-icon-edit" />
+          {{ $t('table.theoreticalKnowledge') }} <el-icon><EditPen /></el-icon>
         </td>
         <td v-for="(item, index) in ItemList" :key="index">
           <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].theory" />
@@ -133,14 +135,18 @@
       </tr>
       <tr>
         <!-- 训练作风 -->
-        <td class="high-light">{{ $t('table.trainingStyle') }} <i class="el-icon-edit" /></td>
+        <td class="high-light">
+          {{ $t('table.trainingStyle') }} <el-icon><EditPen /></el-icon>
+        </td>
         <td v-for="(item, index) in ItemList" :key="index">
           <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].trainingStyle" />
         </td>
       </tr>
       <tr>
         <!-- 备注 -->
-        <td class="high-light">{{ $t('table.remarks') }} <i class="el-icon-edit" /></td>
+        <td class="high-light">
+          {{ $t('table.remarks') }} <el-icon><EditPen /></el-icon>
+        </td>
         <td class="vertical-top" v-for="(item, index) in ItemList" :key="index">
           <el-input
             size="mini"
@@ -154,7 +160,9 @@
       </tr>
       <tr>
         <!-- 签名 -->
-        <td class="high-light">{{ $t('table.teacherSigning') }} <i class="el-icon-edit" /></td>
+        <td class="high-light">
+          {{ $t('table.teacherSigning') }} <el-icon><EditPen /></el-icon>
+        </td>
         <td v-for="(item, index) in ItemList" :key="index" class="sign-area">
           <img
             :src="previewImg(form[item.id]?.signature)"
@@ -173,7 +181,7 @@
       <tr>
         <!-- 教员执照号 -->
         <td class="high-light">
-          {{ $t('table.teacherLicenseNumber') }} <i class="el-icon-edit" />
+          {{ $t('table.teacherLicenseNumber') }} <el-icon><EditPen /></el-icon>
         </td>
         <td v-for="(item, index) in ItemList" :key="index">
           <el-input size="mini" v-if="form[item.id]" v-model="form[item.id].teacherNumber" />
@@ -189,7 +197,7 @@
       <tr>
         <!-- 填写说明 -->
         <td class="high-light">{{ $t('table.fillRemark') }}</td>
-        <td :colspan="itemsCount" class="text t-left">{{ $t('supplement.leaveTrainFormTips') }}</td>
+        <td :colspan="itemsCount" class="text t-left" v-html="remarkTip" />
       </tr>
     </table>
   </div>
@@ -200,13 +208,16 @@
   import { OrderStatus, OrderType, OrderSignItems } from './leaveOrder.enum'
   import { previewURL } from '/@/api/ftm/teacher/personCenter'
   import { downloadStudentOutTrainRecords } from '/@/api/ftm/teacher/teachingCenter'
+  import { EditPen } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
+  import to from 'await-to-js'
   const DetailData = {
     id: null,
     student: {},
   }
 
   export default {
+    components: { EditPen },
     props: {
       type: Number,
       data: {
@@ -241,6 +252,9 @@
       itemsCount() {
         return this.Items.length
       },
+      remarkTip() {
+        return this.$t('supplement.leaveTrainFormTips').replace(/\\n/g, '\n')
+      },
     },
     watch: {
       data(data) {
@@ -253,7 +267,7 @@
       },
       async handleDownload() {
         this.loading = true
-        await this.$to(
+        await to(
           downloadStudentOutTrainRecords({
             ids: [this.form.id],
             templateHtml: null,
@@ -264,7 +278,7 @@
       },
       async handlePrint() {
         this.loading = true
-        await this.$to(downloadStudentOutTrainRecords({ ids: [this.form.id], templateHtml: null }))
+        await to(downloadStudentOutTrainRecords({ ids: [this.form.id], templateHtml: null }))
         this.loading = false
       },
       formatGender(value) {

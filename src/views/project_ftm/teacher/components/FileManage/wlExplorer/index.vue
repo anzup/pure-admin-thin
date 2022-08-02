@@ -36,7 +36,9 @@
         >
           <el-button type="primary" plain v-if="selfHeaderDropdown && selfHeaderDropdown.length">
             {{ $t('table.more') }}
-            <i class="el-icon-arrow-down el-icon--right" />
+            <el-icon class="el-icon--right">
+              <ArrowDown />
+            </el-icon>
           </el-button>
           <template v-slot:dropdown>
             <el-dropdown-menu>
@@ -117,7 +119,11 @@
           @keyup.enter.native="fileSearch()"
         >
           <template v-slot:append>
-            <el-button icon="el-icon-search file-search" @click="fileSearch()" />
+            <el-button icon="file-search" @click="fileSearch()">
+              <template #icon>
+                <Search></Search>
+              </template>
+            </el-button>
           </template>
         </el-input>
       </el-form-item>
@@ -325,6 +331,7 @@
   import fileView from './utils/file-view.vue' // 导入预览组件
   import fadeIn from './utils/fade-in.vue' // 引入滑入组件
   import uploadItem from './utils/upload-item.vue' // 导入导入组件
+  import { ArrowDown, Search } from '@element-plus/icons-vue'
   import { arrayToTree, splicParentsUntil, download } from './utils/utils.js' // 导入组装树函数、拼接路径函数
   const guid = '00000000-0000-0000-0000-000000000000'
   import image_file_automatic from './images/file_automatic@3x.png'
@@ -341,7 +348,7 @@
   import image_file_none from './images/file_none@3x.png'
   export default {
     name: 'wlExplorer',
-    components: { submitBtn, fileView, fadeIn, uploadItem },
+    components: { submitBtn, fileView, fadeIn, uploadItem, ArrowDown, Search },
     data() {
       return {
         load: {

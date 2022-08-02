@@ -692,3 +692,24 @@ theStartTime: 起止時間
 institutions: 機構
 place: 地點
 examiners: 監考員
+
+operation: 操作
+courseClass: 課程分類
+signatureStatus: 簽字狀態
+confirmTime: 確認時間
+messageNotice: 消息通知
+studyNotice: 學習通知
+fileStudyNotice: 文件學習通知
+announcements: 通知公告
+fileNumber: 文件數
+coursewareLearningRecord: 課件學習記錄
+examRecord: 考試記錄
+failRecord: 不及格記錄
+recordOrder: 總評表
+abilityRecord: 核心能力圖
+CBTAdetails: CBTA詳情
+sessionType: 場次類型
+additional: 加訓場
+normalSession: 正常場
+minutesTime: 分鐘
+confirmSign: 確認簽名

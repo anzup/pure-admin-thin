@@ -81,7 +81,23 @@ export function getPluginsList(command, VITE_LEGACY) {
         // outputDir: './logistics/assets/',
       },
     }), // svg组件化支持
-    svgLoader(),
+    svgLoader({
+      svgo: true,
+      svgoConfig: {
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                inlineStyles: {
+                  onlyMatchedOnce: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    }),
     // ElementPlus({}),
     // 是否为打包后的文件提供传统浏览器兼容性支持
     VITE_LEGACY

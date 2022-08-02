@@ -1,5 +1,4 @@
 <template>
-  <!--TODO 未定义方法@radio-change-->
   <VxeTable
     ref="xTable"
     row-id="id"
@@ -7,6 +6,7 @@
     :data="tableData"
     :height="tableHeight"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     :radio-config="{ checkRowKey: selectedRowKey }"
     @radio-change="selectEvent"
@@ -42,10 +42,15 @@
           <el-input
             class="searchInput"
             :placeholder="$t('holder.pleaseEnterBankNameOrCreator')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
             style="width: 250px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
           <el-button size="medium" type="primary" @click="searchEvent">{{
             $t('button.query')
           }}</el-button>
@@ -54,11 +59,6 @@
           }}</el-button>
         </el-form-item>
       </el-form>
-    </template>
-    <template #editor="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="detailEvent(row)">{{ $t('button.details') }}</span>
-      </div>
     </template>
   </VxeTable>
   <div class="dialog-footer">
@@ -80,6 +80,7 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getQuestionBanks } from '/@/api/ftm/teacher/examCenter'
   import {
     putCourseQualificationBinding,
@@ -101,7 +102,7 @@
     searchKey: undefined,
   }
   export default {
-    components: { VxeTable },
+    components: { VxeTable, Search },
     data() {
       return {
         tableData: [],
@@ -235,6 +236,16 @@
         return cellValue == 'PUBLIC'
           ? this.$t('table.publicQuestionBank')
           : this.$t('table.teacherQuestionBank')
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            event: () => {
+              this.detailEvent(row)
+            },
+          },
+        ]
       },
     },
   }

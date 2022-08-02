@@ -21,9 +21,9 @@
           <el-form-item :label="$t('table.reviewDeadline')" prop="endDate">
             <el-date-picker
               v-model="ruleForm.endDate"
-              :picker-options="pickerOptions"
               type="date"
               :placeholder="$t('holder.pleaseSelectDate')"
+              :disabled-date="pickerOptions.disabledDate"
             />
           </el-form-item>
           <el-form-item

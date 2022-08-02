@@ -5,7 +5,8 @@
       :data="tableData"
       :columns="tableColumns"
       :toolbarConfig="tableTools"
-      :form="pagination"
+      :buttons="tableButtons"
+      v-model:form="pagination"
       @checkbox="selectAllEvent"
       @handle-page-change="handleCurrentChange"
     >
@@ -31,36 +32,21 @@
         </el-form>
       </template>
       <template #right_tools>
-        <!--v-permission="menuName + ':ADD'"-->
         <el-button
+          v-if="containsPermissions(menuName + ':ADD')"
           type="primary"
           size="mini"
-          @click="$router.push({ path: '/teachingCenter/teachingTask/teachingTaskAdd' })"
+          @click="addTask"
           >{{ $t('button.add') }}</el-button
         >
-        <!--v-permission="menuName + ':BULK_DELETION'"-->
-        <el-button type="danger" size="mini" :disabled="records.length < 1" @click="DeleteAll">{{
-          $t('button.batchDeletion')
-        }}</el-button>
-      </template>
-
-      <template #edit="{ row }">
-        <div class="button-line">
-          <span
-            class="buttonEdit"
-            @click="
-              $router.push({
-                name: 'TeachingTaskDetail',
-                query: { id: row.id },
-              })
-            "
-            v-permission="menuName + ':DETAIL'"
-            >{{ $t('button.details') }}</span
-          >
-          <span class="buttonDelete" @click="Delete(row)" v-permission="menuName + ':DELETE'">{{
-            $t('button.delete')
-          }}</span>
-        </div>
+        <el-button
+          v-if="containsPermissions(menuName + ':BULK_DELETION')"
+          type="danger"
+          size="mini"
+          :disabled="records.length < 1"
+          @click="DeleteAll"
+          >{{ $t('button.batchDeletion') }}</el-button
+        >
       </template>
     </VxeTable>
   </div>
@@ -72,6 +58,8 @@
   import XEUtils from 'xe-utils'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '../../../../../../hooks/usePage'
   const userStore = useFtmUserStore()
 
   export default {
@@ -145,6 +133,13 @@
       this.getClazzs()
       this.loading = true
       this.getData()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       formatGroups({ cellValue }) {
@@ -252,6 +247,31 @@
         this.pagination.page = 1
         this.pagination.total = 0
         this.getData()
+      },
+      addTask() {
+        this.routerGo('task/teachingTaskAdd')
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            visible: userStore.ContainsPermissions(this.menuName + ':DETAIL'),
+            event: () => {
+              this.routerGo(`task/teachingTaskDetail?id=${row.id}`)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: userStore.ContainsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.Delete(row)
+            },
+          },
+        ]
       },
     },
   }

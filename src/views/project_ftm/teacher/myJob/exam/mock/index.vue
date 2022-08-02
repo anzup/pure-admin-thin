@@ -4,6 +4,7 @@
     :loading="loading"
     :data="tableData"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     :toolbarConfig="tableTools"
     @checkbox="selectChangeEvent"
@@ -16,7 +17,7 @@
             v-model="form.year"
             type="year"
             :placeholder="$t('holder.pleaseSelectYear')"
-            value-format="yyyy"
+            value-format="YYYY"
             style="width: 160px"
           />
         </el-form-item>
@@ -33,10 +34,15 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterTheNameOfTheTest')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -44,9 +50,13 @@
       </el-form>
     </template>
     <template #right_tools>
-      <!--TODO 按钮权限-->
-      <!--v-permission="menuName + ':ADD'"-->
-      <el-button size="mini" @click="add" type="primary">{{ $t('button.add') }}</el-button>
+      <el-button
+        v-if="containsPermissions(menuName + ':ADD')"
+        size="mini"
+        @click="add"
+        type="primary"
+        >{{ $t('button.add') }}</el-button
+      >
     </template>
 
     <template #startDate="{ row }">
@@ -54,41 +64,20 @@
         >{{ formatDate(row.startDate) }} - {{ formatDate(row.endDate) }}</span
       >
     </template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="details(row.id)" v-permission="menuName + ':DETAIL'">{{
-          $t('button.details')
-        }}</span>
-        <span
-          class="buttonEdit"
-          :style="{ color: row.status == 'FINISHED' ? '#ccc' : '' }"
-          @click="modify(row.id, row.status)"
-          v-permission="menuName + ':UPDATE'"
-          >{{ $t('button.modify') }}</span
-        >
-        <span
-          class="buttonDelete"
-          @click="deleteExamsId(row.id)"
-          v-permission="menuName + ':DELETE'"
-          >{{ $t('button.delete') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="examDetails(row.id)"
-          v-permission="menuName + ':DETAILS_EXAM'"
-          >{{ $t('router.examManage') }}</span
-        >
-      </div>
-    </template>
   </VxeTable>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import { getExams, deleteExamsId, getExamTypesAll } from '/@/api/ftm/teacher/examCenter'
   import { deleteEmptyParams } from '/@/utils/index'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
@@ -140,7 +129,7 @@
         ],
       }
     },
-    components: { selectedView, VxeTable },
+    components: { selectedView, VxeTable, Search },
     computed: {
       xTable() {
         return this.$refs.xTable.$refs.xTable
@@ -154,6 +143,13 @@
     // TODO 原缓存页面执行 activated
     mounted() {
       this.getExams()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       selectChangeEvent({ records }) {
@@ -176,12 +172,7 @@
         })
       },
       add() {
-        this.$router.push({
-          path: 'examMock/add',
-          query: {
-            type: 'SIMULATED',
-          },
-        })
+        this.routerGo(`mock/add?type=SIMULATED`)
       },
       modify(id, status) {
         let active = 1
@@ -190,32 +181,13 @@
         } else if (status == 'EXAMING') {
           active = 3
         }
-        this.$router.push({
-          path: 'examMock/info',
-          query: {
-            id: id,
-            active: active,
-          },
-        })
+        this.routerGo(`mock/info?id=${id || ''}&active=${active}`)
       },
       details(id) {
-        this.$router.push({
-          path: 'examMock/details',
-          query: {
-            id: id,
-          },
-        })
+        this.routerGo(`mock/details?id=${id || ''}`)
       },
       examDetails(id) {
-        this.$router.push({
-          name: 'ExmaMock_ExamDetails',
-          query: {
-            examType: 'SIMULATED',
-          },
-          params: {
-            examId: id,
-          },
-        })
+        this.routerGo(`mock/examDetails/${id}?examType=SIMULATED`)
       },
       getExams() {
         this.form = deleteEmptyParams(this.form)
@@ -269,6 +241,43 @@
         this.form.page = 1
         this.form.total = 0
         this.getExams()
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            visible: userStore.ContainsPermissions(this.menuName + ':DETAIL'),
+            event: () => {
+              this.details(row.id)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            visible: userStore.ContainsPermissions(this.menuName + ':UPDATE'),
+            disabled: row.status == 'FINISHED',
+            event: () => {
+              this.modify(row.id, row.status)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: userStore.ContainsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.deleteExamsId(row.id)
+            },
+          },
+          {
+            name: this.$t('router.examManage'),
+            visible: userStore.ContainsPermissions(this.menuName + ':DETAILS_EXAM'),
+            event: () => {
+              this.examDetails(row.id)
+            },
+          },
+        ]
       },
     },
   }

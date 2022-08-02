@@ -689,3 +689,24 @@ theStartTime: 起止时间
 institutions: 机构
 place: 地点
 examiners: 监考员
+
+operation: 操作
+courseClass: 课程分类
+signatureStatus: 签字状态
+confirmTime: 确认时间
+messageNotice: 消息通知
+studyNotice: 学习通知
+fileStudyNotice: 文件学习通知
+announcements: 通知公告
+fileNumber: 文件数
+coursewareLearningRecord: 课件学习记录
+examRecord: 考试记录
+failRecord: 不及格记录
+recordOrder: 总评表
+abilityRecord: 核心能力图
+CBTAdetails: CBTA详情
+sessionType: 场次类型
+additional: 加训场
+normalSession: 正常场
+minutesTime: 分钟
+confirmSign: 确认签名

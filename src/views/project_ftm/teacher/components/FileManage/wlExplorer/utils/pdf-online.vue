@@ -2,7 +2,9 @@
   <!-- 单独的pdf预览 相对于视窗 -->
   <div class="m-pdf-box">
     <h3 class="video-player-h3">
-      <i class="el-icon-circle-close video-player-icon" @click="closePdf('close')" />
+      <el-icon class="video-player-icon" @click="closePdf('close')">
+        <CircleClose />
+      </el-icon>
     </h3>
     <iframe :src="embedPdfUrl" class="pdf-box">
       <!-- 您的浏览器不支持预览pdf文件，请下载并查看 <a href="/index.pdf">Download PDF</a> -->
@@ -12,8 +14,10 @@
 
 <script>
   import { encode } from 'js-base64'
+  import { CircleClose } from '@element-plus/icons-vue'
   export default {
     name: 'pdf-online-emded',
+    components: { CircleClose },
     props: {
       pdfurl: String,
     },

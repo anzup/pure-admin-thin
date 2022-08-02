@@ -195,7 +195,6 @@ export const postStudentsGraduate = (data) =>
     data,
   })
 // 获取当前用户基础设置信息
-
 export const getNavigationBarId = (params) =>
   request({
     url: url + '/settings',

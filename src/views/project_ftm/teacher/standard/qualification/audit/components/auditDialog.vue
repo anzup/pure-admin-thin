@@ -21,7 +21,7 @@
         <!-- 附件 -->
         <el-form-item :label="$t('table.attachment')">
           <a class="file-link" v-if="details.type && details.type.name" @click="previewFileEvent">
-            <i class="el-icon-link" /> {{ details.type.name }}
+            <el-icon><Link /></el-icon> {{ details.type.name }}
           </a>
         </el-form-item>
       </el-form>
@@ -59,7 +59,9 @@
 <script>
   import moment from 'moment'
   import to from 'await-to-js'
+  import { Link } from '@element-plus/icons-vue'
   export default {
+    components: { Link },
     data() {
       return {
         formData: {

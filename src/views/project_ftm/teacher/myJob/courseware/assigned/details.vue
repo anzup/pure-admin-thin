@@ -1,5 +1,5 @@
 <template>
-  <div class="fromContinerCom container">
+  <div class="courseware-container">
     <div class="header warp-content-table">
       <el-row type="flex" class="flex-row" :gutter="20">
         <el-col :xs="24" :md="16" :lg="14" :xl="14">
@@ -81,7 +81,9 @@
           </div>
 
           <div class="review-tool" v-if="showTool">
-            <i class="el-icon-full-screen" @click="fullScreenReview" />
+            <el-icon @click="fullScreenReview">
+              <FullScreen />
+            </el-icon>
           </div>
         </el-col>
       </el-row>
@@ -93,7 +95,7 @@
         <span>{{ $t('table.coursewareReview') }}（{{ commentNum }}）</span>
       </div>
       <!-- 评论 -->
-      <el-scrollbar class="commentContent">
+      <div class="commentContent">
         <div class="coursewareCommentsBox">
           <div class="coursewareCommentsInfo">
             <el-input
@@ -114,150 +116,157 @@
             </div>
           </div>
         </div>
-
-        <ul class="commentBox">
-          <li class="commentInfos" v-for="(item, index) in coursewareComments" :key="index">
-            <div class="headPortrait">
-              <span>
-                <i class="el-icon-s-custom" />
-              </span>
-            </div>
-            <div class="commentInfo">
-              <div class="name">{{ item.creator && item.creator.name }}</div>
-              <div class="time">{{ formatDate(item.createdDate) }}</div>
-              <div class="info">
-                <div class="info-txt">{{ item.content }}</div>
-                <div class="icons">
-                  <img
-                    :src="images.dianzan"
-                    v-if="!item.liked"
-                    class="dianzan"
-                    @click="postCoursewareLikesIdComment(item.id)"
-                  />
-                  <img
-                    :src="images.dianzan1"
-                    v-if="item.liked"
-                    class="dianzan"
-                    @click="postCoursewareLikesIdComment(item.id)"
-                  />
-                  <span class="likeCount">{{ item.likeCount }}</span>
-                  <img :src="images.huifu" class="huifu" @click="replyClick(item.id)" />
-                  <span class="likeCount">{{ item.replyCount || 0 }}</span>
-                  <img
-                    :src="images.shanchu"
-                    class="huifu"
-                    v-show="item.creator && item.creator.id == userId"
-                    @click="deleteCoursewareCommentsId(item.id)"
-                  />
-                  <span class="comment" @click="replyEvent(item, true)">{{
-                    $t('button.reply')
-                  }}</span>
+        <div class="flex-hidden">
+          <el-scrollbar>
+            <ul class="commentBox">
+              <li class="commentInfos" v-for="(item, index) in coursewareComments" :key="index">
+                <div class="headPortrait">
+                  <span>
+                    <el-icon class="icon">
+                      <Avatar />
+                    </el-icon>
+                  </span>
                 </div>
-              </div>
-              <div>
-                <div style="overflow: hidden" v-if="item.replyStatus">
-                  <el-input
-                    type="textarea"
-                    :autosize="{ minRows: 2, maxRows: 3 }"
-                    :placeholder="$t('holder.pleaseContent')"
-                    v-model="item.replyCon"
-                  />
-                  <el-button
-                    class="submit"
-                    type="primary"
-                    plain
-                    size="mini"
-                    @click="replyEvent(item, false)"
-                    >{{ $t('button.cancel') }}</el-button
-                  >
-                  <el-button
-                    type="primary"
-                    size="mini"
-                    class="submit"
-                    @click="postCoursewareReplysComment(item.id, item.replyCon)"
-                    >{{ $t('button.submit') }}</el-button
-                  >
-                </div>
-
-                <!-- 回复课件评论 -->
-                <div
-                  class="commentInfosChildren commentInfos"
-                  v-for="(iItem, iIndex) in item.coursewareReplys || []"
-                  :key="iIndex"
-                >
-                  <div class="headPortrait">
-                    <span>
-                      <i class="el-icon-s-custom" />
-                    </span>
+                <div class="commentInfo">
+                  <div class="name">{{ item.creator && item.creator.name }}</div>
+                  <div class="time">{{ formatDate(item.createdDate) }}</div>
+                  <div class="info">
+                    <div class="info-txt">{{ item.content }}</div>
+                    <div class="icons">
+                      <img
+                        :src="images.dianzan"
+                        v-if="!item.liked"
+                        class="dianzan"
+                        @click="postCoursewareLikesIdComment(item.id)"
+                      />
+                      <img
+                        :src="images.dianzan1"
+                        v-if="item.liked"
+                        class="dianzan"
+                        @click="postCoursewareLikesIdComment(item.id)"
+                      />
+                      <span class="likeCount">{{ item.likeCount }}</span>
+                      <img :src="images.huifu" class="huifu" @click="replyClick(item.id)" />
+                      <span class="likeCount">{{ item.replyCount || 0 }}</span>
+                      <img
+                        :src="images.shanchu"
+                        class="huifu"
+                        v-show="item.creator && item.creator.id == userId"
+                        @click="deleteCoursewareCommentsId(item.id)"
+                      />
+                      <span class="comment" @click="replyEvent(item, true)">{{
+                        $t('button.reply')
+                      }}</span>
+                    </div>
                   </div>
-                  <div class="commentInfo">
-                    <div class="name">
-                      {{ iItem.creator && iItem.creator.name
-                      }}<span class="ashy" v-if="iItem.replyToUser"
-                        >&nbsp;{{ `@${iItem.replyToUser.name}` }}:</span
+                  <div>
+                    <div style="overflow: hidden" v-if="item.replyStatus">
+                      <el-input
+                        type="textarea"
+                        :autosize="{ minRows: 2, maxRows: 3 }"
+                        :placeholder="$t('holder.pleaseContent')"
+                        v-model="item.replyCon"
+                      />
+                      <el-button
+                        class="submit"
+                        type="primary"
+                        plain
+                        size="mini"
+                        @click="replyEvent(item, false)"
+                        >{{ $t('button.cancel') }}</el-button
+                      >
+                      <el-button
+                        type="primary"
+                        size="mini"
+                        class="submit"
+                        @click="postCoursewareReplysComment(item.id, item.replyCon)"
+                        >{{ $t('button.submit') }}</el-button
                       >
                     </div>
-                    <div class="time">{{ formatDate(iItem.createdDate) }}</div>
-                    <div class="info">
-                      <div class="info-txt">{{ iItem.content }}</div>
-                      <div class="icons">
-                        <img
-                          :src="images.dianzan"
-                          v-if="!iItem.liked"
-                          class="dianzan"
-                          @click="postCoursewareLikesIdReply(iItem.id, item.id)"
-                        />
-                        <img
-                          :src="images.dianzan1"
-                          v-if="iItem.liked"
-                          class="dianzan"
-                          @click="postCoursewareLikesIdReply(iItem.id, item.id)"
-                        />
-                        <span class="likeCount">{{ iItem.likeCount }}</span>
-                        <!-- <img src="@/assets/huifu.png" class="huifu" @click="coursewareReplysReplyClick(iItem.id)"/> -->
-                        <img
-                          :src="images.shanchu"
-                          class="huifu"
-                          v-show="iItem.creator && iItem.creator.id == userId"
-                          @click="deleteCoursewareReplysId(iItem.id, item.id)"
-                        />
-                        <span class="comment" @click="replyEvent(iItem, true)">{{
-                          $t('button.reply')
-                        }}</span>
+
+                    <!-- 回复课件评论 -->
+                    <div
+                      class="commentInfosChildren commentInfos"
+                      v-for="(iItem, iIndex) in item.coursewareReplys || []"
+                      :key="iIndex"
+                    >
+                      <div class="headPortrait">
+                        <span>
+                          <el-icon class="icon">
+                            <Avatar />
+                          </el-icon>
+                        </span>
                       </div>
-                    </div>
-                    <div v-show="iItem.replyStatus">
-                      <div style="overflow: hidden">
-                        <el-input
-                          type="textarea"
-                          :autosize="{ minRows: 2, maxRows: 3 }"
-                          :placeholder="$t('holder.pleaseContent')"
-                          v-model="iItem.replyCon"
-                        />
-                        <el-button
-                          class="submit"
-                          type="primary"
-                          plain
-                          size="mini"
-                          @click="replyEvent(iItem, false)"
-                          >{{ $t('button.cancel') }}</el-button
-                        >
-                        <el-button
-                          type="primary"
-                          size="mini"
-                          class="submit"
-                          @click="postCoursewareReplysReply(iItem.id, item.id, iItem.replyCon)"
-                          >{{ $t('button.submit') }}</el-button
-                        >
+                      <div class="commentInfo">
+                        <div class="name">
+                          {{ iItem.creator && iItem.creator.name
+                          }}<span class="ashy" v-if="iItem.replyToUser"
+                            >&nbsp;{{ `@${iItem.replyToUser.name}` }}:</span
+                          >
+                        </div>
+                        <div class="time">{{ formatDate(iItem.createdDate) }}</div>
+                        <div class="info">
+                          <div class="info-txt">{{ iItem.content }}</div>
+                          <div class="icons">
+                            <img
+                              :src="images.dianzan"
+                              v-if="!iItem.liked"
+                              class="dianzan"
+                              @click="postCoursewareLikesIdReply(iItem.id, item.id)"
+                            />
+                            <img
+                              :src="images.dianzan1"
+                              v-if="iItem.liked"
+                              class="dianzan"
+                              @click="postCoursewareLikesIdReply(iItem.id, item.id)"
+                            />
+                            <span class="likeCount">{{ iItem.likeCount }}</span>
+                            <!-- <img src="@/assets/huifu.png" class="huifu" @click="coursewareReplysReplyClick(iItem.id)"/> -->
+                            <img
+                              :src="images.shanchu"
+                              class="huifu"
+                              v-show="iItem.creator && iItem.creator.id == userId"
+                              @click="deleteCoursewareReplysId(iItem.id, item.id)"
+                            />
+                            <span class="comment" @click="replyEvent(iItem, true)">{{
+                              $t('button.reply')
+                            }}</span>
+                          </div>
+                        </div>
+                        <div v-show="iItem.replyStatus">
+                          <div style="overflow: hidden">
+                            <el-input
+                              type="textarea"
+                              :autosize="{ minRows: 2, maxRows: 3 }"
+                              :placeholder="$t('holder.pleaseContent')"
+                              v-model="iItem.replyCon"
+                            />
+                            <el-button
+                              class="submit"
+                              type="primary"
+                              plain
+                              size="mini"
+                              @click="replyEvent(iItem, false)"
+                              >{{ $t('button.cancel') }}</el-button
+                            >
+                            <el-button
+                              type="primary"
+                              size="mini"
+                              class="submit"
+                              @click="postCoursewareReplysReply(iItem.id, item.id, iItem.replyCon)"
+                              >{{ $t('button.submit') }}</el-button
+                            >
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </el-scrollbar>
+              </li>
+            </ul>
+          </el-scrollbar>
+        </div>
+      </div>
     </div>
 
     <video-dialog-box
@@ -290,6 +299,7 @@
     deleteCoursewareReplysId,
   } from '/@/api/ftm/teacher/courseware'
   import videoDialogBox from './components/videoPlayer.vue'
+  import { FullScreen, Avatar } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import { encode } from 'js-base64'
   import { useCoursewareStore } from '/@/store/modules/courseware'
@@ -375,7 +385,7 @@
         return coursewareStore.system
       },
     },
-    components: { videoDialogBox },
+    components: { videoDialogBox, FullScreen, Avatar },
     created() {
       this.id = this.$route.query.id
       this.commentInfo.coursewareId = this.id
@@ -657,16 +667,10 @@
 </script>
 <style scoped lang="scss">
   @import '/@/views/project_ftm/teacher/styles/variables.scss';
-  ul,
-  li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .container {
-    // display: flex;
-    // flex-direction: column;
+  @import '/@/style/table.scss';
+  .courseware-container {
+    display: flex;
+    flex-direction: column;
     // margin: 24px;
     // height: calc(100vh - 230px);\
     :deep(.el-scrollbar__wrap) {
@@ -715,12 +719,17 @@
       }
     }
     .commentContanier {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
       background: #fff;
       position: relative;
-      flex: 1;
+      overflow: hidden;
       .commentContent {
-        height: 400px;
-        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
       }
       .commentNum {
         height: 54px;
@@ -758,7 +767,7 @@
               display: inline-block;
               text-align: center;
               line-height: 60px;
-              .el-icon-s-custom {
+              .icon {
                 color: #fff;
                 font-size: 27px;
               }
@@ -810,7 +819,7 @@
                   display: inline-block;
                   margin-left: 5px;
                 }
-                .el-icon-delete {
+                .icon-delete {
                   color: red;
                   font-size: 20px;
                   margin-left: 21px;
@@ -924,5 +933,9 @@
       width: 100%;
       flex-wrap: wrap;
     }
+  }
+  .flex-hidden {
+    flex: 1;
+    overflow: hidden;
   }
 </style>

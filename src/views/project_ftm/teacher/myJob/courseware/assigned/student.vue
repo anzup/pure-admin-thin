@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <VxeTable
       ref="xTable"
       :data="tableData"
@@ -36,10 +36,15 @@
           <el-form-item>
             <el-input
               :placeholder="$t('holder.pleaseEnter') + $t('table.studentName')"
-              suffix-icon="el-icon-search"
               clearable
               v-model="form.searchKey"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="searchEvent">{{ $t('button.query') }}</el-button>
@@ -53,46 +58,43 @@
       </template>
     </VxeTable>
 
-    <vxe-modal
+    <el-dialog
       v-model="assignmentFlag"
-      width="400"
-      show-footer
-      :before-hide-method="beforeHideMethod"
+      width="400px"
+      center
+      :title="$t('table.CourseAssignment')"
+      :before-close="beforeHideMethod"
+      @closed="refreshEvent"
     >
-      <template v-slot:title>
-        <span>{{ $t('table.CourseAssignment') }}</span>
+      <el-form :model="assignmentForm" ref="assignmentForm" label-width="120px">
+        <el-form-item
+          prop="endDate"
+          :label="$t('tip.AssignedReadingPeriod')"
+          :rules="[
+            { required: true, message: $t('holder.pleaseEnterReadingPeriod'), trigger: 'blur' },
+          ]"
+        >
+          <el-date-picker
+            v-model="assignmentForm.endDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            :placeholder="$t('holder.pleaseSelectDate')"
+            :disabled-date="pickerOptions1.disabledDate"
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary" plain @click="handleCancel">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" @click="handelSave">{{ $t('button.submit') }}</el-button>
       </template>
-      <template v-slot:footer>
-        <vxe-button type="submit" status="primary" @click="handelSave">{{
-          $t('button.submit')
-        }}</vxe-button>
-      </template>
-      <template v-slot>
-        <el-form :model="assignmentForm" ref="assignmentForm" label-width="120px">
-          <el-form-item
-            prop="endDate"
-            :label="$t('tip.AssignedReadingPeriod')"
-            :rules="[
-              { required: true, message: $t('holder.pleaseEnterReadingPeriod'), trigger: 'blur' },
-            ]"
-          >
-            <el-date-picker
-              v-model="assignmentForm.endDate"
-              type="date"
-              :placeholder="$t('holder.pleaseSelectDate')"
-              value-format="yyyy-MM-dd"
-              :picker-options="pickerOptions1"
-            />
-          </el-form-item>
-        </el-form>
-      </template>
-    </vxe-modal>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import {
     getClazzs,
     getGroupings,
@@ -163,7 +165,7 @@
         return userStore.$state
       },
     },
-    components: { selectedView, VxeTable },
+    components: { selectedView, VxeTable, Search },
     created() {
       let { ids } = this.$route.query
       this.assignmentForm.coursewareIds = ids ? ids.split(',') : []
@@ -272,9 +274,15 @@
           }
         })
       },
+      handleCancel() {
+        this.assignmentFlag = false
+      },
       searchEvent() {
         this.form.page = 1
         this.getStudents()
+      },
+      refreshEvent() {
+        this.$refs.assignmentForm.resetFields()
       },
     },
   }

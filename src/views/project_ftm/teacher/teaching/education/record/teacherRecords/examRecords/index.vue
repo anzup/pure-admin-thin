@@ -16,9 +16,9 @@
             v-model="form.schoolYear"
             type="year"
             :placeholder="$t('common.all')"
-            value-format="yyyy"
+            value-format="YYYY"
             :editable="false"
-            :picker-options="pickerOptions"
+            :disabled-date="disabledDate"
             @change="getExamList"
           />
         </el-form-item>
@@ -41,6 +41,9 @@
   import Api from '/@/api/ftm/teacher/trainEva'
   import moment from 'moment'
   import XEUtils from 'xe-utils'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  import { deleteEmptyParams } from '/@/utils'
   export default {
     components: { VxeTable },
     data() {
@@ -149,6 +152,13 @@
     mounted() {
       this.getExamList()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       handleCurrentChange({ page, size }) {
         this.pagination.page = page
@@ -187,37 +197,36 @@
         })
         this.loadingExport = false
       },
-      toPage(row, name) {
-        this.$router.push({
-          name,
-          query: {
-            records_id: row.id,
-          },
-        })
+      toPage(row, url) {
+        this.routerGo(url + '?records_id=' + row.id)
       },
       // 跳转到试卷页
       toExam(row) {
-        let params = this.$route.params
-        this.$router.push({
-          path: `${params.recordId}/examRecordsPaper`,
-          query: {
-            id: row.id,
-            records_id: this.id,
-            examName: row.name,
-            duration: row.duration,
-          },
+        let query = deleteEmptyParams({
+          id: row.id,
+          records_id: this.id,
+          examName: row.name,
+          duration: row.duration,
         })
+        let url = 'examRecordsPaper?'
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${value}&`
+        }
+        url = url.substring(0, url.length - 1)
+        this.routerGo(url)
       },
       // 跳转到成绩单
       toExamReport(row) {
-        let params = this.$route.params
-        this.$router.push({
-          path: `${params.recordId}/examRecordsReport`,
-          query: {
-            records_id: this.id,
-            id: row.id,
-          },
+        let query = deleteEmptyParams({
+          records_id: this.id,
+          id: row.id,
         })
+        let url = 'examRecordsReport?'
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${value}&`
+        }
+        url = url.substring(0, url.length - 1)
+        this.routerGo(url)
       },
       sum(objectiveQuestionScore, subjectiveQuestionScore) {
         let sum = (Number(subjectiveQuestionScore) + Number(objectiveQuestionScore)).toFixed(2)

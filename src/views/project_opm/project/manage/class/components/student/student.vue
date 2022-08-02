@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading">
+  <div class="w-full h-full" v-loading="loading">
     <VxeTable v-bind="gridOptions" @action="btnClick" @checkbox="check">
       <!--自定义插槽 toolbar buttons 插槽-->
       <template #toolbar_tools>
@@ -184,7 +184,6 @@
           tools: 'toolbar_tools',
         },
       },
-      maxHeight: 600,
     } as VxeGridProps,
 
     isShow: false,

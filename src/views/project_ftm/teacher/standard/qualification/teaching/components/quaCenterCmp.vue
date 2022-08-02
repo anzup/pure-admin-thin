@@ -3,46 +3,19 @@
     :data="tableData"
     :columns="tableColumns"
     :loading="tableLoading"
+    :buttons="tableButtons"
+    :toolbar-config="tableToolbar"
     v-model:form="form"
     @action="handleOprationEvent"
     @handlePageChange="changePageEvent"
   >
-    <template #form>
-      <!--TODO权限-->
-      <!--v-permission="permissionName ? permissionName + ':ADD' : ''"-->
-      <el-form class="align-right" inline size="medium">
-        <el-form-item>
-          <el-button type="primary" @click="addItemEvent">{{ $t('button.add') }}</el-button>
-        </el-form-item>
-      </el-form>
-    </template>
-    <template #modify="{ row }">
-      <div class="button-line">
-        <span
-          class="buttonEdit"
-          :class="{ disabled: row.attachments.length == 0 }"
-          @click="handleOprationEvent(row, 1)"
-          >{{ $t('button.details') }}</span
-        >
-        <!--TODO按钮权限-->
-        <!--v-permission="permissionName ? permissionName + ':ADD' : ''"-->
-        <span class="buttonEdit" @click="handleOprationEvent(row, 4)">{{
-          $t('button.upData')
-        }}</span>
-        <span class="buttonEdit" @click="handleOprationEvent(row, 2)">{{
-          $t('button.versionHistory')
-        }}</span>
-        <!--TODO按钮权限-->
-        <!--v-permission="permissionName ? permissionName + ':EDIT' : ''"-->
-        <span class="buttonEdit" @click="handleOprationEvent(row, 3)">{{
-          $t('button.modify')
-        }}</span>
-        <!--TODO按钮权限-->
-        <!--v-permission="permissionName ? permissionName + ':DELETE' : ''"-->
-        <span class="buttonDelete" @click="handleOprationEvent(row, 5)">{{
-          $t('button.delete')
-        }}</span>
-      </div>
+    <template #right_tools>
+      <el-button
+        v-if="permissionName ? containsPermissions(permissionName + ':ADD') : true"
+        type="primary"
+        @click="addItemEvent"
+        >{{ $t('button.add') }}</el-button
+      >
     </template>
   </VxeTable>
   <!-- 新增/修改弹框 -->
@@ -74,6 +47,8 @@
     deleteCenterQualification,
   } from '/@/api/ftm/teacher/education'
   import to from 'await-to-js'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
@@ -97,6 +72,12 @@
           { field: 'checkName', title: this.$t('table.approvalPerson'), minWidth: 120 }, // 批准人
           { title: this.$t('table.tableEdit'), slots: { default: 'operate' }, width: 350 },
         ],
+        tableToolbar: {
+          perfect: true,
+          slots: {
+            tools: 'right_tools',
+          },
+        },
         addDialogVisible: false,
         addDialogModify: false,
         addDialogUpdate: false,
@@ -207,6 +188,54 @@
             this.getData()
           }
         })
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            disabled: row.attachments.length == 0,
+            event: () => {
+              this.handleOprationEvent(row, 1)
+            },
+          },
+          {
+            name: this.$t('button.upData'),
+            visible: this.permissionName
+              ? this.containsPermissions(this.permissionName + ':ADD')
+              : true,
+            event: () => {
+              this.handleOprationEvent(row, 4)
+            },
+          },
+          {
+            name: this.$t('button.versionHistory'),
+            event: () => {
+              this.handleOprationEvent(row, 2)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            visible: this.permissionName
+              ? this.containsPermissions(this.permissionName + ':EDIT')
+              : true,
+            event: () => {
+              this.handleOprationEvent(row, 3)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: this.permissionName
+              ? this.containsPermissions(this.permissionName + ':DELETE')
+              : true,
+            event: () => {
+              this.handleOprationEvent(row, 5)
+            },
+          },
+        ]
       },
     },
   }

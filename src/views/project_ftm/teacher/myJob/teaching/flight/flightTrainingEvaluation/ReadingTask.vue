@@ -4,7 +4,6 @@
     :data="tableData"
     :columns="tableColumns"
     :toolbarConfig="tableTools"
-    :form="{ page: form.page, size: form.size, total }"
     @action="btnClick"
     @handle-page-change="handleCurrentChange"
   >
@@ -16,11 +15,7 @@
         >{{ formatStatus(row.finished) }}</span
       >
     </template>
-
-    <template #edit="{ row }">
-      <!-- v-permission="menuName + ':PLAY'" -->
-      <span class="buttonEdit" @click="playClick(row)">{{ $t('button.play') }}</span>
-    </template>
+    <template #pager />
   </VxeTable>
 </template>
 
@@ -40,8 +35,8 @@
         form: {
           page: 1,
           size: 10,
+          total: 0,
         },
-        total: 1,
         loading: false,
         tableData: [],
         tableTools: {

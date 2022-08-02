@@ -6,13 +6,15 @@
       </Tabs>
     </div>
     <div class="main-table-content">
-      <component
-        ref="modifyRef"
-        :is="currentTab?.cmp"
-        :examsInfo="state.examInfo"
-        :disableds="disabledOptions"
-        :hideFooter="true"
-      />
+      <div style="flex: 1">
+        <component
+          ref="modifyRef"
+          :is="currentTab?.cmp"
+          :examsInfo="state.examInfo"
+          :disableds="disabledOptions"
+          :hideFooter="true"
+        />
+      </div>
       <fix-footer @confirm="saveEvent" :loading="loading" />
     </div>
   </div>
@@ -171,6 +173,8 @@
   }
 
   .main-table-content {
+    display: flex;
+    flex-direction: column;
     padding: $padding;
     height: calc(100% - 32px);
   }

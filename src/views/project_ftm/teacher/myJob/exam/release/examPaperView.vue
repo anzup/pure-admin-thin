@@ -52,10 +52,11 @@
                   }}{{ $t('supplement.score') }}</span
                 >
                 <span>
-                  <i
-                    class="el-icon-star-on starIcon"
+                  <el-icon
+                    class="starIcon"
                     :style="{ color: questionInfo.marked ? '#D44949' : '#215EBE' }"
-                  />
+                    ><StarFilled
+                  /></el-icon>
                 </span>
               </div>
               <div
@@ -207,8 +208,10 @@
 
 <script>
   import { getExamRecordsIdQuestions } from '/@/api/ftm/teacher/examCenter'
+  import { StarFilled } from '@element-plus/icons-vue'
   export default {
     name: 'examPaperView',
+    components: { StarFilled },
     data() {
       return {
         id: undefined,

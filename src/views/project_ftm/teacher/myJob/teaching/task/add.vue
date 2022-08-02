@@ -1,74 +1,75 @@
 <template>
-  <div class="container educations-form">
-    <div class="content-box">
-      <div class="content-header">
-        <el-divider direction="vertical" />
-        {{ $t('table.messageContent') }}
-      </div>
-      <div class="content">
-        <el-form :model="form" :rules="formRules" ref="noticeForm">
-          <!-- <el-form-item required :label="$t('table.messageType')" prop="type">
-              <el-select v-model="form.type">
-                  <el-option
-                      v-for="item in form.typeArr" :key="item.id"
-                      :label="item.name"
-                      :value="item.id"
-                  />
-              </el-select>
-          </el-form-item> -->
-          <el-form-item required :label="$t('table.messageTitle')" prop="title">
-            <el-input
-              :placeholder="$t('holder.pleaseEnterTaskTitle')"
-              maxlength="30"
-              v-model="form.title"
-            />
-          </el-form-item>
+  <div class="educations-form">
+    <el-scrollbar>
+      <div class="content-box">
+        <div class="content-header">
+          <el-divider direction="vertical" />
+          {{ $t('table.messageContent') }}
+        </div>
+        <div class="content">
+          <el-form :model="form" :rules="formRules" ref="noticeForm" label-width="120px">
+            <!-- <el-form-item required :label="$t('table.messageType')" prop="type">
+                <el-select v-model="form.type">
+                    <el-option
+                        v-for="item in form.typeArr" :key="item.id"
+                        :label="item.name"
+                        :value="item.id"
+                    />
+                </el-select>
+            </el-form-item> -->
+            <el-form-item required :label="$t('table.messageTitle')" prop="title">
+              <el-input
+                :placeholder="$t('holder.pleaseEnterTaskTitle')"
+                maxlength="30"
+                v-model="form.title"
+              />
+            </el-form-item>
 
-          <div>
-            <el-form-item :label="$t('table.messageTag')">
-              <el-input
-                :placeholder="
-                  $t('holder.pleaseEnter') + $t('table.messageTag') + $t('table.noMoreThanWords')
-                "
-                maxlength="4"
-                v-model="form.tags[0]"
-              />
-            </el-form-item>
-            <el-form-item required :label="$t('table.messageContent')" prop="content">
-              <el-input
-                type="textarea"
-                :placeholder="$t('holder.pleaseEnter') + $t('table.messageContent')"
-                v-model="form.content"
-              />
-            </el-form-item>
-            <el-form-item :label="$t('table.messageAttachment')">
-              <el-upload
-                action="#"
-                style="display: inline-block"
-                :auto-upload="false"
-                :on-change="addUploadFile"
-                :on-remove="removeUploadFile"
-              >
-                <transition name="fade">
-                  <span class="buttonEdit" v-if="!form.uploadFile">{{
-                    $t('table.uploadAttachment')
-                  }}</span>
-                </transition>
-              </el-upload>
-            </el-form-item>
-          </div>
-        </el-form>
+            <div>
+              <el-form-item :label="$t('table.messageTag')">
+                <el-input
+                  :placeholder="
+                    $t('holder.pleaseEnter') + $t('table.messageTag') + $t('table.noMoreThanWords')
+                  "
+                  maxlength="4"
+                  v-model="form.tags[0]"
+                />
+              </el-form-item>
+              <el-form-item required :label="$t('table.messageContent')" prop="content">
+                <el-input
+                  type="textarea"
+                  :placeholder="$t('holder.pleaseEnter') + $t('table.messageContent')"
+                  v-model="form.content"
+                />
+              </el-form-item>
+              <el-form-item :label="$t('table.messageAttachment')">
+                <el-upload
+                  action="#"
+                  style="display: inline-block"
+                  :auto-upload="false"
+                  :on-change="addUploadFile"
+                  :on-remove="removeUploadFile"
+                >
+                  <transition name="fade">
+                    <span class="buttonEdit" v-if="!form.uploadFile">{{
+                      $t('table.uploadAttachment')
+                    }}</span>
+                  </transition>
+                </el-upload>
+              </el-form-item>
+            </div>
+          </el-form>
+        </div>
       </div>
-    </div>
-    <div class="content-box">
-      <div class="content-header">
-        <el-divider direction="vertical" />
-        {{ $t('table.sendTo') }}
-      </div>
-      <div class="content">
-        <el-tabs class="tabs-box" type="border-card" v-model="form.activeTab">
-          <el-tab-pane :label="$t('table.student')" name="teacher">
-            <!-- <div
+      <div class="content-box">
+        <div class="content-header">
+          <el-divider direction="vertical" />
+          {{ $t('table.sendTo') }}
+        </div>
+        <div class="content">
+          <el-tabs class="tabs-box" type="border-card" v-model="form.activeTab">
+            <el-tab-pane :label="$t('table.student')" name="teacher">
+              <!-- <div
                 v-for="(item, index) in studentFilterArr"
                 :key="index"
                 class="user-group-container"
@@ -96,42 +97,42 @@
                 </el-checkbox-group>
             </div> -->
 
-            <!-- 学员选择区 -->
-            <el-card class="mb">
-              <div class="card-title">
-                <h2>{{ $t('table.student') }}</h2>
-              </div>
-              <el-tree
-                v-if="clazzs.length > 0"
-                ref="tree"
-                class="custom-tree"
-                lazy
-                :default-expanded-keys="defaultCourseNumber"
-                node-key="courseNumber"
-                :show-checkbox="true"
-                :props="clazzPosition"
-                :load="loadStudent"
-                @check-change="triggerTree"
-              />
-            </el-card>
-          </el-tab-pane>
-        </el-tabs>
+              <!-- 学员选择区 -->
+              <el-card class="mb">
+                <div class="card-title">
+                  <h2>{{ $t('table.student') }}</h2>
+                </div>
+                <el-tree
+                  v-if="clazzs.length > 0"
+                  ref="tree"
+                  class="custom-tree"
+                  lazy
+                  :default-expanded-keys="defaultCourseNumber"
+                  node-key="courseNumber"
+                  :show-checkbox="true"
+                  :props="clazzPosition"
+                  :load="loadStudent"
+                  @check-change="triggerTree"
+                />
+              </el-card>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
       </div>
-    </div>
-
+    </el-scrollbar>
     <fix-footer @cancel="hanlderCancel" @confirm="hanlderConfirm" :loading="loading" />
   </div>
 </template>
 
 <script>
+  import FixFooter from '/@/views/project_ftm/teacher/components/FixFooter/index.vue'
   import { addNotice, getStudents, uploadFile } from '/@/api/ftm/teacher/education'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import to from 'await-to-js'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
-
   export default {
-    // components: { Vtemplate },
+    components: { FixFooter },
     data() {
       return {
         form: {
@@ -369,12 +370,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/styles/variables.scss';
-
+  @import '/@/views/project_ftm/teacher/styles/variables.scss';
   $borderStyle: 1px solid #ccc;
-  .container {
-    padding: 0;
-  }
 
   .educations-form {
     .content-box {

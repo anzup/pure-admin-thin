@@ -28,7 +28,7 @@ $pointBackground: #fafafa;
             }
         }
     }
-    
+
     thead{
         background-image: linear-gradient($tableBorderColor,$tableBorderColor),linear-gradient($tableBorderColor,$tableBorderColor);
         background-repeat: no-repeat;
@@ -43,12 +43,14 @@ $pointBackground: #fafafa;
     .print-wrap-header{
         position: relative;
         h1{
+            padding: 10px 0;
             height: 30px;
             font-size: 20px;
             font-weight: bold;
             color: #111;
             text-align: center;
             line-height: 30px;
+            box-sizing: content-box;
         }
         .fix-button{
             position: absolute;

@@ -1,9 +1,10 @@
 <template>
-  <div class="container">
+  <div>
     <VxeTable
       :data="tableData"
       :loading="tableLoading"
       :columns="tableColumns"
+      :buttons="tableButtons"
       :toolbarConfig="tableToolbar"
       v-model:form="form"
       @handle-page-change="paginationEvent"
@@ -66,24 +67,6 @@
           $t('button.addLive')
         }}</el-button>
       </template>
-      <template #edit="{ row }">
-        <div class="button-line">
-          <span
-            class="buttonEdit"
-            :style="{ color: row.status == 'FINISHED' ? '#ccc' : false }"
-            @click="row.status == 'FINISHED' ? undefined : toLive(row)"
-            >{{ $t('button.enterLive') }}</span
-          >
-          <span class="buttonEdit" @click="modify(row)">{{ $t('button.modify') }}</span>
-          <span
-            class="buttonEdit"
-            :style="{ color: row.replayFiles.length ? '' : '#ccc' }"
-            @click="seeRecord(row)"
-            >{{ $t('button.view') }}</span
-          >
-          <span class="buttonDelete" @click="deleteItem(row)">{{ $t('button.delete') }}</span>
-        </div>
-      </template>
     </VxeTable>
 
     <!-- 录播列表 -->
@@ -92,18 +75,12 @@
         <VxeTable
           :data="recordData"
           :columns="recordColumns"
+          :buttons="recordButtons"
+          :height="null"
           v-model:form="form"
           @handle-page-change="paginationEvent"
         >
           <template #pager />
-          <template #edit="{ row, rowIndex }">
-            <div class="button-line">
-              <span class="buttonEdit" @click="preview(row)">{{ $t('button.preview') }}</span>
-              <span class="buttonEdit" @click="download(row, rowIndex)">{{
-                $t('button.download')
-              }}</span>
-            </div>
-          </template>
         </VxeTable>
       </div>
     </el-dialog>
@@ -128,8 +105,12 @@
   import axios from 'axios'
   import to from 'await-to-js'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useUserStore } from '/@/store/modules/user'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  import { useI18n } from 'vue-i18n'
   const userStore = useFtmUserStore()
-
+  const accountStore = useUserStore()
   export default {
     data() {
       return {
@@ -242,6 +223,15 @@
         this.clazzs = this.clazzs.concat(res.data.content)
       })
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      const { locale } = useI18n()
+      return {
+        routerGo,
+        locale,
+      }
+    },
     methods: {
       async getList() {
         this.tableLoading = true
@@ -314,7 +304,8 @@
           method: 'get',
           responseType: 'blob',
           headers: {
-            // 'Accept-Language': getLanguage(),
+            'Accept-Language': this.locale,
+            Authorization: 'Bearer ' + accountStore.token,
           },
         })
           .then((res) => {
@@ -335,23 +326,65 @@
           })
       },
       toLive(row) {
-        this.$router.push(`live/${row.id}`)
+        this.routerGo(`live/${row.id}`)
       },
       toAddLive() {
-        this.$router.push('live/add')
+        this.routerGo('live/add')
       },
       modify(row) {
-        this.$router.push({
-          path: '/teachingCenter/liveTeaching/editLive',
-          query: {
-            id: row.id,
-          },
-        })
+        this.routerGo(`live/edit?id=${row.id}`)
       },
       changeFormData(val, key) {
         if (val == '') {
           this.form[key] = undefined
         }
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.enterLive'),
+            disabled: row.status == 'FINISHED',
+            event: () => {
+              if (row.status != 'FINISHED') this.toLive(row)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            event: () => {
+              this.modify(row)
+            },
+          },
+          {
+            name: this.$t('button.view'),
+            disabled: row.replayFiles.length === 0,
+            event: () => {
+              this.seeRecord(row)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            event: () => {
+              this.deleteItem(row)
+            },
+          },
+        ]
+      },
+      recordButtons({ row, rowIndex }) {
+        return [
+          {
+            name: this.$t('button.preview'),
+            event: () => {
+              this.preview(row)
+            },
+          },
+          {
+            name: this.$t('button.download'),
+            event: () => {
+              this.download(row, rowIndex)
+            },
+          },
+        ]
       },
     },
   }

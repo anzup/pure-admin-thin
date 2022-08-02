@@ -106,3 +106,14 @@ noSelectedCourse: Unselected courses!
 noSelectedAirplane: Unselected model!
 noSelectToDeleteFileOrFolder: Files or folders to delete are not selected!
 currentAccountSignedStatus: Self Signed
+
+pleaseEnterContent: Please enter content...
+pleaseFinishSelect: Please complete all options
+OpenAllMute: The administrator has enabled the mute function for all
+CloseAllMute: The administrator has disabled the mute function for all employees
+loginInfoFailure: The login information is invalid. Please log in again
+uploadFailedTip: Failed to upload file {name}{string}
+uploadFileSizeMaxTip: The total file size cannot exceed 100MB!
+uploadFileSizeMinTip: A single file cannot exceed 10MB!
+uploadFinished: Upload Completed
+noTeacherSignedTips: Faculty not signature unable to operate

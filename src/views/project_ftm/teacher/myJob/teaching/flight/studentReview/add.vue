@@ -10,14 +10,13 @@
       ><!-- 打印 -->
     </div>
     <template v-if="!ids">
-      <!--TODO: 修改组件路径-->
-      <!--<order-table-->
-      <!--  v-if="!ids"-->
-      <!--  ref="orderTable"-->
-      <!--  :orderData="data"-->
-      <!--  :orderType="type"-->
-      <!--  @sign="signDialogVisible = true"-->
-      <!--/>-->
+      <order-table
+        v-if="!ids"
+        ref="orderTable"
+        :orderData="data"
+        :orderType="type"
+        @sign="signDialogVisible = true"
+      />
     </template>
     <template v-else-if="ids instanceof Array && ids.length > 0">
       <order-table v-for="id in ids" :key="id" ref="orderTable" :orderType="type" :id="id" />
@@ -81,6 +80,7 @@
   } from '/@/api/ftm/teacher/studentTraining'
   import { postUpload } from '/@/api/ftm/teacher/file'
   import FixFooter from '/@/views/project_ftm/teacher/components/FixFooter/index.vue'
+  import orderTable from '/@/views/project_ftm/teacher/teaching/education/record/studentRecords/components/order.vue'
   import to from 'await-to-js'
   import XEUtils from 'xe-utils'
   import { ElMessage } from 'element-plus'
@@ -121,8 +121,7 @@
       },
     },
     components: {
-      // TODO: 更改路径
-      // orderTable: () => import('@/views/trainingRecords/studentRecords/components/order'),
+      orderTable,
       FixFooter,
     },
     mounted() {

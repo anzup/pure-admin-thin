@@ -45,11 +45,12 @@ const Data: AppRouteRecordRaw = {
     },
     // 核心能力统计
     {
-      path: 'competence',
-      name: 'StatisticalDataCompetenceIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      path: 'core',
+      name: 'StatisticalDataCoreIndex',
+      component: () => import('/@/views/project_ftm/teacher/statistical/data/core/index.vue'),
       meta: {
         title: '核心能力统计',
+        system: SubsystemName.flight_training_management,
       },
     },
     // 统计设置

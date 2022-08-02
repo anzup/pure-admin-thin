@@ -1,0 +1,35 @@
+// sidebar
+$menuText:#fff;
+$menuActiveText:#fff;
+$subMenuActiveText:#fff;
+
+$menuBg:#215EBE;
+$menuHover:rgba(255,255,255,0.36);
+
+$subMenuBg: rgba(255,255,255,0.36);
+$subMenuHover:rgba(255,255,255,0.26);
+
+$sideBarWidth: 240px;
+
+$elButtonBg:#215EBE;
+$elButtonBgActive: #417BD6;
+$elButtonDanger: #D44949;
+$elButtonSuccess: #2AA467;
+
+$textBg: #DEE7F5;
+
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+  elButtonBg: $elButtonBg;
+  elButtonBgActive: $elButtonBgActive;
+  elButtonDanger: $elButtonDanger;
+  elButtonSuccess: $elButtonSuccess;
+  textBg: $textBg;
+}

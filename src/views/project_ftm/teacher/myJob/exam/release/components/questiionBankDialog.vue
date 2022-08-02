@@ -14,7 +14,7 @@
       :data="tableData"
       :height="tableHeight"
       :columns="tableColumns"
-      :tablePage="{ page: form.page, size: form.size, total }"
+      v-model:form="form"
       :checkbox-config="{ highlight: true }"
       @checkbox="selectAllEvent"
       @handlePageChange="handleCurrentChange"
@@ -60,10 +60,15 @@
             <el-input
               class="searchInput"
               :placeholder="$t('holder.pleaseEnterBankNameOrCreator')"
-              suffix-icon="el-icon-search"
               v-model="form.searchKey"
               style="width: 250px"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button size="medium" type="primary" @click="getQuestionBanks">{{
@@ -92,6 +97,7 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getQuestionBanks } from '/@/api/ftm/teacher/examCenter'
   import { deleteEmptyParams } from '/@/utils/index'
   import to from 'await-to-js'
@@ -99,7 +105,7 @@
   const userStore = useFtmUserStore()
   export default {
     name: 'QuestiionBankDialog',
-    components: { VxeTable },
+    components: { VxeTable, Search },
     props: ['dialogVisible', 'defaultSelecteRows'],
     data() {
       return {
@@ -108,6 +114,7 @@
         form: {
           page: 1,
           size: 10,
+          total: 0,
           sort: undefined,
           order: 'asc',
           name: undefined,
@@ -132,7 +139,6 @@
           { field: 'questionCount', title: this.$t('table.numberOfTestQuestions'), width: 90 },
         ],
         records: [],
-        total: 1,
         loading: false,
         properties: [
           { id: 'PUBLIC', name: this.$t('status.open') },
@@ -158,7 +164,7 @@
         return window.innerHeight * 0.7
       },
       routeType() {
-        return this.$route.meta.status
+        return this.$route.meta?.params?.status
       },
     },
     watch: {
@@ -214,13 +220,14 @@
         /***
          * 教务员选择题库只能选择公共题库下的保密类型
          */
-        this.form.type = this.$route.meta.status == 'template' ? 'PUBLIC' : undefined
-        this.form.confidentialType = this.$route.meta.status == 'template' ? 'PUBLIC' : undefined
+        this.form.type = this.$route.meta?.params?.status == 'template' ? 'PUBLIC' : undefined
+        this.form.confidentialType =
+          this.$route.meta?.params?.status == 'template' ? 'PUBLIC' : undefined
         let [err, res] = await to(getQuestionBanks(this.form))
         this.loading = false
         if (!err && res.status == 200) {
           this.tableData = res.data.content
-          this.total = res.data.totalElements
+          this.form.total = res.data.totalElements
           this.$refs.xTable.setCheckboxRow(
             this.tableData.filter((v) => this.selectedRowKeys.includes(v.id)),
             true,

@@ -1,28 +1,20 @@
 <template>
-  <vxe-modal
-    :value="videoVisible"
-    v-if="videoVisible"
+  <el-dialog
+    custom-class="custom_dialog"
+    :title="videoTitle"
+    v-model="visible"
+    fullscreen
+    :before-close="beforeHideMethod"
     @close="handelClose"
-    :beforeHideMethod="beforeHideMethod"
-    width="800"
-    height="625"
-    :zIndex="10000"
-    show-zoom
-    remember
   >
-    <template #title>
-      <span style="color: red">{{ videoTitle }}</span>
-    </template>
-    <template #default>
-      <vue3-video-play
-        class="video-player vjs-custom-skin"
-        ref="videoPlayer"
-        :playsinline="true"
-        v-bind="playerOptions"
-        style="width: 100%; height: 100%"
-      />
-    </template>
-  </vxe-modal>
+    <vue3-video-play
+      class="video-player vjs-custom-skin"
+      ref="videoPlayer"
+      :playsinline="true"
+      v-bind="playerOptions"
+      style="width: 100%; height: 100%"
+    />
+  </el-dialog>
 </template>
 
 <script>
@@ -32,8 +24,18 @@
     },
     props: ['videoTitle', 'videoURL', 'videoVisible'],
     computed: {
+      visible: {
+        get() {
+          return this.videoVisible
+        },
+        set(val) {
+          this.$emit('update:videoVisible', val)
+        },
+      },
       playerOptions() {
         return {
+          width: '100%',
+          height: '100%',
           playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
           autoplay: false, // 如果true,浏览器准备好时开始回放。
           muted: false, // 默认情况下将会消除任何音频。

@@ -23,7 +23,7 @@
           <div class="fileInfo" v-for="(item, index) in fileList" :key="index">
             <el-input v-model="item.coursewareName" />
             <span class="name">{{ item.name }}</span>
-            <i class="el-icon-delete" @click="deleteFileEvent(index)" />
+            <el-icon class="icon-delete" @click="deleteFileEvent(index)"><Delete /></el-icon>
           </div>
         </div>
       </el-form-item>
@@ -127,8 +127,10 @@
   } from '/@/api/ftm/teacher/courseware'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import to from 'await-to-js'
-  // import { getLanguage } from '@/utils/i18n'
+  import { Delete } from '@element-plus/icons-vue'
+  import { useI18n } from 'vue-i18n'
   export default {
+    components: { Delete },
     data() {
       return {
         form: {
@@ -207,6 +209,10 @@
         this.getCoursewaresId()
       }
     },
+    setup() {
+      const { locale } = useI18n()
+      return { locale }
+    },
     methods: {
       // 获取课件信息
       async getCoursewaresId() {
@@ -261,7 +267,6 @@
           let { files } = await this.$XReadFile({ multiple: true })
           for (let [key, file] of Object.entries(files)) {
             let format = file.name.includes('.') ? file.name.split('.')[1] : ''
-            // TODO 静态属性 如果直接set 没有getter setter
             format = format.toLocaleLowerCase()
             if (this.fileFormat.includes(format)) {
               this.fileList.push({
@@ -301,7 +306,7 @@
       },
       // 修改课件请求
       postCoursewaresId() {
-        const url = `${process.env.VUE_APP_BASE_API}/coursewares/${this.id}`
+        const url = `${import.meta.env.VITE_BASE_API_FTM}/coursewares/${this.id}`
         const formData = new FormData()
         formData.append('remark', this.form.remark)
         formData.append('airplaneTypes', this.form.airplaneTypes.toString())
@@ -316,14 +321,12 @@
         const config = {
           headers: {
             'Content-Type': 'multipart/form-data',
-            // TODO 传递语言环境
-            // 'Accept-Language': getLanguage()
+            'Accept-Language': this.locale,
           },
         }
         axios.defaults.headers['Authorization'] =
           'Bearer ' + window.sessionStorage.getItem('access_token')
-        // TODO 传递语言环境
-        // axios.defaults.headers['Accept-Language'] = getLanguage()
+        axios.defaults.headers['Accept-Language'] = this.locale
         const vm = this
         axios
           .post(url, formData, config)
@@ -342,8 +345,8 @@
       // 添加课件请求
       async postAddCourseware() {
         const url = this.id
-          ? `${process.env.VUE_APP_BASE_API}/coursewares/${this.id}`
-          : `${process.env.VUE_APP_BASE_API}/coursewares`
+          ? `${import.meta.env.VITE_BASE_API_FTM}/coursewares/${this.id}`
+          : `${import.meta.env.VITE_BASE_API_FTM}/coursewares`
         const pub_upload_url = import.meta.env.VITE_BASE_API_PUB + '/files/upload'
 
         // 非zip格式的文件通过pub上传
@@ -371,8 +374,7 @@
           let config = {
             headers: {
               'Content-Type': 'multipart/form-data',
-              // TODO 传递语言环境
-              // 'Accept-Language': getLanguage()
+              'Accept-Language': this.locale,
             },
             cancelToken: this.source.token,
             onUploadProgress: function (e) {
@@ -388,8 +390,7 @@
           }
           axios.defaults.headers['Authorization'] =
             'Bearer ' + window.sessionStorage.getItem('access_token')
-          // TODO 传递语言环境
-          // axios.defaults.headers['Accept-Language'] = getLanguage()
+          axios.defaults.headers['Accept-Language'] = this.locale
           let extension = myArr[index].file.name.split('.').pop()
           var _formData = new FormData()
           var data = myArr[index].file
@@ -489,7 +490,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .el-icon-delete {
+      .icon-delete {
         color: red;
         font-size: 18px;
         cursor: pointer;

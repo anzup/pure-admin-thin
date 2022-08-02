@@ -1,5 +1,7 @@
 <template>
-  <sign-report :data="order" />
+  <el-scrollbar>
+    <sign-report :data="order" />
+  </el-scrollbar>
 </template>
 
 <script>

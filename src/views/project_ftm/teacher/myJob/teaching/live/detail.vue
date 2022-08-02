@@ -122,27 +122,30 @@
           </section>
         </div>
         <div class="live-footer">
-          <el-button
-            size="medium"
-            :icon="isMuteLocalMic ? 'el-icon-turn-off-microphone' : 'el-icon-microphone'"
-            @click="muteLocalMic"
-            >{{ isMuteLocalMic ? this.$t('button.cancelMute') : this.$t('button.Mute') }}</el-button
+          <el-button size="medium" @click="muteLocalMic">
+            <template #icon>
+              <el-icon v-if="isMuteLocalMic"><Mute /></el-icon>
+              <el-icon v-else><Microphone /></el-icon>
+            </template>
+            {{ isMuteLocalMic ? this.$t('button.cancelMute') : this.$t('button.Mute') }}</el-button
           >
-          <el-button
-            size="medium"
-            :icon="isAllMute ? 'el-icon-turn-off-microphone' : 'el-icon-microphone'"
-            @click="setBanned"
-            >{{
-              isAllMute ? this.$t('button.cancelAllMute') : this.$t('button.AllMute')
-            }}</el-button
+          <el-button size="medium" @click="setBanned">
+            <template #icon>
+              <el-icon v-if="isAllMute"><Mute /></el-icon>
+              <el-icon v-else><Microphone /></el-icon>
+            </template>
+            {{ isAllMute ? this.$t('button.cancelAllMute') : this.$t('button.AllMute') }}</el-button
           >
           <el-button
             size="medium"
             v-if="liveState.supportInfo && liveState.supportInfo.browser != 'Safari'"
             type="primary"
             @click="publishScreen"
-            icon="el-icon-s-platform"
-            >{{
+          >
+            <template #icon>
+              <el-icon><Platform /></el-icon>
+            </template>
+            {{
               liveState.isPublishScreen
                 ? this.$t('button.cancelScreenSharing')
                 : this.$t('button.ScreenSharing')
@@ -153,8 +156,11 @@
             :type="isClose ? 'primary' : 'danger'"
             :disabled="disabledLive"
             @click="endLive"
-            icon="el-icon-switch-button"
-            >{{ $t('button.finishCourse') }}</el-button
+          >
+            <template #icon>
+              <el-icon><SwitchButton /></el-icon>
+            </template>
+            {{ $t('button.finishCourse') }}</el-button
           >
         </div>
       </div>
@@ -165,6 +171,7 @@
 <script>
   import RTCClient from '/@/utils/live-setting/core/rtc-client'
   import Util from '/@/utils/live-setting/core/utils/utils'
+  import { Mute, Microphone, Platform, SwitchButton } from '@element-plus/icons-vue'
   import {
     getLivesToken,
     getLivesUserInfo,
@@ -185,6 +192,7 @@
   const userStore = useFtmUserStore()
   const liveStore = useLiveStore()
   export default {
+    components: { Mute, Microphone, Platform, SwitchButton },
     data() {
       return {
         id: null,

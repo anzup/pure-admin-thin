@@ -3,6 +3,7 @@
     :data="tableData"
     :columns="columns"
     :loading="tableLoading"
+    :buttons="tableButtons"
     v-model:form="form"
     @handlePageChange="handleCurrentChange"
   >
@@ -37,41 +38,18 @@
           <el-card class="box-card" :class="{ isred: getBac(item) }" shadow="hover">
             <div slot="header" class="clearfix">
               <span class="title_con">{{ item.name }}</span>
-              <i
-                class="el-icon-close"
+              <el-icon
+                class="icon-close"
                 v-show="row.status == 'edit' && row.isEdit"
                 style="float: right; padding: 3px 0"
                 @click.stop="deleteClick(item)"
                 :title="$t('button.delete')"
-              />
+                ><Close
+              /></el-icon>
             </div>
             <div class="text item">{{ formatDate(item) }}</div>
           </el-card>
         </div>
-      </div>
-    </template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span
-          class="buttonEdit"
-          v-permission="permissionName ? permissionName + ':ADD' : ''"
-          @click="btnClick(row, 'add')"
-          >{{ $t('button.add') }}</span
-        >
-        <span
-          class="buttonEdit"
-          v-if="!row.isEdit"
-          v-permission="permissionName ? permissionName + ':EDIT' : ''"
-          @click="btnClick(row, 'edit')"
-          >{{ $t('button.edit') }}</span
-        >
-        <span
-          class="buttonEdit"
-          v-else
-          v-permission="permissionName ? permissionName + ':EDIT' : ''"
-          @click="btnClick(row, 'edit')"
-          >{{ $t('button.complete') }}</span
-        >
       </div>
     </template>
   </VxeTable>
@@ -104,6 +82,8 @@
     deleteEmployeeQualifications,
   } from '/@/api/ftm/teacher/education'
   import to from 'await-to-js'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     name: 'QuaCmp',
     components: {
@@ -267,6 +247,28 @@
           moment().startOf().valueOf()
         )
       },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.add'),
+            visible: this.permissionName
+              ? userStore.ContainsPermissions(this.permissionName + ':ADD')
+              : true,
+            event: () => {
+              this.btnClick(row, 'add')
+            },
+          },
+          {
+            name: row.isEdit ? this.$t('button.complete') : this.$t('button.edit'),
+            visible: this.permissionName
+              ? userStore.ContainsPermissions(this.permissionName + ':EDIT')
+              : true,
+            event: () => {
+              this.btnClick(row, 'edit')
+            },
+          },
+        ]
+      },
     },
   }
 </script>
@@ -311,7 +313,7 @@
     border: none;
     .title_con,
     .item,
-    .el-icon-close {
+    .icon-close {
       color: #fff !important;
     }
   }

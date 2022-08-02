@@ -128,6 +128,7 @@
   import to from 'await-to-js'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
   import { htmlToPdf } from '/@/utils/htmlToPdf'
+  import Print from '/@/utils/printarea'
   const settingsStore = useFtmSettingsStore()
   export default {
     name: 'SchoolReport',
@@ -177,7 +178,7 @@
       previewURL,
       printEvent() {
         // this.$print(this.$refs.print)
-        new this.Print({
+        new Print({
           ids: '#PrintDOM',
           beforeOpenCallback() {},
           openCallback() {},
@@ -395,6 +396,7 @@
 <style scoped lang="scss">
   @import '/@/views/project_ftm/teacher/styles/print-report.scss';
   @import '/@/views/project_ftm/teacher/styles/variables.scss';
+  @import '/@/style/table.scss';
   ul,
   li {
     list-style: none;

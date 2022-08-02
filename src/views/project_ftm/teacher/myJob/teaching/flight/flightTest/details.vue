@@ -93,12 +93,10 @@
                   <td class="center point-bg">{{ index + 1 }}</td>
                   <td class="center">{{ item.name }}</td>
                   <td class="center">
-                    <rate
-                      :length="5"
+                    <el-rate
                       v-model="item.score"
                       :disabled="orderType < 2"
                       :colors="['#FF9900', '#FF9900', '#FF9900']"
-                      disabled-void-icon-class="vm-rate-icon-custome"
                       disabled-void-color="#99A9BF"
                     />
                   </td>

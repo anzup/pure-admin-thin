@@ -7,6 +7,7 @@
     :columns="tableColumns"
     v-model:form="form"
     :toolbar-config="tableTools"
+    :buttons="tableButtons"
     @handlePageChange="handleCurrentChange"
   >
     <template #pager v-if="!isPagination" />
@@ -39,13 +40,6 @@
         </el-form-item>
       </el-form>
     </template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <!--TODO 按钮权限-->
-        <!--v-permission="menuName + ':READ_MORE'"-->
-        <span class="buttonEdit" @click="readMore(row)">{{ $t('button.readMore') }}</span>
-      </div>
-    </template>
   </VxeTable>
 
   <!-- 教务员表格 -->
@@ -56,16 +50,10 @@
     :columns="tableColumns2"
     v-model:form="form"
     :toolbar-config="tableTools"
+    :buttons="tableButtons"
     @handlePageChange="handleCurrentChange"
   >
     <template #pager />
-    <template #edit="{ row }">
-      <div class="button-line">
-        <!--TODO 按钮权限-->
-        <!--v-permission="menuName + ':READ_MORE'"-->
-        <span class="buttonEdit" @click="readMore(row)">{{ $t('button.readMore') }}</span>
-      </div>
-    </template>
   </VxeTable>
 </template>
 
@@ -77,6 +65,8 @@
   import { getCoursewareByAssignee } from '/@/api/ftm/teacher/courseware'
   import { getClazzs, getClazzAllStudents } from '/@/api/ftm/teacher/teachingPlan'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
 
@@ -151,6 +141,13 @@
       builtinRole() {
         return this.userInfo.builtinRole
       },
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       // 格式化性别
@@ -269,7 +266,7 @@
         }
       },
       readMore(row) {
-        const query = {
+        let query = {
           courseNumber: this.form.courseNumber,
           isByStudent: true,
         }
@@ -280,10 +277,13 @@
           query.assigneeId = row.userId
         }
 
-        this.$router.push({
-          path: '/courseware/record/details',
-          query,
-        })
+        let url = 'record/details?'
+        query = deleteEmptyParams(query)
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${value}&`
+        }
+        url = url.substring(0, url.length - 1)
+        this.routerGo(url)
       },
       formatDate({ cellValue }) {
         return XEUtils.toDateString(cellValue, 'yyyy-MM-dd HH:mm:ss')
@@ -299,6 +299,17 @@
       search() {
         this.form.page = 1
         this.getCoursewareAssignments()
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.readMore'),
+            visible: this.userInfo.totalAuthorities.includes(this.menuName + ':READ_MORE'),
+            event: () => {
+              this.readMore(row)
+            },
+          },
+        ]
       },
     },
   }

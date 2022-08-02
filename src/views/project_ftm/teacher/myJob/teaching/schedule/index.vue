@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="schedule-container">
     <template v-if="builtinRole == 'TRAINING_ADMIN'">
       <el-tabs class="schedule-tabs" v-model="activedSimulator" @tab-click="changeSimulator">
         <el-tab-pane
@@ -22,9 +22,14 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.searchKeyOfTeacherAndCouseNumber')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="getData">{{ $t('button.query') }}</el-button>
@@ -52,11 +57,13 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-input
-              :placeholder="$t('table.classNumber')"
-              suffix-icon="el-icon-search"
-              v-model="form.className"
-            />
+            <el-input :placeholder="$t('table.classNumber')" v-model="form.className">
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="getData">{{ $t('button.query') }}</el-button>
@@ -79,7 +86,6 @@
 
 <script>
   import {
-    getOldScheduleClazz,
     getOldScheduleEmployee,
     getOldScheduleFacilitie,
   } from '/@/api/ftm/teacher/teachingCenter'
@@ -87,6 +93,7 @@
   import moment from 'moment'
   import ScheduleTable from './components/schedule.vue'
   import DetailDialog from './components/detailDialog.vue'
+  import { Search } from '@element-plus/icons-vue'
   import to from 'await-to-js'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
@@ -149,6 +156,7 @@
     components: {
       ScheduleTable,
       DetailDialog,
+      Search,
     },
     created() {
       this.getData()
@@ -280,11 +288,12 @@
 </script>
 
 <style scoped lang="scss">
-  .container {
+  .schedule-container {
     display: flex;
     flex-direction: column;
     & > section {
       flex: 1;
+      overflow: hidden;
     }
   }
   .table-header {
@@ -306,7 +315,7 @@
       font-weight: 700;
       text-align: center;
       color: #ffffff;
-      background: rgba($color: #000000, $alpha: 0.08);
+      background: rgba($color: #000, $alpha: 0.08);
       p {
         display: -webkit-box;
         min-height: 24px;
@@ -348,7 +357,6 @@
     }
   }
   .schedule-tabs {
-    margin-bottom: 20px;
     :deep(.el-tabs__header) {
       padding: 0;
     }

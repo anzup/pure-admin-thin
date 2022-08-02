@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <el-scrollbar>
     <div class="user-con">
       <div class="student-con item-con">
         <el-card class="box-card" :header="$t('text.students_to_be_grouped')">
@@ -27,7 +27,7 @@
           <div class="components-con">
             <el-scrollbar>
               <div class="main-con">
-                <div v-for="item in form.unselectedTeachers" :key="item.id">
+                <div v-for="item in form.unselectedTeachers || []" :key="item.id">
                   <el-button
                     v-show-tips="item.name"
                     :type="item.selectedByOtherClazz ? 'danger' : 'success'"
@@ -49,12 +49,15 @@
       <div class="item-con">
         <el-card class="box-card" :header="$t('text.grouping')">
           <el-row class>
-            <el-col :span="8" v-for="(item, index) in form.groupings" :key="item.id">
+            <el-col :span="8" v-for="(item, index) in form.groupings || []" :key="index">
               <el-card :header="item.name" class="item">
                 <div class="box" @dragover="dragoverTd" @drop="dropTd($event, index, item)">
                   <el-scrollbar>
                     <div class="main-con teacher-con">
-                      <div v-for="teacherId in item.teachers" :key="teacherId.index">
+                      <div
+                        v-for="(teacherId, teacherIndex) in item.teachers || []"
+                        :key="teacherIndex"
+                      >
                         <el-button
                           type="success"
                           class="info grouping-button"
@@ -74,8 +77,8 @@
                     </div>
                     <div class="main-con">
                       <div
-                        v-for="studentId in item.students"
-                        :key="studentId.index"
+                        v-for="(studentId, studentIndex) in item.students || []"
+                        :key="studentIndex"
                         v-show-tips="studentId.name"
                       >
                         <el-button type="primary" class="info grouping-button infoBkg">
@@ -102,7 +105,7 @@
     <div class="footer-container">
       <el-button type="primary" @click="confirm">{{ $t('message.hssave') }}</el-button>
     </div>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script lang="ts" setup>
@@ -125,7 +128,10 @@
   const { form } = toRefs(state)
   const getList = async () => {
     await getGroupingsOperateList(clazzId).then((res) => {
-      state.form = res.data
+      state.form.clazz = res.data.clazz
+      state.form.groupings = res.data.groupings
+      state.form.unselectedStudents = res.data.unselectedStudents
+      state.form.unselectedTeachers = res.data.unselectedTeachers
     })
   }
 

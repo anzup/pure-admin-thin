@@ -5,7 +5,7 @@
       :data="tableData"
       :columns="tableColumns"
       :toolbarConfig="tableTools"
-      :form="pagination"
+      v-model:form="pagination"
       @handle-page-change="handleCurrentChange"
     >
       <template #form>
@@ -136,6 +136,8 @@
   import moment from 'moment'
   import to from 'await-to-js'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '../../../../../../hooks/usePage'
   const userStore = useFtmUserStore()
 
   export default {
@@ -217,10 +219,16 @@
     created() {
       this.getClazzsAll()
     },
-    activated() {
+    // TODO 原缓存页面执行activated
+    mounted() {
       if (this.form.courseid && this.form.groupId) {
         this.getData()
       }
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return { routerGo }
     },
     methods: {
       formatDate(cellValue) {
@@ -290,13 +298,7 @@
       handleSign(row) {
         // this.signDialogVisible = true;
         // this.id = row.id;
-
-        this.$router.push({
-          name: 'TheoryScheduleSignList',
-          params: {
-            clazzId: row.id,
-          },
-        })
+        this.routerGo(`theory/list/${row.id}`)
       },
       // 取消按钮（签名码）
       handleDialogCancel() {

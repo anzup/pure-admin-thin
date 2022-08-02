@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <VxeTable
       ref="xTable"
       :data="tableData"
@@ -61,39 +61,39 @@
       </template>
     </VxeTable>
 
-    <vxe-modal v-model="assignmentFlag" width="400" show-footer>
-      <template v-slot:title>
-        <span>{{ $t('table.CourseAssignment') }}</span>
+    <el-dialog
+      v-model="assignmentFlag"
+      width="400px"
+      center
+      :title="$t('table.CourseAssignment')"
+      @closed="refreshEvent"
+    >
+      <el-form :model="assignmentForm" ref="assignmentForm">
+        <el-form-item
+          prop="endDate"
+          :label="$t('tip.AssignedReadingPeriod')"
+          :rules="[
+            {
+              required: true,
+              message: $t('holder.pleaseEnter') + $t('tip.AssignedReadingPeriod'),
+              trigger: 'blur',
+            },
+          ]"
+        >
+          <el-date-picker
+            v-model="assignmentForm.endDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            :placeholder="$t('holder.pleaseSelectDate')"
+            :disabled-date="pickerOptions1.disabledDate"
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary" plain @click="handleCancel">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" @click="handelSave">{{ $t('button.submit') }}</el-button>
       </template>
-      <template v-slot:footer>
-        <vxe-button type="submit" status="primary" @click="handelSave">{{
-          $t('button.submit')
-        }}</vxe-button>
-      </template>
-      <template v-slot>
-        <el-form :model="assignmentForm" ref="assignmentForm">
-          <el-form-item
-            prop="endDate"
-            :label="$t('tip.AssignedReadingPeriod')"
-            :rules="[
-              {
-                required: true,
-                message: $t('holder.pleaseEnter') + $t('tip.AssignedReadingPeriod'),
-                trigger: 'blur',
-              },
-            ]"
-          >
-            <el-date-picker
-              v-model="assignmentForm.endDate"
-              type="date"
-              :placeholder="$t('holder.pleaseSelectDate')"
-              value-format="yyyy-MM-dd"
-              :picker-options="pickerOptions1"
-            />
-          </el-form-item>
-        </el-form>
-      </template>
-    </vxe-modal>
+    </el-dialog>
   </div>
 </template>
 
@@ -178,10 +178,6 @@
       selectAllEvent({ records }) {
         this.records = records
       },
-      getClearAll() {
-        this.$refs.xTable.clearSelectEvent()
-        this.records = []
-      },
       handleCurrentChange({ page, size }) {
         this.form.page = page
         this.form.size = size
@@ -248,6 +244,12 @@
             })
           }
         })
+      },
+      handleCancel() {
+        this.assignmentFlag = false
+      },
+      refreshEvent() {
+        this.$refs['assignmentForm'].resetFields()
       },
       formatGender({ cellValue }) {
         return cellValue == 'M' ? this.$t('common.male') : this.$t('common.female')

@@ -46,10 +46,15 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterStudentName')"
-            suffix-icon="el-icon-search"
             v-model.trim="form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -61,16 +66,19 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getEmployeesId, getStudents } from '/@/api/ftm/teacher/account'
   import { airlinesMenu } from '/@/api/ftm/teacher/studentTraining'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import XEUtils from 'xe-utils'
   import moment from 'moment'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
   export default {
-    components: { VxeTable },
+    components: { VxeTable, Search },
     data() {
       return {
         form: {
@@ -132,6 +140,13 @@
 
       this.form.schoolYear = moment().format('YYYY')
       this.getClazzs()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       dateChange() {
@@ -196,16 +211,12 @@
         this.pagination.size = size
         this.getData()
       },
-      toPage(row, name) {
-        this.$router.push({
-          name,
-          params: {
-            studentId: row.id,
-          },
-        })
+      toPage(row) {
+        this.routerGo(`record/student/${row.id}`)
       },
       search() {
         this.pagination.page = 1
+        this.pagination.total = 0
         this.getData()
       },
       tableButtons({ row }) {
@@ -213,7 +224,7 @@
           {
             name: this.$t('button.details'),
             event: () => {
-              this.toPage(row, 'TeachingEducationRecordStudentDetail')
+              this.toPage(row)
             },
           },
         ]

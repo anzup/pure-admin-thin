@@ -46,9 +46,14 @@
         <el-form-item>
           <el-input
             :placeholder="$t('holder.pleaseEnterTeachersNameAndQueryKey')"
-            suffix-icon="el-icon-search"
             v-model.trim="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -60,16 +65,19 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getEmployeesId, getEmployees, getDepartmentsAll } from '/@/api/ftm/teacher/account'
   import { airlinesMenu } from '/@/api/ftm/teacher/studentTraining'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import XEUtils from 'xe-utils'
   import moment from 'moment'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   const userStore = useFtmUserStore()
   export default {
-    components: { VxeTable },
+    components: { VxeTable, Search },
     data() {
       return {
         form: {
@@ -152,6 +160,13 @@
         this.getData()
       }
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       getDepartmentsAll() {
         getDepartmentsAll().then((res) => {
@@ -222,13 +237,8 @@
       },
       checkboxOne() {},
       checkboxAll() {},
-      toPage(row, name) {
-        this.$router.push({
-          name,
-          query: {
-            id: row.id,
-          },
-        })
+      toPage(row, url) {
+        this.routerGo(url + '?id=' + row.id)
       },
       search() {
         this.pagination.page = 1
@@ -240,7 +250,7 @@
           {
             name: this.$t('button.details'),
             event: () => {
-              this.toPage(row, 'TeachingEducationRecordTeacherDetail')
+              this.toPage(row, 'record/teacher/tabs')
             },
           },
         ]

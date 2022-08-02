@@ -40,11 +40,13 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-input
-              :placeholder="$t('holder.pleaseEnterName')"
-              suffix-icon="el-icon-search"
-              v-model="form.searchKey"
-            />
+            <el-input :placeholder="$t('holder.pleaseEnterName')" v-model="form.searchKey">
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
@@ -84,6 +86,7 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getClazzAllStudents, getClazzs, getClazzStudents } from '/@/api/ftm/teacher/teachingPlan'
   import { getEmployees } from '/@/api/ftm/teacher/account'
   import to from 'await-to-js'
@@ -91,7 +94,7 @@
   const userStore = useFtmUserStore()
   export default {
     name: 'systemStudents',
-    components: { VxeTable },
+    components: { VxeTable, Search },
     props: ['systemStudentDialogVisible', 'tableData'],
     data() {
       return {

@@ -69,6 +69,18 @@ const Manage: AppRouteRecordRaw = {
         system: SubsystemName.operation_plan_management,
       },
     },
+    {
+      // 训练进度
+      path: 'class/progress',
+      name: 'ProjectManageClassProgress',
+      component: () => import('/@/views/project_ftm/teacher/project/manage/class/progress.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'table.practiceProgress',
+        currentActiveMenu: '/project/manage/class',
+        system: SubsystemName.flight_training_management,
+      },
+    },
     // 排课模板
     {
       path: 'template',
@@ -135,7 +147,6 @@ const Manage: AppRouteRecordRaw = {
     },
     // 完训确认
     {
-      // TODO 原路由名examWorkingReport
       path: 'finish',
       name: 'ProjectManageComplateTrainIndex',
       component: () => import('/@/views/project_ftm/teacher/project/manage/finish/index.vue'),

@@ -22,7 +22,7 @@
         <el-form-item :label="t('table.schoolYear')">
           <el-date-picker
             type="year"
-            value-format="yyyy"
+            value-format="YYYY"
             v-model="gridOptions.form.year"
             @change="refreshCourseNameEvent"
           />
@@ -62,10 +62,15 @@
         <el-form-item>
           <el-input
             :placeholder="t('holder.pleaseEnterStudentName')"
-            suffix-icon="el-icon-search"
             v-model.trim="gridOptions.form.searchKey"
             style="width: 280px"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ t('button.query') }}</el-button
@@ -81,38 +86,13 @@
         </el-form-item>
       </el-form>
     </template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <!-- <span class="buttonEdit" @click="qrView(row)" v-permission="menuName + ':QR_CODE'">{{ t('button.qrCode') }}</span> -->
-        <span
-          class="buttonEdit"
-          @click="toPage('TeachingFlightTestDetails', { id: row.id, status: row.status })"
-          v-if="row.status == 'FILLED' && row.teacherSignature"
-          v-permission="menuName + ':DETAIL'"
-          >{{ t('button.details') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="toPage('TeachingFlightTestDetails', { id: row.id, status: 'modify' })"
-          v-else-if="row.status == 'FILLED'"
-          v-permission="menuName + ':DETAIL'"
-          >{{ t('button.modify') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="toPage('TeachingFlightTestDetails', { id: row.id, status: row.status })"
-          v-else
-          v-permission="menuName + ':FILL_OUT'"
-          >{{ t('button.fillIn') }}</span
-        >
-      </div>
-    </template>
   </VxeTable>
   <qr-dialog v-if="qrDialogVisible" v-model="qrDialogVisible" :rowData="rowData" />
 </template>
 
 <script lang="ts" setup>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import qrDialog from './components/qrCodeDialog.vue'
   import Api from '/@/api/ftm/teacher/trainEva'
   import { groupAll, noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
@@ -249,6 +229,43 @@
         buttons: 'left_tools',
       },
     },
+    buttons: ({ row }) => [
+      // {
+      //   name: t('button.qrCode'),
+      //   visible: userStore.ContainsPermissions(menuName.value + ':QR_CODE'),
+      //   event: () => {
+      //     qrView(row)
+      //   },
+      // },
+      {
+        name: t('button.details'),
+        visible:
+          userStore.ContainsPermissions(menuName.value + ':DETAIL') &&
+          row.status == 'FILLED' &&
+          row.teacherSignature,
+        event: () => {
+          toPage('TeachingFlightTestDetails', { id: row.id, status: row.status })
+        },
+      },
+      {
+        name: t('button.modify'),
+        visible:
+          userStore.ContainsPermissions(menuName.value + ':DETAIL') && row.status == 'FILLED',
+        event: () => {
+          toPage('TeachingFlightTestDetails', { id: row.id, status: 'modify' })
+        },
+      },
+      {
+        name: t('button.fillIn'),
+        visible:
+          userStore.ContainsPermissions(menuName.value + ':FILL_OUT') &&
+          !(row.status == 'FILLED' && row.teacherSignature) &&
+          row.status != 'FILLED',
+        event: () => {
+          toPage('TeachingFlightTestDetails', { id: row.id, status: row.status })
+        },
+      },
+    ],
   })
   const qrDialogVisible = ref(false)
   const rowData = ref()

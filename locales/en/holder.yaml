@@ -109,3 +109,17 @@ pleaseSelectLifelong: Please select whether it is valid for life
 pleaseSelectUploadFile: Please select Upload File
 pleaseSelectStudentYearOrClass: Please select year or class
 pleaseEnterExamCourseNum: Please enter the exam course number
+
+pleaseUsername: Please enter a 6-12 digit account
+accountNumberPlaceholder: Please enter 6-12 digits in English or a combination of English numbers
+pleaseName: Please enter your name
+enterOneUserName: Please enter the user name
+pleaseInputAPassword: Please enter the password
+pleaseInputMobilePhoneNumber: Please enter the phone number
+pleaseEnterTheverificationcode: Please enter the verification code
+uploadedFileFormatError: upload file format is error
+uploadFileIsNotSelected: upload file is not selected
+pleaseEnterFolderName: please enter folder name
+areSureOutLive: Are you sure to quit teaching?
+pleaseEnterPincode: Please enter the PIN code
+CannotPreview: This file does not support preview

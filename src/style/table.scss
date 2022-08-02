@@ -1,0 +1,36 @@
+.info-table-box {
+  width: 100%;
+  border-top: 1px solid #E6E6E6;
+  border-left: 1px solid #E6E6E6;
+  border-collapse: collapse;
+  td {
+    padding: 10px 5px;
+    font-size: 14px;
+    text-align: center;
+    border-right: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    color: #606266;
+    .el-form-item{
+      margin-bottom: 0;
+    }
+    .el-form-item__label{
+      line-height: 1;
+    }
+  }
+  td:nth-of-type(2n + 1) {
+    width: 9%;
+    background-color: #f8f8f9;
+    font-weight: 700;
+  }
+  td:nth-of-type(2n) {
+    width: 15%;
+    text-align: left;
+    padding: 14px 20px;
+    font-weight: 400;
+  }
+  .label-require-point{
+    color: #d44949;
+    margin-right: 4px;
+    font-style: normal;
+  }
+}

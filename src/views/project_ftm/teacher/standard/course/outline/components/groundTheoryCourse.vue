@@ -3,19 +3,11 @@
     ref="xTable"
     :data="tableData"
     :columns="tableColmns"
-    :tablePage="tablePage"
+    :buttons="tableButtons"
+    v-model:form="tablePage"
     @checkbox="selectAllEvent"
     @handlePageChange="paginationEvent"
-  >
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="modify(row)">{{ $t('button.modify') }}</span>
-        <span class="buttonDelete" @click="deleteSyllabusItemsId(row.id)">{{
-          $t('button.delete')
-        }}</span>
-      </div>
-    </template>
-  </VxeTable>
+  />
 
   <!-- 新增地面理论 -->
   <el-dialog
@@ -291,6 +283,23 @@
         return cellValue == 'FLIGHT_PRACTICE'
           ? this.$t('table.simulatorTrain')
           : this.$t('status.groundTheory')
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.modify'),
+            event: () => {
+              this.modify(row)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            event: () => {
+              this.deleteSyllabusItemsId(row.id)
+            },
+          },
+        ]
       },
     },
   }

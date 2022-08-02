@@ -1,9 +1,10 @@
 <template>
   <VxeTable
     :data="tableData"
-    :toolbar-config="tableToolbar"
-    :columns="tableColumns"
     :loading="tableLoading"
+    :columns="tableColumns"
+    :buttons="tableButtons"
+    :toolbar-config="tableToolbar"
     v-model:form="form"
     :span-method="mergeRowsMethod"
     @handlePageChange="changePageEvent"
@@ -24,44 +25,13 @@
       </el-form>
     </template>
     <template #right_tools>
-      <!--TODO 按钮权限-->
-      <!--v-permission="menuName + ':ADD'"-->
-      <el-button type="primary" size="medium" @click="addItemEvent">{{
-        $t('button.add')
-      }}</el-button>
-    </template>
-    <template #editor="{ row }">
-      <div class="button-line">
-        <span
-          class="buttonEdit"
-          :class="{ disabled: !validateDetail(row) }"
-          @click="handleModifyEvent(row, 1)"
-          >{{ $t('button.details') }}</span
-        >
-        <template v-if="row.classifyType == 'FILE'">
-          <!-- 文件资质 -->
-          <span class="buttonEdit" @click="handleModifyEvent(row, 5)">{{
-            $t('button.versionHistory')
-          }}</span>
-          <span class="buttonEdit" @click="handleModifyEvent(row, 6)">{{
-            $t('button.upData')
-          }}</span>
-        </template>
-        <template v-else>
-          <!-- 非文件资质 -->
-          <span class="buttonEdit" @click="handleModifyEvent(row, 2)">{{
-            $t('button.management')
-          }}</span>
-        </template>
-        <!--TODO按钮权限-->
-        <!--v-permission="menuName + ':EDIT'"-->
-        <span class="buttonEdit" @click="handleModifyEvent(row, 3)">{{ $t('button.modify') }}</span>
-        <!--按钮权限-->
-        <!--v-permission="menuName + ':DELETE'"-->
-        <span class="buttonDelete" @click="handleModifyEvent(row, 4)">{{
-          $t('button.delete')
-        }}</span>
-      </div>
+      <el-button
+        v-if="containsPermissions(menuName + ':ADD')"
+        type="primary"
+        size="medium"
+        @click="addItemEvent"
+        >{{ $t('button.add') }}</el-button
+      >
     </template>
   </VxeTable>
 
@@ -106,11 +76,14 @@
     deleteCourseQualification,
   } from '/@/api/ftm/teacher/qualification'
   import to from 'await-to-js'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  const userStore = useFtmUserStore()
   export default {
     data() {
       return {
         tableLoading: false,
         tableToolbar: {
+          perfect: true,
           slots: {
             buttons: 'left_tools',
             tools: 'right_tools',
@@ -303,6 +276,58 @@
         } else {
           return true
         }
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            disabled: !this.validateDetail(row),
+            event: () => {
+              this.handleModifyEvent(row, 1)
+            },
+          },
+          ...(row.classifyType == 'FILE'
+            ? [
+                {
+                  name: this.$t('button.versionHistory'),
+                  event: () => {
+                    this.handleModifyEvent(row, 5)
+                  },
+                },
+                {
+                  name: this.$t('button.upData'),
+                  event: () => {
+                    this.handleModifyEvent(row, 6)
+                  },
+                },
+              ]
+            : [
+                {
+                  name: this.$t('button.management'),
+                  event: () => {
+                    this.handleModifyEvent(row, 2)
+                  },
+                },
+              ]),
+          {
+            name: this.$t('button.modify'),
+            visible: userStore.ContainsPermissions(this.menuName + ':EDIT'),
+            event: () => {
+              this.handleModifyEvent(row, 3)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: userStore.ContainsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.handleModifyEvent(row, 4)
+            },
+          },
+        ]
       },
     },
   }

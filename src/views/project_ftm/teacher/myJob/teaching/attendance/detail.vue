@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="detail-container">
     <div class="container_table">
       <VxeTable
         v-bind="gridOptions"
@@ -13,17 +13,15 @@
         <template #status="{ row }">
           <el-radio-group v-model="row.type">
             <el-radio v-for="(item, index) in filters.status" :key="index" :label="item.id">{{
-                item.name
-              }}</el-radio>
+              item.name
+            }}</el-radio>
           </el-radio-group>
         </template>
-        <template #pager></template>
+        <template #pager />
       </VxeTable>
     </div>
     <div class="attendance-center" ref="bottom">
-      <el-button type="primary" @click="showSignDialog = true">{{
-          t('button.submit')
-        }}</el-button>
+      <el-button type="primary" @click="showSignDialog = true">{{ t('button.submit') }}</el-button>
     </div>
     <SignDialog :loadingDialog="signLoading" v-model="showSignDialog" @handleConfirm="submitSign" />
   </div>
@@ -34,11 +32,10 @@
   import { getAttendancesId, postAttendancesId } from '/@/api/ftm/teacher/teachingCenter'
   import SignDialog from '/@/views/project_ftm/teacher/components/SignDialog/index.vue'
   import { useI18n } from 'vue-i18n'
-  import { computed, reactive, ref } from 'vue'
+  import { computed, onMounted, reactive, ref } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import to from 'await-to-js'
   import { ElMessage } from 'element-plus'
-  import { setPage } from '/@/utils/utils'
 
   const router = useRouter()
   const route = useRoute()
@@ -122,6 +119,10 @@
     }
     getData()
   }
+
+  onMounted(() => {
+    getData()
+  })
 </script>
 <script lang="ts">
   export default {
@@ -130,10 +131,10 @@
 </script>
 
 <style scoped lang="scss">
-  .container{
+  .detail-container {
     display: flex;
     flex-direction: column;
-    .container_table{
+    .container_table {
       flex: 1;
     }
     .attendance-title {

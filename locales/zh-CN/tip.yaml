@@ -232,3 +232,14 @@ supplementing: 补训
 Attendance: 已考勤
 noAttendance: 未考勤
 uploaded: 已上传
+
+pleaseEnterContent: 请输入内容...
+pleaseFinishSelect: 请完成所有选项
+OpenAllMute: 管理员已开启全员静音
+CloseAllMute: 管理员已关闭全员静音
+loginInfoFailure: 登录信息已失效，请重新登录
+uploadFailedTip: 文件{name}上传失败，{string}
+uploadFileSizeMaxTip: 文件总大小不能超过100MB
+uploadFileSizeMinTip: 单个文件不能过10MB!
+uploadFinished: 上传完成
+noTeacherSignedTips: 教员未签名，无法操作

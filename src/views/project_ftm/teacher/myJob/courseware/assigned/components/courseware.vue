@@ -5,6 +5,7 @@
     :loading="loading"
     :columns="tableColmns"
     :toolbar-config="tableToolbar"
+    :buttons="tableButtons"
     @checkbox="selectChangeEvent"
   >
     <template #form>
@@ -73,9 +74,14 @@
             class="searchInput"
             size="medium"
             :placeholder="$t('holder.pleaseEnterTheTitle')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="medium" @click="search">{{
@@ -86,41 +92,45 @@
     </template>
 
     <template #right_tools>
-      <!--TODO 按钮权限-->
-      <!--v-permission="menuName + ':TYPE_CHANGES'"-->
       <el-button
+        v-if="containsPermissions(menuName + ':TYPE_CHANGES')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
         @click="coursewareChangeType"
         >{{ $t('button.changeType') }}</el-button
       >
-      <!--v-permission="menuName + ':SUBMIT_REVIEW'"-->
       <el-button
+        v-if="containsPermissions(menuName + ':SUBMIT_REVIEW')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
         @click="approvalDialogVisible = true"
         >{{ $t('button.submitReview') }}</el-button
       >
-      <!--v-permission="menuName + ':COURSEWARE_ASSIGNMENT'"-->
       <el-button
+        v-if="containsPermissions(menuName + ':COURSEWARE_ASSIGNMENT')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
         @click="coursewareAssignment"
         >{{ $t('button.coursewareAssignment') }}</el-button
       >
-      <!--v-permission="menuName + ':APPLY_REVIEW'"-->
       <el-button
+        v-if="containsPermissions(menuName + ':APPLY_REVIEW')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
         @click="applicationReview"
         >{{ $t('button.applicationReview') }}</el-button
       >
-      <!--v-permission="menuName + ':UPLOAD'"-->
-      <el-button type="primary" size="mini" @click="upload">{{ $t('button.upload') }}</el-button>
+      <el-button
+        v-if="containsPermissions(menuName + ':UPLOAD')"
+        type="primary"
+        size="mini"
+        @click="upload"
+        >{{ $t('button.upload') }}</el-button
+      >
       <el-button type="primary" size="mini" :disabled="records.length == 0" @click="moveLocation">{{
         $t('button.bulkTop')
       }}</el-button>
@@ -128,35 +138,6 @@
 
     <template #properties="{ row }">
       <span>{{ formatProperties(row.properties) }}</span>
-    </template>
-    <template #edit="{ row, rowIndex }">
-      <div class="button-line">
-        <span
-          class="buttonEdit"
-          @click="playClick(row.id, row.fileUuid, row.fileType, row.name, row.playFilePath)"
-          v-if="row.operationTypes.includes('PLAY')"
-          >{{ $t('button.play') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="details(row.id)"
-          v-if="row.operationTypes.includes('COMMENTS')"
-          >{{ $t('button.comment') }}</span
-        >
-        <span
-          class="buttonEdit"
-          @click="modify(row.id)"
-          v-if="row.operationTypes.includes('UPDATE')"
-          >{{ $t('button.modify') }}</span
-        >
-        <span
-          class="buttonDelete"
-          @click="deleteCoursewares(row.id)"
-          v-if="row.operationTypes.includes('DELETE')"
-          >{{ $t('button.delete') }}</span
-        >
-        <span class="buttonEdit" @click="move(row, rowIndex, 'up')">{{ $t('button.top') }}</span>
-      </div>
     </template>
     <template #pager />
   </VxeTable>
@@ -177,6 +158,7 @@
   import VxeTable from '/@/components/Table/index.vue'
   import videoPlayer from './videoPlayer.vue'
   import ReviewDialog from './reviewDialog.vue'
+  import { Search } from '@element-plus/icons-vue'
   import {
     getCoursewares,
     deleteCoursewares,
@@ -189,10 +171,13 @@
   } from '/@/api/ftm/teacher/courseware'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import XEUtils from 'xe-utils'
+  import to from 'await-to-js'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import { deleteEmptyParams } from '/@/utils/index'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useCoursewareStore } from '/@/store/modules/courseware'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   const userStore = useFtmUserStore()
   const coursewareStore = useCoursewareStore()
 
@@ -259,16 +244,17 @@
       selectedView,
       videoPlayer,
       ReviewDialog,
+      Search,
     },
     computed: {
       userInfo() {
         return userStore.$state
       },
-      coursewareSystem() {
-        return ''
+      xTable() {
+        return this.$refs.xTable?.$refs?.xTable
       },
-      device() {
-        return ''
+      coursewareSystem() {
+        return coursewareStore.system
       },
       menuName() {
         switch (this.type) {
@@ -279,9 +265,6 @@
           case 'SELF':
             return 'COURSEWARE_SELF'
         }
-      },
-      isMobile() {
-        return this.device == 'mobile'
       },
       tableColmns() {
         let colmns = [
@@ -334,6 +317,13 @@
         return colmns
       },
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       postCoursewaresUpdateSeqNo(ids) {
         const { sort, order, type } = this.form
@@ -353,25 +343,23 @@
           confirmButtonText: this.$t('button.confirm'),
           cancelButtonText: this.$t('button.cancel'),
         }).then(() => {
-          // console.log(this.records);
           this.postCoursewaresUpdateSeqNo(this.records)
         })
       },
-      move(row, index, idirection) {
+      move(row) {
         let { id } = row
-
         this.postCoursewaresUpdateSeqNo([id])
       },
       selectChangeEvent({ records }) {
         this.records = XEUtils.map(records, (item) => item.id)
       },
       getClearAll() {
-        this.$refs.xTable.clearSelectEvent()
+        this.xTable.clearSelectEvent()
         this.records = []
       },
       // 获取课程列表
       async getCourses() {
-        const [err, res] = await this.$to(getCoursesAll())
+        const [err, res] = await to(getCoursesAll())
         if (!err && res.status == 200) {
           this.courseList = res.data
         }
@@ -399,30 +387,20 @@
         await coursewareStore.UPDATE_SYSTEM()
         this.systemTypeList = this.coursewareSystem
       },
-      getCoursewares() {
+      async getCoursewares() {
         this.form.page = 1
         this.form = deleteEmptyParams(this.form)
         this.loading = true
-        getCoursewares(this.form)
-          .then((res) => {
-            if (res.status == 200) {
-              this.tableData = res.data.content
-              this.total = res.data.totalElements
-              this.getClearAll()
-            }
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
+        const [err, res] = await to(getCoursewares(this.form))
+        this.loading = false
+        if (!err && res.status == 200) {
+          this.tableData = res.data.content
+          this.total = res.data.totalElements
+          this.getClearAll()
+        }
       },
       upload() {
-        this.$router.push({
-          path: 'directory/add',
-          query: {
-            type: this.form.type,
-          },
-        })
+        this.routerGo(`assigned/add?type=${this.form.type}`)
       },
       playClick(id, fileUuid, fileType, name, playFilePath) {
         ;(this.componentName = 'videoPlayer'), (this.videoDialog = true)
@@ -433,21 +411,10 @@
         this.name = name
       },
       details(id) {
-        this.$router.push({
-          path: 'directory/details',
-          query: {
-            id: id,
-          },
-        })
+        this.routerGo(`assigned/details?id=${id}`)
       },
       modify(id) {
-        this.$router.push({
-          path: 'directory/info',
-          query: {
-            type: this.form.type,
-            id: id,
-          },
-        })
+        this.routerGo(`assigned/info?type=${this.form.type}&id=${id}`)
       },
       deleteCoursewares(id) {
         this.$confirm(this.$t('common.deleteData'), this.$t('tip.tip'), {
@@ -469,20 +436,10 @@
       coursewareAssignment() {
         // 课件指派 区分当前人是教员还是教务员 teacher
         sessionStorage.setItem('ids', JSON.stringify(this.records))
-        if (sessionStorage.getItem('builtinRole') == 'TRAINING_ADMIN') {
-          this.$router.push({
-            path: 'directory/teacher',
-            query: {
-              ids: this.records.join(','),
-            },
-          })
+        if (this.userInfo.builtinRole == 'TRAINING_ADMIN') {
+          this.routerGo(`assigned/teacher?ids=${this.records.join(',')}`)
         } else {
-          this.$router.push({
-            path: 'directory/student',
-            query: {
-              ids: this.records.join(','),
-            },
-          })
+          this.routerGo(`assigned/student?ids=${this.records.join(',')}`)
         }
       },
       // 类型变更
@@ -492,7 +449,7 @@
           confirmButtonText: this.$t('button.confirm'),
           cancelButtonText: this.$t('button.cancel'),
         }).then(async () => {
-          let [err] = await this.$to(postCoursewareModifyPublic({ ids: this.records }))
+          let [err] = await to(postCoursewareModifyPublic({ ids: this.records }))
           if (!err) {
             this.$message.success(this.$t('tip.modifySuccessTop'))
             this.getCoursewares()
@@ -505,7 +462,7 @@
           ...form,
           coursewareIds: this.records,
         }
-        let [err] = await this.$to(postCoursewareModifyApproval(params))
+        let [err] = await to(postCoursewareModifyApproval(params))
         if (!err) {
           this.$message.success(this.$t('tip.subSuccessTip'))
           this.approvalDialogVisible = false
@@ -573,6 +530,48 @@
       search() {
         this.form.page = 1
         this.getCoursewares()
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row, rowIndex }) {
+        return [
+          {
+            name: this.$t('button.play'),
+            visible: row.operationTypes.includes('PLAY'),
+            event: () => {
+              this.playClick(row.id, row.fileUuid, row.fileType, row.name, row.playFilePath)
+            },
+          },
+          {
+            name: this.$t('button.comment'),
+            visible: row.operationTypes.includes('COMMENTS'),
+            event: () => {
+              this.details(row.id)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            visible: row.operationTypes.includes('UPDATE'),
+            event: () => {
+              this.modify(row.id)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: row.operationTypes.includes('DELETE'),
+            event: () => {
+              this.deleteCoursewares(row.id)
+            },
+          },
+          {
+            name: this.$t('button.top'),
+            event: () => {
+              this.move(row, rowIndex, 'up')
+            },
+          },
+        ]
       },
     },
   }

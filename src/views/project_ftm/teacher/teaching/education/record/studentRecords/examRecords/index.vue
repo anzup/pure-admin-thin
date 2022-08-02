@@ -1,73 +1,73 @@
 <template>
-  <VxeTable
-    ref="main"
-    :data="tableData"
-    :loading="loading"
-    :columns="tableColumns"
-    :toolbar-config="tableTools"
-    :buttons="tableButtons"
-    @checkbox="handleCheckbox"
-  >
-    <template #form>
-      <el-form :inline="true" size="medium">
-        <el-form-item :label="$t('table.submissionStatus')">
-          <!-- 考试状态 -->
-          <el-select
-            v-model="form.examStatus"
-            :placeholder="$t('common.all')"
-            clearable
-            @change="getExamList"
-          >
-            <el-option
-              v-for="(item, index) in form.examStatusArr"
-              :key="index"
-              :label="item.name"
-              :value="item.id"
-            />
-          </el-select>
-        </el-form-item>
-      </el-form>
-    </template>
-    <template #right_tools>
-      <el-button
-        size="mini"
-        type="primary"
-        :loading="loadingExport"
-        :disabled="tableCheckbox.length == 0"
-        @click="ExportPaper"
-        >{{ $t('button.examPaper') }} {{ $t('button.leadingOut') }}</el-button
-      >
-      <el-button
-        size="mini"
-        type="primary"
-        :loading="loadingExport"
-        :disabled="tableCheckbox.length == 0"
-        @click="ExportReport"
-        >{{ $t('button.reportCard') }} {{ $t('button.leadingOut') }}</el-button
-      >
-    </template>
-    <template #pager />
-  </VxeTable>
+  <div class="w-full h-full" ref="main">
+    <VxeTable
+      :data="tableData"
+      :loading="loading"
+      :columns="tableColumns"
+      :toolbar-config="tableTools"
+      :buttons="tableButtons"
+      @checkbox="handleCheckbox"
+    >
+      <template #form>
+        <el-form :inline="true" size="medium">
+          <el-form-item :label="$t('table.submissionStatus')">
+            <!-- 考试状态 -->
+            <el-select
+              v-model="form.examStatus"
+              :placeholder="$t('common.all')"
+              clearable
+              @change="getExamList"
+            >
+              <el-option
+                v-for="(item, index) in form.examStatusArr"
+                :key="index"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </template>
+      <template #right_tools>
+        <el-button
+          size="mini"
+          type="primary"
+          :loading="loadingExport"
+          :disabled="tableCheckbox.length == 0"
+          @click="ExportPaper"
+          >{{ $t('button.examPaper') }} {{ $t('button.leadingOut') }}</el-button
+        >
+        <el-button
+          size="mini"
+          type="primary"
+          :loading="loadingExport"
+          :disabled="tableCheckbox.length == 0"
+          @click="ExportReport"
+          >{{ $t('button.reportCard') }} {{ $t('button.leadingOut') }}</el-button
+        >
+      </template>
+      <template #pager />
+    </VxeTable>
+    <!-- 渲染打印的试卷 -->
+    <aside class="print-wrapper-hide">
+      <div class="print-wrapper" ref="print">
+        <question-paper
+          v-for="id in paperList"
+          :key="id"
+          :questionBankId="id"
+          :name="details.name"
+          @finishPaper="handleFinishPaper"
+        />
+      </div>
+    </aside>
 
-  <!-- 渲染打印的试卷 -->
-  <aside class="print-wrapper-hide">
-    <div class="print-wrapper" ref="print">
-      <question-paper
-        v-for="id in paperList"
-        :key="id"
-        :questionBankId="id"
-        :name="details.name"
-        @finishPaper="handleFinishPaper"
-      />
-    </div>
-  </aside>
-
-  <!-- 渲染打印的成绩单 -->
-  <aside class="print-wrapper-hide">
-    <div class="print-wrapper" ref="print">
-      <school-report v-for="id in reportList" :key="id" :pid="id" @finish="handleFinishReport" />
-    </div>
-  </aside>
+    <!-- 渲染打印的成绩单 -->
+    <aside class="print-wrapper-hide">
+      <div class="print-wrapper" ref="print">
+        <school-report v-for="id in reportList" :key="id" :pid="id" @finish="handleFinishReport" />
+      </div>
+    </aside>
+  </div>
 </template>
 
 <script>
@@ -77,6 +77,8 @@
   import { mergePDF } from '/@/utils/index'
   import questionPaper from './questions.vue'
   import schoolReport from './reports.vue'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   export default {
     data() {
       return {
@@ -134,7 +136,7 @@
             width: 110,
             formatter: this.examResultFormatter,
           },
-          { title: this.$t('table.tableEdit'), width: 140, slots: { default: 'edit' } },
+          { title: this.$t('table.tableEdit'), width: 140, slots: { default: 'operate' } },
         ],
         loading: false,
         loadingExport: false,
@@ -169,6 +171,11 @@
     },
     mounted() {
       this.getExamList()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return { routerGo }
     },
     methods: {
       getExamList() {
@@ -221,7 +228,7 @@
       },
       toPage(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/examRecordsDetails`,
           query: {
             records_id: row.id,
@@ -231,7 +238,7 @@
       // 跳转到试卷页
       toExam(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/examRecordsPaper`,
           query: {
             id: row.id,
@@ -244,7 +251,7 @@
       // 跳转到成绩单
       toExamReport(row) {
         let params = this.$route.params
-        this.$router.push({
+        this.routerGo({
           path: `${params.recordId}/examRecordsReport`,
           query: {
             records_id: this.id,

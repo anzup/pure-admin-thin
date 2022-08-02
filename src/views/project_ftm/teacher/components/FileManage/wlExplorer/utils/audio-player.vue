@@ -1,7 +1,9 @@
 <template>
   <div class="audio-player-box">
     <h3 class="audio-player-h3">
-      <i class="el-icon-circle-close audio-player-icon" @click="audioClose('close')" />
+      <el-icon class="audio-player-icon" @click="audioClose('close')">
+        <CircleClose />
+      </el-icon>
     </h3>
     <audio class="u-audio" :src="audioUrl" autoplay controls>
       {{ $t('tip.browserVersionLow') }}
@@ -15,7 +17,9 @@
    * auth:weilan
    * time:2018-10-17
    */
+  import { CircleClose } from '@element-plus/icons-vue'
   export default {
+    components: { CircleClose },
     props: {
       url: String,
       // options: Object

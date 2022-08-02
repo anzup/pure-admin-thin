@@ -4,6 +4,7 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     @handlePageChange="handleCurrentChange"
   >
@@ -58,32 +59,19 @@
           <el-input
             class="searchInput"
             :placeholder="$t('holder.pleaseEnterTheTitle')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
         </el-form-item>
       </el-form>
-    </template>
-
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="details(row.id)" v-permission="menuName + ':DETAIL'">{{
-          $t('button.details')
-        }}</span>
-        <span
-          class="buttonEdit"
-          @click="examine(row.id)"
-          v-if="row.status == 'PENDING'"
-          v-permission="menuName + ':AUDIT'"
-          >{{ $t('button.examine') }}</span
-        >
-        <span class="buttonEdit disabled" v-else v-permission="menuName + ':AUDIT'">{{
-          $t('button.examine')
-        }}</span>
-      </div>
     </template>
     <template #properties="{ row }"> {{ formatProperties(row.properties) }} </template>
   </VxeTable>
@@ -97,6 +85,7 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
   import {
     getCoursewareProperties,
@@ -108,8 +97,12 @@
   import { deleteEmptyParams } from '/@/utils/index'
   import { systemFormat } from './format'
   import to from 'await-to-js'
+  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
+  const userStore = useFtmUserStore()
   export default {
-    components: { examineDialog, VxeTable },
+    components: { examineDialog, VxeTable, Search },
     data() {
       return {
         menuName: 'COURSEWARE_APROVAL_REQUEST_LIST',
@@ -164,7 +157,7 @@
             formatter: this.formatStatus,
             width: 90,
           },
-          { title: this.$t('table.tableEdit'), width: 200, slots: { default: 'edit' } },
+          { title: this.$t('table.tableEdit'), width: 200, slots: { default: 'operate' } },
         ],
         examineVisible: false,
         examineId: undefined,
@@ -181,6 +174,13 @@
       this.getCoursewaresAirplaneTypes()
       this.getCoursewaresSystemTypes()
       this.getCoursewareApprovalRequests()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       handleCurrentChange({ page, size }) {
@@ -225,12 +225,7 @@
         }
       },
       details(id) {
-        this.$router.push({
-          path: 'review/coursewareDetail',
-          query: {
-            id: id,
-          },
-        })
+        this.routerGo(`review/coursewareDetail?id=${id}`)
       },
       examine(id) {
         this.examineVisible = true
@@ -266,6 +261,25 @@
       search() {
         this.form.page = 1
         this.getCoursewareApprovalRequests()
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            visible: userStore.ContainsPermissions(this.menuName + ':DETAIL'),
+            event: () => {
+              this.details(row.id)
+            },
+          },
+          {
+            name: this.$t('button.examine'),
+            disabled: row.status != 'PENDING',
+            visible: userStore.ContainsPermissions(this.menuName + ':AUDIT'),
+            event: () => {
+              this.examine(row.id)
+            },
+          },
+        ]
       },
     },
   }

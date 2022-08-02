@@ -1,4 +1,6 @@
 import request from '/@/utils/request/index'
+import { toPdf } from '/@/utils/print'
+import { toExport } from '/@/utils'
 const url = import.meta.env.VITE_BASE_API_FTM
 const pubUrl = import.meta.env.VITE_BASE_API_PUB
 
@@ -88,7 +90,7 @@ export function getStudentRecords(param) {
     status: undefined, // 状态
     type: undefined, // 学习类型
   })
-  let params = Object.assign(Interface, param)
+  const params = Object.assign(Interface, param)
   return request({
     url: url + '/coursewareReadRecords',
     method: 'get',
@@ -116,7 +118,7 @@ export function getExam(param) {
     status: undefined, // 考试状态
     result: undefined, // 考试结果
   })
-  let params = Object.assign(Interface, param)
+  const params = Object.assign(Interface, param)
   return request({
     url: url + '/studentTrainingRecords/examRecords',
     method: 'get',
@@ -179,45 +181,100 @@ export const getFilghtExamDetails = (params) =>
     params,
   })
 // 飞行考试pdf
-// TODO: 调用此接口的判断调用toPdf下载
 export const flightExamGetPdf = (data) =>
   request({
     url: url + '/flightExamRecords/genPdf',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then((res) => {
+      if (data.download) {
+        toExport(res)
+      } else {
+        toPdf(res)
+      }
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 // 学员总评pdf
-// TODO: 调用此接口的判断调用toPdf下载
 export const studentFinalGetPdf = (data) =>
   request({
     url: url + '/studentFinalEvaluationRecords/genPdf',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then((res) => {
+      if (data.download) {
+        toExport(res)
+      } else {
+        toPdf(res)
+      }
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 // 飞行训练pdf
-// TODO: 调用此接口的判断调用toPdf下载
 export const flightTrainingGetPdf = (data) =>
   request({
     url: url + '/flightTrainingEvaluationRecords/genPdf',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then((res) => {
+      if (data.download) {
+        toExport(res)
+      } else {
+        toPdf(res)
+      }
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 // 通过班级id和学员id生成pdf
-// TODO: 调用此接口的调用toPdf下载
 export const genPdfByClazzIdAndStudentId = (data) =>
   request({
     url: url + '/studentTrainingRecords/genPdfByClazzIdAndStudentId',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then((res) => {
+      if (data.download) {
+        toExport(res)
+      } else {
+        toPdf(res)
+      }
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 // 通过记录id生成pdf
-// TODO: 调用此接口的调用toPdf下载
 export const genPdfByRecords = (data) =>
   request({
     url: url + '/studentTrainingRecords/genPdfByRecords',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then((res) => {
+      if (data.download) {
+        toExport(res)
+      } else {
+        toPdf(res)
+      }
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 
 /**
  * 预览文件（返回url）

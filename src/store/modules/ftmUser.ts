@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { store } from '/@/store'
 import { getUserInfo } from '/@/api/ftm/teacher/account'
 import { accountType } from '/@/store/modules/types'
-import to from 'await-to-js'
 export interface IUserState {
   accountType: accountType // 账号类型
   builtinRole: string // 内置职位
@@ -60,6 +59,10 @@ export const useFtmUserStore = defineStore({
       for (const [key, value] of Object.entries(ob)) {
         this[key] = value
       }
+    },
+    // 判断是否含有权限
+    ContainsPermissions(key: string): boolean {
+      return this.totalAuthorities.includes(key)
     },
     async getUserInfo({ id }) {
       await getUserInfo({ id })

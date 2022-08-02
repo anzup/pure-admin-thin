@@ -1,4 +1,5 @@
 import request from '/@/utils/request/index'
+import { toExport } from '/@/utils'
 const url = import.meta.env.VITE_BASE_API_FTM
 
 // 题库配置
@@ -88,6 +89,7 @@ export const getQuestionBanksBatchDeleteImport = (params) =>
     method: 'get',
     params,
   })
+
 export const getQuestionBanksMove = (data) =>
   request({
     url: url + '/questionBanks/moveTeacherQuestion',
@@ -251,8 +253,16 @@ export const getExamsStudentImport = (params) =>
   request({
     url: url + '/exams/studentImport',
     method: 'get',
+    responseType: 'blob',
     params,
   })
+    .then(async (res) => {
+      await toExport(res)
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 export const postExamsStudentImport = (data) =>
   request({
     url: url + '/exams/studentImport',
@@ -280,7 +290,7 @@ export const getListByexamType = (params) =>
   })
 export const getExamsExam = (params) =>
   request({
-    url: url + 'exams/stats/exam',
+    url: url + '/exams/stats/exam',
     method: 'get',
     params,
   })

@@ -1,113 +1,90 @@
 <template>
-  <div class="container">
-    <VxeTable
-      ref="xTable"
-      :loading="loading"
-      :data="tableData"
-      :columns="tableColumns"
-      v-model:form="form"
-      :toolbarConfig="tableTool"
-      @checkbox="selectChangeEvent"
-      @handlePageChange="handlePageChange"
-    >
-      <template #form>
-        <el-form ref="form" :model="form" :inline="true" size="medium">
-          <el-form-item :label="$t('table.examYear')">
-            <!-- 考试年份 -->
-            <el-date-picker
-              v-model="form.year"
-              type="year"
-              :placeholder="$t('holder.pleaseSelectYear')"
-              value-format="yyyy"
-              style="width: 160px"
-              @change="changeYear"
+  <VxeTable
+    ref="xTable"
+    :loading="loading"
+    :data="tableData"
+    :columns="tableColumns"
+    :buttons="tableButtons"
+    v-model:form="form"
+    :toolbarConfig="tableTool"
+    @checkbox="selectChangeEvent"
+    @handlePageChange="handlePageChange"
+  >
+    <template #form>
+      <el-form ref="form" :model="form" :inline="true" size="medium">
+        <el-form-item :label="$t('table.examYear')">
+          <!-- 考试年份 -->
+          <el-date-picker
+            v-model="form.year"
+            type="year"
+            :placeholder="$t('holder.pleaseSelectYear')"
+            value-format="YYYY"
+            style="width: 160px"
+            @change="changeYear"
+          />
+        </el-form-item>
+        <el-form-item :label="$t('table.classNumber')">
+          <el-select clearable v-model="form.courseNumber">
+            <el-option
+              v-for="(item, index) in clazzs"
+              :key="index"
+              :label="item.courseNumber"
+              :value="item.courseNumber"
             />
-          </el-form-item>
-          <el-form-item :label="$t('table.classNumber')">
-            <el-select clearable v-model="form.courseNumber">
-              <el-option
-                v-for="(item, index) in clazzs"
-                :key="index"
-                :label="item.courseNumber"
-                :value="item.courseNumber"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item :label="$t('table.examCategory')">
-            <!-- 考试类别 -->
-            <el-select v-model="form.examTypeId" :placeholder="$t('holder.pleaseSelect')" clearable>
-              <el-option
-                :label="item.name"
-                :value="item.id"
-                v-for="item in examTypesAll"
-                :key="item.index"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-input
-              ref="searchInput"
-              :placeholder="$t('holder.pleaseEnterTheNameOfTheTest')"
-              suffix-icon="el-icon-search"
-              v-model="form.searchKey"
-              style="width: 280px"
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('table.examCategory')">
+          <!-- 考试类别 -->
+          <el-select v-model="form.examTypeId" :placeholder="$t('holder.pleaseSelect')" clearable>
+            <el-option
+              :label="item.name"
+              :value="item.id"
+              v-for="item in examTypesAll"
+              :key="item.index"
             />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
-          </el-form-item>
-        </el-form>
-      </template>
-      <template #right_tools>
-        <!--TODO 按钮权限-->
-        <!--v-permission="menuName + ':ADD'"-->
-        <el-button size="mini" @click="add" type="primary">{{ $t('button.add') }}</el-button>
-      </template>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            ref="searchInput"
+            :placeholder="$t('holder.pleaseEnterTheNameOfTheTest')"
+            v-model="form.searchKey"
+            style="width: 280px"
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="search">{{ $t('button.query') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </template>
+    <template #right_tools>
+      <el-button
+        v-if="containsPermissions(menuName + ':ADD')"
+        size="mini"
+        @click="add"
+        type="primary"
+        >{{ $t('button.add') }}</el-button
+      >
+    </template>
 
-      <template #dateTimeRange="{ row }">
-        <span class="range">{{ formatDate(row.startDate) }} - {{ formatDate(row.endDate) }}</span>
-      </template>
-
-      <template #tableEdit="{ row }">
-        <div class="button-line">
-          <span class="buttonEdit" @click="details(row.id)" v-permission="menuName + ':DETAIL'">{{
-            $t('button.details')
-          }}</span>
-          <span
-            class="buttonEdit"
-            v-if="row.status == 'FINISHED'"
-            style="color: #ccc"
-            v-permission="menuName + ':UPDATE'"
-            >{{ $t('button.modify') }}</span
-          >
-          <span
-            class="buttonEdit"
-            v-else
-            v-permission="menuName + ':UPDATE'"
-            @click="modify(row.id, row.status)"
-            >{{ $t('button.modify') }}</span
-          >
-          <span
-            class="buttonDelete"
-            @click="deleteExamsIdEvent(row.id)"
-            v-permission="menuName + ':DELETE'"
-            >{{ $t('button.delete') }}</span
-          >
-          <span
-            class="buttonEdit"
-            @click="examDetails(row.id)"
-            v-permission="menuName + ':DETAILS_EXAM'"
-            >{{ $t('router.examManage') }}</span
-          >
-        </div>
-      </template>
-    </VxeTable>
-  </div>
+    <template #dateTimeRange="{ row }">
+      <span class="range">{{ formatDate(row.startDate) }} - {{ formatDate(row.endDate) }}</span>
+    </template>
+  </VxeTable>
 </template>
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import { getExams, deleteExamsId, getExamTypesAll } from '/@/api/ftm/teacher/examCenter'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
@@ -179,10 +156,14 @@
     components: {
       VxeTable,
       selectedView,
+      Search,
     },
     computed: {
       userInfo() {
         return userStore.$state
+      },
+      path() {
+        return this.$route.path.split('/').pop()
       },
     },
     created() {
@@ -199,6 +180,13 @@
       sessionStorage.removeItem('makeUpInfo')
       this.form.createdBy = this.userInfo.userId
       this.getExams()
+    },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
     },
     methods: {
       selectChangeEvent({ records }) {
@@ -221,49 +209,20 @@
         })
       },
       add() {
-        this.$router.push({
-          path: 'add',
-          query: {
-            type: 'FORMAL',
-          },
-        })
+        this.routerGo(`${this.path}/add?type=FORMAL`)
       },
       modify(id, status) {
         if (status == 'NOT_STARTED') {
-          this.$router.push({
-            path: 'release/info',
-            query: {
-              id: id,
-              active: 1,
-            },
-          })
+          this.routerGo(`${this.path}/info?id=${id}&active=1`)
         } else {
-          this.$router.push({
-            path: 'release/modify',
-            query: {
-              id: id,
-            },
-          })
+          this.routerGo(`${this.path}/modify?id=${id}`)
         }
       },
       details(id) {
-        this.$router.push({
-          path: 'release/details',
-          query: {
-            id: id,
-          },
-        })
+        this.routerGo(`${this.path}/details?id=${id}`)
       },
       examDetails(id) {
-        this.$router.push({
-          name: 'ExamManageExamDetailsIndex',
-          query: {
-            examType: 'FORMAL',
-          },
-          params: {
-            examId: id,
-          },
-        })
+        this.routerGo(`${this.path}/examDetails/${id}?examType=FORMAL`)
       },
       getExams() {
         this.form = deleteEmptyParams(this.form)
@@ -330,6 +289,43 @@
         this.form.total = 0
         this.$refs.searchInput.blur()
         this.getExams()
+      },
+      containsPermissions(key) {
+        return userStore.ContainsPermissions(key)
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.details'),
+            visible: this.containsPermissions(this.menuName + ':DETAIL'),
+            event: () => {
+              this.details(row.id)
+            },
+          },
+          {
+            name: this.$t('button.modify'),
+            disabled: row.status == 'FINISHED',
+            visible: this.containsPermissions(this.menuName + ':UPDATE'),
+            event: () => {
+              this.modify(row.id, row.status)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: this.containsPermissions(this.menuName + ':DELETE'),
+            event: () => {
+              this.deleteExamsIdEvent(row.id)
+            },
+          },
+          {
+            name: this.$t('router.examManage'),
+            visible: this.containsPermissions(this.menuName + ':DETAILS_EXAM'),
+            event: () => {
+              this.examDetails(row.id)
+            },
+          },
+        ]
       },
     },
   }

@@ -1,63 +1,58 @@
 <template>
-  <vxe-modal
-    v-model="examineVisible"
-    show-footer
-    :before-hide-method="beforeHideMethod"
-    width="600"
-    height="325"
-    remember
+  <el-dialog
+    v-model="visible"
+    width="600px"
+    center
+    :title="$t('table.reviewAndAudit')"
+    :before-close="beforeHideMethod"
+    @closed="refreshEvent"
   >
-    <template #title>
-      <span>{{ $t('table.reviewAndAudit') }}</span>
-    </template>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+      <el-form-item :label="$t('table.auditResults')" prop="auditResults">
+        <el-radio v-model="ruleForm.auditResults" label="1">{{ $t('button.pass') }}</el-radio>
+        <el-radio v-model="ruleForm.auditResults" label="2">{{ $t('button.noPass') }}</el-radio>
+      </el-form-item>
+      <el-form-item
+        :label="$t('table.reasonsForRejection')"
+        prop="rejectReason"
+        v-if="ruleForm.auditResults == '2'"
+      >
+        <el-input type="textarea" v-model="ruleForm.rejectReason" />
+      </el-form-item>
+      <el-form-item
+        :label="$t('table.reviewDeadline')"
+        prop="endDate"
+        v-if="ruleForm.auditResults == '1'"
+        key="endDate"
+      >
+        <el-date-picker
+          v-model="ruleForm.endDate"
+          type="date"
+          :placeholder="$t('holder.pleaseSelectDate')"
+          :disabled-date="pickerOptions.disabledDate"
+        />
+      </el-form-item>
+      <el-form-item
+        :label="$t('table.membersOfTheReviewTeam')"
+        prop="approverIds"
+        v-if="ruleForm.auditResults == '1'"
+        :placeholder="$t('holder.pleaseSelect')"
+        key="approverIds"
+      >
+        <el-scrollbar max-height="400px">
+          <el-checkbox-group v-model="ruleForm.approverIds">
+            <el-checkbox :label="item.id" v-for="item in approverList" :key="item.index">{{
+              item.name
+            }}</el-checkbox>
+          </el-checkbox-group>
+        </el-scrollbar>
+      </el-form-item>
+    </el-form>
     <template #footer>
-      <vxe-button type="submit" @click="handelCancel">{{ $t('button.cancel') }}</vxe-button>
-      <vxe-button type="submit" status="primary" @click="handelSave">{{
-        $t('button.confirm')
-      }}</vxe-button>
+      <el-button type="primary" plain @click="handelCancel">{{ $t('button.cancel') }}</el-button>
+      <el-button type="primary" @click="handelSave">{{ $t('button.confirm') }}</el-button>
     </template>
-    <template #default>
-      <div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-          <el-form-item :label="$t('table.auditResults')">
-            <el-radio v-model="ruleForm.auditResults" label="1">{{ $t('button.pass') }}</el-radio>
-            <el-radio v-model="ruleForm.auditResults" label="2">{{ $t('button.noPass') }}</el-radio>
-          </el-form-item>
-          <el-form-item
-            :label="$t('table.reasonsForRejection')"
-            prop="rejectReason"
-            v-if="ruleForm.auditResults == '2'"
-          >
-            <el-input type="textarea" v-model="ruleForm.rejectReason" />
-          </el-form-item>
-          <el-form-item
-            :label="$t('table.reviewDeadline')"
-            prop="endDate"
-            v-if="ruleForm.auditResults == '1'"
-          >
-            <el-date-picker
-              v-model="ruleForm.endDate"
-              :picker-options="pickerOptions"
-              type="date"
-              :placeholder="$t('holder.pleaseSelectDate')"
-            />
-          </el-form-item>
-          <el-form-item
-            :label="$t('table.membersOfTheReviewTeam')"
-            prop="approverIds"
-            v-if="ruleForm.auditResults == '1'"
-            :placeholder="$t('holder.pleaseSelect')"
-          >
-            <el-checkbox-group v-model="ruleForm.approverIds">
-              <el-checkbox :label="item.id" v-for="item in approverList" :key="item.index">{{
-                item.name
-              }}</el-checkbox>
-            </el-checkbox-group>
-          </el-form-item>
-        </el-form>
-      </div>
-    </template>
-  </vxe-modal>
+  </el-dialog>
 </template>
 
 <script>
@@ -73,6 +68,16 @@
       },
       examineId: {
         type: Number,
+      },
+    },
+    computed: {
+      visible: {
+        get() {
+          return this.examineVisible
+        },
+        set(val) {
+          this.$emit('update:examineVisible', val)
+        },
       },
     },
     data() {
@@ -153,6 +158,9 @@
             this.approverList = res.data.content
           }
         })
+      },
+      refreshEvent() {
+        this.$refs.ruleForm.resetFields()
       },
     },
   }

@@ -199,6 +199,9 @@
   import { toExport } from '/@/utils/index'
   import axios from 'axios'
   import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useUserStore } from '/@/store/modules/user'
+  import { useI18n } from 'vue-i18n'
+  const accountStore = useUserStore()
   const userStore = useFtmUserStore()
   export default {
     components: {
@@ -337,8 +340,7 @@
         uploadOptions: {}, // 上传文件附加参数
         uploadHeader: {
           Authorization: 'Bearer ' + window.sessionStorage.getItem('access_token'),
-          // TODO 传递语言环境
-          // 'Accept-Language': getLanguage()
+          'Accept-Language': this.locale,
         },
         uploadUrl: `${import.meta.env.VITE_BASE_API_PUB}/files/upload`, // 上传地址
         uploadInfo: {}, // 临时存储上传信息
@@ -410,6 +412,12 @@
         })
         return handleArr.filter((v) => !v.disabled)
       },
+    },
+    setup() {
+      const { locale } = useI18n()
+      return {
+        locale,
+      }
     },
     methods: {
       /**
@@ -756,8 +764,10 @@
                 method: 'GET',
                 responseType: 'arraybuffer',
                 timeout: 180000, // 三分钟超时
-                // TODO 传递语言环境
-                // headers: { 'Accept-Language': getLanguage() },
+                headers: {
+                  'Accept-Language': this.locale,
+                  Authorization: 'Bearer ' + accountStore.token,
+                },
                 cancelToken: new CancelToken(function (c) {
                   that.$set(that.uploadList[index], 'cancelAxios', c)
                 }),

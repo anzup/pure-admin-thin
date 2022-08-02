@@ -1,5 +1,11 @@
 <template>
-  <el-button :size="size" :type="type" :plain="plain" v-if="status" icon="el-icon-loading" />
+  <el-button :size="size" :type="type" :plain="plain" v-if="status">
+    <template #icon>
+      <el-icon>
+        <Loading />
+      </el-icon>
+    </template>
+  </el-button>
   <el-button :size="size" :type="type" :plain="plain" v-else @click="submit()"
     ><slot>{{ $t('button.save') }}</slot></el-button
   >
@@ -14,8 +20,10 @@
    * emit:
    * btn -> 提交操作
    */
+  import { Loading } from '@element-plus/icons-vue'
   import { debounce } from './utils.js' // 导入防抖函数
   export default {
+    components: { Loading },
     props: {
       // 状态
       status: {

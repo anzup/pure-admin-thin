@@ -3,6 +3,7 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColmns"
+    :buttons="tableButtons"
     :toolbarConfig="isModify ? tableToolbar : null"
     @checkbox="selectChangeEvent"
   >
@@ -62,9 +63,14 @@
             class="searchInput"
             size="medium"
             :placeholder="$t('holder.pleaseEnterTheTitle')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="medium" @click="getCoursewares">{{
@@ -73,7 +79,6 @@
         </el-form-item>
       </el-form>
     </template>
-
     <template #right_tools>
       <el-button type="primary" size="mini" @click="uploadEvent">{{
         $t('button.upload')
@@ -86,24 +91,8 @@
         >{{ $t('button.bulkTop') }}</el-button
       >
     </template>
-
     <template #properties="{ row }">
       <span>{{ formatProperties(row.properties) }}</span>
-    </template>
-    <template #edit="{ row }">
-      <div class="button-line">
-        <span class="buttonEdit" @click="playEvent(row)">{{ $t('button.play') }}</span>
-        <!-- <span class="buttonEdit" @click="commentEvent(row.id)">{{ $t("button.comment") }}</span> -->
-        <span class="buttonEdit" @click="modifyEvent(row.id)" v-if="isModify">{{
-          $t('button.modify')
-        }}</span>
-        <span class="buttonDelete" @click="deleteEvent(row.id)" v-if="isModify">{{
-          $t('button.delete')
-        }}</span>
-        <span class="buttonEdit" @click="topEvent(row)" v-if="isModify">{{
-          $t('button.top')
-        }}</span>
-      </div>
     </template>
     <template #pager />
   </VxeTable>
@@ -119,6 +108,7 @@
 <script>
   import VxeTable from '/@/components/Table/index.vue'
   import videoPlayer from '/@/views/project_ftm/teacher/myJob/courseware/assigned/components/videoPlayer.vue'
+  import { Search } from '@element-plus/icons-vue'
   import {
     getCoursewares,
     getCoursewareProperties,
@@ -170,6 +160,7 @@
     components: {
       VxeTable,
       videoPlayer,
+      Search,
     },
     computed: {
       coursewareSystem() {
@@ -363,6 +354,44 @@
             .filter((v) => cellValue.includes(v.key))
             .map((item) => item.keyTranslation)
         }
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.play'),
+            event: () => {
+              this.playEvent(row)
+            },
+          },
+          // {
+          //   name: this.$t("button.comment"),
+          //   event: () => {
+          //     this.commentEvent(row.id)
+          //   }
+          // }
+          {
+            name: this.$t('button.modify'),
+            visible: this.isModify,
+            event: () => {
+              this.modifyEvent(row.id)
+            },
+          },
+          {
+            name: this.$t('button.delete'),
+            status: 'danger',
+            visible: this.isModify,
+            event: () => {
+              this.deleteEvent(row.id)
+            },
+          },
+          {
+            name: this.$t('button.top'),
+            visible: this.isModify,
+            event: () => {
+              this.topEvent(row)
+            },
+          },
+        ]
       },
     },
   }

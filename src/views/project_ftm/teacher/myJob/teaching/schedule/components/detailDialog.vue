@@ -147,6 +147,7 @@
 </script>
 
 <style scoped lang="scss">
+  @import '/@/style/table.scss';
   :deep(.el-dialog__body) {
     height: calc(100% - 54px);
   }

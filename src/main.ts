@@ -9,6 +9,7 @@ import { injectResponsiveStorage } from '/@/utils/storage/responsive'
 import Print from '/@/utils/print2'
 import HtmlToPdf from 'html2pdf.js'
 import Vue3VideoPlayer from 'vue3-video-play'
+import VueSignaturePad from 'vue-signature-pad'
 import ElementPlus from 'element-plus'
 
 import 'uno.css'
@@ -52,7 +53,13 @@ getServerConfig(app).then(async (config) => {
   setupRouterGuard(router)
   injectResponsiveStorage(app, config)
   setupStore(app)
-  app.use(MotionPlugin).use(useI18n).use(useTable).use(ElementPlus).use(Vue3VideoPlayer)
+  app
+    .use(MotionPlugin)
+    .use(useI18n)
+    .use(useTable)
+    .use(ElementPlus)
+    .use(Vue3VideoPlayer)
+    .use(VueSignaturePad)
   app.config.globalProperties.$print = Print
   app.config.globalProperties.$htmlToPdf = HtmlToPdf
   app.mount('#app')

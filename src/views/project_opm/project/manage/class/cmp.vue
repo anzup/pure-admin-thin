@@ -34,12 +34,20 @@
   </VxeTable>
   <LeadingInDialog v-model="state.isShow" @updateData="updateData" />
   <ExportDialog v-model="state.exportIsShow" />
+  <QrCodeView
+    v-model:qrDialogVisible="qrcodeState.visible"
+    :qrTitle="qrcodeState.code"
+    :classCode="qrcodeState.code"
+    :url="qrcodeState.url"
+    @cancelDialog="cancelQrDialog"
+  />
 </template>
 
 <script lang="ts" setup>
   import { VxeGridProps } from 'vxe-table'
   import VxeTable from '/@/components/Table/index.vue'
-  import { defineComponent, reactive, onMounted, toRefs, computed } from 'vue'
+  import QrCodeView from '/@/views/project_ftm/teacher/components/QrCodeView/index.vue'
+  import { reactive, onMounted, computed } from 'vue'
   import FormBtn from '/@/components/headerFormBtn/index.vue'
   import { deleteClazzsId, getClazzsList } from '/@/api/opm/train'
   import { judgePage, setPage } from '/@/utils/utils'
@@ -49,6 +57,7 @@
   import ExportDialog from './components/exportDialog.vue'
   import { useI18n } from 'vue-i18n'
   import to from 'await-to-js'
+  import { useGo } from '/@/hooks/usePage'
   // 获取客户下拉列表
 
   const props = defineProps({
@@ -69,12 +78,12 @@
         return t('text.not_started')
       case 'TRAINING':
         return t('text.in_training')
-
       default:
         break
     }
   }
   const router = useRouter()
+  const routerGo = useGo(router)
   const state = reactive({
     gridOptions: {
       height: 'auto',
@@ -141,7 +150,7 @@
         },
         {
           title: t('text.operation'),
-          width: 180,
+          width: 300,
           slots: { default: 'operate' },
           field: 'operationTypes',
           // fixed:'right'
@@ -177,6 +186,11 @@
     isShow: false,
     exportIsShow: false,
   })
+  const qrcodeState = reactive({
+    visible: false,
+    code: '',
+    url: '',
+  })
   // onActivated(() => {
 
   //     getList();
@@ -185,8 +199,32 @@
   onMounted(() => {
     getList()
   })
-  function getButtons(): ButtonArr {
-    return [
+  function getButtons({ row }): ButtonArr {
+    let buttons = [
+      props.type === 'WET_LEASE'
+        ? {
+            name: t('table.practiceProgress'),
+            event: () => {
+              routerGo(`class/progress?id=${row.id}&year=${new Date().getFullYear()}`)
+            },
+          }
+        : null,
+      props.type === 'WET_LEASE'
+        ? {
+            name: t('button.qrCode'),
+            event: () => {
+              const id = row.id
+              const filialeId = row.filialeId
+              qrcodeState.visible = true
+              qrcodeState.code = row.courseNumber
+              if (import.meta.env.MODE === 'development') {
+                qrcodeState.url = `http://localhost:8082/#/?id=${id}&filialeId=${filialeId}`
+              } else {
+                qrcodeState.url = `${window.location.origin}/ftm/h5/#/?id=${id}&filialeId=${filialeId}`
+              }
+            },
+          }
+        : null,
       {
         name: t('message.hsDetail'),
         type: 'detail',
@@ -209,6 +247,8 @@
         status: 'danger',
       },
     ]
+    buttons = buttons.filter((item): boolean => Boolean(item))
+    return buttons as ButtonArr
   }
   const btnClick = ({ type: btnType, row }) => {
     switch (btnType) {
@@ -273,6 +313,10 @@
         })
       })
       .catch((_) => {})
+  }
+  // 关闭二维码弹窗
+  const cancelQrDialog = () => {
+    qrcodeState.visible = false
   }
 
   const submit = (val: string) => {

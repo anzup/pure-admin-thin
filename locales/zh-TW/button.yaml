@@ -169,3 +169,13 @@ versionHistory: 歷史版本
 cancelBinding: 取消綁定
 cancelEdit: 取消編輯
 markPrompt: 標記提示
+
+maintenanceSubsystem: 維護子系統
+sign: 簽字確認
+exportFile: 導入檔
+ModificationDate: 修改日期
+out: 離開
+connect: 連麥
+cancelConnect: 取消連麥
+hideTask: 隱藏任務
+clickSign: 簽字確認

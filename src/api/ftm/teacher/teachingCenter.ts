@@ -1,4 +1,6 @@
 import request from '/@/utils/request/index'
+import { toExport } from '/@/utils'
+import { toPdf } from '/@/utils/print'
 const url = import.meta.env.VITE_BASE_API_FTM
 
 /**
@@ -250,13 +252,24 @@ export const postStudentOutTrainRecordsSign = (data) =>
     data,
   })
 
-// TODO: data.download调用此接口的判断调用toPdf下载
 export const downloadStudentOutTrainRecords = (data) =>
   request({
     url: url + '/studentOutTrainingRecords/genPdfByRecords',
     method: 'post',
+    responseType: 'blob',
     data,
   })
+    .then((res) => {
+      if (data.download) {
+        toExport(res)
+      } else {
+        toPdf(res)
+      }
+      Promise.resolve(res)
+    })
+    .catch((e) => {
+      Promise.reject(e)
+    })
 
 /**
  * 班级课程进度表

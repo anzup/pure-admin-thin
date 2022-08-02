@@ -29,25 +29,26 @@
             class="searchInput"
             size="medium"
             :placeholder="$t('holder.PleaseEnterYourSearchKeyword')"
-            suffix-icon="el-icon-search"
             v-model="form.searchKey"
-          />
+          >
+            <template #suffix>
+              <el-icon>
+                <Search />
+              </el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="medium" @click="searchEvent">{{
-              $t('button.query')
-            }}</el-button>
+            $t('button.query')
+          }}</el-button>
         </el-form-item>
       </el-form>
     </template>
     <template #right_tools>
-      <el-button
-        type="primary"
-        size="small"
-        v-if="airplaneAlone == false"
-        @click="showExpireDialogEvent"
-        >{{ $t('table.expireList') }}</el-button
-      >
+      <el-button type="primary" v-if="airplaneAlone == false" @click="showExpireDialogEvent">{{
+        $t('table.expireList')
+      }}</el-button>
 
       <template v-if="airplaneAlone">
         <el-button @click="cancelEditEvent" size="small" v-if="canEdit">{{
@@ -60,14 +61,13 @@
     </template>
     <template #license="item">
       <div class="img_con" @click="clickIconEvent(item)">
-        <svg-icon
+        <QuestionnaireIcon
           v-if="licenseRow(item).isOwn"
           class="img"
           :class="{
             warning: licenseRow(item).proPeriod,
             error: licenseRow(item).overdue,
           }"
-          iconClass="qualification-icon"
         />
       </div>
     </template>
@@ -75,10 +75,6 @@
       <vxe-button type="text" status="primary" @click="showArchivesEvent(row)">{{
         $t('table.archives')
       }}</vxe-button>
-    </template>
-    <template #editor>
-      <vxe-button type="text" status="primary">{{ $t('button.add') }}</vxe-button>
-      <vxe-button type="text" status="primary">{{ $t('button.modify') }}</vxe-button>
     </template>
     <template #pager />
   </VxeTable>
@@ -94,6 +90,8 @@
 
 <script>
   import VxeTable from '/@/components/Table/index.vue'
+  import QuestionnaireIcon from '/@/assets/ftm/svg/qualification-icon.svg'
+  import { Search } from '@element-plus/icons-vue'
   import expireListDialog from './qualificationsExpireDialog.vue'
   import archivesDialog from './archivesDialog.vue'
   import { getEmployeeQualificationsLicenses } from '/@/api/ftm/teacher/education'
@@ -103,12 +101,14 @@
   } from '/@/api/ftm/teacher/qualification'
   import { getStyle } from '/@/utils/index'
   import to from 'await-to-js'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   import { EmployeeEnum } from '/@/enums/employeeEnum'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
   const settingsStore = useFtmSettingsStore()
   export default {
     name: 'QuaCmp',
-    components: { expireListDialog, archivesDialog, VxeTable },
+    components: { expireListDialog, archivesDialog, VxeTable, QuestionnaireIcon, Search },
     props: {
       type: String,
       allAuth: [String, Boolean],
@@ -245,6 +245,13 @@
     updated() {
       this.setTableHeight()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return {
+        routerGo,
+      }
+    },
     methods: {
       // 获取资质列表
       async getEmployeeQualificationsLicense() {
@@ -363,12 +370,7 @@
       async clickIconEvent(item) {
         const airplane = this.licenseRow(item)
         if (this.airplaneAlone == false && airplane.isOwn) {
-          this.$router.push({
-            name: 'QualificationsTeacherDetail',
-            params: {
-              id: airplane.id,
-            },
-          })
+          this.routerGo(`teaching/detail/${airplane.id}`)
         } else if (this.airplaneAlone == true && this.canEdit) {
           const { row, column } = item
           const { qualificationIndex } = column.params
@@ -410,15 +412,18 @@
   }
 </script>
 <style lang="scss" scoped>
+  :deep(.vxe-cell) {
+    max-height: 60px !important;
+  }
   .img_con {
     display: flex;
     width: 100%;
     height: 45px;
     align-items: center;
     justify-content: center;
-    svg {
-      width: 30px;
-      height: 30px;
+    .img {
+      width: 24px;
+      height: auto;
       fill: #215ebe;
       cursor: pointer;
       &.error {

@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw } from './../../types'
+import { AppRouteRecordRaw, SubsystemName } from './../../types'
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 
 /**
@@ -18,40 +18,67 @@ const Personal: AppRouteRecordRaw = {
     {
       path: 'config',
       name: 'PanelPersonalConfigIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/panel/personal/config/index.vue'),
       meta: {
-        title: '信息配置',
-        i18n: false,
+        title: 'router.personCenterConfig',
+        system: SubsystemName.flight_training_management,
       },
     },
     // 个人消息
     {
       path: 'message',
       name: 'PanelPersonalMessageIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/panel/personal/message/index.vue'),
       meta: {
         title: '个人消息',
         i18n: false,
+      },
+    },
+    {
+      // 详情
+      path: 'message/detail/:detail',
+      name: 'PanelPersonalMessageDetail',
+      component: () => import('/@/views/project_ftm/teacher/panel/personal/message/detail.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'router.newsDetails',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/panel/personal/message',
       },
     },
     // 个人资质
     {
       path: 'qualification',
       name: 'PanelPersonalQualificationIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () =>
+        import('/@/views/project_ftm/teacher/panel/personal/qualification/index.vue'),
       meta: {
-        title: '个人资质',
-        i18n: false,
+        title: 'router.personQualification',
+        system: SubsystemName.flight_training_management,
+        params: { allAuth: true },
       },
     },
     // 培训进度
     {
       path: 'progress',
       name: 'PanelPersonalProgressIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/panel/personal/progress/index.vue'),
       meta: {
         title: '培训进度',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
+      },
+    },
+    {
+      // 大纲管理
+      path: 'progress/administer',
+      name: 'PanelPersonalProgressAdminister',
+      component: () =>
+        import('/@/views/project_ftm/teacher/standard/course/outline/administer.vue'),
+      meta: {
+        hideMenu: true,
+        title: 'button.details',
+        system: SubsystemName.flight_training_management,
+        currentActiveMenu: '/panel/personal/progress',
       },
     },
   ],
@@ -73,10 +100,10 @@ const System: AppRouteRecordRaw = {
     {
       path: 'config',
       name: 'PanelSystemConfigIndex',
-      component: () => import('/@/views/dashboard/index.vue'),
+      component: () => import('/@/views/project_ftm/teacher/panel/system/config/index.vue'),
       meta: {
         title: '导航栏设置',
-        i18n: false,
+        system: SubsystemName.flight_training_management,
       },
     },
   ],

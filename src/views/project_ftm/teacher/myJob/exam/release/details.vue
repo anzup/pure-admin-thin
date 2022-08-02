@@ -255,6 +255,7 @@
 </script>
 
 <style scoped lang="scss">
+  @import '/@/style/table.scss';
   .examManageDetails {
     background: #fff;
     height: calc(var(--contentHeight) - 60px - 20px - 12px);
@@ -281,7 +282,7 @@
     display: none;
   }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
   $elButtonBg: #215ebe;
   .examManageDetails {
     .el-steps--horizontal {
@@ -319,5 +320,8 @@
         background: url('/@/assets/ftm/icon/exam_icon2.png') 100% 100%;
       }
     }
+  }
+  .footerBtn {
+    margin-top: 20px;
   }
 </style>

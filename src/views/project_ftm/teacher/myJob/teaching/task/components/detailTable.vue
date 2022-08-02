@@ -4,7 +4,7 @@
       :loading="loading"
       :data="data"
       :columns="tableColumns"
-      :form="pagination"
+      v-model:form="form"
       :height="null"
       @handle-page-change="handlePageChange"
     >
@@ -68,6 +68,16 @@
           },
         ],
       }
+    },
+    computed: {
+      form: {
+        get() {
+          return this.pagination
+        },
+        set(ob) {
+          this.$emit('update:pagination', ob)
+        },
+      },
     },
     methods: {
       // 格式化时间格式

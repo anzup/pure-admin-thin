@@ -1,122 +1,130 @@
 <template>
   <div class="fromContinerCom">
-    <el-col :xl="14" :lg="16" :md="18" :sm="24" :xs="24">
-      <el-form
-        ref="ruleForm"
-        class="ruleForm"
-        label-width="160px"
-        label-suffix=":"
-        :model="ruleForm"
-        :rules="rules"
-      >
-        <!-- 课件名称 -->
-        <el-form-item :label="$t('table.coursewareName')" prop="name" v-if="viewFlag">
-          <el-input v-model="ruleForm.name" />
-        </el-form-item>
-        <!-- 课件类型 -->
-        <el-form-item :label="$t('table.coursewareType')" v-if="viewFlag">
-          <span class="fileType">{{ fileType }}</span>
-          <!-- <img :src="iconSrc" class="iconSrc"/> -->
-        </el-form-item>
-        <!-- 内容 -->
-        <el-form-item :label="$t('table.content')" prop="name">
-          <el-button @click="clickEvent" type="primary">{{ $t('button.select') }}</el-button>
-          <div class="el-upload__tip">{{ $t('holder.fileFormat') }}</div>
-          <div class="fileBox">
-            <div class="fileInfo" v-for="(item, index) in fileList1" :key="index">
-              <el-input v-model="item.coursewareName" />
-              <span class="name">{{ item.name }}</span>
-              <i class="el-icon-delete" @click="deleteFile(index)" />
+    <el-scrollbar>
+      <el-col :xl="14" :lg="16" :md="18" :sm="24" :xs="24">
+        <el-form
+          ref="ruleForm"
+          class="ruleForm"
+          label-width="160px"
+          label-suffix=":"
+          :model="ruleForm"
+          :rules="rules"
+        >
+          <!-- 课件名称 -->
+          <el-form-item :label="$t('table.coursewareName')" prop="name" v-if="viewFlag">
+            <el-input v-model="ruleForm.name" />
+          </el-form-item>
+          <!-- 课件类型 -->
+          <el-form-item :label="$t('table.coursewareType')" v-if="viewFlag">
+            <span class="fileType">{{ fileType }}</span>
+            <!-- <img :src="iconSrc" class="iconSrc"/> -->
+          </el-form-item>
+          <!-- 内容 -->
+          <el-form-item :label="$t('table.content')" prop="name">
+            <div class="w-full">
+              <el-button @click="clickEvent" type="primary">{{ $t('button.select') }}</el-button>
+              <div class="el-upload__tip">{{ $t('holder.fileFormat') }}</div>
+              <div class="fileBox">
+                <div class="fileInfo" v-for="(item, index) in fileList1" :key="index">
+                  <el-input v-model="item.coursewareName" />
+                  <span class="name">{{ item.name }}</span>
+                  <el-icon @click="deleteFile(index)" class="icon-delete">
+                    <Delete />
+                  </el-icon>
+                </div>
+              </div>
             </div>
-          </div>
-        </el-form-item>
-        <!-- 机型 -->
-        <el-form-item :label="$t('table.modelNumber')" prop="airplaneTypes">
-          <el-select
-            v-model="ruleForm.airplaneTypes"
-            :placeholder="$t('holder.pleaseSelect')"
-            multiple
-            style="width: 100%"
-          >
-            <el-option
-              :label="item.keyTranslation"
-              :value="item.key"
-              v-for="item in airplaneTypesAll"
-              :key="item.index"
+          </el-form-item>
+          <!-- 机型 -->
+          <el-form-item :label="$t('table.modelNumber')" prop="airplaneTypes">
+            <el-select
+              v-model="ruleForm.airplaneTypes"
+              :placeholder="$t('holder.pleaseSelect')"
+              multiple
+              style="width: 100%"
+            >
+              <el-option
+                :label="item.keyTranslation"
+                :value="item.key"
+                v-for="item in airplaneTypesAll"
+                :key="item.index"
+              />
+            </el-select>
+          </el-form-item>
+          <!-- 系统 -->
+          <el-form-item :label="$t('table.system')" prop="systemTypes">
+            <el-select
+              v-model="ruleForm.systemTypes"
+              :placeholder="$t('holder.pleaseSelect')"
+              multiple
+              style="width: 100%"
+            >
+              <el-option
+                :label="item.keyTranslation"
+                :value="item.key"
+                v-for="item in systemTypeList"
+                :key="item.index"
+              />
+            </el-select>
+          </el-form-item>
+          <!-- 所属课程 -->
+          <el-form-item :label="$t('table.itsCouse')" prop="courseId">
+            <el-select
+              class="full-width"
+              v-model="ruleForm.courseId"
+              :placeholder="$t('holder.pleaseSelect')"
+              multiple
+            >
+              <el-option
+                :label="item.name"
+                :value="item.id"
+                v-for="item in courseList"
+                :key="item.index"
+              />
+            </el-select>
+          </el-form-item>
+          <!-- 备注 -->
+          <el-form-item :label="$t('table.remarks')" prop="remark">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 3 }"
+              :placeholder="$t('holder.pleaseEnter')"
+              v-model="ruleForm.remark"
             />
-          </el-select>
-        </el-form-item>
-        <!-- 系统 -->
-        <el-form-item :label="$t('table.system')" prop="systemTypes">
-          <el-select
-            v-model="ruleForm.systemTypes"
-            :placeholder="$t('holder.pleaseSelect')"
-            multiple
-            style="width: 100%"
-          >
-            <el-option
-              :label="item.keyTranslation"
-              :value="item.key"
-              v-for="item in systemTypeList"
-              :key="item.index"
-            />
-          </el-select>
-        </el-form-item>
-        <!-- 所属课程 -->
-        <el-form-item :label="$t('table.itsCouse')" prop="courseId">
-          <el-select
-            class="full-width"
-            v-model="ruleForm.courseId"
-            :placeholder="$t('holder.pleaseSelect')"
-            multiple
-          >
-            <el-option
-              :label="item.name"
-              :value="item.id"
-              v-for="item in courseList"
-              :key="item.index"
-            />
-          </el-select>
-        </el-form-item>
-        <!-- 备注 -->
-        <el-form-item :label="$t('table.remarks')" prop="remark">
-          <el-input
-            type="textarea"
-            :autosize="{ minRows: 3 }"
-            :placeholder="$t('holder.pleaseEnter')"
-            v-model="ruleForm.remark"
-          />
-        </el-form-item>
-        <!-- 属性 -->
-        <el-form-item :label="$t('table.attribute')" prop="propertyIds">
-          <div v-for="(item, index) in propertyList" :key="index" class="propertyContainer">
-            <!-- <el-checkbox
+          </el-form-item>
+          <!-- 属性 -->
+          <el-form-item :label="$t('table.attribute')" prop="propertyIds">
+            <div>
+              <div v-for="(item, index) in propertyList" :key="index" class="propertyContainer">
+                <!-- <el-checkbox
               v-model="checkedAll[index]"
               @change="handleCheckAllChange(index, checkedAll[index])"
             ><span style="font-weight: bold;">{{item.name}}</span></el-checkbox> -->
-            <span class="form-content-tit">{{ item.name }}</span>
-            <el-checkbox-group v-model="ruleForm.propertyIds">
-              <el-checkbox v-for="cItem in item.children" :key="cItem.id" :label="cItem.id">{{
-                cItem.name
-              }}</el-checkbox>
-            </el-checkbox-group>
-          </div>
-        </el-form-item>
-      </el-form>
-    </el-col>
-
-    <div class="footerBtn">
-      <el-button @click="handleCancel" type="primary" plain size="medium">{{
-        $t('button.cancel')
-      }}</el-button>
-      <el-button type="primary" size="medium" class="rightBtn" @click="modifySave">{{
-        $t('button.save')
-      }}</el-button>
-    </div>
-
+                <span class="form-content-tit">{{ item.name }}</span>
+                <el-checkbox-group v-model="ruleForm.propertyIds">
+                  <el-checkbox v-for="cItem in item.children" :key="cItem.id" :label="cItem.id">{{
+                    cItem.name
+                  }}</el-checkbox>
+                </el-checkbox-group>
+              </div>
+            </div>
+          </el-form-item>
+          <el-form-item label="">
+            <div class="footerBtn">
+              <el-button @click="handleCancel" type="primary" plain size="medium">{{
+                $t('button.cancel')
+              }}</el-button>
+              <el-button type="primary" size="medium" class="rightBtn" @click="modifySave">{{
+                $t('button.save')
+              }}</el-button>
+            </div>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-scrollbar>
     <el-dialog
       :title="$t('button.uploadProgressBar')"
-      v-model:visible="progressDialogVisible"
+      v-model="progressDialogVisible"
       :before-close="dialogCancel"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
@@ -141,6 +149,8 @@
 
 <script>
   import axios from 'axios'
+  import VxeTable from 'vxe-table'
+  import { Delete } from '@element-plus/icons-vue'
   import {
     getCoursewareProperties,
     getCoursewaresAirplaneTypes,
@@ -156,7 +166,9 @@
   import file_PNG from '/@/assets/ftm/FILE.png'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import to from 'await-to-js'
+  import { useI18n } from 'vue-i18n'
   export default {
+    components: { Delete },
     data() {
       const validateName = (rule, value, callback) => {
         if (this.id) {
@@ -274,6 +286,12 @@
         },
         deep: true,
       },
+    },
+    setup() {
+      const { locale } = useI18n()
+      return {
+        locale,
+      }
     },
     methods: {
       dialogCancel() {
@@ -397,8 +415,7 @@
           var config = {
             headers: {
               'Content-Type': 'multipart/form-data',
-              // TODO: 引用当前语言环境
-              // 'Accept-Language': getLanguage(),
+              'Accept-Language': this.locale,
             },
             cancelToken: this.source.token,
             onUploadProgress: function (e) {
@@ -420,8 +437,7 @@
           }
           axios.defaults.headers['Authorization'] =
             'Bearer ' + window.sessionStorage.getItem('access_token')
-          // TODO 修改当前语言环境
-          // axios.defaults.headers['Accept-Language'] = getLanguage()
+          axios.defaults.headers['Accept-Language'] = this.locale
           let extension = myArr[index].name.split('.').pop()
           var _formData = new FormData()
           var data = myArr[index]
@@ -472,15 +488,13 @@
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data',
-            // TODO 修改当前语言环境
-            // 'Accept-Language': getLanguage(),
+            'Accept-Language': this.locale,
           },
         }
         axios.defaults.headers['Authorization'] =
           'Bearer ' + window.sessionStorage.getItem('access_token')
-        // TODO 修改当前语言环境
-        // axios.defaults.headers['Accept-Language'] = getLanguage()
-        let vm = this
+        axios.defaults.headers['Accept-Language'] = this.locale
+        const vm = this
         axios
           .post(url, this.formData, config)
           .then(function (res) {
@@ -500,7 +514,7 @@
         try {
           // 使用 cancel token 取消请求
           this.source = axios.CancelToken.source()
-          let { files } = await this.$XReadFile({ multiple: true })
+          let { files } = await VxeTable.readFile({ multiple: true })
           for (let [key, file] of Object.entries(files)) {
             let format = file.name.split('.')[file.name.split('.').length - 1]
             let file1 = {
@@ -546,8 +560,11 @@
         display: inline-block;
         width: 300px;
         margin: 0 40px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      .el-icon-delete {
+      .icon-delete {
         color: red;
         font-size: 18px;
         cursor: pointer;

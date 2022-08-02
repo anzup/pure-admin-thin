@@ -20,9 +20,9 @@
               v-model="gridOptions.form.schoolYear"
               type="year"
               :placeholder="t('common.all')"
-              value-format="yyyy"
+              value-format="YYYY"
               :editable="false"
-              :picker-options="pickerOptions"
+              :disabled-date="pickerOptions.disabledDate"
               @change="dateChange"
               style="width: 150px"
             />
@@ -53,35 +53,20 @@
             <el-input
               size="medium"
               :placeholder="t('holder.pleaseEnterStudentName')"
-              suffix-icon="el-icon-search"
               v-model.trim="gridOptions.form.searchKey"
               style="width: 280px; margin-right: 10px"
-            />
+            >
+              <template #suffix>
+                <el-icon>
+                  <Search />
+                </el-icon>
+              </template>
+            </el-input>
             <el-button size="medium" type="primary" @click="search">{{
               t('button.query')
             }}</el-button>
           </el-form-item>
         </el-form>
-      </template>
-      <!-- <template #right_tools>
-          <el-button
-              size="mini"
-              type="primary"
-              v-permission="menuName + ':BULK_DOWNLOAD'"
-              @click="handleExport"
-          >{{ t("button.bulkDownload") }}</el-button>
-      </template> -->
-
-      <template #edit="{ row }">
-        <!--详情-->
-        <span
-          class="buttonEdit"
-          v-permission="menuName + ':DETAIL'"
-          @click="toPage(row, 'teachingCenterTabs')"
-          >{{ t('button.details') }}</span
-        >
-        <!-- <span class="buttonEdit" @click="toPage(row,'TrainingBasicRecords')">{{ t('button.basicInfo') }}</span> -->
-        <!--基本信息-->
       </template>
     </VxeTable>
   </div>
@@ -89,6 +74,7 @@
 
 <script lang="ts" setup>
   import VxeTable from '/@/components/Table/index.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { getStudents, airlinesMenu } from '/@/api/ftm/teacher/studentTraining'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import XEUtils from 'xe-utils'
@@ -99,10 +85,13 @@
   import to from 'await-to-js'
   import { useRoute, useRouter } from 'vue-router'
   import { setPage } from '/@/utils/utils'
+  import { useGo } from '/@/hooks/usePage'
   const { t } = useI18n()
   const userStore = useFtmUserStore()
   const router = useRouter()
   const route = useRoute()
+  const routerGo = useGo(router)
+
   const menuName = ref('MY_STUDENTS')
   const form = reactive({
     page: 1,
@@ -169,6 +158,15 @@
     toolbarConfig: null,
     loading: false,
     form: form,
+    buttons: ({ row }) => [
+      {
+        name: t('button.details'),
+        visible: userStore.totalAuthorities.includes(menuName.value + ':DETAIL'),
+        event: () => {
+          toDetailPage(row)
+        },
+      },
+    ],
   })
   const pickerOptions = reactive({
     disabledDate: (val) => {
@@ -179,7 +177,7 @@
   const userInfo = computed(() => userStore.$state)
 
   const getAirlinesMenus = async () => {
-    const [err, res] = await to(airlinesMenu())
+    const [err, res] = await to(airlinesMenu({}))
     if (!err && res.status === 200) {
       gridOptions.form.airlinesArr = res.data
     }
@@ -191,7 +189,7 @@
       year: gridOptions.form.schoolYear,
       statusIN: 'TRAINING',
       type: 'WET_LEASE',
-      teacherUserId: userInfo.value?.id,
+      teacherUserId: userInfo.value?.userId,
     }
     const [err, res] = await to(getClazzs(params))
     if (!err && res.status === 200) {
@@ -208,7 +206,7 @@
       customerId: gridOptions.form.airlines,
       statusIN: gridOptions.form.graduation,
       year: gridOptions.form.schoolYear,
-      teacherUserId: userInfo.value?.id,
+      teacherUserId: userInfo.value?.userId,
       // flightTeacherUserId: this.userInfo.userId
     }
     gridOptions.loading = true
@@ -230,12 +228,9 @@
     }
     getData()
   }
-  const toPage = (row, name) => {
-    router.push({
-      name,
-      params: {
-        recordId: row.id,
-      },
+  const toDetailPage = (row) => {
+    routerGo({
+      path: 'myStudents/tabs/' + row.id,
     })
   }
   const search = () => {
@@ -254,6 +249,7 @@
       gridOptions.form.className = route.query.courseNumber
       gridOptions.form.schoolYear = route.query.year
     }
+    getClazzList()
     getData()
   })
 </script>

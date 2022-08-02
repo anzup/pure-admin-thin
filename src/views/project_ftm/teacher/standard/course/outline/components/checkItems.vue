@@ -3,6 +3,7 @@
     :data="tableData"
     :loading="loading"
     :columns="tableColumns"
+    :buttons="tableButtons"
     v-model:form="form"
     @handlePageChange="handleCurrentChange"
   >
@@ -10,11 +11,6 @@
       <span v-for="(item, index) in row.evaluations" :key="index"
         >{{ item.name }}<i v-if="index < row.evaluations.length - 1" class="spacing">|</i></span
       >
-    </template>
-    <template #edit="{ row }">
-      <span class="buttonEdit" @click="maintain(row.id, row.evaluations)">{{
-        $t('button.maintain')
-      }}</span>
     </template>
   </VxeTable>
 
@@ -24,7 +20,7 @@
     :evaluations="evaluations"
     @getData="getSyllabusItems"
     @cancelDialog="cancelDialog"
-  ></maintain>
+  />
 </template>
 
 <script>
@@ -106,6 +102,16 @@
         this.evaluationIdDialog = true
         this.evaluationId = id
         this.evaluations = evaluations
+      },
+      tableButtons({ row }) {
+        return [
+          {
+            name: this.$t('button.maintain'),
+            event: () => {
+              this.maintain(row.id, row.evaluations)
+            },
+          },
+        ]
       },
     },
   }
