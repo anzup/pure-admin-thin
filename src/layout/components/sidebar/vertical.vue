@@ -24,7 +24,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import Logo from './logo.vue'
+  import Logo from '../../../components/Application/src/AppLogo.vue'
   import { emitter } from '/@/utils/mitt'
   import { useNav } from '../../hooks/nav'
   import SidebarItem from './sidebarItem.vue'
@@ -45,7 +45,7 @@
   const { pureApp, isCollapse, menuSelect } = useNav()
   const { getIsMobile, getIsVertical, getIsMix } = useMenuSetting()
 
-  let subMenuData = ref([])
+  const subMenuData = ref([])
 
   const menuData = computed(() => {
     return getIsMix.value ? subMenuData.value : usePermissionStoreHook().wholeMenus

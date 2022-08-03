@@ -37,5 +37,7 @@ declare module 'vue-router' {
     auths?: string[]
     /**是否忽略权限*/
     ignoreAuth?: boolean
+    // Whether the route has been dynamically added
+    hideBreadcrumb?: boolean
   }
 }
