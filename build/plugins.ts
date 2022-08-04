@@ -1,19 +1,11 @@
 import { resolve } from 'path'
 import Unocss from 'unocss/vite'
 import vue from '@vitejs/plugin-vue'
-import { viteBuildInfo } from './info'
 import svgLoader from 'vite-svg-loader'
 import legacy from '@vitejs/plugin-legacy'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
-// import ElementPlus from "unplugin-element-plus/vite";
 import { visualizer } from 'rollup-plugin-visualizer'
-
-// import AutoImport from 'unplugin-auto-import/vite'
-// import Components from 'unplugin-vue-components/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
-import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
 import removeConsole from 'vite-plugin-remove-console'
 import themePreprocessorPlugin from '@pureadmin/theme'
@@ -24,32 +16,6 @@ export function getPluginsList(command, VITE_LEGACY) {
   return [
     vue({
       reactivityTransform: true,
-    }),
-    // AutoImport({
-    //   resolvers: [ElementPlusResolver()],
-    // }),
-    // Components({
-    //   // allow auto load markdown components under `./src/components/`
-    //   extensions: ['vue', 'md'],
-    //   // allow auto import and register components used in markdown
-    //   include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-    //   resolvers: [
-    //     ElementPlusResolver({
-    //       importStyle: 'sass',
-    //     }),
-    //   ],
-    //   dts: 'types/components.d.ts',
-    // }),
-    createStyleImportPlugin({
-      libs: [
-        // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR
-        {
-          libraryName: 'vxe-table',
-          esModule: true,
-          // resolveComponent: (name) => `vxe-table/es/${name}`,
-          resolveStyle: (name) => `vxe-table/es/${name}/style.css`,
-        },
-      ],
     }),
     // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
     VueI18n({
@@ -62,7 +28,6 @@ export function getPluginsList(command, VITE_LEGACY) {
     Unocss(),
     // 线上环境删除console
     removeConsole(),
-    viteBuildInfo(),
     // 自定义主题
     themePreprocessorPlugin({
       scss: {
@@ -82,7 +47,6 @@ export function getPluginsList(command, VITE_LEGACY) {
       },
     }), // svg组件化支持
     svgLoader(),
-    // ElementPlus({}),
     // 是否为打包后的文件提供传统浏览器兼容性支持
     VITE_LEGACY
       ? legacy({
