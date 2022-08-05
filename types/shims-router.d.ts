@@ -14,9 +14,9 @@ declare module 'vue-router' {
      */
     refreshRedirect?: string
     /**
-     * icon 图标
+     * icon 图标 字符串或者函数类型,为函数时可以返回一个svg组件
      */
-    icon?: string
+    icon?: any
     /**
      * orderNo 路由顺序
      */
@@ -37,7 +37,11 @@ declare module 'vue-router' {
     auths?: string[]
     /**是否忽略权限*/
     ignoreAuth?: boolean
-    // Whether the route has been dynamically added
-    hideBreadcrumb?: boolean
+    // Never show in tab
+    hideTab?: boolean
+    // Is it fixed on tab
+    affix?: boolean
+    /*隐藏所有子菜单*/
+    hideChildrenInMenu?: boolean
   }
 }

@@ -1,8 +1,8 @@
-@import "./mixin.scss";
-@import "./transition.scss";
-@import "./element-plus.scss";
-@import "./sidebar.scss";
-@import "./dark.scss";
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-plus.scss';
+@import './sidebar.scss';
+@import './dark.scss';
 
 body {
   width: 100%;
@@ -10,8 +10,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-  "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    '微软雅黑', Arial, sans-serif;
 }
 
 html {
@@ -47,7 +47,6 @@ html {
 .mobile-spacing {
   margin: 0;
 }
-
 
 /********** 表格滚动条样式 ***********/
 .vxe-grid {
@@ -98,7 +97,6 @@ body::-webkit-scrollbar {
   height: 0px;
 }
 
-
 .vxe-buttons--wrapper {
   .el-form-item {
     margin-bottom: 0 !important;
@@ -119,7 +117,7 @@ body::-webkit-scrollbar {
     padding-left: 20px !important;
     padding-right: 20px !important;
     text-align: center;
-    background-color: #215ebe !important;
+    background-color: var(--el-color-primary, #215ebe) !important;
     color: #fff;
   }
 }
@@ -154,4 +152,6 @@ body::-webkit-scrollbar {
   flex-direction: column;
   overflow: hidden;
 }
-
+.vxe-pager .vxe-pager--num-btn:not(.is--disabled).is--active {
+  color: white !important;
+}
