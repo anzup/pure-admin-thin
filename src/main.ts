@@ -22,13 +22,12 @@ import './style/index.scss'
 import 'element-plus/dist/index.css'
 import '@pureadmin/components/dist/index.css'
 import '@pureadmin/components/dist/theme.css'
+import '@pureadmin/components/dist/dark.scss'
 
 import 'vue-datepicker-next/index.css'
 import 'video.js/dist/video-js.css'
 import 'vue3-video-play/dist/style.css'
-// 导入字体图标
-import './assets/iconfont/iconfont.js'
-import './assets/iconfont/iconfont.css'
+
 import 'element-plus/dist/index.css'
 // 自定义指令
 import * as directives from '/@/directives'

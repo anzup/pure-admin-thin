@@ -64,8 +64,8 @@
     // 国际化
     if (!instance.$storage.locale) {
       // eslint-disable-next-line
-      instance.$storage.locale = { locale: instance.$config?.Locale ?? 'zh' }
-      useI18n().locale.value = instance.$config?.Locale ?? 'zh'
+      instance.$storage.locale = { locale: instance.$config?.Locale ?? 'zh-CN' }
+      useI18n().locale.value = instance.$config?.Locale ?? 'zh-CN'
     }
     // 导航
     if (!instance.$storage.layout) {
@@ -142,7 +142,7 @@
   // 监听容器
   emitter.on('resize', ({ detail }) => {
     if (isMobile) return
-    let { width } = detail
+    const { width } = detail
     width <= 670 ? setTheme('vertical') : setTheme(useAppStoreHook().layout)
     /** width app-wrapper类容器宽度
      * 0 < width <= 760 隐藏侧边栏

@@ -8,12 +8,11 @@ import {
   HOME_ROUTE,
 } from '/@/router/routes/basic'
 
-const modules = import.meta.globEager('./modules/**/*.ts')
-
+const modules = import.meta.glob('./modules/**/*.ts', { eager: true })
 const routeModuleList: AppRouteModule[] = []
 
 Object.keys(modules).forEach((key) => {
-  const mod = modules[key].default || {}
+  const mod = (modules[key] as any).default || {}
   const modList = Array.isArray(mod) ? [...mod] : [mod]
   routeModuleList.push(...modList)
 })

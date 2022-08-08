@@ -1,9 +1,9 @@
-$systemColor: #215ebe;
-$systemGrey: #f1f2f6;
+$systemColor: var(--el-color-primary, #215ebe);
+$systemGrey: var(--el-color-info-light-8, #f1f2f6);
 $margin: 16px;
 $margin16: 16px;
 $padding: 16px;
-$systemRed: #d44949;
+$systemRed: var(--el-color-danger, #d44949);
 $navbarHeight: 44px;
 
 $systemDefaultColor:#215ebe ;
@@ -15,68 +15,3 @@ $scheculerHeight: calc(100vh - 20px);
 $scBodyWarpWidth: 100%;
 $scResourcesColumnWidth: 200px;
 $borderColor: #e6e6e6;
-
-$--colors: (
-  'primary': (
-    'base': $systemColor,
-  ),
-  'success': (
-    'base': #3eab45,
-  ),
-  'warning': (
-    'base': #fcb900,
-  ),
-  'danger': (
-    'base': #d44949,
-  ),
-  'error': (
-    'base': #d44949,
-  ),
-  // "info": (
-  //   "base": #42b8dd,
-  // ),,,,,,,,,,
-);
-
-$border-radius: (
-  'base': 4px,
-  'small': 4px,
-  'round': 20px,
-  'circle': 100%,
-);
-$--descriptions: (
-  'item-bordered-label-background': #f8f8f9,
-);
-$--card: (
-  // "border-color": none,
-  'padding': 0px
-);
-$--date-editor: (
-  'daterange-width': 250px,
-  'width': 100%,
-);
-$--dialog: (
-  'padding-primary': 16px,
-);
-$--drawer: (
-  'padding-primary': $padding,
-);
-// You should use them in scss, because we calculate it by sass.
-// comment next lines to use default color
-@forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  // do not use same name, it will override.
-  $colors: $--colors,
-  // $button-padding-horizontal: ("default": 50px)
-  $border-radius: $border-radius,
-  $descriptions: $--descriptions,
-  $card: $--card,
-  $date-editor: $--date-editor,
-  $dialog: $--dialog,
-  $drawer: $--drawer
-);
-
-// if you want to import all
-// @use "element-plus/theme-chalk/src/index.scss" as *;
-
-// You can comment it to hide debug info.
-// @debug $--colors;
-

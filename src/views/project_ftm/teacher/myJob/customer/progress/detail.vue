@@ -52,7 +52,12 @@
       </div>
 
       <div class="main-table-content bg-white sm:flex-1">
-        <component :is="currentTab.cmp" :type="currentTab.id" />
+        <component
+          :is="currentTab.cmp"
+          :type="currentTab.id"
+          :listMap="state.listMap"
+          v-bind="tabDetails"
+        />
       </div>
     </div>
   </div>
@@ -60,12 +65,16 @@
 
 <script lang="ts" setup>
   import { Tabs, TabPanel } from '/@/components/Tabs'
+  import trainingCmp from './components/trainingProgress.vue'
+  import courseCmp from './components/courseCmp.vue'
   import { useI18n } from 'vue-i18n'
   import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
   import AvatarPng from '/@/assets/ftm/avatar.png'
   import { useRoute } from 'vue-router'
   import to from 'await-to-js'
   import { getStudentsId } from '/@/api/ftm/teacher/account'
+  import { getClazzStudentScheduleProgress } from '/@/api/ftm/teacher/studentTraining'
+  import { ExamTypeEnum } from '/@/enums/exam.enum'
   const { t } = useI18n()
   const route = useRoute()
 
@@ -75,22 +84,30 @@
     {
       id: '2',
       name: '任务进度',
+      cmp: trainingCmp,
     },
     {
-      id: '3',
+      id: ExamTypeEnum.GROUND_THEORY,
       name: '理论课进度',
+      cmp: courseCmp,
     },
     {
-      id: '4',
+      id: ExamTypeEnum.FLIGHT_PRACTICE,
       name: '模拟机课进度',
+      cmp: courseCmp,
     },
   ])
+  const tabDetails = computed(() => ({
+    clazzId: +route.query.clazzId,
+    studentId: +route.query.studentId,
+  }))
   const currentTab = computed(() => tabList.value[tabActive.value])
   const tabClick = () => {}
   const state = reactive({
     studentDetails: {},
     customers: [],
     courseNumber: '',
+    listMap: [],
   })
   const formatGender = (value: string) =>
     value === 'F' ? t('common.female') : value === 'M' ? t('common.male') : value
@@ -110,9 +127,27 @@
         : res.data.clazz?.courseNumber
     }
   }
+  // 获取学员课程列表
+  async function getStudentListMap() {
+    const params = {
+      studentId: tabDetails.value.studentId,
+      clazzId: tabDetails.value.clazzId,
+    }
+    const [err, res] = await to(getClazzStudentScheduleProgress(params))
+    if (!err && res.status === 200) {
+      let list = []
+      res.data?.forEach((item) => {
+        for (const valArr of Object.entries(item.listMap)) {
+          list = list.concat(valArr[1])
+        }
+      })
+      state.listMap = list
+    }
+  }
 
   onMounted(() => {
     getStudentDetail()
+    getStudentListMap()
   })
 </script>
 

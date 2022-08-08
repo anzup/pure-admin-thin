@@ -1,63 +1,70 @@
 <template>
-  <div class="progress-container">
-    <div class="progress-title">{{ student.name }}</div>
-    <div class="title-left">
-      {{ customer.name }} / {{ clazz.courseNumber }} / {{ clazz.course && clazz.course.name }}
-    </div>
-    <div class="title-right">{{ $t('table.trainingDate') }} {{ formatDate(clazz.startTime) }}</div>
-    <div class="warp-content-table">
-      <table class="info-table-box">
-        <tr v-for="(item, index) in itemLists" :key="index">
-          <td>{{ item.name }}</td>
-          <td>
-            <div
-              class="progress-box"
-              v-for="ele in item.itemInfos"
-              :key="ele.id"
-              @click="goTo(index, ele)"
-            >
-              <div class="progress-box-top" :class="ele.finished ? 'is-finish' : ''">
-                {{ ele.name }}
-              </div>
+  <el-scrollbar>
+    <div class="progress-container">
+      <div class="progress-title">{{ student.name }}</div>
+      <div class="title-left">
+        {{ customer.name }} / {{ clazz.courseNumber }} / {{ clazz.course && clazz.course.name }}
+      </div>
+      <div class="title-right">
+        {{ $t('table.trainingDate') }} {{ formatDate(clazz.startTime) }}
+      </div>
+      <div class="warp-content-table">
+        <table class="info-table-box">
+          <tr v-for="(item, index) in itemLists" :key="index">
+            <td>{{ item.name }}</td>
+            <td>
               <div
-                class="progress-box-text"
-                :class="{
-                  'is-red': ele.finished && !ele.targetFinished,
-                  'is-blue': ele.targetFinished,
-                }"
-                v-if="ele.targetName"
+                class="progress-box"
+                v-for="ele in item.itemInfos"
+                :key="ele.id"
+                @click="goTo(index, ele)"
               >
-                <span>{{ ele.targetName }}</span>
-                <i
+                <div class="progress-box-top" :class="ele.finished ? 'is-finish' : ''">
+                  {{ ele.name }}
+                </div>
+                <div
+                  class="progress-box-text"
                   :class="{
-                    'el-icon-circle-check': ele.targetFinished,
-                    'el-icon-circle-close': !ele.targetFinished,
-                    'el-icon-remove-outline': !ele.finished,
+                    'is-red': ele.finished && !ele.targetFinished,
+                    'is-blue': ele.targetFinished,
                   }"
-                />
+                  v-if="ele.targetName"
+                >
+                  <span>{{ ele.targetName }}</span>
+                  <el-icon v-if="!ele.finished"><Remove /></el-icon>
+                  <el-icon v-else-if="!ele.targetFinished"><CircleClose /></el-icon>
+                  <el-icon v-else-if="ele.targetFinished"><CircleCheck /></el-icon>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <div class="introduce">
-        {{ $t('common.instructions') }}：
-        <span class="is-blue"><i class="el-icon-circle-check" /> {{ $t('status.signed') }}</span>
-        <span class="is-red"><i class="el-icon-circle-close" /> {{ $t('status.notSign') }}</span>
-        <span class="is-normal"
-          ><i class="el-icon-remove-outline" /> {{ $t('status.notStarted') }}</span
-        >
+            </td>
+          </tr>
+        </table>
+        <div class="introduce">
+          {{ $t('common.instructions') }}：
+          <span class="is-blue"
+            ><el-icon><CircleCheck /></el-icon> {{ $t('status.signed') }}</span
+          >
+          <span class="is-red"
+            ><el-icon><CircleClose /></el-icon> {{ $t('status.notSign') }}</span
+          >
+          <span class="is-normal"
+            ><el-icon><Remove /></el-icon> {{ $t('status.notStarted') }}</span
+          >
+        </div>
       </div>
     </div>
-  </div>
+  </el-scrollbar>
 </template>
 <script>
-  import {} from '@element-plus/icons-vue'
+  import { CircleCheck, CircleClose, Remove } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
-  import { studentTrainingSchedule } from '/@/api/project_ftm/teacher/studentTraining'
+  import { studentTrainingSchedule } from '/@/api/ftm/teacher/studentTraining'
   import { useUserStore } from '/@/store/modules/user'
+  import { useRouter } from 'vue-router'
+  import { useGo } from '/@/hooks/usePage'
   const userStore = useUserStore()
   export default {
+    components: { CircleCheck, CircleClose, Remove },
     data() {
       return {
         student: {},
@@ -67,6 +74,10 @@
         studentTrainingRecordId: '',
       }
     },
+    props: {
+      clazzId: Number,
+      studentId: Number,
+    },
     computed: {
       userInfo() {
         return userStore.userInfo
@@ -75,14 +86,19 @@
     mounted() {
       this.studentTrainingSchedule()
     },
+    setup() {
+      const router = useRouter()
+      const routerGo = useGo(router)
+      return { routerGo }
+    },
     methods: {
       formatDate(cellValue) {
         return XEUtils.toDateString(cellValue, 'yyyy/MM/dd')
       },
       studentTrainingSchedule() {
         studentTrainingSchedule({
-          clazzId: this.$route.query.id,
-          studentId: this.$route.query.studentId,
+          clazzId: this.clazzId,
+          studentId: this.studentId,
         }).then((res) => {
           this.itemLists = res.data.itemLists
           this.student = res.data.student
@@ -92,20 +108,16 @@
         })
       },
       goTo(index, ele) {
-        if (
-          this.userInfo.builtinRole == 'TRAINING_ADMIN' ||
-          this.userInfo.builtinRole == 'PLANNER'
-        ) {
-          // 所有计划员、教务员跳转至学员培训记录
-          this.$router.push({
-            name: 'TrainingRecordsDetails',
-            params: {
-              studentId: this.$route.query.studentId,
-              recordId: this.studentTrainingRecordId,
-            },
-          })
-          return
-        }
+        // if (
+        //   this.userInfo.builtinRole == 'TRAINING_ADMIN' ||
+        //   this.userInfo.builtinRole == 'PLANNER'
+        // ) {
+        // 所有计划员、教务员跳转至学员培训记录
+        this.routerGo(
+          `/teaching/education/record/student/${this.studentId}/tabs/${this.studentTrainingRecordId}`,
+        )
+        return
+        // }
         if (index == 0 && ele.type == 'THEORY_TEACH_SCHEDULE') {
           // TODO 权限配置
           // if (!this.totalAuthorities.includes('THEORETICAL_SCHEDULE')) {
@@ -146,7 +158,7 @@
           this.$router.push({
             name: 'TrainingRecordsDetails',
             params: {
-              studentId: this.$route.query.studentId,
+              studentId: this.studentId,
               recordId: this.studentTrainingRecordId,
             },
             query: {
@@ -159,6 +171,7 @@
   }
 </script>
 <style lang="scss" scoped>
+  @import '/@/style/table.scss';
   .progress-container {
     color: #333;
   }

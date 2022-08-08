@@ -150,7 +150,7 @@
   const computeTypeName = (id: ExamType) => state.types.find((v) => v.id === id)?.name
   const computeStudents = (list: any) => {
     return list.reduce((arr, next) => {
-      let _students = []
+      const _students = []
       next?.students.forEach((v) => {
         if (!arr.find((n) => n.id === v.id)) {
           _students.push(v)
@@ -195,7 +195,7 @@
     gridOptions.loading = false
     if (!err && res.status === 200) {
       const data = res.data[0] || {}
-      let list = []
+      const list = []
       if (
         data.listMap[ExamTypeEnum.GROUND_THEORY] &&
         data.listMap[ExamTypeEnum.GROUND_THEORY] instanceof Array
@@ -230,7 +230,7 @@
             flight[item.groupName] = [item]
           }
         })
-        for (let [key, value] of Object.entries(flight)) {
+        for (const [key, value] of Object.entries(flight)) {
           list.push({
             type: ExamTypeEnum.FLIGHT_PRACTICE,
             group: key,
@@ -246,7 +246,7 @@
     routerGo(
       `course/detail?studentId=${item.id}&customer=${state.detail?.customers
         ?.map((item) => item.name)
-        .join(',')}&courseNumber=${state.detail?.courseNumber}`,
+        .join(',')}&courseNumber=${state.detail?.courseNumber}&clazzId=${route.query?.id}`,
     )
   }
   const cardClickEvent = (item) => {

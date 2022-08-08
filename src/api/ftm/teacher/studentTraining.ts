@@ -356,3 +356,10 @@ export const getStudentsSchedules = (params) =>
     method: 'get',
     params,
   })
+
+export const getClazzStudentScheduleProgress = (params) =>
+  request({
+    url: url + `/clazzs/student/${params.studentId}/${params.clazzId}/schedule/progress`,
+    method: 'get',
+    params,
+  })
