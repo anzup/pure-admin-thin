@@ -163,3 +163,11 @@ export const setReTrainingAudit = (data) =>
     method: 'post',
     data,
   })
+
+// 班级课程进度
+export const getClazzProgress = (params) =>
+  request({
+    url: url + `/clazzs/clazz/${params.id}/progress`,
+    method: 'get',
+    params,
+  })

@@ -107,8 +107,8 @@
     getAirplaneTypesAll,
   } from '/@/api/ftm/teacher/trainingPlan'
   import { getCourseClassifies } from '/@/api/ftm/teacher/configSettings'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {

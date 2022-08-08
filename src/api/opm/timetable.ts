@@ -70,7 +70,7 @@ export const getScheduleBuildClazz = function (params: IScheduleBuild) {
 export const getScheduleBuildFacilitie = function (params: IScheduleBuild) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/scheduleBuild​/facilitie`,
+    url: url + `/scheduleBuild/facilitie`,
     method: 'get',
     params,
   })

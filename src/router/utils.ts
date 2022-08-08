@@ -1,5 +1,6 @@
 import { RouteComponent, RouteRecordRaw } from 'vue-router'
-
+import { useUserStore } from '/@/store/modules/user'
+import { SubsystemName } from '/@/router/types'
 const Layout = () => import('/@/layout/index.vue')
 const IFrame = () => import('/@/layout/frameView.vue')
 // https://cn.vitejs.dev/guide/features.html#glob-import
@@ -88,4 +89,29 @@ function addAsyncRoutes(arrRoutes: Array<RouteRecordRaw>) {
   return arrRoutes
 }
 
-export { ascending, filterTree, addAsyncRoutes, getParentPaths, findRouteByPath }
+// 根据系统权限显示/隐藏
+/**
+ * @param system 系统名
+ * @param roleName 配置权限名(将用户权限信息拼装字符串)：'accountType:builtinRole:teacherAdmin<boolean>'
+ */
+function authVisible(system: string | string[], roleName: string | string[]) {
+  const userStore = useUserStore()
+  const userInfo = userStore.userInfo
+  // 账号权限含有目标系统
+  if (
+    system &&
+    (system instanceof Array
+      ? userStore.subsystems.some((s) => system.includes(s))
+      : userStore.subsystems.includes(system))
+  ) {
+    // ftm系统筛选角色权限
+    if (userStore.subsystems.includes(SubsystemName.flight_training_management)) {
+      const currentRoleName = `${userInfo.accountType}:${userInfo.builtinRole}:${userInfo.teacherAdmin}`
+      return roleName instanceof Array
+        ? roleName.some((name) => name === currentRoleName)
+        : roleName === currentRoleName
+    }
+  }
+}
+
+export { ascending, filterTree, addAsyncRoutes, getParentPaths, findRouteByPath, authVisible }

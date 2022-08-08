@@ -93,7 +93,6 @@
 
     <template #right_tools>
       <el-button
-        v-if="containsPermissions(menuName + ':TYPE_CHANGES')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
@@ -101,7 +100,6 @@
         >{{ $t('button.changeType') }}</el-button
       >
       <el-button
-        v-if="containsPermissions(menuName + ':SUBMIT_REVIEW')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
@@ -109,7 +107,6 @@
         >{{ $t('button.submitReview') }}</el-button
       >
       <el-button
-        v-if="containsPermissions(menuName + ':COURSEWARE_ASSIGNMENT')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
@@ -117,20 +114,13 @@
         >{{ $t('button.coursewareAssignment') }}</el-button
       >
       <el-button
-        v-if="containsPermissions(menuName + ':APPLY_REVIEW')"
         :disabled="records.length == 0"
         type="primary"
         size="mini"
         @click="applicationReview"
         >{{ $t('button.applicationReview') }}</el-button
       >
-      <el-button
-        v-if="containsPermissions(menuName + ':UPLOAD')"
-        type="primary"
-        size="mini"
-        @click="upload"
-        >{{ $t('button.upload') }}</el-button
-      >
+      <el-button type="primary" size="mini" @click="upload">{{ $t('button.upload') }}</el-button>
       <el-button type="primary" size="mini" :disabled="records.length == 0" @click="moveLocation">{{
         $t('button.bulkTop')
       }}</el-button>
@@ -174,11 +164,11 @@
   import to from 'await-to-js'
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import { deleteEmptyParams } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useCoursewareStore } from '/@/store/modules/courseware'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const coursewareStore = useCoursewareStore()
 
   export default {
@@ -248,7 +238,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       xTable() {
         return this.$refs.xTable?.$refs?.xTable
@@ -434,13 +424,9 @@
         })
       },
       coursewareAssignment() {
-        // 课件指派 区分当前人是教员还是教务员 teacher
+        // 课件指派 教员指派学员
         sessionStorage.setItem('ids', JSON.stringify(this.records))
-        if (this.userInfo.builtinRole == 'TRAINING_ADMIN') {
-          this.routerGo(`assigned/teacher?ids=${this.records.join(',')}`)
-        } else {
-          this.routerGo(`assigned/student?ids=${this.records.join(',')}`)
-        }
+        this.routerGo(`assigned/student?ids=${this.records.join(',')}`)
       },
       // 类型变更
       async coursewareChangeType() {

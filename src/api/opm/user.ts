@@ -1,6 +1,7 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_ACCOUNT
 const opmUrl = import.meta.env.VITE_BASE_API_OPM
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 // import { navigationSettings } from '/@/store/modules/app'
 
 export const getUserInfo = (params: any) =>
@@ -29,13 +30,13 @@ export const logout = () =>
 // 获取当前的导航栏设置
 export const getSettings = () =>
   request({
-    url: opmUrl + `/settings`,
+    url: ftmUrl + `/settings`,
     method: 'get',
   })
 // 导航栏设置
 export const putSettings = (data) =>
   request({
-    url: opmUrl + `/settings`,
+    url: ftmUrl + `/settings`,
     method: 'put',
     data,
   })

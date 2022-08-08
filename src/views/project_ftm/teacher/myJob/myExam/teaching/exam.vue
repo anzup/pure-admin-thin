@@ -225,9 +225,9 @@
   import moment from 'moment'
   import axios from 'axios'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useI18n } from 'vue-i18n'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const ShieldFuc = function (e) {
     // 屏蔽事件
     e.preventDefault && e.preventDefault()
@@ -287,7 +287,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       height() {
         return '100%'

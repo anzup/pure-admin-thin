@@ -97,10 +97,10 @@
   import { deleteEmptyParams } from '/@/utils/index'
   import { systemFormat } from './format'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { examineDialog, VxeTable, Search },
     data() {

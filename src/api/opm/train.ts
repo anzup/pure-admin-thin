@@ -1,6 +1,6 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_OPM
-
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 /**
  *
  * @param {
@@ -179,7 +179,7 @@ export const getClazzsAll = function (params) {
 export const getClazzsNumber = function (params: { courseId: number; year: number }) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `​/clazzs​/number`,
+    url: url + `/clazzs/number`,
     method: 'get',
     params,
   })
@@ -235,7 +235,7 @@ export const getGroupingsList = function (params: {
 }) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `​/groupings`,
+    url: ftmUrl + `/groupings`,
     method: 'get',
     params,
   })
@@ -243,7 +243,7 @@ export const getGroupingsList = function (params: {
 export const getGroupingsAll = function (params: { clazzId?: number | string }) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `​/groupings/all`,
+    url: ftmUrl + `/groupings/all`,
     method: 'get',
     params,
   })
@@ -256,7 +256,7 @@ export const getGroupingsAll = function (params: { clazzId?: number | string }) 
 
 export const getGroupingsOperateList = function (clazzId: number | string) {
   return request({
-    url: url + `/groupings/operate/${clazzId}`,
+    url: ftmUrl + `/groupings/operate/${clazzId}`,
     method: 'get',
   })
 }
@@ -269,7 +269,7 @@ export const getGroupingsOperateList = function (clazzId: number | string) {
 export const putGroupingsBatchUpdate = function (data: { clazzId: number | string; data: any[] }) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/groupings​/batchUpdate​/${data.clazzId}`,
+    url: url + `/groupings/batchUpdate/${data.clazzId}`,
     method: 'put',
     data: data.data,
   })
@@ -285,7 +285,7 @@ export const postGroupingsOperate = function (data: {
   groupings: any[]
 }) {
   return request({
-    url: url + `/groupings/operate`,
+    url: ftmUrl + `/groupings/operate`,
     method: 'post',
     data,
   })
@@ -377,8 +377,8 @@ export interface AdditionalTrainingResponse {
 export const getAdditionalTraining = function (
   params: AdditionalTraining,
 ): Promise<DefaultReturn<DefaultPagingData<AdditionalTraining[]>>> {
-  return request({
-    url: url + `/additionalTrainingNotices`,
+  return request<DefaultPagingData>({
+    url: ftmUrl + `/additionalTrainingNotices`,
     method: 'get',
     params,
   })
@@ -397,7 +397,7 @@ export const postAdditionalTrainingAudit = function (params: {
 }) {
   const { id, ...data } = params
   return request({
-    url: url + `/additionalTrainingNotices/${id}/audit`,
+    url: ftmUrl + `/additionalTrainingNotices/${id}/audit`,
     method: 'post',
     data,
   })
@@ -410,7 +410,7 @@ export const postAdditionalTrainingAudit = function (params: {
 
 export const getAdditionalTrainingDetail = function (id: number) {
   return request({
-    url: url + `/additionalTrainingNotices/${id}`,
+    url: ftmUrl + `/additionalTrainingNotices/${id}`,
     method: 'get',
   })
 }
@@ -452,7 +452,7 @@ export const getFlightExamRecords = function (
   params: FlightExamRecords,
 ): Promise<DefaultReturn<DefaultPagingData<AdditionalTraining[]>>> {
   return request({
-    url: url + `/flightExamRecords`,
+    url: ftmUrl + `/flightExamRecords`,
     method: 'get',
     params,
   })
@@ -471,7 +471,7 @@ export const postFlightExamRecordsAudit = function (params: {
 }) {
   const { id, ...data } = params
   return request({
-    url: url + `/flightExamRecords/${id}/audit`,
+    url: ftmUrl + `/flightExamRecords/${id}/audit`,
     method: 'post',
     data,
   })
@@ -487,7 +487,7 @@ export const postFlightExamRecordsGenPdf = function (data: {
   templateHtml?: string
 }) {
   return request({
-    url: url + `/flightExamRecords/genPdf`,
+    url: ftmUrl + `/flightExamRecords/genPdf`,
     method: 'post',
     data,
     // 设置文件返回类型
@@ -502,7 +502,7 @@ export const postFlightExamRecordsGenPdf = function (data: {
 
 export const getFlightExamRecordsDetail = function (id: number) {
   return request({
-    url: url + `/flightExamRecords/${id}`,
+    url: ftmUrl + `/flightExamRecords/${id}`,
     method: 'get',
   })
 }

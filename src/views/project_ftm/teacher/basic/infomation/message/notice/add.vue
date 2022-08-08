@@ -169,8 +169,8 @@
   import { noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
   import editor from '/@/components/Editor/index.vue'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { editor, FixFooter },
     data() {
@@ -215,7 +215,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       studentFilterArr() {
         let course = []

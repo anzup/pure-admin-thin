@@ -90,8 +90,8 @@
   import { getClazzAllStudents, getClazzs, getClazzStudents } from '/@/api/ftm/teacher/teachingPlan'
   import { getEmployees } from '/@/api/ftm/teacher/account'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     name: 'systemStudents',
     components: { VxeTable, Search },
@@ -121,7 +121,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       builtinRole() {
         return this.userInfo.builtinRole

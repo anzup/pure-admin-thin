@@ -18,8 +18,8 @@
   import XEUtils from 'xe-utils'
   import { getExamRecordQuestionsStats } from '/@/api/ftm/teacher/examCenter'
   import { deleteEmptyParams } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { VxeTable },
     data() {
@@ -102,7 +102,7 @@
     props: ['id'],
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     mounted() {

@@ -3,6 +3,7 @@ import type { App } from 'vue'
 
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { basicRoutes } from './routes'
+import { useUserStore } from '/@/store/modules/user'
 
 // 白名单应该包含基本静态路由
 const WHITE_NAME_LIST: string[] = []
@@ -19,6 +20,13 @@ export const router = createRouter({
   routes: basicRoutes as unknown as RouteRecordRaw[],
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
+})
+
+router.beforeResolve((to) => {
+  const userStore = useUserStore()
+  if (to.meta?.menuName) {
+    return userStore.ContainsPermissions(to.meta.menuName)
+  }
 })
 
 // reset router

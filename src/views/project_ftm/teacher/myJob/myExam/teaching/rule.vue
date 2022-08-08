@@ -46,11 +46,12 @@
   import { getExamRecordsId, putExamRecordsId } from '/@/api/ftm/teacher/exam'
   import Frame from '/@/views/project_ftm/teacher/components/Frame/index.vue'
   import XEUtils from 'xe-utils'
-  import examStatus from '/@/enums/exam.enum'
   import to from 'await-to-js'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { deleteEmptyParams } from '../../../../../../utils'
+  import { deleteEmptyParams } from '/@/utils'
+  import { ExamStatusEnum } from '/@/enums/statusEnum'
+
   export default {
     components: {
       Frame,
@@ -110,9 +111,11 @@
       },
       async confirm() {
         // 考试未开始
-        if (this.examStatus == examStatus.status[0]) {
+        if (this.examStatus === ExamStatusEnum.NOT_STARTED) {
           this.loadingConfirm = true
-          let [err, res] = await to(putExamRecordsId({ id: this.id, status: examStatus.status[1] }))
+          let [err, res] = await to(
+            putExamRecordsId({ id: this.id, status: ExamStatusEnum.EXAMING }),
+          )
           this.loadingConfirm = false
           if (!err && res.status == 200) {
             this.toExamPage()

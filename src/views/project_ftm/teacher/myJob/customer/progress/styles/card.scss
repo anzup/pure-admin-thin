@@ -1,0 +1,46 @@
+.custom-card {
+  width: 190px;
+  margin: 5px;
+  cursor: pointer;
+  .content {
+    position: relative;
+    min-height: 24px;
+    padding: 0 6px;
+    text-align: left;
+    color: #fff;
+    background: #1b5fc5;
+    overflow: hidden;
+    .tip {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0 8px;
+      font-size: 12px;
+      line-height: 24px;
+      color: #fff;
+      border-radius: 0px 0 0px 4px;
+      &.color-g {
+        background: #08c7a6;
+      }
+      &.color-y {
+        background: #fcab20;
+      }
+    }
+    .name {
+      margin: 10px 0;
+      text-align: center;
+    }
+  }
+  &.disabled .content {
+    color: #333;
+    background-color: #f0f0f0;
+  }
+  .foot {
+    display: flex;
+    min-height: 36px;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: space-between;
+    color: #333;
+  }
+}

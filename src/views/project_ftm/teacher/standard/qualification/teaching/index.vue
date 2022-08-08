@@ -21,15 +21,15 @@
   import { computed, ref, shallowRef, watch } from 'vue'
   import { EmployeeEnum } from '/@/enums/employeeEnum'
   import { useI18n } from 'vue-i18n'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useRoute } from 'vue-router'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const { t } = useI18n()
-  const userStore = useFtmUserStore()
   const settingsStore = useFtmSettingsStore()
   const route = useRoute()
 
-  const userInfo = computed(() => userStore.$state)
+  const userInfo = computed(() => userStore.userInfo)
   const totalAuthorities = computed(() => userInfo.value?.totalAuthorities)
   const allAuth = computed(() => !!route.meta?.params?.allAuth)
   const configs = computed(() => settingsStore.configs)

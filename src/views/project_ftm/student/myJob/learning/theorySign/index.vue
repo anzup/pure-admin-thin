@@ -126,8 +126,8 @@
   } from '/@/api/ftm/student/studentTraining'
   import { postUpload } from '/@/api/ftm/student/file'
   import { dataURLtoFile } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -221,7 +221,7 @@
     components: { VxeTable, PrintView },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       printClazz() {
         let clazz = (this.classList.find((v) => v.clazz.id == this.form.classId) || {}).clazz || {}

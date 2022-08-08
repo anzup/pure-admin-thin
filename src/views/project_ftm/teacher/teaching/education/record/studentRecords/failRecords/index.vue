@@ -125,7 +125,7 @@
       },
       async getData() {
         let param = {
-          studentId: this.details.id,
+          studentUserId: this.details.userId,
           clazzId: this.clazz.id,
           result: 'FAILED',
           auditStatus: 'APPROVED',

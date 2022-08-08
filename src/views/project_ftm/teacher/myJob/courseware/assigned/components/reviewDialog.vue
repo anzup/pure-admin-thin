@@ -1,59 +1,58 @@
 <template>
-  <div>
-    <vxe-modal
-      :value="visible"
-      show-footer
-      :before-hide-method="beforeHideMethod"
-      width="600"
-      height="325"
-    >
-      <template #title>
-        <span>{{ $t('table.reviewAndAudit') }}</span>
-      </template>
-      <template #footer>
-        <vxe-button type="submit" @click="handelCancel">{{ $t('button.cancel') }}</vxe-button>
-        <vxe-button type="submit" status="primary" @click="handelSave">{{
-          $t('button.confirm')
-        }}</vxe-button>
-      </template>
-      <template #default>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-          <el-form-item :label="$t('table.reviewDeadline')" prop="endDate">
-            <el-date-picker
-              v-model="ruleForm.endDate"
-              type="date"
-              :placeholder="$t('holder.pleaseSelectDate')"
-              :disabled-date="pickerOptions.disabledDate"
-            />
-          </el-form-item>
-          <el-form-item
-            :label="$t('table.membersOfTheReviewTeam')"
-            prop="approverIds"
-            :placeholder="$t('holder.pleaseSelect')"
-          >
-            <el-checkbox-group v-model="ruleForm.approverIds">
-              <el-checkbox :label="item.id" v-for="(item, index) in approverList" :key="index">{{
-                item.name
-              }}</el-checkbox>
-            </el-checkbox-group>
-          </el-form-item>
-        </el-form>
-      </template>
-    </vxe-modal>
-  </div>
+  <el-dialog
+    :title="$t('table.reviewAndAudit')"
+    center
+    v-model="show"
+    width="600px"
+    :before-close="beforeHideMethod"
+  >
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+      <el-form-item :label="$t('table.reviewDeadline')" prop="endDate">
+        <el-date-picker
+          v-model="ruleForm.endDate"
+          type="date"
+          :placeholder="$t('holder.pleaseSelectDate')"
+          :disabled-date="pickerOptions.disabledDate"
+        />
+      </el-form-item>
+      <el-form-item
+        :label="$t('table.membersOfTheReviewTeam')"
+        prop="approverIds"
+        :placeholder="$t('holder.pleaseSelect')"
+      >
+        <el-scrollbar max-height="500px">
+          <el-checkbox-group v-model="ruleForm.approverIds">
+            <el-checkbox :label="item.id" v-for="(item, index) in approverList" :key="index">{{
+              item.name
+            }}</el-checkbox>
+          </el-checkbox-group>
+        </el-scrollbar>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <el-button type="primary" plain @click="handelCancel">{{ $t('button.cancel') }}</el-button>
+      <el-button type="primary" @click="handelSave">{{ $t('button.confirm') }}</el-button>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
   import { getEmployees } from '/@/api/ftm/teacher/account'
-  import {
-    putCoursewareApprovalRequestsIdApprove,
-    putCoursewareApprovalRequestsIdReject,
-  } from '/@/api/ftm/teacher/courseware'
   import to from 'await-to-js'
   export default {
     props: {
       visible: {
         type: Boolean,
+      },
+    },
+    computed: {
+      show: {
+        get() {
+          return this.visible
+        },
+        set(val) {
+          this.$emit('update:visible', val)
+        },
       },
     },
     data() {

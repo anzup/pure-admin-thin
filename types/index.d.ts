@@ -117,96 +117,63 @@ declare type DegreeType =
   | 'MASTER_DEGREE'
   | 'DOCTOR_DEGREE'
 
-declare interface UserInfo {
-  // 用户id
-  address: string
-  airplaneTypes: string
-  customer: DefaultAllListItem
-  degreeType: DegreeType
-  email: string
-  gender: 'M' | 'F'
-  graduationSchool: string
-  id: number
-  idNumber: string
-  landline: string
-  lastLoginTime: string
-  major: string
-  name: string
-  nationality: DefaultAllListItem
-  phone: string
-  planejob: DefaultAllListItem
-  politicalType: string
-  position: DefaultAllListItem
-  positions: DefaultAllListItem
-  postTitle: string
-  prohibited: boolean
-  remark: string
-  signatureFileUuid: string
-  studentType: DefaultAllListItem
-  teacherType: DefaultAllListItem
-  team: DefaultAllListItem
-  title: string
-  userId: number
-  username: string
-  workStartTime: string
-  roles: {
-    builtin: boolean
-    builtinRole: 'ADMIN' | 'PLANNER' | 'TEACHER' | 'STUDENT' | 'CUSTOMER_CONTACTER'
+declare interface CurrentUserInfo {
+  /**@param 账号类型*/
+  accountType: AccountType
+  /**@param 内置职位*/
+  builtinRole: BuiltinRole //
+  /**@param 公司信息*/
+  filiale: {
     id: number
     name: string
-  }[]
-  subsystems: ['ACC', 'OPM', 'FTM', 'DMM', 'CPM', 'CTM', 'CSM']
-  department: DefaultAllListItem
-  canteen: DefaultAllListItem
+  }
+  id: number
+  /**@param 身份证*/
+  idNumber: string
+  /**@param 最后一次登录时间*/
+  lastLoginTime: string
+  /**@param 姓名*/
+  name: string
+  /**@param 手机号*/
+  phone: string
+  /**@param 角色权限*/
+  roleAuthorities: string[]
+  /**@param 职位*/
+  roleName: string
+  selfAuthorities: string[]
+  signatureFileUuid: string
+  /**@param 是否学员*/
+  student: boolean
+  /**@param 是否教员*/
+  teacher: boolean
+  /**@param 是否教务员*/
+  teacherAdmin: boolean
+  /**@param 是否临时考生*/
+  tempStudent: boolean
+  /**@param 全部权限*/
+  totalAuthorities: string[]
+  userId: number
+  username: string
 }
 
 declare type AccountType = 'UNKNOWN' | 'STUDENT' | 'EMPLOYEE' | 'ADMIN'
 
-declare interface CurrentUserInfo {
-  /**@param 创建人id */
-  createdBy: number
-  /**@param 创建时间 */
-  createdDate: string
-  /**@param 数据所有者,可用值:ACC,OPM,FTM,DMM,CPM,CTM,CSM,PUB,SETTING,JOINT,LOG,DBS */
-  dataOwner: string
-  /**@param 数据是否有效(删除) */
-  enabled: boolean
-  /**@param 分公司id */
-  filialeId: number
-  /**@param 分公司名称 */
-  filialeName: string
-  /**@param id */
-  id: number
-  /**@param 身份证/护照/台胞证 */
-  idNumber: string
-  /**@param 最后登录时间 */
-  lastLoginTime: string
-  /**@param 修改时间 */
-  lastModifiedDate: string
-  /**@param 姓名 */
-  name: string
-  /**@param 可操作类型 */
-  operationTypes: string[]
-  /**@param 	手机号 */
-  phone: string
-  /**@param  签名文件uuid */
-  signatureFileUuid: string
-  /**@param 子系统管理员 */
-  subsystemAdmin: boolean
-  /**@param 子系统权限,可用值:ACC,OPM,FTM,DMM,CPM,CTM,CSM,LOG,DBS */
-  subsystems: string[]
-  /**@param 用户名/登录名 */
-  username: string
-}
 declare interface DefaultReturn<T = DefaultPagingData> {
-    data?: T;
-    code?: string;
-    msg?: string;
-    infos?: string;
+  data?: T
+  code?: string
+  msg?: string
+  infos?: string
 }
 // 大纲类型|课程累心|训练类型|模板类型
-declare type courseType = "DRY_LEASE" | "WET_LEASE" | "INTERNAL_TRAINING";
+declare type courseType = 'DRY_LEASE' | 'WET_LEASE' | 'INTERNAL_TRAINING'
 // 教员类型
-declare type BuiltinRole = "THEORY_TEACHER" | "FLIGHT_TEACHER";
+declare type BuiltinRole =
+  | 'THEORY_TEACHER'
+  | 'FLIGHT_TEACHER'
+  | 'TRAINING_ADMIN'
+  | 'PLANNER'
+  | 'CUSTOMER_CONTACTOR'
+  | 'AVIATION_INSPECTOR'
+  | 'INSPECTOR'
 // 工作性质
-declare type WorkType = "FULL_TIME" | "PART_TIME";
+declare type WorkType = 'FULL_TIME' | 'PART_TIME'

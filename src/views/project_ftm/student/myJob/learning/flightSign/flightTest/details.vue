@@ -251,8 +251,8 @@
   import { dataURLtoFile } from '/@/utils/index'
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       const OrderData = {
@@ -304,7 +304,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       id() {
         return this.$route.query.id

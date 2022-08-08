@@ -137,8 +137,8 @@
     trainingResultsPut,
     trainingResultsDel,
   } from '/@/api/ftm/teacher/teachingCenter'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from "/@/store/modules/user";
+  const userStore = useUserStore();
   export default {
     data() {
       return {
@@ -174,7 +174,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     created() {

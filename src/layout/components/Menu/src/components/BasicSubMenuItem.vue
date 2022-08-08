@@ -23,7 +23,7 @@
   import { itemProps } from '../props'
   import BasicMenuItem from './BasicMenuItem.vue'
   import MenuItemContent from './MenuItemContent.vue'
-
+  import { authVisible } from '/@/router/utils'
   export default defineComponent({
     name: 'BasicSubMenuItem',
     isSubMenu: true,
@@ -35,8 +35,10 @@
     props: itemProps,
     setup(props) {
       const { prefixCls } = useDesign('basic-menu-item')
-
-      const getShowMenu = computed(() => !props.item.meta?.hideMenu)
+      const getShowMenu = computed(
+        () => !props.item.meta?.hideMenu,
+        // && authVisible(props.item?.meta?.params?.system, props.item?.meta?.params?.roleName),
+      )
       function menuHasChildren(menuTreeItem: MenuType): boolean {
         return (
           !menuTreeItem.meta?.hideChildrenInMenu &&

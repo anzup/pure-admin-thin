@@ -99,16 +99,16 @@
   import { flightExamGetPdf } from '/@/api/ftm/teacher/studentTraining'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import { computed, onActivated, onMounted, reactive, ref } from 'vue'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { setPage } from '/@/utils/utils'
   import to from 'await-to-js'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
+  import { useUserStore } from '/@/store/modules/user'
 
-  const userStore = useFtmUserStore()
-  const userInfo = computed(() => userStore.$state)
+  const userStore = useUserStore()
+  const userInfo = computed(() => userStore.userInfo)
   const router = useRouter()
-  const route = useRouter()
+  const route = useRoute()
   const { t } = useI18n()
 
   const menuName = ref('FLIGHT_TEST')
@@ -370,7 +370,14 @@
     }
   }
 
-  onMounted(() => {
+  onMounted(async () => {
+    if (route.query?.year && route.query?.courseNumber) {
+      gridOptions.form.year = route.query.year
+      await getClassMethod()
+      gridOptions.form.classNumber = gridOptions.form.classList.find(
+        (item) => item.courseNumber === route.query.courseNumber,
+      )?.id
+    }
     getTableData()
     // getCourseMethod()
   })

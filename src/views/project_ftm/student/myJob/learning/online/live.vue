@@ -119,10 +119,9 @@
   import { Client } from '@stomp/stompjs'
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  import { useUserStore } from '/@/store/modules/user'
   import { useLiveStore } from '/@/store/modules/live'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const accountStore = useUserStore()
   const liveStore = useLiveStore()
   export default {
@@ -160,10 +159,10 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       name() {
-        return userStore.name
+        return this.userInfo.name
       },
       token() {
         return accountStore.token

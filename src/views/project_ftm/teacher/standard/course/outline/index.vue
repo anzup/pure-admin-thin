@@ -88,8 +88,8 @@
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
   import { deleteEmptyParams } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {

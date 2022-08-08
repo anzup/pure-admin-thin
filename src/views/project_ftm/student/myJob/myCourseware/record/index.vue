@@ -69,8 +69,8 @@
   import { deleteEmptyParams, formatTime } from '/@/utils/index'
   import { getCoursewareReadRecords } from '/@/api/ftm/student/courseware'
   import { isHaveFile } from '/@/api/ftm/student/file'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: {
       VxeTable,
@@ -145,7 +145,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     methods: {

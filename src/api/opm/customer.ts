@@ -1,6 +1,6 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_OPM
-
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 /**
  *
  * @param {
@@ -10,7 +10,7 @@ const url = import.meta.env.VITE_BASE_API_OPM
 
 export const getCustomersList = function (params) {
   return request({
-    url: url + `/customers`,
+    url: ftmUrl + `/customers`,
     method: 'get',
     params,
   })
@@ -24,7 +24,7 @@ export const getCustomersList = function (params) {
 
 export const getCustomersDetail = function (params) {
   return request({
-    url: url + `/customers/${params}`,
+    url: ftmUrl + `/customers/${params}`,
     method: 'get',
   })
 }
@@ -37,7 +37,7 @@ export const getCustomersDetail = function (params) {
 
 export const postCustomers = function (data) {
   return request({
-    url: url + `/customers`,
+    url: ftmUrl + `/customers`,
     method: 'post',
     data,
   })
@@ -51,7 +51,7 @@ export const postCustomers = function (data) {
 
 export const putCustomersId = function (data) {
   return request({
-    url: url + `/customers/${data.id}`,
+    url: ftmUrl + `/customers/${data.id}`,
     method: 'put',
     data,
   })
@@ -65,7 +65,7 @@ export const putCustomersId = function (data) {
 
 export const deleteCustomersId = function (data) {
   return request({
-    url: url + `/customers/${data}`,
+    url: ftmUrl + `/customers/${data}`,
     method: 'delete',
   })
 }
@@ -78,7 +78,7 @@ export const deleteCustomersId = function (data) {
 
 export const postCustomersBatchDelete = function () {
   return request({
-    url: url + `/customers/batchDelete`,
+    url: ftmUrl + `/customers/batchDelete`,
     method: 'post',
   })
 }
@@ -91,7 +91,7 @@ export const postCustomersBatchDelete = function () {
 
 export const getCustomersAll = function () {
   return request({
-    url: url + `/customers/all`,
+    url: ftmUrl + `/customers/all`,
     method: 'get',
   })
 }
@@ -105,7 +105,7 @@ export const getCustomersAll = function () {
 
 export const getCustomersTypesList = function (params) {
   return request({
-    url: url + `/customerTypes`,
+    url: ftmUrl + `/customerTypes`,
     method: 'get',
     params,
   })
@@ -119,7 +119,7 @@ export const getCustomersTypesList = function (params) {
 
 export const getCustomersTypesDetail = function (params) {
   return request({
-    url: url + `/customerTypes/${params}`,
+    url: ftmUrl + `/customerTypes/${params}`,
     method: 'get',
   })
 }
@@ -132,7 +132,7 @@ export const getCustomersTypesDetail = function (params) {
 
 export const postCustomersTypes = function (data) {
   return request({
-    url: url + `/customerTypes`,
+    url: ftmUrl + `/customerTypes`,
     method: 'post',
     data,
   })
@@ -146,7 +146,7 @@ export const postCustomersTypes = function (data) {
 
 export const putCustomersTypesId = function (data) {
   return request({
-    url: url + `/customerTypes/${data.id}`,
+    url: ftmUrl + `/customerTypes/${data.id}`,
     method: 'put',
     data,
   })
@@ -160,7 +160,7 @@ export const putCustomersTypesId = function (data) {
 
 export const deleteCustomersTypesId = function (data) {
   return request({
-    url: url + `/customerTypes/${data}`,
+    url: ftmUrl + `/customerTypes/${data}`,
     method: 'delete',
   })
 }
@@ -173,7 +173,7 @@ export const deleteCustomersTypesId = function (data) {
 
 export const postCustomersTypesBatchDelete = function () {
   return request({
-    url: url + `/customerTypes/batchDelete`,
+    url: ftmUrl + `/customerTypes/batchDelete`,
     method: 'post',
   })
 }
@@ -186,7 +186,7 @@ export const postCustomersTypesBatchDelete = function () {
 
 export const getCustomersTypesAll = function () {
   return request({
-    url: url + `/customerTypes/all`,
+    url: ftmUrl + `/customerTypes/all`,
     method: 'get',
   })
 }

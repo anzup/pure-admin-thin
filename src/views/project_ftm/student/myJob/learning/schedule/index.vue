@@ -21,8 +21,8 @@
   import to from 'await-to-js'
   import ScheduleTable from './components/schedule.vue'
   import { useWeek } from './common/enum'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -43,7 +43,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       scheduleDate() {
         return moment(this.form.date).format('YYYY/MM/DD')

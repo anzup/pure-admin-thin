@@ -81,13 +81,14 @@
   import moment from 'moment'
   import { useI18n } from 'vue-i18n'
   import { computed, onActivated, onMounted, reactive, ref } from 'vue'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
   import { useRoute, useRouter } from 'vue-router'
   import { setPage } from '/@/utils/utils'
   import { useGo } from '/@/hooks/usePage'
+  import { useUserStore } from '/@/store/modules/user'
+
+  const userStore = useUserStore()
   const { t } = useI18n()
-  const userStore = useFtmUserStore()
   const router = useRouter()
   const route = useRoute()
   const routerGo = useGo(router)
@@ -161,7 +162,7 @@
     buttons: ({ row }) => [
       {
         name: t('button.details'),
-        visible: userStore.totalAuthorities.includes(menuName.value + ':DETAIL'),
+        visible: userStore.ContainsPermissions(menuName.value + ':DETAIL'),
         event: () => {
           toDetailPage(row)
         },
@@ -174,7 +175,7 @@
     },
   })
 
-  const userInfo = computed(() => userStore.$state)
+  const userInfo = computed(() => userStore.userInfo)
 
   const getAirlinesMenus = async () => {
     const [err, res] = await to(airlinesMenu({}))

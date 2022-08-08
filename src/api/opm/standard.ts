@@ -1,5 +1,6 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_OPM
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 export default interface IFrom {
   page: number
   size: number
@@ -61,7 +62,7 @@ export const getEmployeeQualificationsDetail = function (params) {
 
 export const getCoursesList = function (params: IFrom) {
   return request({
-    url: url + `/courses`,
+    url: ftmUrl + `/courses`,
     method: 'get',
     params,
   })
@@ -75,7 +76,7 @@ export const getCoursesList = function (params: IFrom) {
 
 export const getCourseClassifies = function () {
   return request({
-    url: url + `/courseClassifies/all`,
+    url: ftmUrl + `/courseClassifies/all`,
     method: 'get',
   })
 }
@@ -88,7 +89,7 @@ export const getCourseClassifies = function () {
 
 export const getCoursesDetail = function (params) {
   return request({
-    url: url + `/courses/${params}`,
+    url: ftmUrl + `/courses/${params}`,
     method: 'get',
   })
 }
@@ -101,7 +102,7 @@ export const getCoursesDetail = function (params) {
 
 export const postCourses = function (data) {
   return request({
-    url: url + `/courses`,
+    url: ftmUrl + `/courses`,
     method: 'post',
     data,
   })
@@ -115,7 +116,7 @@ export const postCourses = function (data) {
 
 export const putCoursesId = function (data) {
   return request({
-    url: url + `/courses/${data.id}`,
+    url: ftmUrl + `/courses/${data.id}`,
     method: 'put',
     data,
   })
@@ -129,7 +130,7 @@ export const putCoursesId = function (data) {
 
 export const deleteCoursesId = function (data) {
   return request({
-    url: url + `/courses/${data}`,
+    url: ftmUrl + `/courses/${data}`,
     method: 'delete',
   })
 }
@@ -142,7 +143,7 @@ export const deleteCoursesId = function (data) {
 
 export const postCoursesBatchDelete = function () {
   return request({
-    url: url + `/courses/batchDelete`,
+    url: ftmUrl + `/courses/batchDelete`,
     method: 'post',
   })
 }
@@ -155,7 +156,7 @@ export const postCoursesBatchDelete = function () {
 
 export const getCoursesAll = function () {
   return request({
-    url: url + `/courses/all`,
+    url: ftmUrl + `/courses/all`,
     method: 'get',
   })
 }
@@ -167,7 +168,7 @@ export const getCoursesAll = function () {
 
 export const getCoursesAirplaneTypeAll = function () {
   return request({
-    url: url + `/courses/all/airplaneType`,
+    url: ftmUrl + `/courses/all/airplaneType`,
     method: 'get',
   })
 }
@@ -183,7 +184,7 @@ export const getCoursesAirplaneTypeAll = function () {
 
 export const getSyllabusesList = function (params: IFrom) {
   return request({
-    url: url + `/syllabuses`,
+    url: ftmUrl + `/syllabuses`,
     method: 'get',
     params,
   })
@@ -197,7 +198,7 @@ export const getSyllabusesList = function (params: IFrom) {
 
 export const getSyllabusesDetail = function (params) {
   return request({
-    url: url + `/syllabuses/${params}`,
+    url: ftmUrl + `/syllabuses/${params}`,
     method: 'get',
   })
 }
@@ -210,7 +211,7 @@ export const getSyllabusesDetail = function (params) {
 
 export const postSyllabuses = function (data) {
   return request({
-    url: url + `/syllabuses`,
+    url: ftmUrl + `/syllabuses`,
     method: 'post',
     data,
   })
@@ -224,7 +225,7 @@ export const postSyllabuses = function (data) {
 
 export const putSyllabusesId = function (data) {
   return request({
-    url: url + `/syllabuses/${data.id}`,
+    url: ftmUrl + `/syllabuses/${data.id}`,
     method: 'put',
     data,
   })
@@ -237,7 +238,7 @@ export const putSyllabusesId = function (data) {
 
 export const putSyllabusesRefresh = function (id) {
   return request({
-    url: url + `/syllabuses/${id}/refresh`,
+    url: ftmUrl + `/syllabuses/${id}/refresh`,
     method: 'put',
   })
 }
@@ -250,7 +251,7 @@ export const putSyllabusesRefresh = function (id) {
 
 export const putSyllabusesCopy = function (data: { id: number; value: number }) {
   return request({
-    url: url + `/syllabuses/${data.id}/copy`,
+    url: ftmUrl + `/syllabuses/${data.id}/copy`,
     method: 'put',
     data: { value: data.value },
   })
@@ -264,7 +265,7 @@ export const putSyllabusesCopy = function (data: { id: number; value: number }) 
 
 export const deleteSyllabusesId = function (data) {
   return request({
-    url: url + `/syllabuses/${data}`,
+    url: ftmUrl + `/syllabuses/${data}`,
     method: 'delete',
   })
 }
@@ -277,7 +278,7 @@ export const deleteSyllabusesId = function (data) {
 
 export const postSyllabusesBatchDelete = function (data: number[]) {
   return request({
-    url: url + `/syllabuses/batchDelete`,
+    url: ftmUrl + `/syllabuses/batchDelete`,
     method: 'post',
     data,
   })
@@ -291,7 +292,7 @@ export const postSyllabusesBatchDelete = function (data: number[]) {
 
 export const getSyllabusesAll = function (params: { courseType: string; courseId?: number }) {
   return request({
-    url: url + `/syllabuses/all`,
+    url: ftmUrl + `/syllabuses/all`,
     method: 'get',
     params,
   })
@@ -312,7 +313,7 @@ export const putSyllabusesSortItem = function (data?: {
   [propsName: string]: any
 }) {
   return request({
-    url: url + `/syllabusItems/sortItem`,
+    url: ftmUrl + `/syllabusItems/sortItem`,
     method: 'put',
     data,
   })
@@ -328,7 +329,7 @@ export const putSyllabusesSortItem = function (data?: {
 
 export const getSyllabusItemsList = function (params: TemplatesSyllabus) {
   return request({
-    url: url + `/syllabusItems`,
+    url: ftmUrl + `/syllabusItems`,
     method: 'get',
     params,
   })
@@ -342,7 +343,7 @@ export const getSyllabusItemsList = function (params: TemplatesSyllabus) {
 
 export const getSyllabusItemsDetail = function (params) {
   return request({
-    url: url + `/syllabusItems/${params}`,
+    url: ftmUrl + `/syllabusItems/${params}`,
     method: 'get',
   })
 }
@@ -355,7 +356,7 @@ export const getSyllabusItemsDetail = function (params) {
 
 export const postSyllabusItems = function (data) {
   return request({
-    url: url + `/syllabusItems`,
+    url: ftmUrl + `/syllabusItems`,
     method: 'post',
     data,
   })
@@ -369,7 +370,7 @@ export const postSyllabusItems = function (data) {
 
 export const putSyllabusItemsId = function (data) {
   return request({
-    url: url + `/syllabusItems/${data.id}`,
+    url: ftmUrl + `/syllabusItems/${data.id}`,
     method: 'put',
     data,
   })
@@ -383,7 +384,7 @@ export const putSyllabusItemsId = function (data) {
 
 export const deleteSyllabusItemsId = function (data) {
   return request({
-    url: url + `/syllabusItems/${data}`,
+    url: ftmUrl + `/syllabusItems/${data}`,
     method: 'delete',
   })
 }
@@ -396,7 +397,7 @@ export const deleteSyllabusItemsId = function (data) {
 
 export const postSyllabusItemsBatchDelete = function (data) {
   return request({
-    url: url + `/syllabusItems/batchDelete`,
+    url: ftmUrl + `/syllabusItems/batchDelete`,
     method: 'post',
     data,
   })
@@ -409,7 +410,7 @@ export const postSyllabusItemsBatchDelete = function (data) {
 
 export const getResourcesCoursewareType = function (data) {
   return request({
-    url: url + `/syllabusItems/coursewareType/${data.id}`,
+    url: ftmUrl + `/syllabusItems/coursewareType/${data.id}`,
     method: 'get',
   })
 }
@@ -427,7 +428,7 @@ export const putSyllabusItemsCopy = function (
   syllabusId: number,
 ) {
   return request({
-    url: url + `/syllabusItems/copys/${syllabusId}`,
+    url: ftmUrl + `/syllabusItems/copys/${syllabusId}`,
     method: 'put',
     data,
   })
@@ -440,7 +441,7 @@ export const putSyllabusItemsCopy = function (
 
 export const postSyllabusesItemsBatchDelete = function (data: number[]) {
   return request({
-    url: url + `/syllabusItems/batchDelete`,
+    url: ftmUrl + `/syllabusItems/batchDelete`,
     method: 'post',
     data,
   })

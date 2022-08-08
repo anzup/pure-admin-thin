@@ -187,9 +187,9 @@
   import { Client } from '@stomp/stompjs'
   import closeImg from '/@/assets/live_imgs/close.jpg'
   import avatarImg from '/@/assets/live_imgs/avatar.png'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useLiveStore } from '/@/store/modules/live'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const liveStore = useLiveStore()
   export default {
     components: { Mute, Microphone, Platform, SwitchButton },
@@ -229,7 +229,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       name() {
         return this.userInfo.name

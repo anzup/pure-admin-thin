@@ -198,11 +198,10 @@
   } from '/@/api/ftm/teacher/file'
   import { toExport } from '/@/utils/index'
   import axios from 'axios'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  import { useUserStore } from '/@/store/modules/user'
   import { useI18n } from 'vue-i18n'
+  import { useUserStore } from '/@/store/modules/user'
   const accountStore = useUserStore()
-  const userStore = useFtmUserStore()
+  const userStore = useUserStore()
   export default {
     components: {
       fadeIn,
@@ -369,7 +368,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       totalAuthorities() {
         return this.userInfo.totalAuthorities

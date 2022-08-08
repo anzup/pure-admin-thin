@@ -22,11 +22,12 @@
   import { useI18n } from 'vue-i18n'
   import { EmployeeEnum } from '/@/enums/employeeEnum'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useRoute } from 'vue-router'
+  import { useUserStore } from '/@/store/modules/user'
+
+  const userStore = useUserStore()
   const { t } = useI18n()
   const settingsStore = useFtmSettingsStore()
-  const userStore = useFtmUserStore()
   const route = useRoute()
 
   const configs = computed(() => settingsStore.configs)
@@ -76,7 +77,7 @@
 
   tabList.value = tabList.value.filter((item) => {
     return (
-      (allAuth.value ? item.menuName : userStore.totalAuthorities.includes(item.menuName)) &&
+      (allAuth.value ? item.menuName : userStore.ContainsPermissions(item.menuName)) &&
       airplaneAlone.value == item.airplaneAlone
     )
   })

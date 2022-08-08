@@ -20,7 +20,6 @@ const Data: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/statistics/data/teacher/index.vue'),
       meta: {
         title: 'message.teacher_class_hour_statistics',
-        system: SubsystemName.operation_plan_management,
       },
     },
     // 设施运行统计
@@ -30,7 +29,6 @@ const Data: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/statistics/data/facilities/index.vue'),
       meta: {
         title: 'message.facility_operation_statistics',
-        system: SubsystemName.operation_plan_management,
       },
     },
     // 销售数据统计
@@ -40,7 +38,6 @@ const Data: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/statistics/data/sales/index.vue'),
       meta: {
         title: 'message.sales_data_statistics',
-        system: SubsystemName.operation_plan_management,
       },
     },
     // 核心能力统计
@@ -50,7 +47,6 @@ const Data: AppRouteRecordRaw = {
       component: () => import('/@/views/project_ftm/teacher/statistical/data/core/index.vue'),
       meta: {
         title: '核心能力统计',
-        system: SubsystemName.flight_training_management,
       },
     },
     // 统计设置
@@ -60,7 +56,6 @@ const Data: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/statistics/data/config/index.vue'),
       meta: {
         title: 'text.statistical_settings',
-        system: SubsystemName.operation_plan_management,
       },
     },
   ],

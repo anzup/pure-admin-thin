@@ -46,6 +46,9 @@
             router.push('/')
             // })
           })
+          .catch(() => {
+            loading.value = false
+          })
       } else {
         loading.value = false
         return fields

@@ -15,8 +15,8 @@
   import archivesBasicInfo from './archivesBasicInfo.vue'
   import archivesLicense from './archivesLicense.vue'
   import archivesRecords from './archivesRecords.vue'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -36,7 +36,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     components: {

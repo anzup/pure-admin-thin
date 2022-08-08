@@ -58,8 +58,8 @@
   import to from 'await-to-js'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { VxeTable, Search },
     data() {
@@ -178,14 +178,14 @@
         return [
           {
             name: this.$t('button.readMore'),
-            visible: userStore.totalAuthorities.includes(this.menuName + ':READ_MORE'),
+            visible: userStore.ContainsPermissions(this.menuName + ':READ_MORE'),
             event: () => {
               this.readMore(row)
             },
           },
           {
             name: this.$t('button.revoke'),
-            visible: userStore.totalAuthorities.includes(this.menuName + ':QUASH'),
+            visible: userStore.ContainsPermissions(this.menuName + ':QUASH'),
             event: () => {
               this.cancel(row.id)
             },

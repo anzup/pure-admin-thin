@@ -56,10 +56,10 @@ interface RouteMeta {
   ignoreAuth?: boolean
   hideChildrenInMenu?: boolean
   hideBreadcrumb?: boolean
-  /**@param 路由显示所属的系统 */
-  system?: string
   /**@param 附加属性值 */
   params?: object
+  /**@param 权限名*/
+  menuName?: string
 }
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta' | 'children'> {
   name: string

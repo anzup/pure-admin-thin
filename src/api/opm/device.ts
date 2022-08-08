@@ -21,7 +21,7 @@ export const getSimulatorList = (params: any) =>
  */
 export const getSimulatorDeviceType = () =>
   request({
-    url: url + '/simulator​/deviceType',
+    url: url + '/simulator/deviceType',
     method: 'get',
   })
 /**
@@ -211,7 +211,7 @@ export const getAirplaneTypesAll = function () {
 export const getresourcesFacilities = function () {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/resources​/facilities`,
+    url: url + `/resources/facilities`,
     method: 'get',
   })
 }

@@ -180,7 +180,7 @@
     methods: {
       getExamList() {
         let param = {
-          studentId: this.details.id || '',
+          studentUserId: this.details.userId || '',
           clazzId: this.clazz.id || '',
           type: this.form.examType,
           status: this.form.examStatus,

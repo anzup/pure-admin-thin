@@ -95,11 +95,10 @@
   import importTmporaryCandidates from './importTmporaryCandidates.vue'
   import { putExamsId } from '/@/api/ftm/teacher/examCenter'
   import { debounce, downLoadBlob } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  import { useUserStore } from '/@/store/modules/user'
   import { useI18n } from 'vue-i18n'
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const accountStore = useUserStore()
-  const userStore = useFtmUserStore()
   export default {
     props: ['examsInfo', 'type'],
     data() {
@@ -154,7 +153,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       xTable() {
         return this.$refs.xTable.$refs.xTable

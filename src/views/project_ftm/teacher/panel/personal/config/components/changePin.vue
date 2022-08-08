@@ -75,10 +75,9 @@
 <script>
   import { postChangePinCode } from '/@/api/ftm/teacher/user'
   import axios from 'axios'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useUserStore } from '/@/store/modules/user'
   import { useI18n } from 'vue-i18n'
-  const userStore = useFtmUserStore()
+  const userStore = useUserStore()
   const accountStore = useUserStore()
   const TIME_COUNT = 60
   export default {
@@ -101,7 +100,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       rules() {
         return {

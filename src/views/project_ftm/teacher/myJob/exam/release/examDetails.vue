@@ -117,13 +117,13 @@
   import VxeTable from '/@/components/Table/index.vue'
   import { Search } from '@element-plus/icons-vue'
   import XEUtils from 'xe-utils'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
   import { htmlToPdf } from '/@/utils/htmlToPdf'
   import { deleteEmptyParams } from '/@/utils'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     name: 'ExamDetails',
     data() {
@@ -179,7 +179,7 @@
     // },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       id() {
         return this.$route.params.examId

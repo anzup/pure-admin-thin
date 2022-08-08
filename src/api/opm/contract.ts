@@ -1,5 +1,6 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_OPM
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 // interface IBase {
 //   page: number
 //   size: number
@@ -145,7 +146,7 @@ export const getResourcesoSchedule = function (params?: {
 
 export const putSyllabusesResources = function (params?: { id: number | string; data: number[] }) {
   return request({
-    url: url + `/syllabuses/resources/${params.id}`,
+    url: ftmUrl + `/syllabuses/resources/${params.id}`,
     method: 'put',
     data: params.data,
   })
@@ -405,7 +406,7 @@ export const postBillItemsBatchDelete = function () {
 export const putBillItemsRemove = function (id: number) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/billItems/` + id + `​/remove`,
+    url: url + `/billItems/` + id + `/remove`,
     method: 'put',
   })
 }
@@ -421,7 +422,7 @@ export const getBillcheck = function (data: { value: string; customerId: number 
   const { customerId, ...params } = data
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/bills​/check/${customerId}`,
+    url: url + `/bills/check/${customerId}`,
     method: 'get',
     params,
   })
@@ -564,7 +565,7 @@ export const postBillsBatchDelete = function () {
 export const putBillsSettle = function (id: number) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `​/bills​/${id}​/settle`,
+    url: url + `/bills/${id}/settle`,
     method: 'put',
   })
 }

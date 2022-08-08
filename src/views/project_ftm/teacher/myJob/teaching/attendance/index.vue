@@ -53,15 +53,15 @@
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import { computed, onMounted, reactive, ref } from 'vue'
   import { useI18n } from 'vue-i18n'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-
   const { t } = useI18n()
-  const userStore = useFtmUserStore()
-  const userInfo = computed(() => userStore.$state)
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
+  const userInfo = computed(() => userStore.userInfo)
   const router = useRouter()
+  const route = useRoute()
   const routerGo = useGo(router)
 
   const hasSearch = ref(false)
@@ -181,8 +181,14 @@
     getData()
   }
 
-  onMounted(() => {
-    getClazz()
+  onMounted(async () => {
+    await getClazz()
+    if (route.query?.courseNumber) {
+      gridOptions.form.clazzId = filters.clazzList.find(
+        (item) => item.courseNumber == route.query.courseNumber,
+      ).id
+      getData()
+    }
   })
 </script>
 <script lang="ts">

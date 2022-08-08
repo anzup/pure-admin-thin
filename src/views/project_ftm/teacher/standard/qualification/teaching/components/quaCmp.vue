@@ -82,8 +82,8 @@
     deleteEmployeeQualifications,
   } from '/@/api/ftm/teacher/education'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     name: 'QuaCmp',
     components: {

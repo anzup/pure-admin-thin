@@ -87,11 +87,10 @@
 <script>
   import { postChangePassword } from '/@/api/ftm/teacher/user'
   import axios from 'axios'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useUserStore } from '/@/store/modules/user'
   import { useI18n } from 'vue-i18n'
+  const userStore = useUserStore()
   const accountStore = useUserStore()
-  const userStore = useFtmUserStore()
   const TIME_COUNT = 60
   export default {
     name: 'ChangePassword',
@@ -113,7 +112,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       accountType() {
         return this.userInfo.accountType

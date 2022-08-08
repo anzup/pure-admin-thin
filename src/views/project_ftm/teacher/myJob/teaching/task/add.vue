@@ -129,8 +129,8 @@
   import { addNotice, getStudents, uploadFile } from '/@/api/ftm/teacher/education'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { FixFooter },
     data() {
@@ -191,7 +191,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     created() {

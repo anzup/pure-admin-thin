@@ -95,8 +95,9 @@
   import DetailDialog from './components/detailDialog.vue'
   import { Search } from '@element-plus/icons-vue'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+
+  const userStore = useUserStore()
   const colorList = ['#468fce', '#8bc34a', '#4cac6d', '#48c7ad', '#48a8e4', '#b495e1']
   export default {
     data() {
@@ -144,7 +145,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       builtinRole() {
         return this.userInfo.builtinRole

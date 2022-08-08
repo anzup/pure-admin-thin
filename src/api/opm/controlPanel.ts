@@ -140,7 +140,7 @@ export const putSchedulesClear = function (data: {
 }) {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/schedules/batchClear​/${data.clearTeacher}`,
+    url: url + `/schedules/batchClear/${data.clearTeacher}`,
     method: 'put',
     data: data.ids,
   })

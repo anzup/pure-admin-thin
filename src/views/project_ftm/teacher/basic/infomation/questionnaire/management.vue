@@ -86,8 +86,8 @@
   import to from 'await-to-js'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -152,7 +152,7 @@
         return this.$route.query.roles_id || 'Management'
       },
       totalAuthorities() {
-        return userStore.totalAuthorities
+        return userStore.userInfo.totalAuthorities
       },
     },
     created() {

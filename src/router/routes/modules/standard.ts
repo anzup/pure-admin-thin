@@ -11,7 +11,6 @@ const Qualification: AppRouteRecordRaw = {
   component: getParentLayout('StandardQualification'),
   meta: {
     title: 'router.qualificationManagement',
-    system: SubsystemName.flight_training_management,
   },
   children: [
     // 教学资质
@@ -23,7 +22,6 @@ const Qualification: AppRouteRecordRaw = {
       meta: {
         title: '教学资质',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -35,7 +33,7 @@ const Qualification: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'router.detail',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/standard/qualification/teaching',
       },
     },
@@ -47,7 +45,6 @@ const Qualification: AppRouteRecordRaw = {
         import('/@/views/project_ftm/teacher/standard/qualification/audit/index.vue'),
       meta: {
         title: 'router.qualificationAudit',
-        system: SubsystemName.flight_training_management,
       },
     },
     // 资质配置
@@ -58,7 +55,6 @@ const Qualification: AppRouteRecordRaw = {
         import('/@/views/project_ftm/teacher/standard/qualification/config/index.vue'),
       meta: {
         title: 'table.qualificationConfigs',
-        system: SubsystemName.flight_training_management,
       },
     },
   ],
@@ -74,7 +70,6 @@ const Course: AppRouteRecordRaw = {
   meta: {
     title: '课程管理',
     i18n: false,
-    system: SubsystemName.flight_training_management,
   },
   children: [
     // 培训项目
@@ -85,7 +80,6 @@ const Course: AppRouteRecordRaw = {
       meta: {
         title: '培训项目',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     // 培训大纲
@@ -108,7 +102,7 @@ const Course: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.details',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/standard/course/outline',
       },
     },
@@ -120,7 +114,6 @@ const Course: AppRouteRecordRaw = {
       meta: {
         title: '培训配置',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
   ],

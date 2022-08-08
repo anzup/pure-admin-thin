@@ -93,12 +93,12 @@
   import { airlinesMenu, noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
   import { getStudentOutTrainRecords } from '/@/api/ftm/teacher/teachingCenter'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
   import { deleteEmptyParams } from '/@/utils'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -177,7 +177,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     components: { VxeTable, Search },
@@ -185,12 +185,19 @@
       airlinesMenu().then((res) => {
         this.form.airlines = res.data
       })
-      this.getData()
       this.getCourseMethod()
     },
-    activated() {
+    // TODO 原缓存页面
+    async mounted() {
       if (this.$route.query.id) {
         this.form.classNumber = Number(this.$route.query.id)
+      }
+      if (this.$route.query?.year && this.$route.query?.courseNumber) {
+        this.form.year = this.$route.query.year
+        await this.getClassMethod()
+        this.form.classNumber = this.form.classNumbers.find(
+          (item) => item.courseNumber === this.$route.query.courseNumber,
+        )?.id
       }
       this.getData()
     },

@@ -108,8 +108,8 @@
   import selectedView from '/@/views/project_ftm/teacher/components/SelectedView/index.vue'
   import ConnectAccountDialog from './connectAccountDialog.vue'
   import { deleteEmptyParams } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     name: '',
     props: ['id', 'builtinRole'],
@@ -149,7 +149,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       totalAuthorities() {
         return this.userInfo.totalAuthorities
@@ -379,7 +379,7 @@
             name: this.$t('button.modify'),
             visible: this.totalAuthorities.includes(this.menuName + ':UPDATE'),
             event: () => {
-              this.modify(row.id, row.role.id)
+              this.modify(row.id, row.role?.id)
             },
           },
           // {

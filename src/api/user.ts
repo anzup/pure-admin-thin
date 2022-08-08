@@ -4,7 +4,8 @@ import { AxiosPromise } from 'axios'
 import request from '/@/utils/request'
 
 const accountUrl = import.meta.env.VITE_BASE_API_ACCOUNT
-// const opmUrl = import.meta.env.VITE_BASE_API_OPM
+const opmUrl = import.meta.env.VITE_BASE_API_OPM
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 const url = import.meta.env.VITE_BASE_API_LOGISTICS
 
 /**
@@ -25,6 +26,15 @@ export const getUserInfo = (userId: number) =>
     url: accountUrl + `/public/userInfo/${userId}`,
     method: 'get',
     // params
+    headers: {
+      Authorization: 'Basic aHVheXVleGluZzpodWF5dWV4aW5n',
+    },
+  })
+
+export const getUserInfos = (userId: number) =>
+  request({
+    url: ftmUrl + `/public/userInfo/${userId}`,
+    method: 'get',
     headers: {
       Authorization: 'Basic aHVheXVleGluZzpodWF5dWV4aW5n',
     },

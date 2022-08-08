@@ -13,6 +13,7 @@ export enum EmployeeEnum {
    *  array[1] 模拟机教员
    *  array[2] 教务员
    *  array[3] 计划员
+   *  array[4] 学员
    * }
    *
    */
@@ -21,5 +22,18 @@ export enum EmployeeEnum {
     'FLIGHT_TEACHER', // 模拟机教员
     'TRAINING_ADMIN', // 教务员
     'PLANNER', // 计划员
+    'CUSTOMER_CONTACTOR', // 客户联络员
+    'AVIATION_INSPECTOR', // 民航局监察员
+    'INSPECTOR', // 检查员
   ],
 }
+
+export type AccountType = 'EMPLOYEE' | 'STUDENT'
+export type EmployeeRole =
+  | 'THEORY_TEACHER'
+  | 'FLIGHT_TEACHER'
+  | 'TRAINING_ADMIN'
+  | 'PLANNER'
+  | 'CUSTOMER_CONTACTOR'
+  | 'AVIATION_INSPECTOR'
+  | 'INSPECTOR'

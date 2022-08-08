@@ -314,7 +314,7 @@
   import XEUtils from 'xe-utils'
   import moment from 'moment'
   import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useUserStore } from '/@/store/modules/user'
   import to from 'await-to-js'
   import { Data } from './typs'
   import { useI18n } from 'vue-i18n'
@@ -355,9 +355,8 @@
   const emit = defineEmits<{
     (e: 'signEvent'): void
   }>()
-
-  const userStore = useFtmUserStore()
-  const userInfo = computed(() => userStore.$state)
+  const userStore = useUserStore()
+  const userInfo = computed(() => userStore.userInfo)
   const { t } = useI18n()
   const route = useRoute()
 

@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw, SubsystemName } from './../../types'
+import { AppRouteRecordRaw } from './../../types'
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 
 /**
@@ -12,7 +12,6 @@ const Personnel: AppRouteRecordRaw = {
   meta: {
     title: '人员管理',
     i18n: false,
-    system: SubsystemName.flight_training_management,
   },
   children: [
     // 职员管理
@@ -22,7 +21,6 @@ const Personnel: AppRouteRecordRaw = {
       component: () => import('/@/views/project_ftm/teacher/basic/personnel/employee/index.vue'),
       meta: {
         title: '职员管理',
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -33,7 +31,7 @@ const Personnel: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.addTo',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/personnel/employee',
       },
     },
@@ -45,7 +43,7 @@ const Personnel: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.details',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/personnel/employee',
       },
     },
@@ -57,7 +55,7 @@ const Personnel: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.editAuth',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/personnel/employee',
       },
     },
@@ -68,7 +66,6 @@ const Personnel: AppRouteRecordRaw = {
       component: () => import('/@/views/project_opm/basic/participants/index.vue'),
       meta: {
         title: 'message.managementTrainees',
-        system: SubsystemName.operation_plan_management,
       },
     },
     {
@@ -79,7 +76,6 @@ const Personnel: AppRouteRecordRaw = {
         title: 'message.hsDetail',
         hideMenu: true,
         currentActiveMenu: '/basic/personnel/participants',
-        system: SubsystemName.operation_plan_management,
       },
     },
     // 权限管理
@@ -125,7 +121,7 @@ const Infomation: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.addTo',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/infomation/message',
       },
     },
@@ -138,7 +134,7 @@ const Infomation: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.details',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/infomation/message',
       },
     },
@@ -151,7 +147,7 @@ const Infomation: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.details',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/infomation/message',
       },
     },
@@ -164,7 +160,7 @@ const Infomation: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.addTo',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/infomation/message',
       },
     },
@@ -176,7 +172,7 @@ const Infomation: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'router.newsDetails',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/basic/infomation/message',
       },
     },
@@ -189,7 +185,6 @@ const Infomation: AppRouteRecordRaw = {
       meta: {
         title: '问卷调查',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -202,7 +197,6 @@ const Infomation: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'router.addQuestionnaire',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -215,7 +209,6 @@ const Infomation: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'router.infoQuestionnaire',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -230,7 +223,6 @@ const Infomation: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'button.details',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -243,7 +235,6 @@ const Infomation: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'router.addTemplate',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -256,7 +247,6 @@ const Infomation: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'router.infoTemplate',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -269,7 +259,6 @@ const Infomation: AppRouteRecordRaw = {
         hideMenu: true,
         title: 'router.templateDetails',
         i18n: false,
-        system: SubsystemName.flight_training_management,
       },
     },
   ],

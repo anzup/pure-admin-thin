@@ -104,12 +104,12 @@
   import { formatTime } from '/@/utils/index'
   import axios from 'axios'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useUserStore } from '/@/store/modules/user'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
   import { useI18n } from 'vue-i18n'
-  const userStore = useFtmUserStore()
+
+  const userStore = useUserStore()
   const accountStore = useUserStore()
   export default {
     data() {
@@ -209,7 +209,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     created() {

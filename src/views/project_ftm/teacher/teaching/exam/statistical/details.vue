@@ -67,8 +67,8 @@
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -149,7 +149,7 @@
     components: { selectedView, VxeTable },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     created() {

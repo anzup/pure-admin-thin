@@ -89,8 +89,8 @@
   import { getExams, deleteExamsId, getExamTypesAll } from '/@/api/ftm/teacher/examCenter'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import { deleteEmptyParams } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -160,7 +160,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       path() {
         return this.$route.path.split('/').pop()

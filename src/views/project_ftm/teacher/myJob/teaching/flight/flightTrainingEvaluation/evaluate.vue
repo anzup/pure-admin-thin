@@ -53,15 +53,15 @@
   import { computed, onActivated, onMounted, reactive, ref } from 'vue'
   import { useI18n } from 'vue-i18n'
   import { useRoute, useRouter } from 'vue-router'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import to from 'await-to-js'
   import { useGo } from '/@/hooks/usePage'
+  import { useUserStore } from '/@/store/modules/user'
 
+  const userStore = useUserStore()
   const { t } = useI18n()
   const route = useRoute()
   const router = useRouter()
   const routerGo = useGo(router)
-  const userStore = useFtmUserStore()
 
   const clazzID = ref(null)
   const studentID = ref(null)
@@ -186,7 +186,7 @@
       },
     ],
   })
-  const userInfo = computed(() => userStore.$state)
+  const userInfo = computed(() => userStore.userInfo)
 
   // 选择行
   const selectChangeEvent = ({ records }) => {

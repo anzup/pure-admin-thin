@@ -33,8 +33,8 @@
   import VxeTable from '/@/components/Table/index.vue'
   import addDialog from './addDialog2.vue'
   import { getEvaluations, deleteEvaluationsId } from '/@/api/ftm/teacher/teachingPlan'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {

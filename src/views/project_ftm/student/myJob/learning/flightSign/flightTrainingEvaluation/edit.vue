@@ -48,8 +48,8 @@
   import { postUpload } from '/@/api/ftm/student/file'
   import XEUtils from 'xe-utils'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -72,7 +72,7 @@
     components: { Report },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       id() {
         return this.$route.query.id

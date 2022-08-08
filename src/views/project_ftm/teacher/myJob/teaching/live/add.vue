@@ -84,8 +84,8 @@
   import { previewURL } from '/@/api/ftm/teacher/personCenter'
   import FixFooter from '/@/views/project_ftm/teacher/components/FixFooter/index.vue'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
 
   export default {
     components: { FixFooter },
@@ -141,7 +141,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       // 操作直播类型 1:创建 2:修改
       type() {

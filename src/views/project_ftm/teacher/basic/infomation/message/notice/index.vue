@@ -58,8 +58,8 @@
   import XEUtils from 'xe-utils'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { VxeTable },
     data() {
@@ -116,7 +116,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       builtinRole() {
         return this.userInfo.builtinRole

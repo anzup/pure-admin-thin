@@ -146,12 +146,11 @@
   import { putSettings } from '/@/api/ftm/teacher/systemSettings'
   import { previewURL } from '/@/api/ftm/teacher/studentTraining'
   import { dataURLtoFile, blobToDataURL } from '/@/utils/index'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useFtmSettingsStore } from '/@/store/modules/ftmSetting'
-  import { useUserStore } from '/@/store/modules/user'
   import { useI18n } from 'vue-i18n'
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   const accountStore = useUserStore()
-  const userStore = useFtmUserStore()
   const settingsStore = useFtmSettingsStore()
   export default {
     name: 'BaseSrtting',
@@ -208,7 +207,7 @@
     },
     computed: {
       userId() {
-        return userStore.userId
+        return userStore.userInfo.userId
       },
       backgroundColor() {
         return settingsStore.backgroundColor

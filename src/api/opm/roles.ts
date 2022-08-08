@@ -1,6 +1,6 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_OPM
-
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 /**
  *
  * @param {
@@ -10,7 +10,7 @@ const url = import.meta.env.VITE_BASE_API_OPM
 
 export const getFtmRolesAll = function () {
   return request({
-    url: url + `/employees/ftm/roles`,
+    url: ftmUrl + `/employees/ftm/roles`,
     method: 'get',
   })
 }
@@ -30,7 +30,7 @@ export interface IEmployees extends PageBase {
 }
 export const getEmployeesList = function (params: IEmployees) {
   return request({
-    url: url + `/employees`,
+    url: ftmUrl + `/employees`,
     method: 'get',
     params,
   })
@@ -44,7 +44,7 @@ export const getEmployeesList = function (params: IEmployees) {
 
 export const getEmployeesDetail = function (params) {
   return request({
-    url: url + `/employees/${params}`,
+    url: ftmUrl + `/employees/${params}`,
     method: 'get',
   })
 }
@@ -57,7 +57,7 @@ export const getEmployeesDetail = function (params) {
 
 export const postEmployees = function (data) {
   return request({
-    url: url + `/employees`,
+    url: ftmUrl + `/employees`,
     method: 'post',
     data,
   })
@@ -71,7 +71,7 @@ export const postEmployees = function (data) {
 
 export const putEmployeesId = function (data) {
   return request({
-    url: url + `/employees/${data.id}`,
+    url: ftmUrl + `/employees/${data.id}`,
     method: 'put',
     data,
   })
@@ -85,7 +85,7 @@ export const putEmployeesId = function (data) {
 
 export const deleteEmployeesId = function (data) {
   return request({
-    url: url + `/employees/${data}`,
+    url: ftmUrl + `/employees/${data}`,
     method: 'delete',
   })
 }
@@ -97,7 +97,7 @@ export const deleteEmployeesId = function (data) {
 
 export const postEmployeesProhibit = function (data: { ids: number[]; prohibited: boolean }) {
   return request({
-    url: url + `/employees/prohibit`,
+    url: ftmUrl + `/employees/prohibit`,
     method: 'post',
     data,
   })
@@ -124,7 +124,7 @@ export const postUsersProhibit = function (data: { ids: number[]; prohibited: bo
 
 export const postEmployeesBatchDelete = function () {
   return request({
-    url: url + `/employees/batchDelete`,
+    url: ftmUrl + `/employees/batchDelete`,
     method: 'post',
   })
 }
@@ -146,7 +146,7 @@ export interface IStudentList {
 }
 export const getStudentsList = function (params: IStudentList) {
   return request({
-    url: url + `/students`,
+    url: ftmUrl + `/students`,
     method: 'get',
     params,
   })
@@ -160,7 +160,7 @@ export const getStudentsList = function (params: IStudentList) {
 
 export const getStudentsDetail = function (params) {
   return request({
-    url: url + `/students/${params}`,
+    url: ftmUrl + `/students/${params}`,
     method: 'get',
   })
 }
@@ -185,7 +185,7 @@ export const getStudentScheduleHis = function (id: number) {
 
 export const postStudents = function (data) {
   return request({
-    url: url + `/students`,
+    url: ftmUrl + `/students`,
     method: 'post',
     data,
   })
@@ -199,7 +199,7 @@ export const postStudents = function (data) {
 
 export const putStudentsId = function (data) {
   return request({
-    url: url + `/students/${data.id}`,
+    url: ftmUrl + `/students/${data.id}`,
     method: 'put',
     data,
   })
@@ -213,7 +213,7 @@ export const putStudentsId = function (data) {
 
 export const deleteStudentsId = function (data) {
   return request({
-    url: url + `/students/${data}`,
+    url: ftmUrl + `/students/${data}`,
     method: 'delete',
   })
 }
@@ -226,7 +226,7 @@ export const deleteStudentsId = function (data) {
 
 export const postStudentsBatchDelete = function () {
   return request({
-    url: url + `/students/batchDelete`,
+    url: ftmUrl + `/students/batchDelete`,
     method: 'post',
   })
 }
@@ -246,7 +246,7 @@ export const postStudentsGraduate = function (data: {
   graduateRemark?: 'ABNORMAL'
 }) {
   return request({
-    url: url + `/students/graduate`,
+    url: ftmUrl + `/students/graduate`,
     method: 'post',
     data,
   })
@@ -260,7 +260,7 @@ export const postStudentsGraduate = function (data: {
 
 export const getStudentsAll = function () {
   return request({
-    url: url + `/students/all`,
+    url: ftmUrl + `/students/all`,
     method: 'get',
   })
 }
@@ -272,7 +272,7 @@ export const getStudentsAll = function () {
 
 export const getStudentTypeAll = function () {
   return request({
-    url: url + `/students/studentType`,
+    url: ftmUrl + `/students/studentType`,
     method: 'get',
   })
 }
@@ -285,7 +285,7 @@ export const getStudentTypeAll = function () {
 export const getStudentsTemplate = function () {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `​/students​/import​/template`,
+    url: url + `/students/import/template`,
     method: 'get',
     responseType: 'blob',
     // headers: {
@@ -303,7 +303,7 @@ export const getStudentsTemplate = function () {
 
 export const postStudentsImport = function (data) {
   return request({
-    url: url + `/students/import`,
+    url: ftmUrl + `/students/import`,
     method: 'post',
     data,
     headers: {
@@ -321,7 +321,7 @@ export const postStudentsImport = function (data) {
 
 export const getRolesList = function (params) {
   return request({
-    url: url + `/roles`,
+    url: ftmUrl + `/roles`,
     method: 'get',
     params,
   })
@@ -335,7 +335,7 @@ export const getRolesList = function (params) {
 
 export const getRolesDetail = function (params) {
   return request({
-    url: url + `/roles/${params}`,
+    url: ftmUrl + `/roles/${params}`,
     method: 'get',
   })
 }
@@ -348,7 +348,7 @@ export const getRolesDetail = function (params) {
 
 export const postRoles = function (data) {
   return request({
-    url: url + `/roles`,
+    url: ftmUrl + `/roles`,
     method: 'post',
     data,
   })
@@ -362,7 +362,7 @@ export const postRoles = function (data) {
 
 export const putRolesId = function (data) {
   return request({
-    url: url + `/roles/${data.id}`,
+    url: ftmUrl + `/roles/${data.id}`,
     method: 'put',
     data,
   })
@@ -376,7 +376,7 @@ export const putRolesId = function (data) {
 
 export const deleteRolesId = function (data) {
   return request({
-    url: url + `/roles/${data}`,
+    url: ftmUrl + `/roles/${data}`,
     method: 'delete',
   })
 }
@@ -389,7 +389,7 @@ export const deleteRolesId = function (data) {
 
 export const postRolesBatchDelete = function () {
   return request({
-    url: url + `/roles/batchDelete`,
+    url: ftmUrl + `/roles/batchDelete`,
     method: 'post',
   })
 }
@@ -402,7 +402,7 @@ export const postRolesBatchDelete = function () {
 
 export const getRolesAll = function () {
   return request({
-    url: url + `/roles/all`,
+    url: ftmUrl + `/roles/all`,
     method: 'get',
   })
 }
@@ -415,7 +415,7 @@ export const getRolesAll = function () {
 export const getRolesPropertyAll = function () {
   return request({
     // eslint-disable-next-line no-irregular-whitespace
-    url: url + `/roles​/property`,
+    url: ftmUrl + `/roles/property`,
     method: 'get',
   })
 }
@@ -429,7 +429,7 @@ export const getRolesPropertyAll = function () {
 
 export const getStaffsList = function (params) {
   return request({
-    url: url + `/staffs`,
+    url: ftmUrl + `/staffs`,
     method: 'get',
     params,
   })
@@ -443,7 +443,7 @@ export const getStaffsList = function (params) {
 
 export const getStaffsDetail = function (params) {
   return request({
-    url: url + `/staffs/${params}`,
+    url: ftmUrl + `/staffs/${params}`,
     method: 'get',
   })
 }
@@ -456,7 +456,7 @@ export const getStaffsDetail = function (params) {
 
 export const postStaffs = function (data) {
   return request({
-    url: url + `/staffs`,
+    url: ftmUrl + `/staffs`,
     method: 'post',
     data,
   })
@@ -470,7 +470,7 @@ export const postStaffs = function (data) {
 
 export const putStaffsId = function (data) {
   return request({
-    url: url + `/staffs/${data.id}`,
+    url: ftmUrl + `/staffs/${data.id}`,
     method: 'put',
     data,
   })
@@ -484,7 +484,7 @@ export const putStaffsId = function (data) {
 
 export const deleteStaffsId = function (data) {
   return request({
-    url: url + `/staffs/${data}`,
+    url: ftmUrl + `/staffs/${data}`,
     method: 'delete',
   })
 }
@@ -497,7 +497,7 @@ export const deleteStaffsId = function (data) {
 
 export const postStaffsBatchDelete = function () {
   return request({
-    url: url + `/staffs/batchDelete`,
+    url: ftmUrl + `/staffs/batchDelete`,
     method: 'post',
   })
 }
@@ -509,7 +509,7 @@ export const postStaffsBatchDelete = function () {
 
 export const postStaffsProhibit = function (data) {
   return request({
-    url: url + `/staffs/prohibit`,
+    url: ftmUrl + `/staffs/prohibit`,
     method: 'post',
     data,
   })
@@ -527,7 +527,7 @@ export const postStaffsPassword = function (data: {
   id: number
 }) {
   return request({
-    url: url + `/staffs/${data.id}/password`,
+    url: ftmUrl + `/staffs/${data.id}/password`,
     method: 'put',
     data,
   })
@@ -541,7 +541,7 @@ export const postStaffsPassword = function (data: {
 
 export const getStaffsAll = function () {
   return request({
-    url: url + `/staffs/all`,
+    url: ftmUrl + `/staffs/all`,
     method: 'get',
   })
 }

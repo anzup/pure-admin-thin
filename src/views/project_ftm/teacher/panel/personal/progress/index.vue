@@ -682,9 +682,9 @@
   import XEUtils from 'xe-utils'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  import { deleteEmptyParams } from '../../../../../../utils'
-  const userStore = useFtmUserStore()
+  import { deleteEmptyParams } from '/@/utils'
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { SvgIcon },
     data() {
@@ -700,10 +700,10 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       totalAuthorities() {
-        return userStore.totalAuthorities
+        return this.userInfo.totalAuthorities
       },
     },
     mounted() {

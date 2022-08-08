@@ -7,7 +7,9 @@
     </div>
 
     <div class="main-table-content">
-      <component :is="currentTab.cmp" :type="currentTab.id" />
+      <template v-for="plane in tabList" :key="plane.id">
+        <component v-if="plane.id === currentTab.id" :is="currentTab.cmp" :type="currentTab.id" />
+      </template>
     </div>
   </div>
 </template>

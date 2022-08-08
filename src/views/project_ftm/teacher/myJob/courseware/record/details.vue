@@ -34,8 +34,8 @@
     getCoursewareAssignmentReadRecords,
     deleteCoursewareAssignmentReadRecordsId,
   } from '/@/api/ftm/teacher/courseware'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     components: { VxeTable },
     data() {
@@ -62,7 +62,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       tableColumns() {
         let { isByStudent } = this.$route.query

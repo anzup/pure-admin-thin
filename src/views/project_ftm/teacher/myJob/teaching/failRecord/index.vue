@@ -83,10 +83,10 @@
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import XEUtils from 'xe-utils'
   import moment from 'moment'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useRouter } from 'vue-router'
-  import { useGo } from '../../../../../../hooks/usePage'
-  const userStore = useFtmUserStore()
+  import { useGo } from '/@/hooks/usePage'
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -159,7 +159,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
     },
     components: {

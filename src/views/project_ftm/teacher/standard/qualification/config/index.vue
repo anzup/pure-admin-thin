@@ -18,13 +18,14 @@
   import { Tabs, TabPanel } from '/@/components/Tabs'
   import { computed, ref, shallowRef, watch } from 'vue'
   import { useI18n } from 'vue-i18n'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useRoute } from 'vue-router'
+  import { useUserStore } from '/@/store/modules/user'
+
+  const userStore = useUserStore()
   const { t } = useI18n()
-  const userStore = useFtmUserStore()
   const route = useRoute()
 
-  const userInfo = computed(() => userStore.$state)
+  const userInfo = computed(() => userStore.userInfo)
   const totalAuthorities = computed(() => userInfo.value?.totalAuthorities)
   const allAuth = computed(() => !!route.meta?.params?.allAuth)
 

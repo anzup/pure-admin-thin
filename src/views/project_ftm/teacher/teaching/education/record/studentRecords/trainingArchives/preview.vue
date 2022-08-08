@@ -155,8 +155,8 @@
   import moment from 'moment'
   import to from 'await-to-js'
   import { htmlToPdf } from '/@/utils/htmlToPdf'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -195,7 +195,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       builtinRole() {
         return this.userInfo.builtinRole

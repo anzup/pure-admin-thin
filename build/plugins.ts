@@ -40,17 +40,17 @@ export function getPluginsList(command, VITE_LEGACY) {
     //   ],
     //   dts: 'types/components.d.ts',
     // }),
-    createStyleImportPlugin({
-      libs: [
-        // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR
-        {
-          libraryName: 'vxe-table',
-          esModule: true,
-          // resolveComponent: (name) => `vxe-table/es/${name}`,
-          resolveStyle: (name) => `vxe-table/es/${name}/style.css`,
-        },
-      ],
-    }),
+    // createStyleImportPlugin({
+    //   libs: [
+    //     // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR
+    //     {
+    //       libraryName: 'vxe-table',
+    //       esModule: true,
+    //       // resolveComponent: (name) => `vxe-table/es/${name}`,
+    //       resolveStyle: (name) => `vxe-table/es/${name}/style.css`,
+    //     },
+    //   ],
+    // }),
     // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
     VueI18n({
       runtimeOnly: true,

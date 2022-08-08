@@ -49,9 +49,9 @@
   import XEUtils from 'xe-utils'
   import axios from 'axios'
   import { setLMSValue } from './scorm'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useI18n } from 'vue-i18n'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     name: '',
     props: {
@@ -139,7 +139,7 @@
         },
       },
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       player() {
         return this.$refs.videoPlayer.player

@@ -1,6 +1,6 @@
 import request from '/@/utils/request/index'
 const url = import.meta.env.VITE_BASE_API_OPM
-
+const ftmUrl = import.meta.env.VITE_BASE_API_FTM
 /**
  *
  * @param {
@@ -10,7 +10,7 @@ const url = import.meta.env.VITE_BASE_API_OPM
 
 export const getDepartmentsAll = function () {
   return request({
-    url: url + `/departments/all`,
+    url: ftmUrl + `/departments/all`,
     method: 'get',
   })
 }

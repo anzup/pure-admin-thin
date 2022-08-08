@@ -66,19 +66,20 @@
   import { getStudents, noFinishedClazzs } from '/@/api/ftm/teacher/studentTraining'
   import { getCoursesAll } from '/@/api/ftm/teacher/trainingPlan'
   import { computed, onMounted, reactive, ref } from 'vue'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useRoute, useRouter } from 'vue-router'
   import to from 'await-to-js'
   import { useI18n } from 'vue-i18n'
   import { setPage } from '/@/utils/utils'
   import { useGo } from '/@/hooks/usePage'
+  import { useUserStore } from '/@/store/modules/user'
 
+  const userStore = useUserStore()
   const router = useRouter()
   const route = useRoute()
   const routerGo = useGo(router)
   const { t } = useI18n()
-  const userStore = useFtmUserStore()
-  const userInfo = computed(() => userStore.$state)
+
+  const userInfo = computed(() => userStore.userInfo)
 
   const menuName = ref('FLIGHT_TRAINING_EVALUATION')
   const classLoading = ref(false)
@@ -198,9 +199,16 @@
     }
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     if (route.query.id) {
       gridOptions.form.classNumber = Number(route.query.id)
+    }
+    if (route.query?.year && route.query?.courseNumber) {
+      gridOptions.form.year = route.query.year
+      await getClassMethod()
+      gridOptions.form.classNumber = gridOptions.form.classNumberList.find(
+        (item) => item.courseNumber === route.query.courseNumber,
+      )?.id
     }
     getTableData()
     getCourseMethod()

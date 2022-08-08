@@ -21,7 +21,6 @@ const Personal: AppRouteRecordRaw = {
       component: () => import('/@/views/project_ftm/teacher/panel/personal/config/index.vue'),
       meta: {
         title: 'router.personCenterConfig',
-        system: SubsystemName.flight_training_management,
       },
     },
     // 个人消息
@@ -42,7 +41,7 @@ const Personal: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'router.newsDetails',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/panel/personal/message',
       },
     },
@@ -54,7 +53,7 @@ const Personal: AppRouteRecordRaw = {
         import('/@/views/project_ftm/teacher/panel/personal/qualification/index.vue'),
       meta: {
         title: 'router.personQualification',
-        system: SubsystemName.flight_training_management,
+
         params: { allAuth: true },
       },
     },
@@ -65,7 +64,6 @@ const Personal: AppRouteRecordRaw = {
       component: () => import('/@/views/project_ftm/teacher/panel/personal/progress/index.vue'),
       meta: {
         title: '培训进度',
-        system: SubsystemName.flight_training_management,
       },
     },
     {
@@ -77,7 +75,7 @@ const Personal: AppRouteRecordRaw = {
       meta: {
         hideMenu: true,
         title: 'button.details',
-        system: SubsystemName.flight_training_management,
+
         currentActiveMenu: '/panel/personal/progress',
       },
     },
@@ -103,7 +101,6 @@ const System: AppRouteRecordRaw = {
       component: () => import('/@/views/project_ftm/teacher/panel/system/config/index.vue'),
       meta: {
         title: '导航栏设置',
-        system: SubsystemName.flight_training_management,
       },
     },
   ],

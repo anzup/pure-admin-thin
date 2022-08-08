@@ -169,9 +169,9 @@
   import editor from '/@/components/Editor/index.vue'
   import { getClazzs } from '/@/api/ftm/teacher/teachingPlan'
   import { getExams, getExamTypesAll, getExamsId, putExamsId } from '/@/api/ftm/teacher/examCenter'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   // 试题属性
-  const userStore = useFtmUserStore()
   export default {
     props: {
       examsInfo: {
@@ -319,7 +319,7 @@
     },
     computed: {
       userInfo() {
-        return userStore.$state
+        return userStore.userInfo
       },
       builtinRole() {
         return this.userInfo.builtinRole

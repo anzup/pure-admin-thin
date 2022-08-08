@@ -76,8 +76,8 @@
     deleteCourseQualification,
   } from '/@/api/ftm/teacher/qualification'
   import to from 'await-to-js'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
-  const userStore = useFtmUserStore()
+  import { useUserStore } from '/@/store/modules/user'
+  const userStore = useUserStore()
   export default {
     data() {
       return {

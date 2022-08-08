@@ -90,11 +90,10 @@
   import { mergePDF, dataURLtoFile, deleteEmptyParams } from '/@/utils/index'
   import { useRouter } from 'vue-router'
   import { useGo } from '/@/hooks/usePage'
-  import { useFtmUserStore } from '/@/store/modules/ftmUser'
   import { useUserStore } from '/@/store/modules/user'
   import { useI18n } from 'vue-i18n'
   const accountStore = useUserStore()
-  const userStore = useFtmUserStore()
+  const userStore = useUserStore()
   export default {
     data() {
       return {
@@ -167,7 +166,7 @@
     },
     computed: {
       name() {
-        return userStore.name
+        return userStore.userInfo.name
       },
       PDFName() {
         try {

@@ -1,9 +1,11 @@
-export default {
-  /**
-   * @param { status } 考试状态
-   * @param { status } \[0]未开始
-   * @param { status } \[1]考试中
-   * @param { status } \[2]考试结束
-   */
-  status: ['NOT_STARTED', 'EXAMING', 'FINISHED'],
+export enum ExamTypeEnum {
+  GROUND_THEORY = 'GROUND_THEORY',
+  FLIGHT_PRACTICE = 'FLIGHT_PRACTICE',
 }
+export type ExamType = 'GROUND_THEORY' | 'FLIGHT_PRACTICE'
+
+export enum SyllabusCourseTypeEnum {
+  COURSE_TYPE = 'COURSE_TYPE',
+  EXAM_TYPE = 'EXAM_TYPE',
+}
+export type SyllabusCourseType = 'COURSE_TYPE' | 'EXAM_TYPE'
